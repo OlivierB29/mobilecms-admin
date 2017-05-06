@@ -44,6 +44,8 @@ export class RecordComponent implements OnInit {
 
     ngOnInit() {
 
+         // read metadata of record
+
         this.contentService.getMetadata('calendar/index/metadata.json')
             .subscribe((data: any[]) => { this.properties = data;},
             error => console.log('loadMetadata ' + error),
