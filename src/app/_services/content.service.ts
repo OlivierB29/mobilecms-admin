@@ -11,12 +11,12 @@ export class ContentService {
     * server base admin API app
     */
     private serverUrl = 'http://localhost';
-    private resourcesUrl = 'assets';
 
     /**
     * API endpoint
     */
     private api = '/adminapp/api/v1/api.php?path=';
+
 
     constructor(private http: Http) { }
 
@@ -100,7 +100,9 @@ export class ContentService {
      * Table metadata for record modification
      */
     public getMetadata = (file: string): Observable<Metadata[]> => {
-        return this.http.get(this.resourcesUrl + file)
+
+        var url: string = this.getUrl('/api/v1/file&file=' + file);
+        return this.http.get(url, this.jwt())
             .map((response: Response) => <Metadata[]>response.json())
             .catch(this.handleError);
     }
