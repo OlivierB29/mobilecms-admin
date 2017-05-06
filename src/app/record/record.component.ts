@@ -18,13 +18,24 @@ export class RecordComponent implements OnInit {
      */
     type: string = 'news';
 
+    /**
+     * object id
+     */
     id = '';
 
-
+    /**
+     * object data
+     */
     current: any = null;
 
+    /**
+     * object metadata
+     */
     properties: Metadata[];
 
+    /**
+     * response on save
+     */
     response: any = null;
 
 
@@ -45,9 +56,9 @@ export class RecordComponent implements OnInit {
             this.id = params['id'];
 
             if (this.id) {
-
-                this.contentService.get(this.type, this.id)
-                    .subscribe((data: any) => this.current = data,
+                //read record content
+                this.contentService.getRecord(this.type, this.id)
+                    .subscribe((data: any) => {this.current = data;},
                     error => console.error('get' + error),
                     () => { console.log('get complete'); });
             } else {

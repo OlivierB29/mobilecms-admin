@@ -65,10 +65,11 @@ export class ContentService {
      * @arg id : unique id
      * @returns Observable of a JSON record
      */
-    public get = (type: string, id: string): Observable<any> => {
-        var url: string = this.resourcesUrl + '/public/' + type + '/' + id + '.json';
+    public getRecord = (type: string, id: string): Observable<any> => {
+        var url: string = this.getUrl('/api/v1/content/' + type + '/' + id);
+        console.log(url);
 
-        return this.http.get(url)
+        return this.http.get(url, this.jwt())
             .map((response: Response) => <any>response.json())
             .catch(this.handleError);
     }
