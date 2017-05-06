@@ -2,13 +2,12 @@
     <h1>{{currentUser.email}}</h1>
     <p>Adminapp</p>
 
-    <div *ngIf="items" >
-
-                <ul *ngFor="let item of items" >
-                    <li><a [routerLink]="['/TODO', item.type]">{{item.type}}</a></li>
-
-                </ul>
-
+    <div *ngIf="items">
+        <ul>
+            <li *ngFor="let item of items">
+                <a [routerLink]="['/recordlist', item.type]">{{item.type}}</a>
+            </li>
+        </ul>
 
 
     </div>

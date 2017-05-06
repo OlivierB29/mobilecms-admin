@@ -4,8 +4,9 @@ import { Observable } from 'rxjs/Observable';
 import { User } from '../_models/index';
 import { Metadata } from 'app/_models';
 
+//Merge ?
 @Injectable()
-export class ContentService {
+export class RecordService {
 
     /**
     * server base admin API app
@@ -65,35 +66,15 @@ export class ContentService {
      * @arg id : unique id
      * @returns Observable of a JSON record
      */
-    public get = (type: string, id: string): Observable<any> => {
+    public getRecord = (type: string, id: string): Observable<any> => {
         var url: string = this.resourcesUrl + '/public/' + type + '/' + id + '.json';
-
+     
         return this.http.get(url)
             .map((response: Response) => <any>response.json())
             .catch(this.handleError);
     }
 
-    /**
-     * save a record
-     */
-    public post = (type: string, obj: any): Observable<any> => {
-
-        //eg : /api/v1/content/calendar
-        var url: string = this.getUrl('/api/v1/content/' + type);
-        console.log(url);
-
-        var postData: string = 'requestbody=' + JSON.stringify(obj);
-
-        console.log(postData);
-
-        return this.http.post(url,
-            postData,
-            this.jwtPost())
-            .map((response: Response) => <any>response.json())
-            .catch(this.handleError);
-
-    }
-
+    
 
     /**
      * Table metadata for record modification
@@ -113,20 +94,6 @@ export class ContentService {
         if (currentUser && currentUser.token) {
 
             let headers = new Headers({ 'Authorization': 'Bearer ' + currentUser.token });
-            return new RequestOptions({ headers: headers });
-        }
-    }
-
-    private jwtPost() {
-        // create authorization header with jwt token
-        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        if (currentUser && currentUser.token) {
-
-            let headers = new Headers({ 'Authorization': 'Bearer ' + currentUser.token });
-
-            //for POST
-            headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-
             return new RequestOptions({ headers: headers });
         }
     }

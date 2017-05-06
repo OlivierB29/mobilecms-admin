@@ -1,0 +1,51 @@
+<div class="container" >
+    <div class="content">
+        <span>Edit calendar</span>
+        <br />
+
+
+  <div *ngIf="current" >
+
+
+              <div *ngFor="let property of properties" >
+
+                {{property.name}} :
+                <!-- multiline text edit -->
+                <div *ngIf="property.editor === 'text'">
+                  <textarea rows="" cols="" [(ngModel)]="current[property.name]" name="{{property.name}}" id="{{property.name}}"  >{{current[property.name]}}</textarea>
+                </div>
+
+                <!-- single line text edit -->
+                <div *ngIf="property.editor === 'line'">
+                  <input [(ngModel)]="current[property.name]" name="{{property.name}}" id="{{property.name}}" type="text">
+                </div>
+
+                <!-- choice list -->
+                <div *ngIf="property.editor === 'choice'">
+
+                  <select  [(ngModel)]="current[property.name]" name="{{property.name}}" id="{{property.name}}">
+                    
+
+                    <!-- list of choices from metadata -->
+                    <option *ngFor="let choice of property.choices" value="{{choice}}">{{choice}}</option>
+
+
+                  </select>
+                </div>
+
+                <br />
+              </div>
+
+
+
+  </div>
+        <div (click)="save()" >Save</div>
+
+    <div *ngIf="response" >
+      response : 
+      {{response}}
+    </div>
+
+
+    </div>
+</div>
