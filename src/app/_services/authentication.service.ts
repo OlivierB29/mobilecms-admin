@@ -9,13 +9,13 @@ import 'rxjs/add/operator/map'
 @Injectable()
 export class AuthenticationService {
 
-    //private serverUrl = 'http://localhost';
+  //  private serverUrl = 'http://localhost';
     private serverUrl = '';
 
     constructor(private http: Http) { }
 
     login(user: string, password: string) {
-
+        localStorage.removeItem('currentUser');
         //
         let headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');

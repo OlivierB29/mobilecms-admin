@@ -2,7 +2,10 @@
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 
 import { User } from '../_models/index';
-
+/*
+* Credits :
+* based on http://jasonwatmore.com/post/2016/09/29/angular-2-user-registration-and-login-example-tutorial
+*/
 @Injectable()
 export class UserService {
     constructor(private http: Http) { }

@@ -1,8 +1,6 @@
 <div class="container" >
     <div class="content">
-        <span>Edit calendar</span>
-        <br />
-
+        <span>Edit</span>
 
   <div *ngIf="current" >
 
@@ -22,18 +20,41 @@
 
                 <!-- choice list -->
                 <div *ngIf="property.editor === 'choice'">
-
                   <select  [(ngModel)]="current[property.name]" name="{{property.name}}" id="{{property.name}}"  >
-                    
-
                     <!-- list of choices from metadata -->
                     <option *ngFor="let choice of property.choices" value="{{choice}}">{{choice}}</option>
-
-
                   </select>
                 </div>
 
-                <br />
+                <!-- single line text edit -->
+                <div *ngIf="property.editor === 'imagelist' && property.name === 'images'">
+
+                  <div *ngFor="let image of images; let i=index">
+                    title <input [(ngModel)]="images[i].title" name="images{{i}}.title" id="images{{i}}.title" type="text">
+                    image url <input [(ngModel)]="images[i].url" name="images{{i}}.url" id="images{{i}}.url" type="text">
+                    optional link <input [(ngModel)]="images[i].link" name="images{{i}}.link" id="images{{i}}.link" type="text">
+                  </div>
+
+
+
+                  <button (click)="addImage()" >New Image</button>
+                </div>
+
+                <div *ngIf="property.editor === 'attachmentlist' && property.name === 'attachments'">
+
+                  <div *ngFor="let attachment of attachments; let i=index">
+                    title <input [(ngModel)]="attachments[i].title" name="attachments{{i}}.title" id="attachments{{i}}.title" type="text">
+                    url <input [(ngModel)]="attachments[i].url" name="attachments{{i}}.url" id="attachments{{i}}.url" type="text" >
+                    optional description <input [(ngModel)]="attachments[i].description" name="attachments{{i}}.description" id="attachments{{i}}.description" type="text" >
+                  </div>
+
+
+
+                <button (click)="addAttachment()" >New Attachment</button>
+                </div>
+
+
+
               </div>
 
 
@@ -42,7 +63,7 @@
         <div (click)="save()" >Save</div>
 
     <div *ngIf="response" >
-      response : 
+      response :
       {{response}}
     </div>
 
