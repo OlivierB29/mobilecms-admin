@@ -10,7 +10,8 @@ export class ContentService {
     /**
     * server base admin API app
     */
-    private serverUrl = 'http://localhost';
+  //  private serverUrl = 'http://localhost';
+    private serverUrl = '';
 
     /**
     * API endpoint
@@ -46,7 +47,7 @@ export class ContentService {
 
     /**
      * @arg type : news, calendar, ...
-     * Response : 
+     * Response :
      */
     public getRecords = (type: string): Observable<any[]> => {
         var url: string = this.getUrl('/api/v1/content/' + type);
@@ -60,7 +61,7 @@ export class ContentService {
     }
 
     /**
-     * get a single record 
+     * get a single record
      * @arg type : news, calendar, ...
      * @arg id : unique id
      * @returns Observable of a JSON record
@@ -135,7 +136,7 @@ export class ContentService {
     }
 
     private handleError(error: Response) {
-        console.error('handleError ' + error.statusText);
+        console.error('handleError ' + JSON.stringify(error));
         return Observable.throw(error.json().error || 'Server error');
     }
 

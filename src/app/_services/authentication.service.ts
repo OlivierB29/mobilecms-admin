@@ -9,7 +9,8 @@ import 'rxjs/add/operator/map'
 @Injectable()
 export class AuthenticationService {
 
-    
+    //private serverUrl = 'http://localhost';
+    private serverUrl = '';
 
     constructor(private http: Http) { }
 
@@ -20,7 +21,7 @@ export class AuthenticationService {
         headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 
 
-      var url = 'http://localhost/adminapp/api/v1/auth.php';
+      var url = this.serverUrl + '/adminapp/api/v1/auth.php';
       var data = 'requestbody=' + JSON.stringify({ user: user, password: password });
 
         return this.http.post(url, data,  { headers: headers })
