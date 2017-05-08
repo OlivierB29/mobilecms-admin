@@ -10,8 +10,8 @@ export class ContentService {
     /**
     * server base admin API app
     */
-  //  private serverUrl = 'http://localhost';
-    private serverUrl = '';
+    private serverUrl = 'http://localhost';
+  //private serverUrl = '';
 
     /**
     * API endpoint

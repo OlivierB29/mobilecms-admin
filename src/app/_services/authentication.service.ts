@@ -9,35 +9,69 @@ import 'rxjs/add/operator/map'
 @Injectable()
 export class AuthenticationService {
 
-  //  private serverUrl = 'http://localhost';
-    private serverUrl = '';
-
-    constructor(private http: Http) { }
-
-    login(user: string, password: string) {
-        localStorage.removeItem('currentUser');
-        //
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+    private serverUrl = 'http://localhost';
+  //private serverUrl = '';
 
 
-      var url = this.serverUrl + '/adminapp/api/v1/auth.php';
-      var data = 'requestbody=' + JSON.stringify({ user: user, password: password });
 
-        return this.http.post(url, data,  { headers: headers })
-            .map((response: Response) => {
-                // login successful if there's a jwt token in the response
-                let userObject = response.json();
-                if (userObject && userObject.token) {
+  /**
+  * API endpoint
+  */
+  private api = '/adminapp/api/v1/authenticate.php?path=';
 
-                    // store user details and jwt token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem('currentUser', JSON.stringify(userObject));
-                }
-            });
-    }
 
-    logout() {
-        // remove user from local storage to log user out
-        localStorage.removeItem('currentUser');
-    }
+  constructor(private http: Http) { }
+
+  login(user: string, password: string) {
+    localStorage.removeItem('currentUser');
+    //
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+
+    //TODO RESTful endpoint
+    var url: string = this.getUrl('/api/v1/authenticate');
+    var data = 'requestbody=' + JSON.stringify({ user: user, password: password });
+
+    return this.http.post(url, data, { headers: headers })
+      .map((response: Response) => {
+        // login successful if there's a jwt token in the response
+        let userObject = response.json();
+        if (userObject && userObject.token) {
+
+          // store user details and jwt token in local storage to keep user logged in between page refreshes
+          localStorage.setItem('currentUser', JSON.stringify(userObject));
+        }
+      });
+  }
+
+  register(userInput: any) {
+
+    //
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+
+
+    var url: string = this.getUrl('/api/v1/register');
+
+    var data = 'requestbody=' + JSON.stringify(userInput);
+
+    return this.http.post(url, data, { headers: headers })
+      .map((response: Response) => {
+        let registerResponse = response.json();
+      });
+  }
+
+  /**
+  * get API url
+  * @arg path  eg : '/api/v1/content'
+  * @returns http://localhost//adminapp/api/v1/api.php?path=/api/v1/content
+  */
+  private getUrl(path: string): string {
+    return this.serverUrl + this.api + path;
+  }
+
+  logout() {
+    // remove user from local storage to log user out
+    localStorage.removeItem('currentUser');
+  }
 }

@@ -13,7 +13,7 @@ import { ContentService } from '../_services/index';
 export class RecordListComponent implements OnInit {
 
     /**
-     * record data 
+     * record data
      */
     items: any[] = [];
 
@@ -36,11 +36,13 @@ export class RecordListComponent implements OnInit {
 
                 if(this.type) {
 
-     
+
                   this.contentService.getRecords(this.type)
                       .subscribe((data: any[]) => this.items = data,
                       error => console.log('getItems ' + error),
-                      () => console.log('getItems complete :' + this.type + ' ' + this.items.length));
+                      () => {
+                        console.log('getItems complete ' + this.type + ' ' + this.items.length);
+                    });
 
                 }
 

@@ -5,8 +5,7 @@
         <div *ngIf="items">
              {{items.length}}
             <div *ngFor="let item of items">
-                <a [routerLink]="['/record', type ,  item.id]">{{item.id}}</a>
-                <br />
+                <a [routerLink]="['/record', type ,  item.id]">{{item.id}}  </a> {{item.title}}
             </div>
         </div>
 
