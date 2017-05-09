@@ -2,6 +2,10 @@
 import { Http, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map'
+
+import { environment } from '../environment';
+
+
 /*
 * Credits :
 * based on http://jasonwatmore.com/post/2016/09/29/angular-2-user-registration-and-login-example-tutorial
@@ -9,15 +13,15 @@ import 'rxjs/add/operator/map'
 @Injectable()
 export class AuthenticationService {
 
-    private serverUrl = 'http://localhost';
-  //private serverUrl = '';
+  private serverUrl = environment.server;
+
 
 
 
   /**
   * API endpoint
   */
-  private api = '/adminapp/api/v1/authenticate.php?path=';
+  private api = environment.authenticateapi;
 
 
   constructor(private http: Http) { }

@@ -4,19 +4,22 @@ import { Observable } from 'rxjs/Observable';
 import { User } from '../_models/index';
 import { Metadata } from 'app/_models';
 
+import { environment } from '../environment';
+
+
 @Injectable()
 export class ContentService {
 
     /**
     * server base admin API app
     */
-    private serverUrl = 'http://localhost';
-  //private serverUrl = '';
+    private serverUrl = environment.server;
+
 
     /**
     * API endpoint
     */
-    private api = '/adminapp/api/v1/api.php?path=';
+    private api = environment.api;
 
 
     constructor(private http: Http) { }
