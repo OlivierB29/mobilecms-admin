@@ -17,7 +17,8 @@ import { RegisterComponent } from './register/index';
 import { RecordListComponent } from 'app/recordlist/index';
 import { RecordComponent } from 'app/record/record.component';
 
-// Theme
+// Material Theme
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from '@angular/material';
 import 'hammerjs';
 
@@ -26,7 +27,9 @@ import 'hammerjs';
         BrowserModule,
         FormsModule,
         HttpModule,
-        routing
+        routing,
+        MaterialModule,
+        NoopAnimationsModule
     ],
     declarations: [
         AppComponent,

@@ -5,11 +5,11 @@
     <p>Adminapp</p>
 
     <div *ngIf="items">
-      <ul>
-        <li *ngFor="let item of items">
-          <a [routerLink]="['/recordlist', item.type]">{{item.type}}</a>
-        </li>
-      </ul>
+      <md-list>
+        <md-list-item *ngFor="let item of items">
+          <button md-button [routerLink]="['/recordlist', item.type]">{{item.type}}</button>
+        </md-list-item>
+      </md-list>
 
 
     </div>

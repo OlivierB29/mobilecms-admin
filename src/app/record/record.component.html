@@ -1,73 +1,107 @@
-<div class="container" >
-    <div class="content">
-        <span>Edit</span>
+<div class="container">
+  <div class="content">
+    <button md-button (click)="save()"><md-icon>archive</md-icon></button>
 
-  <div *ngIf="current" >
-
-
-              <div *ngFor="let property of properties" >
-
-                {{property.name}} :
-                <!-- multiline text edit -->
-                <div *ngIf="property.editor === 'text'">
-                  <textarea rows="" cols="" [(ngModel)]="current[property.name]" name="{{property.name}}" id="{{property.name}}"  >{{current[property.name]}}</textarea>
-                </div>
-
-                <!-- single line text edit -->
-                <div *ngIf="property.editor === 'line'">
-                  <input [(ngModel)]="current[property.name]" name="{{property.name}}" id="{{property.name}}" type="text">
-                </div>
-
-                <!-- choice list -->
-                <div *ngIf="property.editor === 'choice'">
-                  <select  [(ngModel)]="current[property.name]" name="{{property.name}}" id="{{property.name}}"  >
-                    <!-- list of choices from metadata -->
-                    <option *ngFor="let choice of property.choices" value="{{choice}}">{{choice}}</option>
-                  </select>
-                </div>
-
-                <!-- single line text edit -->
-                <div *ngIf="property.editor === 'imagelist' && property.name === 'images'">
-                  <div *ngIf="images">{{images.length}}</div>
-                  <div *ngFor="let image of images; let i=index">
-                    title <input [(ngModel)]="images[i].title" name="images{{i}}.title" id="images{{i}}.title" type="text">
-                    image url <input [(ngModel)]="images[i].url" name="images{{i}}.url" id="images{{i}}.url" type="text">
-                    optional link <input [(ngModel)]="images[i].link" name="images{{i}}.link" id="images{{i}}.link" type="text">
-                  </div>
+    <div *ngIf="response">
+      response : {{response}}
+    </div>
 
 
 
-                  <button (click)="addImage()" >New Image</button>
-                </div>
-
-                <div *ngIf="property.editor === 'attachmentlist' && property.name === 'attachments'">
-                  <div *ngIf="attachments">{{attachments.length}}</div>
-
-                  <div *ngFor="let attachment of attachments; let i=index">
-                    title <input [(ngModel)]="attachments[i].title" name="attachments{{i}}.title" id="attachments{{i}}.title" type="text">
-                    url <input [(ngModel)]="attachments[i].url" name="attachments{{i}}.url" id="attachments{{i}}.url" type="text" >
-                    optional description <input [(ngModel)]="attachments[i].description" name="attachments{{i}}.description" id="attachments{{i}}.description" type="text" >
-                  </div>
+    <div *ngIf="current">
 
 
+      <div *ngFor="let property of properties">
 
-                <button (click)="addAttachment()" >New Attachment</button>
-                </div>
+        <!-- multiline text edit -->
+
+          <md-input-container *ngIf="property.editor === 'text'" class="full-width-textarea">
+            <textarea mdInput placeholder="{{property.name}}" rows="10" cols="" [(ngModel)]="current[property.name]" name="{{property.name}}" id="{{property.name}}">{{current[property.name]}}</textarea>
+          </md-input-container>
+
+
+        <!-- single line text edit -->
+        <div *ngIf="property.editor === 'line'" >
+          <md-input-container class="full-width-input">
+            <input mdInput placeholder="{{property.name}}" [(ngModel)]="current[property.name]" name="{{property.name}}" id="{{property.name}}" type="text">
+          </md-input-container>
+
+        </div>
+
+        <!-- choice list -->
+        <div *ngIf="property.editor === 'choice'">
+          <md-select placeholder="{{property.name}}" [(ngModel)]="current[property.name]" name="{{property.name}}" id="{{property.name}}">
+            <!-- list of choices from metadata -->
+            <md-option *ngFor="let choice of property.choices" [value]="choice">{{ choice }}</md-option>
+          </md-select>
+
+        </div>
+
+        <!-- single line text edit -->
+        <div *ngIf="property.editor === 'imagelist' && property.name === 'images'" >
+          <div *ngIf="images">{{images.length}}</div>
+          <div *ngFor="let image of images; let i=index" class="input-group">
+            <div>
+            <md-input-container>
+              <input mdInput placeholder="title" [(ngModel)]="images[i].title" type="text">
+            </md-input-container>
+          </div>
+
+          <div>
+            <md-input-container class="full-width-input">
+              <input mdInput placeholder="image url" [(ngModel)]="images[i].url" type="text">
+            </md-input-container>
+          </div>
+
+          <div>
+            <md-input-container class="full-width-input">
+              <input mdInput placeholder="optional url" [(ngModel)]="images[i].link" type="text">
+            </md-input-container>
+          </div>
+          </div>
 
 
 
-              </div>
+          <button (click)="addImage()"><md-icon>image</md-icon></button>
+        </div>
 
+        <div *ngIf="property.editor === 'attachmentlist' && property.name === 'attachments'">
+          <div *ngIf="attachments">{{attachments.length}}</div>
+
+          <div *ngFor="let attachment of attachments; let i=index"  class="input-group">
+            <div>
+            <md-input-container>
+              <input mdInput placeholder="title" [(ngModel)]="attachments[i].title" type="text">
+            </md-input-container>
+            </div>
+
+            <div>
+            <md-input-container class="full-width-input">
+              <input mdInput placeholder="image url" [(ngModel)]="attachments[i].url" type="text">
+            </md-input-container>
+            </div>
+
+            <div>
+            <md-input-container class="full-width-input">
+              <input mdInput placeholder="optional description" [(ngModel)]="attachments[i].description" type="text">
+            </md-input-container>
+            </div>
+
+          </div>
+
+
+
+          <button (click)="addAttachment()"><md-icon>attachment</md-icon></button>
+        </div>
+
+
+
+      </div>
+
+
+
+    </div>
 
 
   </div>
-        <div (click)="save()" >Save</div>
-
-    <div *ngIf="response" >
-      response :
-      {{response}}
-    </div>
-
-
-    </div>
 </div>

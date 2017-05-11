@@ -6,7 +6,8 @@ import { Metadata } from 'app/_models';
 
 @Component({
   moduleId: module.id,
-  templateUrl: 'record.component.html'
+  templateUrl: 'record.component.html',
+  styleUrls: ['record.component.css']
 })
 
 export class RecordComponent implements OnInit {
@@ -78,16 +79,18 @@ export class RecordComponent implements OnInit {
         this.contentService.getRecord(this.type, this.id)
           .subscribe((data: any) => {
             this.current = data;
-            if (!this.current.images) {
-              this.current.images = [];
-            }
-            this.images = this.current.images;
 
-            if (!this.current.attachments) {
-              this.current.attachments = [];
-            }
-            this.attachments = this.current.attachments;
+            if (this.current) {
+              if (!this.current.images) {
+                this.current.images = [];
+              }
+              this.images = this.current.images;
 
+              if (!this.current.attachments) {
+                this.current.attachments = [];
+              }
+              this.attachments = this.current.attachments;
+            }
           },
           error => console.error('get' + error),
           () => {
@@ -97,11 +100,25 @@ export class RecordComponent implements OnInit {
         console.log('editcalendar-form empty id');
 
         this.contentService.getNewRecord(this.type + '/index/new.json')
-          .subscribe((data: any) => { this.current = data; },
+          .subscribe((data: any) => { this.current = data;
+
+            if (this.current) {
+              if (!this.current.images) {
+                this.current.images = [];
+              }
+              this.images = this.current.images;
+
+              if (!this.current.attachments) {
+                this.current.attachments = [];
+              }
+              this.attachments = this.current.attachments;
+            }
+           },
           error => console.log('getNewRecord ' + error),
           () => console.log('getNewRecord OK'));
-
       }
+
+
 
     });
 
