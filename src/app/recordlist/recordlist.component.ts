@@ -6,7 +6,6 @@ import { ContentService } from '../_services/index';
 
 @Component({
     moduleId: module.id,
-    selector: 'recordlist-component',
     templateUrl: 'recordlist.component.html'
 })
 
@@ -20,13 +19,13 @@ export class RecordListComponent implements OnInit {
     /**
      * current type : news, calendar, ...
      */
-    type : string = 'news';
+    type = '';
 
 
 
-    constructor(private route: ActivatedRoute, private contentService:ContentService ){}
+    constructor(private route: ActivatedRoute, private contentService: ContentService ) {}
 
-    ngOnInit(){
+    ngOnInit() {
         console.log('RecordListComponent ');
 
             this.route.params.forEach((params: Params) => {
@@ -34,8 +33,7 @@ export class RecordListComponent implements OnInit {
 
                 this.type = params['type'];
 
-                if(this.type) {
-
+                if (this.type) {
 
                   this.contentService.getRecords(this.type)
                       .subscribe((data: any[]) => this.items = data,

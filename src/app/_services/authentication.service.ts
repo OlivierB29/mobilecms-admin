@@ -29,17 +29,17 @@ export class AuthenticationService {
   login(user: string, password: string) {
     localStorage.removeItem('currentUser');
     //
-    let headers = new Headers();
+    const headers = new Headers();
     headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 
-    //TODO RESTful endpoint
-    var url: string = this.getUrl('/api/v1/authenticate');
-    var data = 'requestbody=' + JSON.stringify({ user: user, password: password });
+    // TODO RESTful endpoint
+    const url: string = this.getUrl('/api/v1/authenticate');
+    const data = 'requestbody=' + JSON.stringify({ user: user, password: password });
 
     return this.http.post(url, data, { headers: headers })
       .map((response: Response) => {
         // login successful if there's a jwt token in the response
-        let userObject = response.json();
+        const userObject = response.json();
         if (userObject && userObject.token) {
 
           // store user details and jwt token in local storage to keep user logged in between page refreshes
@@ -51,17 +51,17 @@ export class AuthenticationService {
   register(userInput: any) {
 
     //
-    let headers = new Headers();
+    const headers = new Headers();
     headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 
 
-    var url: string = this.getUrl('/api/v1/register');
+    const url: string = this.getUrl('/api/v1/register');
 
-    var data = 'requestbody=' + JSON.stringify(userInput);
+    const data = 'requestbody=' + JSON.stringify(userInput);
 
     return this.http.post(url, data, { headers: headers })
       .map((response: Response) => {
-        let registerResponse = response.json();
+        const registerResponse = response.json();
       });
   }
 

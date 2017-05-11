@@ -15,8 +15,17 @@ export class HomeComponent implements OnInit {
     items: any[] = [];
 
 
-    constructor( private contentService:ContentService ) {
-        this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    constructor( private contentService: ContentService ) {
+      //
+      //
+      //
+      const currentUserLocalStorage = localStorage.getItem('currentUser') ;
+
+      if (currentUserLocalStorage) {
+        this.currentUser = JSON.parse(currentUserLocalStorage );
+      }
+
+
     }
 
     ngOnInit() {

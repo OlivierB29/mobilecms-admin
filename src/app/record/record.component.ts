@@ -16,7 +16,7 @@ export class RecordComponent implements OnInit {
   /**
    * current type : news, calendar, ...
    */
-  type: string = '';
+  type = '';
 
   /**
    * object id
@@ -94,7 +94,7 @@ export class RecordComponent implements OnInit {
             console.log('get complete' + JSON.stringify(this.current));
         });
       } else {
-        console.log("editcalendar-form empty id");
+        console.log('editcalendar-form empty id');
 
         this.contentService.getNewRecord(this.type + '/index/new.json')
           .subscribe((data: any) => { this.current = data; },
@@ -108,12 +108,12 @@ export class RecordComponent implements OnInit {
   }
 
   addImage() {
-    //TODO : create a image_metadata.json
+    // TODO : create a image_metadata.json
     this.images.push(JSON.parse('{"url":"", "title":""}'));
   }
 
   addAttachment() {
-    //TODO : create a attachment_metadata.json
+    // TODO : create a attachment_metadata.json
     this.attachments.push(JSON.parse('{"url":"", "title":""}'));
   }
 
