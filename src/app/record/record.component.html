@@ -21,12 +21,24 @@
 
 
         <!-- single line text edit -->
-        <div *ngIf="property.editor === 'line'" >
-          <md-input-container class="full-width-input">
+        <div *ngIf="property.name === 'id'" >
+          <md-input-container class="full-width-input" *ngIf="property.editor === 'line'">
+            <input readonly mdInput placeholder="{{property.name}}" [(ngModel)]="current[property.name]" name="{{property.name}}" id="{{property.name}}" type="text">
+          </md-input-container>
+        </div>
+        <div *ngIf="property.name === 'title'" >
+          <md-input-container class="full-width-input" *ngIf="property.editor === 'line'">
+            <input  (change)="generateId()" mdInput placeholder="{{property.name}}" [(ngModel)]="current[property.name]" name="{{property.name}}" id="{{property.name}}" type="text">
+          </md-input-container>
+        </div>
+
+        <div *ngIf="property.name !== 'id' && property.name !== 'title'" >
+          <md-input-container class="full-width-input" *ngIf="property.editor === 'line'">
             <input mdInput placeholder="{{property.name}}" [(ngModel)]="current[property.name]" name="{{property.name}}" id="{{property.name}}" type="text">
           </md-input-container>
-
         </div>
+
+
 
         <!-- choice list -->
         <div *ngIf="property.editor === 'choice'">

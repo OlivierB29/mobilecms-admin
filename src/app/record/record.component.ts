@@ -129,6 +129,14 @@ export class RecordComponent implements OnInit {
     this.images.push(JSON.parse('{"url":"", "title":""}'));
   }
 
+  generateId() {
+    // TODO : create a image_metadata.json
+    let newId = this.current.id = this.current.title.replace(/[^\w\s]/gi, '');
+    newId = newId.replace(/\s/g, '-');
+    this.current.id = newId;
+  }
+
+
   addAttachment() {
     // TODO : create a attachment_metadata.json
     this.attachments.push(JSON.parse('{"url":"", "title":""}'));
