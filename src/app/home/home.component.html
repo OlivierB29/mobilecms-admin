@@ -1,27 +1,28 @@
-<div *ngIf='currentUser'>
+<div *ngIf='currentUser && hasRole'>
   <div class="">
-
-
-
 
     <div>{{currentUser.email}}</div>
     <p>Adminapp</p>
 
     <div *ngIf="items">
-        <ul>
-            <li *ngFor="let item of items">
-                <a [routerLink]="['/recordlist', item.type]">{{item.type}}</a>
-            </li>
-        </ul>
+      <ul>
+        <li *ngFor="let item of items">
+          <a [routerLink]="['/recordlist', item.type]">{{item.type}}</a>
+        </li>
+      </ul>
 
 
     </div>
 
     <p><a [routerLink]="['/login']">Logout</a></p>
-</div>
+  </div>
 </div>
 
+<div *ngIf='currentUser && !hasRole'>
+  User not activated, please contact your administrator
+  <p><a [routerLink]="['/login']">Logout</a></p>
+</div>
 
 <div *ngIf='!currentUser'>
-<a [routerLink]="['/login']">Login</a>
+  <a [routerLink]="['/login']">Login</a>
 </div>

@@ -17,6 +17,10 @@ import { RegisterComponent } from './register/index';
 import { RecordListComponent } from 'app/recordlist/index';
 import { RecordComponent } from 'app/record/record.component';
 
+// Theme
+import { MaterialModule } from '@angular/material';
+import 'hammerjs';
+
 @NgModule({
     imports: [
         BrowserModule,

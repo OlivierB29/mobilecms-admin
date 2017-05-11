@@ -14,6 +14,8 @@ export class HomeComponent implements OnInit {
 
     items: any[] = [];
 
+    hasRole = false;
+
 
     constructor( private contentService: ContentService ) {
       //
@@ -22,18 +24,26 @@ export class HomeComponent implements OnInit {
       const currentUserLocalStorage = localStorage.getItem('currentUser') ;
 
       if (currentUserLocalStorage) {
-        this.currentUser = JSON.parse(currentUserLocalStorage );
+        this.currentUser = JSON.parse(currentUserLocalStorage);
       }
 
 
     }
 
     ngOnInit() {
+        //
+        // About roles : this just a frontend features. Roles must be tested in the API.
+        //
+        if (this.currentUser.role === 'editor' || this.currentUser.role === 'admin') {
+          this.hasRole = true;
+          this.contentService.getTables()
+              .subscribe((data: any[]) => this.items = data,
+              error => console.log('getItems ' + error),
+              () => console.log('getItems complete :' + this.items.length));
 
-        this.contentService.getTables()
-            .subscribe((data: any[]) => this.items = data,
-            error => console.log('getItems ' + error),
-            () => console.log('getItems complete :' + this.items.length));
+        } else {
+
+        }
 
     }
 }
