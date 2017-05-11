@@ -28,7 +28,7 @@
 
                 <!-- single line text edit -->
                 <div *ngIf="property.editor === 'imagelist' && property.name === 'images'">
-
+                  <div *ngIf="images">{{images.length}}</div>
                   <div *ngFor="let image of images; let i=index">
                     title <input [(ngModel)]="images[i].title" name="images{{i}}.title" id="images{{i}}.title" type="text">
                     image url <input [(ngModel)]="images[i].url" name="images{{i}}.url" id="images{{i}}.url" type="text">
@@ -41,7 +41,8 @@
                 </div>
 
                 <div *ngIf="property.editor === 'attachmentlist' && property.name === 'attachments'">
-                    {{attachments.length}}
+                  <div *ngIf="attachments">{{attachments.length}}</div>
+
                   <div *ngFor="let attachment of attachments; let i=index">
                     title <input [(ngModel)]="attachments[i].title" name="attachments{{i}}.title" id="attachments{{i}}.title" type="text">
                     url <input [(ngModel)]="attachments[i].url" name="attachments{{i}}.url" id="attachments{{i}}.url" type="text" >

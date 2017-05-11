@@ -111,6 +111,17 @@ export class ContentService {
             .catch(this.handleError);
     }
 
+    /**
+     * Table metadata for record modification
+     */
+    public getNewRecord = (file: string): Observable<any[]> => {
+
+        var url: string = this.getUrl('/api/v1/file&file=' + file);
+        return this.http.get(url, this.jwt())
+            .map((response: Response) => <Metadata[]>response.json())
+            .catch(this.handleError);
+    }
+
 
     // private helper methods
 

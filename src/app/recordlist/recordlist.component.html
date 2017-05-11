@@ -1,6 +1,7 @@
 <div >
     <div >
         <span>List edit</span>
+        <a [routerLink]="['/record', type ,  'new']">New </a>
 
         <div *ngIf="items">
              {{items.length}}

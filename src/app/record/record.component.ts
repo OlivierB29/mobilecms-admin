@@ -72,9 +72,9 @@ export class RecordComponent implements OnInit {
           () => console.log('loadMetadata OK'));
       }
 
-      if (this.id) {
+      if (this.id && this.id !== 'new') {
 
-        //read record content
+        // read record content
         this.contentService.getRecord(this.type, this.id)
           .subscribe((data: any) => {
             this.current = data;
@@ -94,7 +94,13 @@ export class RecordComponent implements OnInit {
             console.log('get complete' + JSON.stringify(this.current));
         });
       } else {
-        console.error("editcalendar-form empty id");
+        console.log("editcalendar-form empty id");
+
+        this.contentService.getNewRecord(this.type + '/index/new.json')
+          .subscribe((data: any) => { this.current = data; },
+          error => console.log('getNewRecord ' + error),
+          () => console.log('getNewRecord OK'));
+
       }
 
     });
