@@ -10,12 +10,14 @@ import { routing } from './app.routing';
 
 import { AlertComponent } from './_directives/index';
 import { AuthGuard } from './_guards/index';
-import { AlertService, AuthenticationService, UserService, ContentService } from './_services/index';
+import { AlertService, AuthenticationService, UserService, ContentService, LocaleService} from './_services/index';
 import { HomeComponent } from './home/index';
 import { LoginComponent } from './login/index';
 import { RegisterComponent } from './register/index';
 import { RecordListComponent } from 'app/recordlist/index';
 import { RecordComponent } from 'app/record/record.component';
+
+import { TopMenuComponent } from 'app/topmenu/topmenu.component';
 
 // Material Theme
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -35,6 +37,7 @@ import 'hammerjs';
         AppComponent,
         AlertComponent,
         HomeComponent,
+        TopMenuComponent,
         LoginComponent,
         RegisterComponent,
         RecordListComponent,
@@ -45,7 +48,8 @@ import 'hammerjs';
         AlertService,
         AuthenticationService,
         UserService,
-        ContentService
+        ContentService,
+        LocaleService
     ],
     bootstrap: [AppComponent]
 })

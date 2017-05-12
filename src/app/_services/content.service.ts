@@ -27,7 +27,7 @@ export class ContentService {
     /**
     * get API url
     * @arg path  eg : '/api/v1/content'
-    * @returns http://localhost//adminapp/api/v1/api.php?path=/api/v1/content
+    * @returns http://server//adminapp/api/v1/api.php?path=/api/v1/content
     */
     private getUrl(path: string): string {
         return this.serverUrl + this.api + path;
@@ -127,12 +127,21 @@ export class ContentService {
 
     private jwt() {
         // create authorization header with jwt token
-        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        if (currentUser && currentUser.token) {
 
-            const headers = new Headers({ 'Authorization': 'Bearer ' + currentUser.token });
-            return new RequestOptions({ headers: headers });
+
+        if (localStorage.getItem('currentUser')) {
+          const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+          if (currentUser && currentUser.token) {
+
+              const headers = new Headers({ 'Authorization': 'Bearer ' + currentUser.token });
+              return new RequestOptions({ headers: headers });
+          } else {
+            throw new Error('invalid token');
+          }
+        } else {
+            throw new Error('empty user');
         }
+
     }
 
     private jwtPost() {

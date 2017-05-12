@@ -1,3 +1,4 @@
 ﻿export * from './user';
-export * from './property';
+export * from './label';
+export * from './recordtype';
 export * from './metadata';

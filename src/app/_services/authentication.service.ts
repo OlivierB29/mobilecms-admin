@@ -41,9 +41,17 @@ export class AuthenticationService {
         // login successful if there's a jwt token in the response
         const userObject = response.json();
         if (userObject && userObject.token) {
-
+          console.log('connecting ' + userObject.name );
           // store user details and jwt token in local storage to keep user logged in between page refreshes
+          if (localStorage.getItem('currentUser')) {
+            console.log('emptying ');
+            localStorage.removeItem('currentUser');
+          }
+
           localStorage.setItem('currentUser', JSON.stringify(userObject));
+          console.log('setItem ' + JSON.stringify(userObject) );
+        } else {
+          throw new Error('invalid auth token');
         }
       });
   }
