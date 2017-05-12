@@ -16,3 +16,7 @@
 input:read-only {
     background-color: #ddd;
 }
+
+.container {
+  padding: 2em;
+}
