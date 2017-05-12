@@ -18,7 +18,7 @@
   <!-- container -->
   <div class="my-content">
 
-    <div *ngIf='!hasRole'>
+    <div *ngIf='currentUser && !hasRole'>
       User not activated, please contact your administrator
       <p><a [routerLink]="['/login']">Logout</a></p>
     </div>

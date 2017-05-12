@@ -31,6 +31,7 @@ export class TopMenuComponent implements OnInit {
     console.log('TopMenuComponent ...');
     if (currentUserLocalStorage) {
       this.currentUser = JSON.parse(currentUserLocalStorage);
+      this.currentUser.token = '';
       console.log('currentUser ...');
     } else {
       console.log('logout !!!!');
@@ -43,6 +44,6 @@ export class TopMenuComponent implements OnInit {
 
 
   home(): void {
-    // this.router.navigate(['/']);
+    this.router.navigate(['/']);
   }
 }
