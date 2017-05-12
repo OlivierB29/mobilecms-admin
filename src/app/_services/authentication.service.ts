@@ -49,7 +49,6 @@ export class AuthenticationService {
           }
 
           localStorage.setItem('currentUser', JSON.stringify(userObject));
-          console.log('setItem ' + JSON.stringify(userObject) );
         } else {
           throw new Error('invalid auth token');
         }

@@ -99,6 +99,26 @@ export class ContentService {
 
     }
 
+    /**
+     * save a record
+     */
+    public rebuildIndex = (type: string): Observable<any> => {
+
+        // eg : /api/v1/index/calendar
+        const url: string = this.getUrl('/api/v1/index/' + type);
+        console.log(url);
+
+        const postData = 'requestbody={}';
+
+        console.log(postData);
+
+        return this.http.post(url,
+            postData,
+            this.jwtPost())
+            .map((response: Response) => <any>response.json())
+            .catch(this.handleError);
+
+    }
 
     /**
      * Table metadata for record modification

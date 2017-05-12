@@ -2,6 +2,9 @@
   <div>
     <button md-button [routerLink]="['/record', type ,  'new']"><md-icon>add</md-icon></button>
 
+    <button md-button (click)="rebuildIndex()"><md-icon>refresh</md-icon></button>
+
+
     <div *ngIf="items">
       <div *ngFor="let item of items">
         <a [routerLink]="['/record', type ,  item.id]">{{item.id}}  </a> {{item.title}}

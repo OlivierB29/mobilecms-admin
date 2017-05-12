@@ -2,7 +2,7 @@
 
   <!-- slide menu -->
 
-  <md-sidenav  *ngIf='currentUser && hasRole' #sidenav mode="side" opened="true" class='adminslidemenu'>
+  <md-sidenav  *ngIf='hasRole' #sidenav [mode]='menuMode' [opened]='menuOpened' class='adminslidemenu'>
     <nav>
 
       <div *ngFor="let item of items">
@@ -18,7 +18,7 @@
   <!-- container -->
   <div class="my-content">
 
-    <div *ngIf='currentUser && !hasRole'>
+    <div *ngIf='!hasRole'>
       User not activated, please contact your administrator
       <p><a [routerLink]="['/login']">Logout</a></p>
     </div>

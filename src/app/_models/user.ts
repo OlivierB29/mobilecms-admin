@@ -6,4 +6,5 @@
 
     name: string;
     role: string;
+    token: string;
 }

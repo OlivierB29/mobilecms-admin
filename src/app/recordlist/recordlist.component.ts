@@ -22,6 +22,11 @@ export class RecordListComponent implements OnInit {
      */
     type = '';
 
+    /**
+     * response on rebuild
+     */
+    response: any = null;
+
 
 
     constructor(private route: ActivatedRoute, private contentService: ContentService ) {}
@@ -52,5 +57,13 @@ export class RecordListComponent implements OnInit {
 
     }
 
+
+    rebuildIndex() {
+      this.contentService.rebuildIndex(this.type)
+        .subscribe((data: any) => this.response = JSON.stringify(data),
+        error => console.error('post' + error),
+        () => { console.log('post complete'); });
+
+    }
 
 }
