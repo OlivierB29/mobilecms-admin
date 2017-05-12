@@ -5,6 +5,7 @@ import { ContentService, LocaleService } from '../_services/index';
 
 @Component({
     moduleId: module.id,
+    selector: 'app-homeadmin',
     templateUrl: 'home.component.html',
     styleUrls: ['home.component.css']
 })
@@ -35,7 +36,8 @@ export class HomeComponent implements OnInit {
         //
         // About roles : this just a frontend features. Roles must be tested in the API.
         //
-        if (this.currentUser.role === 'editor' || this.currentUser.role === 'admin') {
+        if (this.currentUser) {
+        if ( this.currentUser.role === 'editor' || this.currentUser.role === 'admin') {
           this.hasRole = true;
           this.contentService.getTables()
               .subscribe((data: RecordType[]) => this.items = data,
@@ -59,9 +61,8 @@ export class HomeComponent implements OnInit {
 
                });
 
-        } else {
-
         }
+      }
 
     }
 }

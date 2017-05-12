@@ -2,13 +2,15 @@
 
   <!-- slide menu -->
 
-  <md-sidenav #sidenav  class='slidemenu'>
+  <md-sidenav  *ngIf='currentUser && hasRole' #sidenav mode="side" opened="true" class='adminslidemenu'>
     <nav>
+
       <div *ngFor="let item of items">
-        <button [routerLink]="['/recordlist', item.type]" routerLinkActive="active" md-button color="primary" class='slidemenu-button'>
-                     <span class='slidemenu-button-text'>{{item.label}}</span>
+        <button [routerLink]="['/recordlist', item.type]" routerLinkActive="active" md-button color="primary" class='adminslidemenu-button'>
+                     <span class='adminslidemenu-button-text'>{{item.label}}</span>
         </button>
       </div>
+
     </nav>
   </md-sidenav>
 
@@ -16,36 +18,15 @@
   <!-- container -->
   <div class="my-content">
 
+    <div *ngIf='currentUser && !hasRole'>
+      User not activated, please contact your administrator
+      <p><a [routerLink]="['/login']">Logout</a></p>
+    </div>
 
+        <!-- content -->
+        <router-outlet></router-outlet>
 
   </div>
 
 
 </md-sidenav-container>
-
-
-
-
-
-
-
-<div *ngIf='currentUser && hasRole'>
-
-
-    <div *ngIf="items && items.length > 0">
-      <md-list>
-        <md-list-item *ngFor="let item of items">
-          <button md-button [routerLink]="['/recordlist', item.type]">{{item.label}}</button>
-        </md-list-item>
-      </md-list>
-
-
-    </div>
-
-
-</div>
-
-<div *ngIf='currentUser && !hasRole'>
-  User not activated, please contact your administrator
-  <p><a [routerLink]="['/login']">Logout</a></p>
-</div>

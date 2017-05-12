@@ -6,7 +6,8 @@ import { ContentService } from '../_services/index';
 
 @Component({
     moduleId: module.id,
-    templateUrl: 'recordlist.component.html'
+    templateUrl: 'recordlist.component.html',
+    styleUrls: ['recordlist.component.css']
 })
 
 export class RecordListComponent implements OnInit {

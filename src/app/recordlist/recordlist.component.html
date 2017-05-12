@@ -1,14 +1,12 @@
-<div >
-    <div >
-        <span>List edit</span>
-        <a [routerLink]="['/record', type ,  'new']">New </a>
+<div class="recordlist">
+  <div>
+    <button md-button [routerLink]="['/record', type ,  'new']"><md-icon>add</md-icon></button>
 
-        <div *ngIf="items">
-             {{items.length}}
-            <div *ngFor="let item of items">
-                <a [routerLink]="['/record', type ,  item.id]">{{item.id}}  </a> {{item.title}}
-            </div>
-        </div>
-
+    <div *ngIf="items">
+      <div *ngFor="let item of items">
+        <a [routerLink]="['/record', type ,  item.id]">{{item.id}}  </a> {{item.title}}
+      </div>
     </div>
+
+  </div>
 </div>
