@@ -1,6 +1,11 @@
 # MobilecmsAdmin
+This project is a admin app for writing content through a REST API.
+It is initially intended to manage content from a sport organization, with such content : News, calendar events, public pages, documents, ...
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.0.
+Dependencies
+- Angular 4 + Angular Material
+- Hosted on a cheap server, with no database available (see explanation in FAQ)
+- All the data is public, by default. (except users)
 
 ## Development server
 
@@ -14,7 +19,7 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
 
-ng build --prod --base-href /adminapp/front/v1/
+ng build --prod --base-href /admin/
 
 ## Running unit tests
 

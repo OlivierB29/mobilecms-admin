@@ -16,14 +16,13 @@
         <md-icon >menu</md-icon>
         </button>
         <app-my-topmenu  class="topmenucontent"></app-my-topmenu>
+<!-- TODO
+        <button md-button [routerLink]="['/modifypasssword']" class="topmenucontent"><md-icon>account_circle</md-icon>Password </button>
+-->
     </div>
 
 
 
-    <div *ngIf='currentUser && !hasRole'>
-      User not activated, please contact your administrator
-      <p><a [routerLink]="['/login']">Logout</a></p>
-    </div>
 
   </div>
 

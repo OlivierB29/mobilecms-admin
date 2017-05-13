@@ -72,14 +72,14 @@ export class AuthenticationService {
       });
   }
 
-  modifypasssword(userInput: any) {
+  changepasssword(userInput: any) {
 
     //
     const headers = new Headers();
     headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 
 
-    const url: string = this.getUrl('/api/v1/modifypasssword');
+    const url: string = this.getUrl('/api/v1/changepassword');
 
     const data = 'requestbody=' + JSON.stringify(userInput);
 
