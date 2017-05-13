@@ -6,6 +6,7 @@
 export const environment = {
   production: false,
   server: 'http://localhost',
+  website: 'http://localhost/#',
   api: '/adminapp/api/v1/api.php?path=',
   authenticateapi: '/adminapp/api/v1/authenticate.php?path='
 };

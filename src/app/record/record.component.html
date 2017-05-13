@@ -1,7 +1,11 @@
-<div class="container">
-  <div class="content">
-    <button md-button (click)="save()"><md-icon>save</md-icon></button>
+<button [routerLink]="['/']" md-button><md-icon>home</md-icon></button>
 
+<div class="container">
+  <div >
+    <md-card>
+    <button md-button (click)="save()"><md-icon>save</md-icon></button>
+    <button *ngIf="!newrecord && hasAdminRole" md-button (click)="preview()"> <md-icon>open_in_new</md-icon></button>
+    </md-card>
     <div *ngIf="response">
       response : {{response}}
     </div>

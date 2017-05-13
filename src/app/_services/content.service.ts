@@ -126,8 +126,6 @@ export class ContentService {
 
         const postData = 'requestbody={}';
 
-        console.log(postData);
-
         return this.http.post(url,
             postData,
             this.jwtPost())

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { User, Label, RecordType, Metadata } from '../_models/index';
 import { ContentService } from '../_services/index';
-
+import { environment } from '../environment';
 
 @Component({
   moduleId: module.id,
@@ -189,6 +189,13 @@ export class RecordComponent implements OnInit {
        });
 
   }
+
+  preview() {
+    this.generateId();
+    const url = environment.website + '/' + this.type + '/' + this.id;
+    console.log("opening " + url);
+    window.open(url, '_blank');
+}
 
   /**
   * replace accents by US ASCII

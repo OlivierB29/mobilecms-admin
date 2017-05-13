@@ -3,9 +3,10 @@
 
 <div class="recordlist">
   <div>
-    <button md-button [routerLink]="['/record', type ,  'new']"><md-icon>add</md-icon></button>
+    <md-card><button md-button [routerLink]="['/record', type ,  'new']"><md-icon>add</md-icon></button>
 
-    <button md-button (click)="rebuildIndex()"><md-icon>refresh</md-icon></button>
+    <button md-button (click)="rebuildIndex()"><md-icon>refresh</md-icon></button></md-card>
+
 
 
     <div *ngIf="items">
