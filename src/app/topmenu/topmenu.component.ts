@@ -27,6 +27,10 @@ export class TopMenuComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.initUser();
+  }
+
+  private initUser() {
     const currentUserLocalStorage = localStorage.getItem('currentUser');
     console.log('TopMenuComponent ...');
     if (currentUserLocalStorage) {
@@ -34,16 +38,8 @@ export class TopMenuComponent implements OnInit {
       this.currentUser.token = '';
       console.log('currentUser ...');
     } else {
-      console.log('logout !!!!');
-      // reset login status
-      this.authenticationService.logout();
+
     }
   }
 
-
-
-
-  home(): void {
-    this.router.navigate(['/']);
-  }
 }

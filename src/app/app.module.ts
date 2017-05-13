@@ -16,13 +16,16 @@ import { LoginComponent } from './login/index';
 import { RegisterComponent } from './register/index';
 import { RecordListComponent } from 'app/recordlist/index';
 import { RecordComponent } from 'app/record/record.component';
+import { ModifyPasswordComponent } from 'app/modifypassword';
 
 import { TopMenuComponent } from 'app/topmenu/topmenu.component';
+import { MainPageComponent } from 'app/mainpage/mainpage.component';
 
 // Material Theme
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from '@angular/material';
 import 'hammerjs';
+import { SlidemenuComponent } from './slidemenu/slidemenu.component';
 
 @NgModule({
     imports: [
@@ -34,14 +37,18 @@ import 'hammerjs';
         NoopAnimationsModule
     ],
     declarations: [
+
+        MainPageComponent,
         AppComponent,
         AlertComponent,
         HomeComponent,
         TopMenuComponent,
         LoginComponent,
+        ModifyPasswordComponent,
         RegisterComponent,
         RecordListComponent,
-        RecordComponent
+        RecordComponent,
+        SlidemenuComponent
     ],
     providers: [
         AuthGuard,

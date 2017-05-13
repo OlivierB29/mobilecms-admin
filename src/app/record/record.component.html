@@ -1,7 +1,7 @@
 <div class="container">
   <div class="content">
     <button md-button (click)="save()"><md-icon>save</md-icon></button>
-    
+
     <div *ngIf="response">
       response : {{response}}
     </div>
@@ -28,7 +28,7 @@
         </div>
         <div *ngIf="property.name === 'title'" >
           <md-input-container class="full-width-input" *ngIf="property.editor === 'line'">
-            <input  (change)="generateId()" mdInput placeholder="{{property.name}}" [(ngModel)]="current[property.name]" name="{{property.name}}" id="{{property.name}}" type="text">
+            <input  (keypress)="generateId()" mdInput placeholder="{{property.name}}" [(ngModel)]="current[property.name]" name="{{property.name}}" id="{{property.name}}" type="text">
           </md-input-container>
         </div>
 

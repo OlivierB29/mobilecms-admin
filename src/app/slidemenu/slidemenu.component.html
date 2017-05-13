@@ -1,0 +1,8 @@
+<div *ngFor="let menu of menuItems" >
+
+
+  <button [routerLink]="['/recordlist', menu.type]" routerLinkActive="active" md-button color="primary" >
+                       <span class='adminslidemenu-button-text'>{{menu.label}}</span>
+  </button>
+
+</div>

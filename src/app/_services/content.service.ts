@@ -87,12 +87,28 @@ export class ContentService {
         const url: string = this.getUrl('/api/v1/content/' + type);
         console.log(url);
 
-        const postData: string = 'requestbody=' + JSON.stringify(obj);
-
-        console.log(postData);
+        // escape issue, with some characters like
+        const postData: string = 'requestbody=' + JSON.stringify(JSON.parse(JSON.stringify(obj)));
 
         return this.http.post(url,
             postData,
+            this.jwtPost())
+            .map((response: Response) => <any>response.json())
+            .catch(this.handleError);
+
+    }
+
+    /**
+     * save a record
+     */
+    public putObject = (type: string, obj: any): Observable<any> => {
+
+        // eg : /api/v1/content/calendar
+        const url: string = this.getUrl('/api/v1/content/' + type);
+        console.log(url);
+
+        return this.http.put(url,
+            obj,
             this.jwtPost())
             .map((response: Response) => <any>response.json())
             .catch(this.handleError);
@@ -181,6 +197,19 @@ export class ContentService {
     private handleError(error: Response) {
         console.error('handleError ' + JSON.stringify(error));
         return Observable.throw(error.json().error || 'Server error');
+    }
+
+    private escape(text: string): string {
+
+    return text.replace(/[\\]/g, '\\\\')
+    .replace(/[\"]/g, '\\\"')
+    .replace(/[\/]/g, '\\/')
+    .replace(/[\b]/g, '\\b')
+    .replace(/[\f]/g, '\\f')
+    .replace(/[\n]/g, '\\n')
+    .replace(/[\r]/g, '\\r')
+    .replace(/[\t]/g, '\\t');
+
     }
 
 }

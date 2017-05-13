@@ -2,29 +2,28 @@
 
   <!-- slide menu -->
 
-  <md-sidenav  *ngIf='hasRole' #sidenav [mode]='menuMode' [opened]='menuOpened' class='adminslidemenu'>
+  <md-sidenav #sidenav [mode]='this.menuMode' [opened]='menuOpened'>
     <nav>
-
-      <div *ngFor="let item of items">
-        <button [routerLink]="['/recordlist', item.type]" routerLinkActive="active" md-button color="primary" class='adminslidemenu-button'>
-                     <span class='adminslidemenu-button-text'>{{item.label}}</span>
-        </button>
-      </div>
-
+      <app-my-slidemenu class="slidemenu"></app-my-slidemenu>
     </nav>
   </md-sidenav>
 
 
   <!-- container -->
   <div class="my-content">
+    <div >
+        <button *ngIf='!menuOpened' md-button (click)='sidenav.open()' class="topmenucontent">
+        <md-icon >menu</md-icon>
+        </button>
+        <app-my-topmenu  class="topmenucontent"></app-my-topmenu>
+    </div>
+
+
 
     <div *ngIf='currentUser && !hasRole'>
       User not activated, please contact your administrator
       <p><a [routerLink]="['/login']">Logout</a></p>
     </div>
-
-        <!-- content -->
-        <router-outlet></router-outlet>
 
   </div>
 

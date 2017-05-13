@@ -8,5 +8,5 @@ import './rxjs-extensions';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app works!';
+  title = '';
 }

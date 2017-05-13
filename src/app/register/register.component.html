@@ -4,40 +4,46 @@
 
   <form name="form" (ngSubmit)="f.form.valid && register()" #f="ngForm" novalidate>
     <div [ngClass]="{ 'has-error': f.submitted && !email.valid }">
-      <label for="name">Name</label>
-      <input type="text" class="form-control" name="name" [(ngModel)]="model.name" #name="ngModel" required />
-      <div *ngIf="f.submitted && !name.valid" class="help-block">Name is required</div>
+
+              <md-input-container >
+                  <input type="text"  mdInput placeholder="Username" class="form-control" name="name" [(ngModel)]="model.name" #name="ngModel" required />
+              </md-input-container>
+
+
     </div>
 
     <div [ngClass]="{ 'has-error': f.submitted && !email.valid }">
-      <label for="email">email</label>
-      <input type="text" class="form-control" name="email" [(ngModel)]="model.email" #email="ngModel" required />
-      <div *ngIf="f.submitted && !email.valid" class="help-block">email is required</div>
+      <md-input-container >
+          <input type="text"  mdInput placeholder="email" class="form-control" name="email" [(ngModel)]="model.email" #email="ngModel" required />
+      </md-input-container>
+
     </div>
     <div [ngClass]="{ 'has-error': f.submitted && !password.valid }">
-      <label for="password">Password</label>
-      <input type="password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel" required />
-      <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>
+                <md-input-container >
+                <input type="password"  mdInput placeholder="password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel" required />
+                </md-input-container>
     </div>
 
     <div [ngClass]="{ 'has-error': f.submitted && !email.valid }">
-      <label for="secretQuestion">secret question</label>
-      <input type="text" class="form-control" name="secretQuestion" [(ngModel)]="model.secretQuestion" #secretQuestion="ngModel" required />
-      <div *ngIf="f.submitted && !secretQuestion.valid" class="help-block">Secret question is required</div>
+                    <md-input-container >
+                        <input type="text"  mdInput placeholder="secretQuestion" class="form-control" name="secretQuestion" [(ngModel)]="model.secretQuestion" #name="ngModel" required />
+                    </md-input-container>
     </div>
 
     <div [ngClass]="{ 'has-error': f.submitted && !email.valid }">
-      <label for="secretResponse">secret response</label>
-      <input type="text" class="form-control" name="secretResponse" [(ngModel)]="model.secretResponse" #secretResponse="ngModel" required />
-      <div *ngIf="f.submitted && !secretResponse.valid" class="help-block">Secret response is required</div>
+      <md-input-container >
+          <input type="text"  mdInput placeholder="secretResponse" class="form-control" name="secretResponse" [(ngModel)]="model.secretResponse" #name="ngModel" required />
+      </md-input-container>
     </div>
+
+
 
 
     <div>
-      <button [disabled]="loading" class="btn btn-primary">Register</button>
+      <button md-button [disabled]="loading" ><md-icon>check_circle</md-icon></button>
       <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
       />
-      <a [routerLink]="['/login']" class="btn btn-link">Cancel</a>
+        <button md-button [routerLink]="['/login']"><md-icon>close</md-icon></button>
     </div>
   </form>
 </div>

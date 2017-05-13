@@ -72,6 +72,24 @@ export class AuthenticationService {
       });
   }
 
+  modifypasssword(userInput: any) {
+
+    //
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+
+
+    const url: string = this.getUrl('/api/v1/modifypasssword');
+
+    const data = 'requestbody=' + JSON.stringify(userInput);
+
+    return this.http.post(url, data, { headers: headers })
+      .map((response: Response) => {
+        const registerResponse = response.json();
+      });
+  }
+
+
   /**
   * get API url
   * @arg path  eg : '/api/v1/content'

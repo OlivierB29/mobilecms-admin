@@ -7,10 +7,15 @@ import { AuthGuard } from './_guards/index';
 import { RecordListComponent } from 'app/recordlist/recordlist.component';
 import { RecordComponent } from 'app/record/record.component';
 
+import { ModifyPasswordComponent } from 'app/modifypassword/modifypassword.component';
+
+import { MainPageComponent } from 'app/mainpage/mainpage.component';
+
 const appRoutes: Routes = [
     { path: '', component: HomeComponent, canActivate: [AuthGuard] },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
+    { path: 'modifypasssword', component: ModifyPasswordComponent },
     { path: 'recordlist/:type',  component: RecordListComponent, canActivate: [AuthGuard] },
     { path: 'record/:type/:id',  component: RecordComponent, canActivate: [AuthGuard] },
 
