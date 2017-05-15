@@ -1,9 +1,9 @@
 <button [routerLink]="['/']" md-button><md-icon>home</md-icon></button>
 
-
+<div>{{'record.list.title' | translate}}</div>
 <div class="recordlist">
   <div>
-    <md-card><button md-button [routerLink]="['/record', type ,  'new']"><md-icon>add</md-icon></button>
+    <md-card><button md-button [routerLink]="['/record', type ,  'new']"><md-icon>add</md-icon> {{ 'record.list.create' | translate }}</button>
 
     <button md-button (click)="rebuildIndex()"><md-icon>refresh</md-icon></button></md-card>
 
@@ -11,7 +11,7 @@
 
     <div *ngIf="items">
       <div *ngFor="let item of items">
-        <a [routerLink]="['/record', type ,  item.id]">{{item.id}}  </a> {{item.title}}
+        <button md-button [routerLink]="['/record', type ,  item.id]">{{item.id}} {{item.title}}</button>
       </div>
     </div>
 

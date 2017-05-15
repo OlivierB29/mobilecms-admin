@@ -1,6 +1,13 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { ContentService, LocaleService } from '../_services/index';
 
+import { TranslatePipe } from '@ngx-translate/core';
+
+import { User } from '../_models/index';
+import { AuthenticationService } from '../_services/index';
+
+
+
 @Component({
     moduleId: module.id,
     selector: 'app-homeadmin',
@@ -9,6 +16,9 @@ import { ContentService, LocaleService } from '../_services/index';
 })
 
 export class HomeComponent implements OnInit {
+
+  currentUser: User;
+
 
   /*
 
@@ -22,13 +32,24 @@ export class HomeComponent implements OnInit {
   */
   menuOpened: true;
 
-    constructor() {
+
+    constructor(private authenticationService: AuthenticationService) {
     }
 
+    ngOnInit(): void {
+      this.initUser();
+    }
 
-    ngOnInit() {
-      console.log('home component');
+    private initUser() {
+      const currentUserLocalStorage = localStorage.getItem('currentUser');
+      console.log('TopMenuComponent ...');
+      if (currentUserLocalStorage) {
+        this.currentUser = JSON.parse(currentUserLocalStorage);
+        this.currentUser.token = '';
+        console.log('currentUser ...');
+      } else {
 
+      }
     }
 
 

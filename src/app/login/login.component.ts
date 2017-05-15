@@ -3,9 +3,14 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { AlertService, AuthenticationService } from '../_services/index';
 
+import { TranslatePipe } from '@ngx-translate/core';
+
+
+
 @Component({
     moduleId: module.id,
-    templateUrl: 'login.component.html'
+    templateUrl: 'login.component.html',
+    styleUrls: ['login.component.css']
 })
 /*
 * Credits :

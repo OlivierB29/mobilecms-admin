@@ -1,0 +1,30 @@
+{
+    "login.user":"Email - User account",
+    "login.password":"Password",
+    "home.help.title":"Administration mini guide",
+    "home.help.menu":"Open categories",
+    "home.help.disconnect":"Disconnect",
+    "home.help.home":"return to this page",
+    "record.list.title": "List",
+    "record.list.create": "Create a new record",
+    "record.edit.title": "Edit",
+    "record.edit.preview": "View on site",
+    "record.edit.save": "Save",
+    "record.edit.addimage":"Add an image",
+    "record.edit.addattachment":"Add a link",
+    "field.label.id":"id",
+    "field.label.description":"Record description",
+    "field.label.activity":"Activity",
+    "field.label.organization":"Organization",
+    "field.label.title":"Title",
+    "field.label.date":"Date",
+    "field.label.location":"Lieu",
+    "field.label.image.title":"Image title",
+    "field.label.image.url":"URL",
+    "field.label.image.link":"optionnal link",
+    "field.label.attachment.title":"Attachment title",
+    "field.label.attachment.url":"URL",
+    "field.label.attachment.description":"optionnal description"
+
+
+}

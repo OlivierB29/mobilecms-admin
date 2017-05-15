@@ -4,6 +4,9 @@ import { User, Label, RecordType, Metadata } from '../_models/index';
 import { ContentService } from '../_services/index';
 import { environment } from '../environment';
 
+import { TranslatePipe } from '@ngx-translate/core';
+
+
 @Component({
   moduleId: module.id,
   templateUrl: 'record.component.html',
@@ -43,6 +46,7 @@ export class RecordComponent implements OnInit {
    * object metadata
    */
   properties: Metadata[];
+
 
   /**
    * response on save
@@ -193,7 +197,6 @@ export class RecordComponent implements OnInit {
   preview() {
     this.generateId();
     const url = environment.website + '/' + this.type + '/' + this.id;
-    console.log("opening " + url);
     window.open(url, '_blank');
 }
 
