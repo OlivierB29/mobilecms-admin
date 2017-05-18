@@ -16,15 +16,21 @@ export class AuthGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean>|boolean  {
 
-    // check authentication token
-    return this.contentService.options().map(data => {
-            if (data) {
-                console.log('authenticated');
-                return true;
-            }
-            console.log('not authenticated');
-            return false;
-        });
+    if (localStorage.getItem('currentUser')) {
+      // check authentication token
+      return this.contentService.options().map(data => {
+              if (data) {
+                  console.log('authenticated');
+                  return true;
+              }
+              console.log('not authenticated');
+              return false;
+          });
+    } else {
+      return false;
+    }
+
+
 
   }
 }
