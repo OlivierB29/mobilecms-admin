@@ -5,6 +5,8 @@ import 'rxjs/add/operator/map'
 
 import { environment } from '../environment';
 
+import hash, { Hash, HMAC } from 'fast-sha256';
+import * as textencoding from 'text-encoding';
 
 /*
 * Credits :
@@ -16,8 +18,6 @@ export class AuthenticationService {
   private serverUrl = environment.server;
 
 
-
-
   /**
   * API endpoint
   */
@@ -27,6 +27,9 @@ export class AuthenticationService {
   constructor(private http: Http) { }
 
   login(user: string, password: string) {
+
+
+
     localStorage.removeItem('currentUser');
     //
     const headers = new Headers();
@@ -34,7 +37,7 @@ export class AuthenticationService {
 
     // TODO RESTful endpoint
     const url: string = this.getUrl('/api/v1/authenticate');
-    const data = 'requestbody=' + JSON.stringify({ user: user, password: password });
+    const data = 'requestbody=' + JSON.stringify({ user: user, password: this.hash(password) });
 
     return this.http.post(url, data, { headers: headers })
       .map((response: Response) => {
@@ -63,13 +66,26 @@ export class AuthenticationService {
 
 
     const url: string = this.getUrl('/api/v1/register');
-
+    userInput.password = this.hash(userInput.password);
     const data = 'requestbody=' + JSON.stringify(userInput);
 
     return this.http.post(url, data, { headers: headers })
       .map((response: Response) => {
         const registerResponse = response.json();
       });
+  }
+
+  /**
+   * Hash an input string password to a sha256 password.
+   * Explanation : this is just a client hash. The backend API has its own encrypt features.
+   * For the backend API, the hashed password is like the clear password.
+   * @param password clear text password
+   * @return a sha256 in string format
+   */
+  private hash(password: string): string {
+        const uint8array = new TextEncoder().encode(password);
+        const myarray = hash(uint8array);
+        return new TextDecoder().decode(myarray);
   }
 
   changepasssword(userInput: any) {
@@ -80,7 +96,7 @@ export class AuthenticationService {
 
 
     const url: string = this.getUrl('/api/v1/changepassword');
-
+    userInput.password = this.hash(userInput.password);
     const data = 'requestbody=' + JSON.stringify(userInput);
 
     return this.http.post(url, data, { headers: headers })

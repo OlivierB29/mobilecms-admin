@@ -44,7 +44,10 @@ export class ContentService {
 
 
         return this.http.get(url, this.jwt())
-            .map((response: Response) => <any[]>response.json())
+            .map((response: Response) => {
+              this.controlResponse(response);
+              return <any[]>response.json();
+            })
             .catch(this.handleError);
     }
 
@@ -59,7 +62,10 @@ export class ContentService {
 
 
         return this.http.get(url, this.jwt())
-            .map((response: Response) => <any[]>response.json())
+            .map((response: Response) => {
+              this.controlResponse(response);
+              return <any[]>response.json();
+            })
             .catch(this.handleError);
     }
 
@@ -74,7 +80,10 @@ export class ContentService {
         console.log(url);
 
         return this.http.get(url, this.jwt())
-            .map((response: Response) => <any>response.json())
+            .map((response: Response) => {
+              this.controlResponse(response);
+              return <any>response.json();
+            })
             .catch(this.handleError);
     }
 
@@ -93,7 +102,10 @@ export class ContentService {
         return this.http.post(url,
             postData,
             this.jwtPost())
-            .map((response: Response) => <any>response.json())
+            .map((response: Response) => {
+              this.controlResponse(response);
+              return <any>response.json();
+            })
             .catch(this.handleError);
 
     }
@@ -110,7 +122,10 @@ export class ContentService {
         return this.http.put(url,
             obj,
             this.jwtPost())
-            .map((response: Response) => <any>response.json())
+            .map((response: Response) => {
+              this.controlResponse(response);
+              return <any>response.json();
+            })
             .catch(this.handleError);
 
     }
@@ -129,7 +144,10 @@ export class ContentService {
         return this.http.post(url,
             postData,
             this.jwtPost())
-            .map((response: Response) => <any>response.json())
+            .map((response: Response) => {
+              this.controlResponse(response);
+              return <any>response.json();
+            })
             .catch(this.handleError);
 
     }
@@ -141,7 +159,10 @@ export class ContentService {
 
         const url: string = this.getUrl('/api/v1/file&file=' + file);
         return this.http.get(url, this.jwt())
-            .map((response: Response) => <Metadata[]>response.json())
+            .map((response: Response) => {
+              this.controlResponse(response);
+              return <Metadata[]>response.json();
+            })
             .catch(this.handleError);
     }
 
@@ -156,6 +177,25 @@ export class ContentService {
             .catch(this.handleError);
     }
 
+    public controlResponse = (response: Response): void => {
+      if (response.status < 200 || response.status >= 300) {
+        throw new Error('This request has failed ' + response.status);
+      }
+    }
+
+/**
+
+      response => {
+    // If request fails, throw an Error that will be caught
+    if(response.status < 200 || response.status >= 300) {
+      throw new Error('This request has failed ' + response.status);
+    }
+    // If everything went fine, return the response
+    else {
+      return <Metadata[]>response.json();
+    }
+
+*/
 
     // private helper methods
 
@@ -189,6 +229,8 @@ export class ContentService {
             headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 
             return new RequestOptions({ headers: headers });
+        } else {
+            throw new Error('empty user');
         }
     }
 
