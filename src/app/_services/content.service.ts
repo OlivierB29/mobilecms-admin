@@ -33,6 +33,20 @@ export class ContentService {
         return this.serverUrl + this.api + path;
     }
 
+    public options = (): Observable<any> => {
+        const url: string = this.getUrl('/api/v1/content');
+
+        console.log('options ' + url);
+
+
+        return this.http.get(url, this.jwt())
+            .map((response: Response) => {
+              this.controlResponse(response);
+              return <any>response.json();
+            })
+            .catch(this.handleError);
+    }
+
     /**
      * Get list of tables
      * Response [{"type":"calendar"},{"type":"news"}]
