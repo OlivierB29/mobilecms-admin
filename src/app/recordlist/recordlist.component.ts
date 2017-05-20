@@ -3,7 +3,6 @@ import { ActivatedRoute, Params } from '@angular/router';
 
 import { ContentService } from '../_services/index';
 
-import { TranslateService, TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   moduleId: module.id,
@@ -30,15 +29,11 @@ export class RecordListComponent implements OnInit {
 
 
 
-  constructor(private route: ActivatedRoute, private contentService: ContentService, private translate: TranslateService) { }
+  constructor(private route: ActivatedRoute, private contentService: ContentService) { }
 
   ngOnInit() {
     console.log('RecordListComponent ');
 
-    // this language will be used as a fallback when a translation isn't found in the current language
-    this.translate.setDefaultLang('fr');
-    // the lang to use, if the lang isn't available, it will use the current loader to get them
-    this.translate.use('fr');
 
     this.route.params.forEach((params: Params) => {
 

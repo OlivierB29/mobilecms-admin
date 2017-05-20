@@ -9,7 +9,7 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: Http) {
-    return new TranslateHttpLoader(http);
+  return new TranslateHttpLoader(http);
 }
 
 // Material Theme
@@ -36,44 +36,44 @@ import { MainPageComponent } from 'app/mainpage/mainpage.component';
 
 
 @NgModule({
-    imports: [
-        BrowserModule,
-        FormsModule,
-        HttpModule,
-        routing,
-        MaterialModule,
-        NoopAnimationsModule,
-        TranslateModule.forRoot({
-                    loader: {
-                        provide: TranslateLoader,
-                        useFactory: HttpLoaderFactory,
-                        deps: [Http]
-                    }
-                })
-    ],
-    declarations: [
+  imports: [
+    BrowserModule,
+    FormsModule,
+    HttpModule,
+    routing,
+    MaterialModule,
+    NoopAnimationsModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [Http]
+      }
+    })
+  ],
+  declarations: [
 
-        MainPageComponent,
-        AppComponent,
-        AlertComponent,
-        HomeComponent,
-        TopMenuComponent,
-        LoginComponent,
-        ModifyPasswordComponent,
-        RegisterComponent,
-        RecordListComponent,
-        RecordComponent,
-        SlidemenuComponent
-    ],
-    providers: [
-        AuthGuard,
-        AlertService,
-        AuthenticationService,
-        UserService,
-        ContentService,
-        LocaleService
-    ],
-    bootstrap: [AppComponent]
+    MainPageComponent,
+    AppComponent,
+    AlertComponent,
+    HomeComponent,
+    TopMenuComponent,
+    LoginComponent,
+    ModifyPasswordComponent,
+    RegisterComponent,
+    RecordListComponent,
+    RecordComponent,
+    SlidemenuComponent
+  ],
+  providers: [
+    AuthGuard,
+    AlertService,
+    AuthenticationService,
+    UserService,
+    ContentService,
+    LocaleService
+  ],
+  bootstrap: [AppComponent]
 })
 
 export class AppModule { }

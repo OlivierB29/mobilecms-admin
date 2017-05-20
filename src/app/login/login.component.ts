@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { AlertService, AuthenticationService } from '../_services/index';
 
-import { TranslatePipe } from '@ngx-translate/core';
+
 
 const DEFAULT = '/home';
 
@@ -34,6 +34,8 @@ export class LoginComponent implements OnInit {
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || DEFAULT;
         this.model.username = '';
+
+
     }
 
     login() {
