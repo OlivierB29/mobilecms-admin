@@ -16,7 +16,7 @@ export class RecordListComponent implements OnInit {
   /**
    * record data
    */
-  items: any[] = [];
+  items: any[] = null;
 
   /**
    * current type : news, calendar, ...

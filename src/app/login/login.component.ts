@@ -5,7 +5,7 @@ import { AlertService, AuthenticationService } from '../_services/index';
 
 import { TranslatePipe } from '@ngx-translate/core';
 
-
+const DEFAULT = '/home';
 
 @Component({
     moduleId: module.id,
@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit {
     loading = false;
     returnUrl: string;
 
+
     constructor(
         private route: ActivatedRoute,
         private router: Router,
@@ -31,7 +32,7 @@ export class LoginComponent implements OnInit {
         // reset login status
         this.authenticationService.logout();
         // get return url from route parameters or default to '/'
-        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || DEFAULT;
         this.model.username = '';
     }
 

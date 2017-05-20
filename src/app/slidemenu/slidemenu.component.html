@@ -1,8 +1,10 @@
-<div *ngFor="let menu of menuItems" >
+<div *ngIf="menuItems">
+  <div *ngFor="let menu of menuItems">
 
 
-  <button [routerLink]="['/recordlist', menu.type]" routerLinkActive="active" md-button color="primary" >
+    <button [routerLink]="['/recordlist', menu.type]" routerLinkActive="active" md-button color="primary">
                        <span class='adminslidemenu-button-text'>{{menu.label}}</span>
   </button>
 
+  </div>
 </div>

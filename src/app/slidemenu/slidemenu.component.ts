@@ -16,7 +16,7 @@ export class SlidemenuComponent implements OnInit {
   lang: string;
 
 
-  menuItems: RecordType[] = [];
+  menuItems: RecordType[] = null;
 
 
 
@@ -71,19 +71,21 @@ export class SlidemenuComponent implements OnInit {
           console.log('getItems complete :' + this.menuItems.length);
 
           // iterate each type
-          this.menuItems.forEach((record: RecordType) => {
-            // detect label value
-            record.labels.map((label: Label) => {
-              if (label.i18n === lang) {
-                record.label = label.label;
-                return label;
-              }
+          if (this.menuItems) {
+
+            this.menuItems.forEach((record: RecordType) => {
+              // detect label value
+              record.labels.map((label: Label) => {
+                if (label.i18n === lang) {
+                  record.label = label.label;
+                  return label;
+                }
+              });
+
+
+
             });
-
-
-
-          });
-
+          }
         });
 
 

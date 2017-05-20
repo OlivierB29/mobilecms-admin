@@ -12,14 +12,14 @@ import { ModifyPasswordComponent } from 'app/modifypassword/modifypassword.compo
 import { MainPageComponent } from 'app/mainpage/mainpage.component';
 
 const appRoutes: Routes = [
-    { path: '', component: HomeComponent, canActivate: [AuthGuard] },
+
+    { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+    { path: '', component: LoginComponent },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'modifypasssword', component: ModifyPasswordComponent },
     { path: 'recordlist/:type',  component: RecordListComponent, canActivate: [AuthGuard] },
     { path: 'record/:type/:id',  component: RecordComponent, canActivate: [AuthGuard] },
-
-    // otherwise redirect to home
     { path: '**', redirectTo: '' }
 ];
 

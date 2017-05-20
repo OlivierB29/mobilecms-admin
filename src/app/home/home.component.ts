@@ -34,19 +34,20 @@ export class HomeComponent implements OnInit {
 
 
     constructor(private authenticationService: AuthenticationService) {
+
     }
 
     ngOnInit(): void {
-      this.initUser();
+       this.initUser();
     }
 
     private initUser() {
       const currentUserLocalStorage = localStorage.getItem('currentUser');
-      console.log('TopMenuComponent ...');
+      console.log('HomeComponent ...');
       if (currentUserLocalStorage) {
         this.currentUser = JSON.parse(currentUserLocalStorage);
         this.currentUser.token = '';
-        console.log('currentUser ...');
+        console.log('HomeComponent currentUser ...');
       } else {
 
       }
