@@ -4,9 +4,10 @@
 <div class="container">
   <div >
     <md-card>
-    <button md-button (click)="save()"><md-icon>save</md-icon>{{'record.edit.save' | translate }}</button>
-    <button *ngIf="!newrecord && hasAdminRole" md-button (click)="preview()"> <md-icon>open_in_new</md-icon>{{'record.edit.preview' | translate }}</button>
-    <button *ngIf="!newrecord && hasAdminRole" md-button (click)="delete()"> <md-icon>delete</md-icon>delete</button>
+    <span mdTooltip="{{'record.edit.save' | translate }}"><button md-button (click)="save()"><md-icon>save</md-icon></button></span>
+    <button *ngIf="!newrecord && hasAdminRole" md-button (click)="preview()"> <md-icon>open_in_new</md-icon></button>
+
+    <span mdTooltip="{{'record.edit.delete' | translate }}"><button *ngIf="!newrecord" md-button (click)="delete()"> <md-icon>delete</md-icon></button></span>
     </md-card>
     <div *ngIf="response">
       response : {{response}}
@@ -78,8 +79,9 @@
           </div>
 
 
-
-          <button (click)="addImage()"><md-icon>image</md-icon>{{'record.edit.addimage' | translate}}</button>
+          <span mdTooltip="{{'record.edit.addimage' | translate}}">
+          <button (click)="addImage()"><md-icon>image</md-icon></button>
+         </span>
         </div>
 
         <div *ngIf="property.editor === 'attachmentlist' && property.name === 'attachments'">
@@ -104,8 +106,9 @@
           </div>
 
 
-
-          <button (click)="addAttachment()"><md-icon>attachment</md-icon>{{'record.edit.addattachment' | translate}}</button>
+            <span mdTooltip="{{'record.edit.addattachment' | translate}}">
+          <button (click)="addAttachment()"><md-icon>attachment</md-icon></button>
+          </span>
         </div>
 
 

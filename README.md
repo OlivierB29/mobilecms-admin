@@ -7,7 +7,7 @@ It is initially intended to manage content from a sport organization, with such 
 
 - Angular.io + Angular Material
 - [@ngx-translate](http://www.ngx-translate.com/)
-- Hosted on a cheap server, with no database available (see explanation in FAQ)
+- Hosted on a cheap server, with no database available
 - All the data is public, by default. (except users)
 
 ## Dev dependencies

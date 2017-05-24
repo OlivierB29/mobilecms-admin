@@ -10,6 +10,7 @@
     "record.edit.title": "Edit",
     "record.edit.preview": "View on site",
     "record.edit.save": "Save",
+    "record.edit.delete": "Delete",
     "record.edit.addimage":"Add an image",
     "record.edit.addattachment":"Add a link",
     "field.label.id":"id",

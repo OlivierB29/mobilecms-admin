@@ -9,8 +9,10 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: Http) {
-  return new TranslateHttpLoader(http);
+  // add './' for targeting local app directory
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
+
 
 // Material Theme
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
