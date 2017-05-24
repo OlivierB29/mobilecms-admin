@@ -194,6 +194,22 @@ export class RecordComponent implements OnInit {
 
   }
 
+  delete() {
+
+    this.contentService.delete(this.type, this.current.id)
+      .subscribe((data: any) => this.response = JSON.stringify(data),
+      error => console.error('delete ' + error),
+      () => {
+
+        // forward to record modification page
+        this.router.navigate(['/recordlist' , this.type ]);
+
+
+        console.log('delete complete');
+       });
+
+  }
+
   preview() {
     this.generateId();
     const url = environment.website + '/' + this.type + '/' + this.id;

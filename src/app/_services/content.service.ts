@@ -125,6 +125,26 @@ export class ContentService {
     }
 
     /**
+     * delete a record
+     */
+    public delete = (type: string, id: string): Observable<any> => {
+
+        // eg : /api/v1/content/calendar
+        const url: string = this.getUrl('/api/v1/content/' + type + '/' + id);
+        console.log(url);
+
+
+        return this.http.delete(url,
+            this.jwt())
+            .map((response: Response) => {
+              this.controlResponse(response);
+              return <any>response.json();
+            })
+            .catch(this.handleError);
+
+    }
+
+    /**
      * save a record
      */
     public putObject = (type: string, obj: any): Observable<any> => {
