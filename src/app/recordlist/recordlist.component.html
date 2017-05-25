@@ -3,7 +3,8 @@
 <div>{{'record.list.title' | translate}}</div>
 <div class="recordlist">
   <div>
-    <md-card><button md-button [routerLink]="['/record', type ,  'new']"><md-icon>add</md-icon> {{ 'record.list.create' | translate }}</button>
+    <md-card>
+      <span mdTooltip="{{ 'record.list.create' | translate }}"><button md-button [routerLink]="['/record', type ,  'new']"><md-icon>add</md-icon> </button></span>
 
     <button md-button (click)="rebuildIndex()"><md-icon>refresh</md-icon></button></md-card>
 

@@ -36,7 +36,7 @@ export class AuthenticationService {
     headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 
     // TODO RESTful endpoint
-    const url: string = this.getUrl('/api/v1/authenticate');
+    const url: string = this.getUrl('/authenticate');
     const data = 'requestbody=' + JSON.stringify({ user: user, password: this.hash(password) });
 
     return this.http.post(url, data, { headers: headers })
@@ -65,7 +65,7 @@ export class AuthenticationService {
     headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 
 
-    const url: string = this.getUrl('/api/v1/register');
+    const url: string = this.getUrl('/register');
     userInput.password = this.hash(userInput.password);
     const data = 'requestbody=' + JSON.stringify(userInput);
 
@@ -95,7 +95,7 @@ export class AuthenticationService {
     headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 
 
-    const url: string = this.getUrl('/api/v1/changepassword');
+    const url: string = this.getUrl('/changepassword');
     userInput.password = this.hash(userInput.password);
     const data = 'requestbody=' + JSON.stringify(userInput);
 
@@ -108,8 +108,8 @@ export class AuthenticationService {
 
   /**
   * get API url
-  * @arg path  eg : '/api/v1/content'
-  * @returns http://localhost//adminapp/api/v1/api.php?path=/api/v1/content
+  * @arg path  eg : '/content'
+  * @returns http://localhost//adminapp/api.php?path=/content
   */
   private getUrl(path: string): string {
     return this.serverUrl + this.api + path;

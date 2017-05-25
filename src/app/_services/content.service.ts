@@ -26,15 +26,15 @@ export class ContentService {
 
     /**
     * get API url
-    * @arg path  eg : '/api/v1/content'
-    * @returns http://server//adminapp/api/v1/api.php?path=/api/v1/content
+    * @arg path  eg : '/content'
+    * @returns http://server//adminapp/api.php?path=/content
     */
     private getUrl(path: string): string {
         return this.serverUrl + this.api + path;
     }
 
     public options = (): Observable<any> => {
-        const url: string = this.getUrl('/api/v1/content');
+        const url: string = this.getUrl('/content');
 
         console.log('options ' + url);
 
@@ -52,7 +52,7 @@ export class ContentService {
      * Response [{"type":"calendar"},{"type":"news"}]
      */
     public getTables = (): Observable<any[]> => {
-        const url: string = this.getUrl('/api/v1/content');
+        const url: string = this.getUrl('/content');
 
         console.log('getTables ' + url);
 
@@ -70,7 +70,7 @@ export class ContentService {
      * Response :
      */
     public getRecords = (type: string): Observable<any[]> => {
-        const url: string = this.getUrl('/api/v1/content/' + type);
+        const url: string = this.getUrl('/content/' + type);
 
         console.log('getRecords ' + url);
 
@@ -90,7 +90,7 @@ export class ContentService {
      * @returns Observable of a JSON record
      */
     public getRecord = (type: string, id: string): Observable<any> => {
-        const url: string = this.getUrl('/api/v1/content/' + type + '/' + id);
+        const url: string = this.getUrl('/content/' + type + '/' + id);
         console.log(url);
 
         return this.http.get(url, this.jwt())
@@ -106,8 +106,8 @@ export class ContentService {
      */
     public post = (type: string, obj: any): Observable<any> => {
 
-        // eg : /api/v1/content/calendar
-        const url: string = this.getUrl('/api/v1/content/' + type);
+        // eg : /content/calendar
+        const url: string = this.getUrl('/content/' + type);
         console.log(url);
 
         // escape issue, with some characters like
@@ -129,8 +129,8 @@ export class ContentService {
      */
     public delete = (type: string, id: string): Observable<any> => {
 
-        // eg : /api/v1/content/calendar
-        const url: string = this.getUrl('/api/v1/content/' + type + '/' + id);
+        // eg : /content/calendar
+        const url: string = this.getUrl('/content/' + type + '/' + id);
         console.log(url);
 
 
@@ -149,8 +149,8 @@ export class ContentService {
      */
     public putObject = (type: string, obj: any): Observable<any> => {
 
-        // eg : /api/v1/content/calendar
-        const url: string = this.getUrl('/api/v1/content/' + type);
+        // eg : /content/calendar
+        const url: string = this.getUrl('/content/' + type);
         console.log(url);
 
         return this.http.put(url,
@@ -169,8 +169,8 @@ export class ContentService {
      */
     public rebuildIndex = (type: string): Observable<any> => {
 
-        // eg : /api/v1/index/calendar
-        const url: string = this.getUrl('/api/v1/index/' + type);
+        // eg : /index/calendar
+        const url: string = this.getUrl('/index/' + type);
         console.log(url);
 
         const postData = 'requestbody={}';
@@ -191,7 +191,8 @@ export class ContentService {
      */
     public getMetadata = (file: string): Observable<Metadata[]> => {
 
-        const url: string = this.getUrl('/api/v1/file&file=' + file);
+         const url: string = this.getUrl('/file/?file=' + file);
+
         return this.http.get(url, this.jwt())
             .map((response: Response) => {
               this.controlResponse(response);
@@ -205,7 +206,7 @@ export class ContentService {
      */
     public getNewRecord = (file: string): Observable<any[]> => {
 
-        const url: string = this.getUrl('/api/v1/file&file=' + file);
+        const url: string = this.getUrl('/file&file=' + file);
         return this.http.get(url, this.jwt())
             .map((response: Response) => <Metadata[]>response.json())
             .catch(this.handleError);

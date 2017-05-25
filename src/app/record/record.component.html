@@ -45,7 +45,12 @@
           </md-input-container>
         </div>
 
-
+        <div *ngIf="property.editor === 'date'" >
+          ZZ
+          <md-input-container class="full-width-input" *ngIf="property.editor === 'date'">
+            <input mdInput placeholder="{{'field.label.' + property.name | translate }}" [(ngModel)]="current[property.name]" name="{{property.name}}" id="{{property.name}}" type="date">
+          </md-input-container>
+        </div>
 
         <!-- choice list -->
         <div *ngIf="property.editor === 'choice'">
