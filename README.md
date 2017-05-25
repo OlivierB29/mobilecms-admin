@@ -1,14 +1,15 @@
 # MobilecmsAdmin
 
-This project is a admin app for writing content through a REST API.
+This project is a admin app for writing content through a RESTful API.
 It is initially intended to manage content from a sport organization, with such content : News, calendar events, public pages, documents, ...
+All the data is public, by default. (except users)
 
 ## Dependencies
 
 - Angular.io + Angular Material
 - [@ngx-translate](http://www.ngx-translate.com/)
 - Hosted on a cheap server, with no database available
-- All the data is public, by default. (except users)
+- A running [mobilecms-api](https://github.com/OlivierB29/mobilecms-api)
 
 ## Dev dependencies
 
