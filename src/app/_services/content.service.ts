@@ -206,7 +206,7 @@ export class ContentService {
      */
     public getNewRecord = (file: string): Observable<any[]> => {
 
-        const url: string = this.getUrl('/file&file=' + file);
+        const url: string = this.getUrl('/file/?file=' + file);
         return this.http.get(url, this.jwt())
             .map((response: Response) => <Metadata[]>response.json())
             .catch(this.handleError);
