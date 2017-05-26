@@ -21,6 +21,8 @@ export class ContentService {
     */
     private api = environment.api;
 
+    private postFormData = true;
+
 
     constructor(private http: Http) { }
 
@@ -110,8 +112,14 @@ export class ContentService {
         const url: string = this.getUrl('/content/' + type);
         console.log(url);
 
-        // escape issue, with some characters like
-        const postData: string = 'requestbody=' + JSON.stringify(JSON.parse(JSON.stringify(obj)));
+
+         let postData = '';
+         if (this.postFormData) {
+	        // escape issue, with some characters like &
+           postData = 'requestbody=' + encodeURIComponent(JSON.stringify(JSON.parse(JSON.stringify(obj))));
+         } else {
+           postData = JSON.stringify(obj);
+         }
 
         return this.http.post(url,
             postData,
@@ -261,7 +269,12 @@ export class ContentService {
             const headers = new Headers({ 'Authorization': 'Bearer ' + currentUser.token });
 
             // for POST
-            headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+            if (this.postFormData) {
+              headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+            } else {
+              headers.append('Content-Type', 'application/json; charset=UTF-8');
+            }
+
 
             return new RequestOptions({ headers: headers });
         } else {
