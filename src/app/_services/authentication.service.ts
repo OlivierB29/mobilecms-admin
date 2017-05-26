@@ -8,6 +8,8 @@ import { environment } from '../environment';
 import hash, { Hash, HMAC } from 'fast-sha256';
 import * as textencoding from 'text-encoding';
 
+import { User } from '../_models/index';
+
 /*
 * Credits :
 * based on http://jasonwatmore.com/post/2016/09/29/angular-2-user-registration-and-login-example-tutorial
@@ -115,8 +117,18 @@ export class AuthenticationService {
     return this.serverUrl + this.api + path;
   }
 
-  logout() {
+  public logout() {
     // remove user from local storage to log user out
     localStorage.removeItem('currentUser');
+  }
+
+  public initUser(): User {
+    let currentUser: User = null;
+    const currentUserLocalStorage = localStorage.getItem('currentUser');
+    if (currentUserLocalStorage) {
+      currentUser = JSON.parse(currentUserLocalStorage);
+      currentUser.token = '';
+    }
+    return currentUser;
   }
 }

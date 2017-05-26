@@ -3,6 +3,10 @@ import { ActivatedRoute, Params } from '@angular/router';
 
 import { ContentService } from '../_services/index';
 
+import { User } from '../_models/index';
+import { AuthenticationService } from '../_services/index';
+
+
 
 @Component({
   moduleId: module.id,
@@ -11,6 +15,10 @@ import { ContentService } from '../_services/index';
 })
 
 export class RecordListComponent implements OnInit {
+
+
+    currentUser: User;
+
 
   /**
    * record data
@@ -28,11 +36,26 @@ export class RecordListComponent implements OnInit {
   response: any = null;
 
 
+  /*
 
-  constructor(private route: ActivatedRoute, private contentService: ContentService) { }
+  https://material.angular.io/components/component/sidenav
+  */
+  menuMode:  'side';
+
+  /*
+  opened
+  https://www.npmjs.com/package/@angular2-material/sidenav
+  */
+  menuOpened: true;
+
+
+  constructor(private route: ActivatedRoute, private contentService: ContentService,
+    private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
     console.log('RecordListComponent ');
+
+    this.currentUser = this.authenticationService.initUser();
 
 
     this.route.params.forEach((params: Params) => {
@@ -66,5 +89,7 @@ export class RecordListComponent implements OnInit {
       () => { console.log('post complete'); });
 
   }
+
+
 
 }
