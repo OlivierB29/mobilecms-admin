@@ -25,3 +25,9 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
 
 Build with specified web context : `ng build --prod --base-href /admin/`
+
+
+## register a new user
+- open `http://localhost:4200/register`
+- edit /var/www/private/users/email@example.com.json and change the role for editor or admin
+- login `http://localhost:4200/`
