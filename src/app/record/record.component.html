@@ -1,14 +1,17 @@
-<button [routerLink]="['/recordlist/'+type]" md-button><md-icon>arrow_back</md-icon></button>
-<div>{{'record.edit.title' | translate }} </div>
+
+<md-toolbar color="primary">
+<button md-button [routerLink]="['/recordlist/'+type]" mdTooltip="{{'record.edit.back' | translate }}"><md-icon>arrow_back</md-icon></button>
+{{'record.edit.title' | translate }}
+<button md-button (click)="save()"  mdTooltip="{{'record.edit.save' | translate }}"><md-icon>save</md-icon></button>
+<button md-button *ngIf="!newrecord && hasAdminRole" (click)="preview()"> <md-icon>open_in_new</md-icon></button>
+<button md-button *ngIf="!newrecord" (click)="delete()" mdTooltip="{{'record.edit.delete' | translate }}"> <md-icon>delete</md-icon></button>
+
+</md-toolbar>
+
 
 <div class="container">
   <div>
-    <md-card>
-      <span mdTooltip="{{'record.edit.save' | translate }}"><button md-button (click)="save()"><md-icon>save</md-icon></button></span>
-      <button *ngIf="!newrecord && hasAdminRole" md-button (click)="preview()"> <md-icon>open_in_new</md-icon></button>
 
-      <span mdTooltip="{{'record.edit.delete' | translate }}"><button *ngIf="!newrecord" md-button (click)="delete()"> <md-icon>delete</md-icon></button></span>
-    </md-card>
     <div *ngIf="response">
       response : {{response}}
     </div>
@@ -46,7 +49,7 @@
         </div>
 
         <div *ngIf="property.editor === 'date'">
-          <md-input-container class="full-width-input" *ngIf="property.editor === 'date'">
+          <md-input-container  *ngIf="property.editor === 'date'">
             <input mdInput placeholder="{{'field.label.' + property.name | translate }}" [(ngModel)]="current[property.name]" name="{{property.name}}" type="date">
           </md-input-container>
         </div>

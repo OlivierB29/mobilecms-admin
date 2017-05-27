@@ -8,6 +8,7 @@
     "record.list.title": "List",
     "record.list.create": "Create a new record",
     "record.edit.title": "Edit",
+    "record.edit.back": "Back",
     "record.edit.preview": "View on site",
     "record.edit.save": "Save",
     "record.edit.delete": "Delete",
