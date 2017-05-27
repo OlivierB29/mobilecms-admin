@@ -1,13 +1,13 @@
-<button [routerLink]="['/home']" md-button><md-icon>home</md-icon></button>
+<button [routerLink]="['/recordlist/'+type]" md-button><md-icon>arrow_back</md-icon></button>
 <div>{{'record.edit.title' | translate }} </div>
 
 <div class="container">
-  <div >
+  <div>
     <md-card>
-    <span mdTooltip="{{'record.edit.save' | translate }}"><button md-button (click)="save()"><md-icon>save</md-icon></button></span>
-    <button *ngIf="!newrecord && hasAdminRole" md-button (click)="preview()"> <md-icon>open_in_new</md-icon></button>
+      <span mdTooltip="{{'record.edit.save' | translate }}"><button md-button (click)="save()"><md-icon>save</md-icon></button></span>
+      <button *ngIf="!newrecord && hasAdminRole" md-button (click)="preview()"> <md-icon>open_in_new</md-icon></button>
 
-    <span mdTooltip="{{'record.edit.delete' | translate }}"><button *ngIf="!newrecord" md-button (click)="delete()"> <md-icon>delete</md-icon></button></span>
+      <span mdTooltip="{{'record.edit.delete' | translate }}"><button *ngIf="!newrecord" md-button (click)="delete()"> <md-icon>delete</md-icon></button></span>
     </md-card>
     <div *ngIf="response">
       response : {{response}}
@@ -22,38 +22,38 @@
 
         <!-- multiline text edit -->
 
-          <md-input-container *ngIf="property.editor === 'text'" class="full-width-textarea">
-            <textarea mdInput placeholder="{{'field.label.' + property.name | translate }}" rows="10" cols="" [(ngModel)]="current[property.name]" name="{{property.name}}" id="{{property.name}}">{{current[property.name]}}</textarea>
-          </md-input-container>
+        <md-input-container *ngIf="property.editor === 'text'" class="full-width-textarea">
+          <textarea mdInput placeholder="{{'field.label.' + property.name | translate }}" rows="10" cols="" [(ngModel)]="current[property.name]" name="{{property.name}}">{{current[property.name]}}</textarea>
+        </md-input-container>
 
 
         <!-- single line text edit -->
-        <div *ngIf="property.name === 'id'" >
+        <div *ngIf="property.name === 'id'">
           <md-input-container class="full-width-input" *ngIf="property.editor === 'line'">
-            <input readonly mdInput placeholder="{{'field.label.' + property.name | translate }}" [(ngModel)]="current[property.name]" name="{{property.name}}" id="{{property.name}}" type="text">
+            <input readonly mdInput placeholder="{{'field.label.' + property.name | translate }}" [(ngModel)]="current[property.name]" name="{{property.name}}" type="text">
           </md-input-container>
         </div>
-        <div *ngIf="property.name === 'title'" >
+        <div *ngIf="property.name === 'title'">
           <md-input-container class="full-width-input" *ngIf="property.editor === 'line'">
-            <input  (keypress)="generateId()" mdInput placeholder="{{'field.label.' + property.name | translate }}" [(ngModel)]="current[property.name]" name="{{property.name}}" id="{{property.name}}" type="text">
-          </md-input-container>
-        </div>
-
-        <div *ngIf="property.name !== 'id' && property.name !== 'title'" >
-          <md-input-container class="full-width-input" *ngIf="property.editor === 'line'">
-            <input mdInput placeholder="{{'field.label.' + property.name | translate }}" [(ngModel)]="current[property.name]" name="{{property.name}}" id="{{property.name}}" type="text">
+            <input (keypress)="generateId()" mdInput placeholder="{{'field.label.' + property.name | translate }}" [(ngModel)]="current[property.name]" name="{{property.name}}" type="text">
           </md-input-container>
         </div>
 
-        <div *ngIf="property.editor === 'date'" >
+        <div *ngIf="property.name !== 'id' && property.name !== 'title'">
+          <md-input-container class="full-width-input" *ngIf="property.editor === 'line'">
+            <input mdInput placeholder="{{'field.label.' + property.name | translate }}" [(ngModel)]="current[property.name]" name="{{property.name}}" type="text">
+          </md-input-container>
+        </div>
+
+        <div *ngIf="property.editor === 'date'">
           <md-input-container class="full-width-input" *ngIf="property.editor === 'date'">
-            <input mdInput placeholder="{{'field.label.' + property.name | translate }}" [(ngModel)]="current[property.name]" name="{{property.name}}" id="{{property.name}}" type="date">
+            <input mdInput placeholder="{{'field.label.' + property.name | translate }}" [(ngModel)]="current[property.name]" name="{{property.name}}" type="date">
           </md-input-container>
         </div>
 
         <!-- choice list -->
         <div *ngIf="property.editor === 'choice'">
-          <md-select placeholder="{{'field.label.' + property.name | translate }}" [(ngModel)]="current[property.name]" name="{{property.name}}" id="{{property.name}}">
+          <md-select placeholder="{{'field.label.' + property.name | translate }}" [(ngModel)]="current[property.name]" name="{{property.name}}">
             <!-- list of choices from metadata -->
             <md-option *ngFor="let choice of property.choices" [value]="choice">{{ choice }}</md-option>
           </md-select>
@@ -61,59 +61,67 @@
         </div>
 
         <!-- single line text edit -->
-        <div *ngIf="property.editor === 'imagelist' && property.name === 'images'" >
-          <div *ngIf="images">{{images.length}}</div>
+        <md-card *ngIf="property.editor === 'imagelist' && property.name === 'images'" class="list-container">
+          <md-card-title *ngIf="images">{{'record.edit.images' | translate}} : {{images.length}}</md-card-title>
+
+          <span mdTooltip="{{'record.edit.addimage' | translate}}">
+          <button (click)="addImage()"  md-button><md-icon>image</md-icon></button>
+         </span>
 
           <div *ngFor="let image of images; let i=index" class="input-group">
             <md-card>
 
-            <md-input-container class="full-width-input">
-              <input mdInput placeholder="{{'field.label.image.title' | translate}}" [(ngModel)]="images[i].title" type="text">
-            </md-input-container>
+              <md-input-container class="full-width-input">
+                <input mdInput placeholder="{{'field.label.image.title' | translate}}" [(ngModel)]="images[i].title" type="text">
+              </md-input-container>
 
-            <md-input-container class="full-width-input">
-              <input mdInput placeholder="{{'field.label.image.url' | translate}}" [(ngModel)]="images[i].url" type="text">
-            </md-input-container>
+              <md-input-container class="full-width-input">
+                <input mdInput placeholder="{{'field.label.image.url' | translate}}" [(ngModel)]="images[i].url" type="text">
+              </md-input-container>
 
-            <md-input-container class="full-width-input">
-              <input mdInput placeholder="{{'field.label.image.link' | translate}}" [(ngModel)]="images[i].link" type="text">
-            </md-input-container>
+              <md-input-container class="full-width-input">
+                <input mdInput placeholder="{{'field.label.image.link' | translate}}" [(ngModel)]="images[i].link" type="text">
+              </md-input-container>
+
+              <button (click)=deleteImage(i) md-button><md-icon>delete_forever</md-icon></button>
 
             </md-card>
           </div>
 
 
-          <span mdTooltip="{{'record.edit.addimage' | translate}}">
-          <button (click)="addImage()"><md-icon>image</md-icon></button>
-         </span>
-        </div>
 
-        <div *ngIf="property.editor === 'attachmentlist' && property.name === 'attachments'">
-          <div *ngIf="attachments">{{attachments.length}}</div>
+        </md-card>
 
-          <div *ngFor="let attachment of attachments; let i=index"  class="input-group">
+        <br/>
+
+        <md-card *ngIf="property.editor === 'attachmentlist' && property.name === 'attachments'" class="list-container">
+          <md-card-title *ngIf="attachments">{{'record.edit.attachments' | translate}} : {{attachments.length}}</md-card-title>
+
+          <span mdTooltip="{{'record.edit.addattachment' | translate}}">
+                    <button (click)="addAttachment()"  md-button><md-icon>attachment</md-icon></button>
+          </span>
+
+          <div *ngFor="let attachment of attachments; let i=index" class="input-group">
 
             <md-card>
-            <md-input-container class="full-width-input">
-              <input mdInput placeholder="{{'field.label.attachment.title' | translate}}" [(ngModel)]="attachments[i].title" type="text">
-            </md-input-container>
+              <md-input-container class="full-width-input">
+                <input mdInput placeholder="{{'field.label.attachment.title' | translate}}" [(ngModel)]="attachments[i].title" type="text">
+              </md-input-container>
 
-            <md-input-container class="full-width-input">
-              <input mdInput placeholder="{{'field.label.attachment.url' | translate}}" [(ngModel)]="attachments[i].url" type="text">
-            </md-input-container>
+              <md-input-container class="full-width-input">
+                <input mdInput placeholder="{{'field.label.attachment.url' | translate}}" [(ngModel)]="attachments[i].url" type="text">
+              </md-input-container>
 
-            <md-input-container class="full-width-input">
-              <input mdInput placeholder="{{'field.label.attachment.description' | translate}}" [(ngModel)]="attachments[i].description" type="text">
-            </md-input-container>
-          </md-card>
+              <md-input-container class="full-width-input">
+                <input mdInput placeholder="{{'field.label.attachment.description' | translate}}" [(ngModel)]="attachments[i].description" type="text">
+              </md-input-container>
+              <button (click)=deleteAttachment(i) md-button><md-icon>delete_forever</md-icon></button>
+            </md-card>
 
           </div>
 
 
-            <span mdTooltip="{{'record.edit.addattachment' | translate}}">
-          <button (click)="addAttachment()"><md-icon>attachment</md-icon></button>
-          </span>
-        </div>
+        </md-card>
 
 
 

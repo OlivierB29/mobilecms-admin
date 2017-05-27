@@ -223,6 +223,18 @@ export class RecordComponent implements OnInit {
 
   }
 
+deleteImage(index: number) {
+  if (index > -1) {
+    this.images.splice(index, 1);
+  }
+}
+
+deleteAttachment(index: number) {
+  if (index > -1) {
+    this.attachments.splice(index, 1);
+  }
+}
+
   preview() {
     this.generateId();
     const url = environment.website + '/' + this.type + '/' + this.id;

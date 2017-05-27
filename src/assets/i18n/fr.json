@@ -13,6 +13,8 @@
     "record.edit.delete": "Supprimer",
     "record.edit.addimage":"Ajouter une image",
     "record.edit.addattachment":"Ajouter un lien",
+    "record.edit.images":"Images",
+    "record.edit.attachments":"Liens - Pièces jointes",
     "field.label.id":"identifiant technique",
     "field.label.description":"Description",
     "field.label.title":"Titre",

@@ -18,3 +18,7 @@ input:read-only {
 .container {
   padding: 2em;
 }
+
+.list-container {
+  padding-bottom: 2em;
+}
