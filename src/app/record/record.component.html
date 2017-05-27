@@ -63,13 +63,14 @@
 
         </div>
 
-        <!-- single line text edit -->
-        <md-card *ngIf="property.editor === 'imagelist' && property.name === 'images'" class="list-container">
-          <md-card-title *ngIf="images">{{'record.edit.images' | translate}} : {{images.length}}</md-card-title>
 
-          <span mdTooltip="{{'record.edit.addimage' | translate}}">
-          <button (click)="addImage()"  md-button><md-icon>image</md-icon></button>
-         </span>
+
+        <div *ngIf="property.editor === 'imagelist' && property.name === 'images'" class="list-container">
+          <!-- single line text edit -->
+          <md-toolbar color="primary">
+            <span *ngIf="images">{{'record.edit.images' | translate}} : {{images.length}}</span>
+            <button md-button (click)="addImage()"mdTooltip="{{'record.edit.addimage' | translate}}"><md-icon>image</md-icon></button>
+          </md-toolbar>
 
           <div *ngFor="let image of images; let i=index" class="input-group">
             <md-card>
@@ -91,18 +92,14 @@
             </md-card>
           </div>
 
+        </div>
 
 
-        </md-card>
-
-        <br/>
-
-        <md-card *ngIf="property.editor === 'attachmentlist' && property.name === 'attachments'" class="list-container">
-          <md-card-title *ngIf="attachments">{{'record.edit.attachments' | translate}} : {{attachments.length}}</md-card-title>
-
-          <span mdTooltip="{{'record.edit.addattachment' | translate}}">
-                    <button (click)="addAttachment()"  md-button><md-icon>attachment</md-icon></button>
-          </span>
+        <div *ngIf="property.editor === 'attachmentlist' && property.name === 'attachments'" class="list-container">
+          <md-toolbar color="primary">
+            <span *ngIf="attachments">{{'record.edit.attachments' | translate}} : {{attachments.length}}</span>
+            <button  md-button (click)="addAttachment()" mdTooltip="{{'record.edit.addattachment' | translate}}"><md-icon>attachment</md-icon></button>
+          </md-toolbar>
 
           <div *ngFor="let attachment of attachments; let i=index" class="input-group">
 
@@ -124,7 +121,7 @@
           </div>
 
 
-        </md-card>
+        </div>
 
 
 
