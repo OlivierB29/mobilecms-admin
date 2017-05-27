@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { User, Label, RecordType, Metadata } from '../_models/index';
 import { ContentService } from '../_services/index';
-import { environment } from '../environment';
+import { environment } from '../../environments/environment';
 
 import { TranslatePipe } from '@ngx-translate/core';
 

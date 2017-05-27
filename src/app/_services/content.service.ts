@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { User } from '../_models/index';
 import { Metadata } from 'app/_models';
 
-import { environment } from '../environment';
+import { environment } from '../../environments/environment';
 
 
 @Injectable()

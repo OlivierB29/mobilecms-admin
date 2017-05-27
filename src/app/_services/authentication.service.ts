@@ -3,7 +3,7 @@ import { Http, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map'
 
-import { environment } from '../environment';
+import { environment } from '../../environments/environment';
 
 import hash, { Hash, HMAC } from 'fast-sha256';
 import * as textencoding from 'text-encoding';

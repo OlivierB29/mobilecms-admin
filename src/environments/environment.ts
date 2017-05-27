@@ -5,8 +5,8 @@
 
 export const environment = {
   production: false,
-  server: '',
-  website: '',
+  server: 'http://localhost',
+  website: 'http://localhost/#',
   api: '/restapi/v1',
   authenticateapi: '/authapi/v1'
 };
