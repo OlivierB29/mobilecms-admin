@@ -86,6 +86,25 @@ export class ContentService {
     }
 
     /**
+     * @arg type : news, calendar, ...
+     * Response :
+     */
+    public getIndex = (type: string): Observable<any[]> => {
+      const url: string = this.getUrl('/index/' + type);
+      console.log(url);
+
+        console.log('getRecords ' + url);
+
+
+        return this.http.get(url, this.jwt())
+            .map((response: Response) => {
+              this.controlResponse(response);
+              return <any[]>response.json();
+            })
+            .catch(this.handleError);
+    }
+
+    /**
      * get a single record
      * @arg type : news, calendar, ...
      * @arg id : unique id

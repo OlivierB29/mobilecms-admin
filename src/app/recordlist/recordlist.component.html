@@ -39,7 +39,8 @@
 
         <div *ngIf="items">
           <div *ngFor="let item of items">
-            <button md-button [routerLink]="['/record', type ,  item.id]">{{item.id}} {{item.title}}</button>
+            <button *ngIf='item.title' md-button [routerLink]="['/record', type ,  item.id]">{{item.title}}</button>
+            <button *ngIf='!item.title' md-button [routerLink]="['/record', type ,  item.id]">{{item.id}}</button>
           </div>
         </div>
 

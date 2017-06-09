@@ -65,7 +65,7 @@ export class RecordListComponent implements OnInit {
 
       if (this.type) {
 
-        this.contentService.getRecords(this.type)
+        this.contentService.getIndex(this.type)
           .subscribe((data: any[]) => this.items = data,
           error => console.log('getItems ' + error),
           () => {
