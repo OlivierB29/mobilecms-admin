@@ -67,6 +67,7 @@ import {  OrderbyPipe } from './shared/filters';
     RegisterComponent,
     RecordListComponent,
     RecordComponent,
+    OrderbyPipe,
     SlidemenuComponent
   ],
   providers: [
