@@ -6,7 +6,7 @@ import { ContentService } from '../_services/index';
 import { User } from '../_models/index';
 import { AuthenticationService } from '../_services/index';
 
-
+import { OrderbyPipe } from '../shared/filters';
 
 @Component({
   moduleId: module.id,
@@ -50,7 +50,8 @@ export class RecordListComponent implements OnInit {
 
 
   constructor(private route: ActivatedRoute, private contentService: ContentService,
-    private authenticationService: AuthenticationService) { }
+    private authenticationService: AuthenticationService,
+  private orderby: OrderbyPipe) { }
 
   ngOnInit() {
     console.log('RecordListComponent ');
@@ -70,6 +71,13 @@ export class RecordListComponent implements OnInit {
           error => console.log('getItems ' + error),
           () => {
             console.log('getItems complete ' + this.type + ' ' + this.items.length);
+
+            // TODO generic sort by metadata
+            if (this.items.length > 0 && this.items[0].date) {
+              this.orderby.transform(this.items, 'date', 'desc');
+            }
+
+
           });
 
       }

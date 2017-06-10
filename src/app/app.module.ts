@@ -36,6 +36,8 @@ import { ModifyPasswordComponent } from 'app/modifypassword';
 import { TopMenuComponent } from 'app/topmenu/topmenu.component';
 import { MainPageComponent } from 'app/mainpage/mainpage.component';
 
+import {  OrderbyPipe } from './shared/filters';
+
 
 @NgModule({
   imports: [
@@ -73,7 +75,8 @@ import { MainPageComponent } from 'app/mainpage/mainpage.component';
     AuthenticationService,
     UserService,
     ContentService,
-    LocaleService
+    LocaleService,
+    OrderbyPipe
   ],
   bootstrap: [AppComponent]
 })
