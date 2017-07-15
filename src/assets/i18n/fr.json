@@ -16,6 +16,7 @@
     "record.edit.addattachment":"Ajouter un lien",
     "record.edit.images":"Images",
     "record.edit.attachments":"Liens - Pièces jointes",
+    "deletedialog.title": "Supprimer",
     "field.label.id":"identifiant technique",
     "field.label.description":"Description",
     "field.label.title":"Titre",

@@ -134,7 +134,7 @@ export class ContentService {
 
          let postData = '';
          if (this.postFormData) {
-	        // escape issue, with some characters like &
+           // escape issue, with some characters like &
            postData = 'requestbody=' + encodeURIComponent(JSON.stringify(JSON.parse(JSON.stringify(obj))));
          } else {
            postData = JSON.stringify(obj);
@@ -302,8 +302,9 @@ export class ContentService {
     }
 
     private handleError(error: Response) {
-        console.error('handleError ' + JSON.stringify(error));
-        return Observable.throw(error.json().error || 'Server error');
+        // console.error('handleError ' + JSON.stringify(error));
+        // return Observable.throw(error.json().error || 'Server error');
+        return Observable.throw( 'Server error');
     }
 
     private escape(text: string): string {

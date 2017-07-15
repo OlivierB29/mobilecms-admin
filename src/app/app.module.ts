@@ -25,12 +25,13 @@ import { AppComponent } from './app.component';
 import { SlidemenuComponent } from './slidemenu/slidemenu.component';
 import { AlertComponent } from './_directives/index';
 import { AuthGuard } from './_guards/index';
-import { AlertService, AuthenticationService, UserService, ContentService, LocaleService} from './_services/index';
+import { AlertService, AuthenticationService, UserService, ContentService, LocaleService, StringUtils } from './_services/index';
 import { HomeComponent } from './home/index';
 import { LoginComponent } from './login/index';
 import { RegisterComponent } from './register/index';
 import { RecordListComponent } from 'app/recordlist/index';
 import { RecordComponent } from 'app/record/record.component';
+import { DeleteDialogComponent } from 'app/record/deletedialog.component';
 import { ModifyPasswordComponent } from 'app/modifypassword';
 
 import { TopMenuComponent } from 'app/topmenu/topmenu.component';
@@ -67,9 +68,14 @@ import {  OrderbyPipe } from './shared/filters';
     RegisterComponent,
     RecordListComponent,
     RecordComponent,
+    DeleteDialogComponent,
     OrderbyPipe,
     SlidemenuComponent
   ],
+  entryComponents: [
+    DeleteDialogComponent
+  ],
+
   providers: [
     AuthGuard,
     AlertService,
@@ -77,6 +83,7 @@ import {  OrderbyPipe } from './shared/filters';
     UserService,
     ContentService,
     LocaleService,
+    StringUtils,
     OrderbyPipe
   ],
   bootstrap: [AppComponent]

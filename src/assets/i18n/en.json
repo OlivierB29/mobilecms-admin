@@ -15,6 +15,7 @@
     "record.edit.addimage":"Add an image",
     "record.edit.images":"Images",
     "record.edit.attachments":"Links",
+    "deletedialog.title": "Delete",
     "field.label.id":"id",
     "field.label.description":"Record description",
     "field.label.activity":"Activity",
