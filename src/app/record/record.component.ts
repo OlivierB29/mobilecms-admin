@@ -186,10 +186,43 @@ export class RecordComponent implements OnInit {
 
   }
 
+  addAttachmentTop() {
 
-  addAttachment() {
+  this.attachments.push(this.getDefaultAttachment());
+  this.attachments = this.move(this.attachments, this.attachments.length - 1, 0);
+  }
+
+  private move(array: Array<any>, old_index: number, new_index: number): Array<any> {
+    if (new_index >= array.length) {
+        let k = new_index - array.length;
+        while ((k--) + 1) {
+            array.push(undefined);
+        }
+    }
+    array.splice(new_index, 0, array.splice(old_index, 1)[0]);
+    return array;
+}
+
+moveUp(index: number) {
+  if (index > -1 ) {
+    this.move(this.attachments, index, index - 1);
+  }
+}
+
+moveDown(index: number) {
+  const newPosition = index + 1;
+  if (index > -1 && newPosition < this.attachments.length) {
+    this.move(this.attachments, index, newPosition);
+  }
+}
+
+  addAttachmentBottom() {
+    this.attachments.push(this.getDefaultAttachment());
+  }
+
+  private getDefaultAttachment(): any {
     // TODO : create a attachment_metadata.json
-    this.attachments.push(JSON.parse('{"url":"", "title":""}'));
+    return JSON.parse('{"url":"", "title":""}');
   }
 
   save() {

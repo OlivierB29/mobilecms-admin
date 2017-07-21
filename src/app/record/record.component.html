@@ -95,7 +95,7 @@
         <div *ngIf="property.editor === 'attachmentlist' && property.name === 'attachments'" class="list-container">
           <md-toolbar color="primary">
             <span *ngIf="attachments">{{'record.edit.attachments' | translate}} : {{attachments.length}}</span>
-            <button  md-button (click)="addAttachment()" mdTooltip="{{'record.edit.addattachment' | translate}}"><md-icon>attachment</md-icon></button>
+            <button  md-button (click)="addAttachmentTop()" mdTooltip="{{'record.edit.addattachment' | translate}}"><md-icon>attachment</md-icon></button>
           </md-toolbar>
 
           <div *ngFor="let attachment of attachments; let i=index" class="input-group">
@@ -112,11 +112,18 @@
               <md-input-container class="full-width-input">
                 <input mdInput placeholder="{{'field.label.attachment.description' | translate}}" [(ngModel)]="attachments[i].description" type="text">
               </md-input-container>
+
+              <button (click)=moveUp(i) md-button><md-icon>arrow_upward</md-icon></button>
+              <button (click)=moveDown(i) md-button><md-icon>arrow_downward</md-icon></button>
+
               <button (click)=deleteAttachment(i) md-button><md-icon>delete_forever</md-icon></button>
             </md-card>
 
           </div>
 
+          <md-toolbar color="primary">
+            <button  md-button (click)="addAttachmentBottom()" mdTooltip="{{'record.edit.addattachment' | translate}}"><md-icon>attachment</md-icon></button>
+          </md-toolbar>
 
         </div>
 
