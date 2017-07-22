@@ -55,13 +55,33 @@ export class RecordComponent implements OnInit {
    */
   response: any = null;
 
+  /**
+  * if new record, not saved on backend
+  */
   newrecord = false;
 
+  /**
+  * client check if user has role. Needs to be checked on backend.
+  */
   hasRole = false;
 
+  /**
+  * client check if user has admin role. Needs to be checked on backend.
+  */
   hasAdminRole = false;
 
+  /**
+  * current user
+  */
   currentUser: User;
+
+  /**
+  * properties :
+  * error
+  * savedate
+  * since
+  */
+  responsemessage: any;
 
   constructor(private route: ActivatedRoute, private router: Router, public dialog: MdDialog,
     private contentService: ContentService, private stringUtils: StringUtils) { }
@@ -72,7 +92,7 @@ export class RecordComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    console.log('record.component');
     const currentUserLocalStorage = localStorage.getItem('currentUser');
 
     if (currentUserLocalStorage) {
@@ -165,11 +185,61 @@ export class RecordComponent implements OnInit {
 
   }
 
+
+
+    save() {
+
+      this.responsemessage = {};
+      this.generateId();
+      this.contentService.post(this.type, this.current)
+        .subscribe((data: any) => {
+          this.response = data;
+
+        },
+        error => {
+          this.responsemessage.error = error;
+          console.error('post' + error);
+      },
+        () => {
+          // calculate diff from PHP time https://stackoverflow.com/questions/13022524/javascript-time-to-php-time
+          const timestamp = Number.parseInt(this.response.timestamp) * 1000;
+
+          // savedate
+          const savedate = new Date();
+          savedate.setTime(timestamp);
+          this.responsemessage.savedate = savedate.toLocaleDateString() + ' ' + savedate.toLocaleTimeString();
+
+          // time since save
+          const diffMilli = new Date().getTime() - timestamp;
+          if (diffMilli < 1000) {
+            this.responsemessage.since = '< 1s';
+          } else {
+            this.responsemessage.since = (diffMilli / 1000).toString();
+          }
+
+          // forward to record modification page
+          if (this.newrecord) {
+            this.router.navigate(['/record', this.type, this.current.id]);
+          }
+
+
+          console.log('post complete');
+        });
+
+    }
+
+  /**
+  * add new image
+  */
   addImage() {
     // TODO : create a image_metadata.json
     this.images.push(JSON.parse('{"url":"", "title":""}'));
   }
 
+  /**
+  * Generate id from title.
+  * Use case : each event is unique. Such as : 28 oct 2017 - tournament at Some City
+  */
   generateId() {
     if (this.newrecord || this.hasAdminRole) {
       // replace accents by US ASCII
@@ -186,12 +256,19 @@ export class RecordComponent implements OnInit {
 
   }
 
+  /**
+  * add an attachment at the beginning
+  */
   addAttachmentTop() {
 
   this.attachments.push(this.getDefaultAttachment());
   this.attachments = this.move(this.attachments, this.attachments.length - 1, 0);
   }
 
+/**
+* move item in array
+* TODO : utility class
+*/
   private move(array: Array<any>, old_index: number, new_index: number): Array<any> {
     if (new_index >= array.length) {
         let k = new_index - array.length;
@@ -203,13 +280,19 @@ export class RecordComponent implements OnInit {
     return array;
 }
 
-moveUp(index: number) {
+/**
+* move an attachment upward
+*/
+moveAttachmentUp(index: number) {
   if (index > -1 ) {
     this.move(this.attachments, index, index - 1);
   }
 }
 
-moveDown(index: number) {
+/**
+* move an attachment downward
+*/
+moveAttachmentDown(index: number) {
   const newPosition = index + 1;
   if (index > -1 && newPosition < this.attachments.length) {
     this.move(this.attachments, index, newPosition);
@@ -225,38 +308,6 @@ moveDown(index: number) {
     return JSON.parse('{"url":"", "title":""}');
   }
 
-  save() {
-    this.generateId();
-    this.contentService.post(this.type, this.current)
-      .subscribe((data: any) => this.response = JSON.stringify(data),
-      error => console.error('post' + error),
-      () => {
-
-        // forward to record modification page
-        if (this.newrecord) {
-          this.router.navigate(['/record', this.type, this.current.id]);
-        }
-
-        console.log('post complete');
-      });
-
-  }
-
-  private delete() {
-
-    this.contentService.delete(this.type, this.current.id)
-      .subscribe((data: any) => this.response = JSON.stringify(data),
-      error => console.error('delete ' + error),
-      () => {
-
-        // forward to record modification page
-        this.router.navigate(['/recordlist', this.type]);
-
-
-        console.log('delete complete');
-      });
-
-  }
 
   deleteImage(index: number) {
     if (index > -1) {
@@ -276,7 +327,9 @@ moveDown(index: number) {
     window.open(url, '_blank');
   }
 
-
+  /**
+  * delete
+  */
   openConfirmDialog() {
 
     const dialogRef = this.dialog.open(DeleteDialogComponent, {
@@ -292,5 +345,25 @@ moveDown(index: number) {
 });
 
   }
+
+
+  /**
+  * must click on dialog first
+  */
+    private delete() {
+
+      this.contentService.delete(this.type, this.current.id)
+        .subscribe((data: any) => this.response = JSON.stringify(data),
+        error => console.error('delete ' + error),
+        () => {
+
+          // forward to record modification page
+          this.router.navigate(['/recordlist', this.type]);
+
+
+          console.log('delete complete');
+        });
+
+    }
 
 }

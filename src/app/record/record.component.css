@@ -22,3 +22,13 @@ input:read-only {
 .list-container {
   padding-bottom: 0.5em;
 }
+
+.success-label-message {
+  font-size: 0.81em;
+  color: #777777;
+}
+
+.error-label-message {
+  font-size: 0.81em;
+  color: red;
+}

@@ -11,8 +11,11 @@
 
 <div class="container">
   <div>
-    <div *ngIf="response">
-      response : {{response}}
+    <div *ngIf='responsemessage && responsemessage.error' class='error-label-message'>
+      <md-icon>cloud_off</md-icon>  {{responsemessage.error}}
+    </div>
+    <div *ngIf='responsemessage && !responsemessage.error' class='success-label-message'>
+      <md-icon mdTooltip='{{responsemessage.savedate}}'>cloud_done</md-icon> {{responsemessage.since}}
     </div>
 
     <div *ngIf="current">
@@ -113,8 +116,8 @@
                 <input mdInput placeholder="{{'field.label.attachment.description' | translate}}" [(ngModel)]="attachments[i].description" type="text">
               </md-input-container>
 
-              <button (click)=moveUp(i) md-button><md-icon>arrow_upward</md-icon></button>
-              <button (click)=moveDown(i) md-button><md-icon>arrow_downward</md-icon></button>
+              <button (click)=moveAttachmentUp(i) md-button><md-icon>arrow_upward</md-icon></button>
+              <button (click)=moveAttachmentDown(i) md-button><md-icon>arrow_downward</md-icon></button>
 
               <button (click)=deleteAttachment(i) md-button><md-icon>delete_forever</md-icon></button>
             </md-card>
