@@ -5,7 +5,7 @@ import { MdDialog } from '@angular/material';
 import { TranslatePipe } from '@ngx-translate/core';
 
 import { User, Label, RecordType, Metadata } from '../_models';
-import { ContentService, StringUtils } from 'app/_services';
+import { ContentService, UploadService, StringUtils } from 'app/_services';
 import { environment } from '../../environments/environment';
 import { DeleteDialogComponent } from './deletedialog.component';
 
@@ -43,6 +43,9 @@ export class RecordComponent implements OnInit {
   * list of attachments
   */
   attachments: any[] = null;
+
+  files: any[] = null;
+
 
   /**
    * object metadata
@@ -84,7 +87,7 @@ export class RecordComponent implements OnInit {
   responsemessage: any;
 
   constructor(private route: ActivatedRoute, private router: Router, public dialog: MdDialog,
-    private contentService: ContentService, private stringUtils: StringUtils) { }
+    private contentService: ContentService, private uploadService: UploadService, private stringUtils: StringUtils) { }
 
   private initRoles(): void {
     this.hasAdminRole = this.currentUser.role === 'admin';
@@ -138,6 +141,11 @@ export class RecordComponent implements OnInit {
               this.attachments = this.current.attachments;
 
 
+              if (!this.current.media) {
+                console.log('init media ');
+                this.current.media = [];
+              }
+
               // old date format converter. yyyyMMdd -> yyyy-MM-dd
               if (this.current.date) {
                 const oldDate = this.stringUtils.parseOldDate(this.current.date);
@@ -172,7 +180,9 @@ export class RecordComponent implements OnInit {
               }
               this.attachments = this.current.attachments;
 
-
+              if (!this.current.media) {
+                this.current.media = [];
+              }
             }
           },
           error => console.log('getNewRecord ' + error),
@@ -182,6 +192,37 @@ export class RecordComponent implements OnInit {
 
 
     });
+
+  }
+
+  upload(files: any) {
+
+
+    if (files) {
+      console.log('files ' + files.length);
+      console.log(files);
+
+
+
+      for (let i = 0; i < files.length; i++) {
+          console.log('uploading  ' + JSON.stringify(files[i]));
+          this.uploadService.uploadFile(files[i], this.type, this.id)
+            .subscribe((mediadata: any[]) => {
+              console.log('upload result ' + JSON.stringify(mediadata));
+              mediadata.forEach((f: any) => {
+                console.log('adding ' + f.title);
+                this.current.media.push(f);
+              });
+            },
+            error => console.log('upload ' + error),
+            () => console.log('upload OK'));
+
+
+      }
+    } else {
+
+      console.log('no files');
+    }
 
   }
 

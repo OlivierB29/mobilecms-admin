@@ -261,7 +261,7 @@ export class ContentService {
 
     // private helper methods
 
-    private jwt() {
+    private jwt(): RequestOptions {
         // create authorization header with jwt token
 
 
@@ -280,7 +280,7 @@ export class ContentService {
 
     }
 
-    private jwtPost() {
+    private jwtPost(): RequestOptions {
         // create authorization header with jwt token
         const currentUser = JSON.parse(localStorage.getItem('currentUser'));
         if (currentUser && currentUser.token) {

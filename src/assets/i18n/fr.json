@@ -29,5 +29,6 @@
     "field.label.image.link":"Lien optionnel",
     "field.label.attachment.title":"Titre du lien",
     "field.label.attachment.url":"Adresse http",
+    "field.label.attachment.size":"Taille",
     "field.label.attachment.description":"Description optionnelle"
 }

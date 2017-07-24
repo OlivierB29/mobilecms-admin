@@ -11,6 +11,8 @@ import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 
+import 'rxjs/Rx';
+import 'rxjs/add/operator/toPromise';
 
 /*
 Copyright 2016 Google Inc. All Rights Reserved.

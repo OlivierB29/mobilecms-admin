@@ -28,6 +28,7 @@
     "field.label.image.link":"optionnal link",
     "field.label.attachment.title":"Attachment title",
     "field.label.attachment.url":"URL",
+    "field.label.attachment.size":"Size",
     "field.label.attachment.description":"optionnal description"
 
 

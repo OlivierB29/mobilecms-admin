@@ -25,7 +25,8 @@ import { AppComponent } from './app.component';
 import { SlidemenuComponent } from './slidemenu/slidemenu.component';
 import { AlertComponent } from './_directives/index';
 import { AuthGuard } from './_guards/index';
-import { AlertService, AuthenticationService, UserService, ContentService, LocaleService, StringUtils } from './_services/index';
+import { AlertService, AuthenticationService, UserService, ContentService, UploadService,
+   LocaleService, StringUtils } from './_services/index';
 import { HomeComponent } from './home/index';
 import { LoginComponent } from './login/index';
 import { RegisterComponent } from './register/index';
@@ -82,6 +83,7 @@ import {  OrderbyPipe } from './shared/filters';
     AuthenticationService,
     UserService,
     ContentService,
+    UploadService,
     LocaleService,
     StringUtils,
     OrderbyPipe

@@ -23,7 +23,7 @@ export class AuthenticationService {
   /**
   * API endpoint
   */
-  private api = environment.authenticateapi;
+  private api = environment.authapi;
 
 
   constructor(private http: Http) { }

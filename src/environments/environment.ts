@@ -8,5 +8,6 @@ export const environment = {
   server: 'http://localhost',
   website: 'http://localhost/#',
   api: '/restapi/v1',
-  authenticateapi: '/authapi/v1'
+  fileapi: '/fileapi/v1',
+  authapi: '/authapi/v1'
 };

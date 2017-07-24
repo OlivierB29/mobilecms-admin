@@ -3,6 +3,12 @@
 
 }
 
+.half-width-input {
+  width: 50%;
+
+}
+
+
 .full-width-textarea {
   width: 100%;
 }
