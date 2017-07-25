@@ -23,6 +23,9 @@ export class UploadService {
     */
     private api = environment.fileapi;
 
+    private postFormData = true;
+
+
 
     constructor(private http: Http) { }
 
@@ -68,6 +71,64 @@ export class UploadService {
         }));
     }
 
+    public sync = (type: string, id: string, obj: any): Observable<any> => {
 
+        // eg : /content/calendar
+        const url = this.getUrl('/download/' + type + '/' + id);
+
+        console.log(url);
+
+
+         let postData = '';
+         if (this.postFormData) {
+           // escape issue, with some characters like &
+           postData = 'requestbody=' + encodeURIComponent(JSON.stringify(JSON.parse(JSON.stringify(obj))));
+         } else {
+           postData = JSON.stringify(obj);
+         }
+
+        return this.http.post(url,
+            postData,
+            this.jwtPost())
+            .map((response: Response) => {
+              this.controlResponse(response);
+              return <any>response.json();
+            })
+            .catch(this.handleError);
+
+    }
+
+    public controlResponse = (response: Response): void => {
+      if (response.status < 200 || response.status >= 300) {
+        throw new Error('This request has failed ' + response.status);
+      }
+    }
+
+    private handleError(error: Response) {
+        // console.error('handleError ' + JSON.stringify(error));
+        // return Observable.throw(error.json().error || 'Server error');
+        return Observable.throw( 'Server error');
+    }
+
+        private jwtPost(): RequestOptions {
+            // create authorization header with jwt token
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (currentUser && currentUser.token) {
+
+                const headers = new Headers({ 'Authorization': 'Bearer ' + currentUser.token });
+
+                // for POST
+                if (this.postFormData) {
+                  headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+                } else {
+                  headers.append('Content-Type', 'application/json; charset=UTF-8');
+                }
+
+
+                return new RequestOptions({ headers: headers });
+            } else {
+                throw new Error('empty user');
+            }
+        }
 
 }

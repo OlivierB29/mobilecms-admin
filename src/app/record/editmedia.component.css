@@ -20,22 +20,3 @@
 input:read-only {
     background-color: #ddd;
 }
-
-
-.container {
-  padding: 2em;
-}
-
-.list-container {
-  padding-bottom: 0.5em;
-}
-
-.success-label-message {
-  font-size: 0.81em;
-  color: #777777;
-}
-
-.error-label-message {
-  font-size: 0.81em;
-  color: red;
-}

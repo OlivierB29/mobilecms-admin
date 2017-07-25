@@ -1,0 +1,37 @@
+<md-toolbar color="primary">
+  <span>Media</span>
+  <input type="file" #file (change)="upload(file.files)" multiple="multiple" />
+</md-toolbar>
+
+
+<div *ngFor="let item of attachments; let i=index" class="input-group">
+
+
+  <md-card>
+    <md-input-container class="full-width-input">
+      <input mdInput placeholder="{{'field.label.attachment.title' | translate}}" [(ngModel)]="attachments[i].title" type="text">
+    </md-input-container>
+
+    <md-input-container class="full-width-input">
+      <input readonly mdInput placeholder="{{'field.label.attachment.url' | translate}}" [(ngModel)]="attachments[i].url" type="text">
+    </md-input-container>
+
+    <md-input-container class="half-width-input">
+      <input readonly mdInput placeholder="{{'field.label.attachment.mimetype' | translate}}" [(ngModel)]="attachments[i].mimetype" type="text">
+    </md-input-container>
+
+    <md-input-container class="half-width-input">
+      <input readonly mdInput placeholder="{{'field.label.attachment.size' | translate}}" [(ngModel)]="attachments[i].size" type="text">
+    </md-input-container>
+
+    <md-input-container class="full-width-input">
+      <input mdInput placeholder="{{'field.label.attachment.description' | translate}}" [(ngModel)]="attachments[i].description" type="text">
+    </md-input-container>
+
+    <button (click)=moveAttachmentUp(i) md-button><md-icon>arrow_upward</md-icon></button>
+    <button (click)=moveAttachmentDown(i) md-button><md-icon>arrow_downward</md-icon></button>
+    <button (click)=deleteAttachment(i) md-button><md-icon>delete_forever</md-icon></button>
+  </md-card>
+
+</div>
+<!-- ngFor -->

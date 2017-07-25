@@ -34,15 +34,6 @@ export class RecordComponent implements OnInit {
    */
   current: any = null;
 
-  /**
-  * list of images
-  */
-  images: any[] = null;
-
-  /**
-  * list of attachments
-  */
-  attachments: any[] = null;
 
   files: any[] = null;
 
@@ -133,12 +124,10 @@ export class RecordComponent implements OnInit {
               if (!this.current.images) {
                 this.current.images = [];
               }
-              this.images = this.current.images;
 
               if (!this.current.attachments) {
                 this.current.attachments = [];
               }
-              this.attachments = this.current.attachments;
 
 
               if (!this.current.media) {
@@ -173,12 +162,10 @@ export class RecordComponent implements OnInit {
               if (!this.current.images) {
                 this.current.images = [];
               }
-              this.images = this.current.images;
 
               if (!this.current.attachments) {
                 this.current.attachments = [];
               }
-              this.attachments = this.current.attachments;
 
               if (!this.current.media) {
                 this.current.media = [];
@@ -192,37 +179,6 @@ export class RecordComponent implements OnInit {
 
 
     });
-
-  }
-
-  upload(files: any) {
-
-
-    if (files) {
-      console.log('files ' + files.length);
-      console.log(files);
-
-
-
-      for (let i = 0; i < files.length; i++) {
-          console.log('uploading  ' + JSON.stringify(files[i]));
-          this.uploadService.uploadFile(files[i], this.type, this.id)
-            .subscribe((mediadata: any[]) => {
-              console.log('upload result ' + JSON.stringify(mediadata));
-              mediadata.forEach((f: any) => {
-                console.log('adding ' + f.title);
-                this.current.media.push(f);
-              });
-            },
-            error => console.log('upload ' + error),
-            () => console.log('upload OK'));
-
-
-      }
-    } else {
-
-      console.log('no files');
-    }
 
   }
 
@@ -270,14 +226,6 @@ export class RecordComponent implements OnInit {
     }
 
   /**
-  * add new image
-  */
-  addImage() {
-    // TODO : create a image_metadata.json
-    this.images.push(JSON.parse('{"url":"", "title":""}'));
-  }
-
-  /**
   * Generate id from title.
   * Use case : each event is unique. Such as : 28 oct 2017 - tournament at Some City
   */
@@ -297,70 +245,7 @@ export class RecordComponent implements OnInit {
 
   }
 
-  /**
-  * add an attachment at the beginning
-  */
-  addAttachmentTop() {
 
-  this.attachments.push(this.getDefaultAttachment());
-  this.attachments = this.move(this.attachments, this.attachments.length - 1, 0);
-  }
-
-/**
-* move item in array
-* TODO : utility class
-*/
-  private move(array: Array<any>, old_index: number, new_index: number): Array<any> {
-    if (new_index >= array.length) {
-        let k = new_index - array.length;
-        while ((k--) + 1) {
-            array.push(undefined);
-        }
-    }
-    array.splice(new_index, 0, array.splice(old_index, 1)[0]);
-    return array;
-}
-
-/**
-* move an attachment upward
-*/
-moveAttachmentUp(index: number) {
-  if (index > -1 ) {
-    this.move(this.attachments, index, index - 1);
-  }
-}
-
-/**
-* move an attachment downward
-*/
-moveAttachmentDown(index: number) {
-  const newPosition = index + 1;
-  if (index > -1 && newPosition < this.attachments.length) {
-    this.move(this.attachments, index, newPosition);
-  }
-}
-
-  addAttachmentBottom() {
-    this.attachments.push(this.getDefaultAttachment());
-  }
-
-  private getDefaultAttachment(): any {
-    // TODO : create a attachment_metadata.json
-    return JSON.parse('{"url":"", "title":""}');
-  }
-
-
-  deleteImage(index: number) {
-    if (index > -1) {
-      this.images.splice(index, 1);
-    }
-  }
-
-  deleteAttachment(index: number) {
-    if (index > -1) {
-      this.attachments.splice(index, 1);
-    }
-  }
 
   preview() {
     this.generateId();
@@ -406,5 +291,4 @@ moveAttachmentDown(index: number) {
         });
 
     }
-
 }

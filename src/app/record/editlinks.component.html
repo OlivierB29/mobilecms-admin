@@ -1,0 +1,31 @@
+<md-toolbar color="primary">
+  <span *ngIf="attachments">{{title | translate}} : {{attachments.length}}</span>
+  <button md-button (click)="addAttachmentTop()" mdTooltip="{{'record.edit.addattachment' | translate}}"><md-icon>insert_link</md-icon></button>
+</md-toolbar>
+
+<div *ngFor="let attachment of attachments; let i=index" class="input-group">
+
+  <md-card>
+    <md-input-container class="full-width-input">
+      <input mdInput placeholder="{{'field.label.attachment.title' | translate}}" [(ngModel)]="attachments[i].title" type="text">
+    </md-input-container>
+
+    <md-input-container class="full-width-input">
+      <input mdInput placeholder="{{'field.label.attachment.url' | translate}}" [(ngModel)]="attachments[i].url" type="text">
+    </md-input-container>
+
+    <md-input-container class="full-width-input">
+      <input mdInput placeholder="{{'field.label.attachment.description' | translate}}" [(ngModel)]="attachments[i].description" type="text">
+    </md-input-container>
+
+    <button (click)=moveAttachmentUp(i) md-button><md-icon>arrow_upward</md-icon></button>
+    <button (click)=moveAttachmentDown(i) md-button><md-icon>arrow_downward</md-icon></button>
+    <button (click)=download(i) md-button><md-icon>backup</md-icon></button>
+    <button (click)=deleteAttachment(i) md-button><md-icon>delete_forever</md-icon></button>
+  </md-card>
+
+</div>
+
+<md-toolbar color="primary">
+  <button md-button (click)="addAttachmentBottom()" mdTooltip="{{'record.edit.addattachment' | translate}}"><md-icon>insert_link</md-icon></button>
+</md-toolbar>

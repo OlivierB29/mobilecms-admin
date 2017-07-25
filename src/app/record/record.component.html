@@ -66,105 +66,21 @@
 
 
         <div *ngIf="property.editor === 'imagelist' && property.name === 'images'" class="list-container">
-          <!-- single line text edit -->
-          <md-toolbar color="primary">
-            <span *ngIf="images">{{'record.edit.images' | translate}} : {{images.length}}</span>
-            <button md-button (click)="addImage()"mdTooltip="{{'record.edit.addimage' | translate}}"><md-icon>image</md-icon></button>
-          </md-toolbar>
-
-          <div *ngFor="let image of images; let i=index" class="input-group">
-            <md-card>
-
-              <md-input-container class="full-width-input">
-                <input mdInput placeholder="{{'field.label.image.title' | translate}}" [(ngModel)]="images[i].title" type="text">
-              </md-input-container>
-
-              <md-input-container class="full-width-input">
-                <input mdInput placeholder="{{'field.label.image.url' | translate}}" [(ngModel)]="images[i].url" type="text">
-              </md-input-container>
-
-              <md-input-container class="full-width-input">
-                <input mdInput placeholder="{{'field.label.image.link' | translate}}" [(ngModel)]="images[i].link" type="text">
-              </md-input-container>
-
-              <button (click)=deleteImage(i) md-button><md-icon>delete_forever</md-icon></button>
-
-            </md-card>
-          </div>
-
+          <app-editlinks [type]='type' [current]='current'  [attachments]='current.images' [title]='"record.edit.images"' ></app-editlinks>
         </div>
 
 
         <div *ngIf="property.editor === 'attachmentlist' && property.name === 'attachments'" class="list-container">
-          <md-toolbar color="primary">
-            <span *ngIf="attachments">{{'record.edit.attachments' | translate}} : {{attachments.length}}</span>
-            <button  md-button (click)="addAttachmentTop()" mdTooltip="{{'record.edit.addattachment' | translate}}"><md-icon>insert_link</md-icon></button>
-          </md-toolbar>
 
-          <div *ngFor="let attachment of attachments; let i=index" class="input-group">
+          <app-editlinks [type]='type' [current]='current'  [attachments]='current.attachments' [title]='"record.edit.attachments"' ></app-editlinks>
 
-            <md-card>
-              <md-input-container class="full-width-input">
-                <input mdInput placeholder="{{'field.label.attachment.title' | translate}}" [(ngModel)]="attachments[i].title" type="text">
-              </md-input-container>
-
-              <md-input-container class="full-width-input">
-                <input mdInput placeholder="{{'field.label.attachment.url' | translate}}" [(ngModel)]="attachments[i].url" type="text">
-              </md-input-container>
-
-              <md-input-container class="full-width-input">
-                <input mdInput placeholder="{{'field.label.attachment.description' | translate}}" [(ngModel)]="attachments[i].description" type="text">
-              </md-input-container>
-
-              <button (click)=moveAttachmentUp(i) md-button><md-icon>arrow_upward</md-icon></button>
-              <button (click)=moveAttachmentDown(i) md-button><md-icon>arrow_downward</md-icon></button>
-
-              <button (click)=deleteAttachment(i) md-button><md-icon>delete_forever</md-icon></button>
-            </md-card>
-
-          </div>
-
-          <md-toolbar color="primary">
-            <button  md-button (click)="addAttachmentBottom()" mdTooltip="{{'record.edit.addattachment' | translate}}"><md-icon>insert_link</md-icon></button>
-          </md-toolbar>
         </div><!-- attachments -->
 
 
 
         <div *ngIf="!newrecord && property.editor === 'medialist' && property.name === 'media'" class="list-container">
-          <md-toolbar color="primary">
-            <span>Media</span>
-          </md-toolbar>
-                  <md-icon>attachment</md-icon>
-                  <input type="file" #file (change)="upload(file.files)" multiple="multiple"/>
+          <app-editmedia [type]='type' [current]='current'  [attachments]='current.media' [title]='"record.edit.media"' ></app-editmedia>
 
-                  <div *ngFor="let medium of current.media; let i=index" class="input-group">
-
-    <md-card>
-      <md-input-container class="full-width-input">
-        <input mdInput placeholder="{{'field.label.attachment.title' | translate}}" [(ngModel)]="current.media[i].title" type="text">
-      </md-input-container>
-
-      <md-input-container class="full-width-input">
-        <input readonly mdInput placeholder="{{'field.label.attachment.url' | translate}}" [(ngModel)]="current.media[i].url" type="text">
-      </md-input-container>
-
-      <md-input-container class="half-width-input">
-        <input readonly mdInput placeholder="{{'field.label.attachment.mimetype' | translate}}" [(ngModel)]="current.media[i].mimetype" type="text">
-      </md-input-container>
-
-      <md-input-container class="half-width-input">
-        <input readonly mdInput placeholder="{{'field.label.attachment.size' | translate}}" [(ngModel)]="current.media[i].size" type="text">
-      </md-input-container>
-
-      <md-input-container class="full-width-input">
-        <input mdInput placeholder="{{'field.label.attachment.description' | translate}}" [(ngModel)]="current.media[i].description" type="text">
-      </md-input-container>
-
-
-    </md-card>
-
-  </div><!-- ngFor -->
         </div><!-- list-container -->
 
 
