@@ -20,7 +20,7 @@
 
     <button (click)=moveAttachmentUp(i) md-button><md-icon>arrow_upward</md-icon></button>
     <button (click)=moveAttachmentDown(i) md-button><md-icon>arrow_downward</md-icon></button>
-    <button (click)=download(i) md-button><md-icon>backup</md-icon></button>
+    <button *ngIf='adminrole' (click)=download(i) md-button><md-icon>backup</md-icon></button>
     <button (click)=deleteAttachment(i) md-button><md-icon>delete_forever</md-icon></button>
   </md-card>
 

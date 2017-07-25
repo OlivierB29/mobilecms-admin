@@ -66,19 +66,19 @@
 
 
         <div *ngIf="property.editor === 'imagelist' && property.name === 'images'" class="list-container">
-          <app-editlinks [type]='type' [current]='current'  [attachments]='current.images' [title]='"record.edit.images"' ></app-editlinks>
+          <app-editlinks [type]='type' [current]='current'  [attachments]='current.images' [title]='"record.edit.images"' [adminrole]='hasAdminRole' ></app-editlinks>
         </div>
 
 
         <div *ngIf="property.editor === 'attachmentlist' && property.name === 'attachments'" class="list-container">
 
-          <app-editlinks [type]='type' [current]='current'  [attachments]='current.attachments' [title]='"record.edit.attachments"' ></app-editlinks>
+          <app-editlinks [type]='type' [current]='current'  [attachments]='current.attachments' [title]='"record.edit.attachments"' [adminrole]='hasAdminRole'></app-editlinks>
 
         </div><!-- attachments -->
 
 
 
-        <div *ngIf="!newrecord && property.editor === 'medialist' && property.name === 'media'" class="list-container">
+        <div *ngIf="hasAdminRole && !newrecord && property.editor === 'medialist' && property.name === 'media'" class="list-container">
           <app-editmedia [type]='type' [current]='current'  [attachments]='current.media' [title]='"record.edit.media"' ></app-editmedia>
 
         </div><!-- list-container -->

@@ -24,7 +24,12 @@ export class EditLinksComponent implements OnInit {
    */
   @Input() protected current: any = null;
 
+  /**
+  * list of attachments
+  */
   @Input() protected attachments: any[];
+
+  @Input() protected adminrole: false;
 
   /**
   * properties :
