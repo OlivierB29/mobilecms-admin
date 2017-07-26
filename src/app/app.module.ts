@@ -31,8 +31,8 @@ import { HomeComponent } from './home/index';
 import { LoginComponent } from './login/index';
 import { RegisterComponent } from './register/index';
 import { RecordListComponent } from 'app/recordlist/index';
-import { RecordComponent, EditLinksComponent, EditMediaComponent } from 'app/record';
-import { DeleteDialogComponent } from 'app/record/deletedialog.component';
+import { RecordComponent, EditLinksComponent, EditMediaComponent, ErrorDialogComponent, DeleteDialogComponent } from 'app/record';
+
 import { ModifyPasswordComponent } from 'app/modifypassword';
 
 import { TopMenuComponent } from 'app/topmenu/topmenu.component';
@@ -73,10 +73,12 @@ import {  OrderbyPipe } from './shared/filters';
     OrderbyPipe,
     SlidemenuComponent,
     EditLinksComponent,
-    EditMediaComponent
+    EditMediaComponent,
+    ErrorDialogComponent
   ],
   entryComponents: [
-    DeleteDialogComponent
+    DeleteDialogComponent,
+    ErrorDialogComponent
   ],
 
   providers: [

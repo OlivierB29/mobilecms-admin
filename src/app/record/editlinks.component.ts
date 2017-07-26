@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-
+import { MdDialog } from '@angular/material';
+import { ErrorDialogComponent } from './errordialog.component';
 import { UploadService } from 'app/_services';
 
 @Component({
@@ -29,8 +30,12 @@ export class EditLinksComponent implements OnInit {
   */
   @Input() protected attachments: any[];
 
-  @Input() protected adminrole: false;
+  @Input() protected adminrole = false;
 
+  /**
+  * display
+  */
+  @Input() protected display = false;
   /**
   * properties :
   * error
@@ -39,7 +44,7 @@ export class EditLinksComponent implements OnInit {
   */
   responsemessage: any;
 
-  constructor(protected uploadService: UploadService) { }
+  constructor(protected uploadService: UploadService, public dialog: MdDialog) { }
 
   ngOnInit() {
     if (!this.type) {
@@ -111,6 +116,14 @@ moveAttachmentDown(index: number) {
     }
   }
 
+  open() {
+    this.display = !this.display;
+  }
+
+  getDisplayClass(): string {
+    return this.display ? 'input-group-visible' : 'input-group-hidden';
+  }
+
     download(index: number) {
       const files  = [];
 
@@ -135,4 +148,10 @@ moveAttachmentDown(index: number) {
 
     }
 
+
+    openDialog(msg: string) {
+      this.dialog.open(ErrorDialogComponent, {
+         data: msg,
+      });
+    }
 }

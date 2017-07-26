@@ -1,9 +1,12 @@
 <md-toolbar color="primary">
-  <span>Media</span>
+  <span>Media : </span>
   <input type="file" #file (change)="upload(file.files)" multiple="multiple" />
+  <button *ngIf='display' md-button (click)="open()" ><md-icon>remove_circle_outline</md-icon></button>
+  <button *ngIf='!display' md-button (click)="open()" ><md-icon>add_circle_outline</md-icon></button>
 </md-toolbar>
+<md-spinner *ngIf='loading' mode="indeterminate"></md-spinner>
 
-
+<div  [class]='getDisplayClass()'>
 <div *ngFor="let item of attachments; let i=index" class="input-group">
 
 
@@ -35,3 +38,4 @@
 
 </div>
 <!-- ngFor -->
+</div>

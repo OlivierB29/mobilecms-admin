@@ -20,3 +20,11 @@
 input:read-only {
     background-color: #ddd;
 }
+
+.input-group-visible {
+  
+}
+
+.input-group-hidden {
+  display: none;
+}

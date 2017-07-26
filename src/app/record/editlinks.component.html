@@ -1,9 +1,12 @@
 <md-toolbar color="primary">
   <span *ngIf="attachments">{{title | translate}} : {{attachments.length}}</span>
   <button md-button (click)="addAttachmentTop()" mdTooltip="{{'record.edit.addattachment' | translate}}"><md-icon>insert_link</md-icon></button>
+  <button *ngIf='display' md-button (click)="open()" ><md-icon>remove_circle_outline</md-icon></button>
+  <button *ngIf='!display' md-button (click)="open()" ><md-icon>add_circle_outline</md-icon></button>
 </md-toolbar>
 
-<div *ngFor="let attachment of attachments; let i=index" class="input-group">
+<div  [class]='getDisplayClass()'>
+<div *ngFor="let attachment of attachments; let i=index" class='input-group'>
 
   <md-card>
     <md-input-container class="full-width-input">
@@ -26,6 +29,5 @@
 
 </div>
 
-<md-toolbar color="primary">
-  <button md-button (click)="addAttachmentBottom()" mdTooltip="{{'record.edit.addattachment' | translate}}"><md-icon>insert_link</md-icon></button>
-</md-toolbar>
+
+</div>

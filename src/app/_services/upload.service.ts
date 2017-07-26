@@ -49,11 +49,15 @@ export class UploadService {
 
             formData.append('uploaded_file', file);
             xhr.onreadystatechange = function () {
+              console.log('onreadystatechange ...');
                 if (xhr.readyState === 4) {
+                  console.log('onreadystatechange readyState');
                     if (xhr.status === 200) {
-                        resolve(JSON.parse(xhr.response))
+                        console.log('onreadystatechange status 200');
+                        resolve(JSON.parse(xhr.response));
                     } else {
-                        reject(xhr.response)
+                       console.log('onreadystatechange reject');
+                        reject(xhr.response);
                     }
                 }
             };
