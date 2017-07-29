@@ -28,14 +28,14 @@ export class EditLinksComponent implements OnInit {
   /**
   * list of attachments
   */
-  @Input() protected attachments: any[];
+  @Input() attachments: any[];
 
   @Input() protected adminrole = false;
 
   /**
   * display
   */
-  @Input() protected display = false;
+  @Input() display = false;
   /**
   * properties :
   * error
