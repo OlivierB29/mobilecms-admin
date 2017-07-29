@@ -44,6 +44,9 @@ export class EditLinksComponent implements OnInit {
   */
   responsemessage: any;
 
+  loading = false;
+
+
   constructor(protected uploadService: UploadService, public dialog: MdDialog) { }
 
   ngOnInit() {
@@ -125,12 +128,15 @@ moveAttachmentDown(index: number) {
   }
 
     download(index: number) {
+      this.responsemessage = {};
       const files  = [];
 
       files.push(this.current.attachments[index]);
+      console.log('files '  + files);
+      this.loading = true;
       this.uploadService.sync(this.type, this.current.id, files)
         .subscribe((mediadata: any) => {
-          console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'  + JSON.stringify(mediadata));
+          console.log('result '  + JSON.stringify(mediadata));
           mediadata.forEach((f: any) => {
             console.log('adding ' + f.title);
             this.current.media.push(f);
@@ -139,11 +145,11 @@ moveAttachmentDown(index: number) {
         error => {
           this.responsemessage.error = error;
           console.error('post' + error);
+          this.loading = false;
       },
         () => {
-
-
           console.log('sync complete');
+          this.loading = false;
         });
 
     }

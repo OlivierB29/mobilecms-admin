@@ -1,37 +1,37 @@
 
 <div >
 
-  <form name="form" (ngSubmit)="f.form.valid && register()" #f="ngForm" novalidate>
-    <div [ngClass]="{ 'has-error': f.submitted && !email.valid }">
+  <form name='form' (ngSubmit)='f.form.valid && register()' #f='ngForm' novalidate>
+    <div [ngClass]='{ "has-error": f.submitted && !email.valid }'>
 
               <md-input-container >
-                  <input type="text"  mdInput placeholder="Username" class="form-control" name="name" [(ngModel)]="model.name" #name="ngModel" required />
+                  <input type='text'  mdInput placeholder='Username' class='form-control' name='name' [(ngModel)]='model.name' #name='ngModel' required />
               </md-input-container>
 
 
     </div>
 
-    <div [ngClass]="{ 'has-error': f.submitted && !email.valid }">
+    <div [ngClass]='{ "has-error": f.submitted && !email.valid }'>
       <md-input-container >
-          <input type="text"  mdInput placeholder="email" class="form-control" name="email" [(ngModel)]="model.email" #email="ngModel" required />
+          <input type='text'  mdInput placeholder='email' class='form-control' name='email' [(ngModel)]='model.email' #email='ngModel' required />
       </md-input-container>
 
     </div>
-    <div [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+    <div [ngClass]='{ "has-error": f.submitted && !password.valid }'>
                 <md-input-container >
-                <input type="password"  mdInput placeholder="password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel" required />
+                <input type='password'  mdInput placeholder='password' class='form-control' name='password' [(ngModel)]='model.password' #password='ngModel' required />
                 </md-input-container>
     </div>
 
-    <div [ngClass]="{ 'has-error': f.submitted && !email.valid }">
+    <div [ngClass]='{ "has-error": f.submitted && !email.valid }'>
                     <md-input-container >
-                        <input type="text"  mdInput placeholder="secretQuestion" class="form-control" name="secretQuestion" [(ngModel)]="model.secretQuestion" #name="ngModel" required />
+                        <input type='text'  mdInput placeholder='secretQuestion' class='form-control' name='secretQuestion' [(ngModel)]='model.secretQuestion' #name='ngModel' required />
                     </md-input-container>
     </div>
 
-    <div [ngClass]="{ 'has-error': f.submitted && !email.valid }">
+    <div [ngClass]='{ "has-error": f.submitted && !email.valid }'>
       <md-input-container >
-          <input type="text"  mdInput placeholder="secretResponse" class="form-control" name="secretResponse" [(ngModel)]="model.secretResponse" #name="ngModel" required />
+          <input type='text'  mdInput placeholder='secretResponse' class='form-control' name='secretResponse' [(ngModel)]='model.secretResponse' #name='ngModel' required />
       </md-input-container>
     </div>
 
@@ -39,10 +39,10 @@
 
 
     <div>
-      <button md-button [disabled]="loading" ><md-icon>check_circle</md-icon></button>
-      <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+      <button md-button [disabled]='loading' ><md-icon>check_circle</md-icon></button>
+      <img *ngIf='loading' src='data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=='
       />
-        <button md-button [routerLink]="['/login']"><md-icon>close</md-icon></button>
+        <button md-button [routerLink]='["/login"]'><md-icon>close</md-icon></button>
     </div>
   </form>
 </div>

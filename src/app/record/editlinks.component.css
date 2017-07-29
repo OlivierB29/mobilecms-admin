@@ -22,9 +22,19 @@ input:read-only {
 }
 
 .input-group-visible {
-  
+
 }
 
 .input-group-hidden {
   display: none;
+}
+
+.success-label-message {
+  font-size: 0.81em;
+  color: #777777;
+}
+
+.error-label-message {
+  font-size: 0.81em;
+  color: red;
 }

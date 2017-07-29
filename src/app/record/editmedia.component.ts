@@ -10,11 +10,10 @@ import { EditLinksComponent } from './editlinks.component'
 })
 export class EditMediaComponent extends EditLinksComponent implements OnInit {
 
-    loading = false;
 
     upload(files: any) {
 
-
+      this.responsemessage = {};
       if (files) {
         console.log('files ' + files.length);
         console.log(files);
@@ -38,6 +37,7 @@ export class EditMediaComponent extends EditLinksComponent implements OnInit {
               },
               error => {
                 this.loading = false;
+                this.responsemessage.error = error;
                 this.openDialog('Upload error : ' + error);
             },
               () => {
