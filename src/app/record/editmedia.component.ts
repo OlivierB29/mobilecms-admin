@@ -53,4 +53,31 @@ export class EditMediaComponent extends EditLinksComponent implements OnInit {
 
     }
 
+      refresh() {
+        this.uploadService.getFilesDescriptions(this.type, this.current.id)
+          .subscribe((mediadata: any) => {
+            if (mediadata.error) {
+                this.openDialog('refresh failed : ' + mediadata.error);
+            } else {
+              console.log('upload result ' + JSON.stringify(mediadata));
+              mediadata.forEach((f: any) => {
+                console.log('-> ' + f.title);
+                const test = this.current.media.filter((e: any) => e.url === f.url);
+                if (test.length === 0) {
+                  console.log('adding ' + f.title);
+                  this.current.media.push(f);
+                }
+              });
+            }
+          },
+          error => {
+            this.loading = false;
+            this.responsemessage.error = error;
+            this.openDialog('Upload error : ' + error);
+        },
+          () => {
+            this.loading = false;
+        });
+      }
+
 }

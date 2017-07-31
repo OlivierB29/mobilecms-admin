@@ -38,6 +38,18 @@ export class UploadService {
         return this.serverUrl + this.api + path;
     }
 
+    getFilesDescriptions(type: string, id: string): Observable<any[]> {
+      const url = this.getUrl('/basicupload/' + type + '/' + id);
+
+        console.log('getFilesDescriptions ' + url);
+
+        return this.http.get(url, this.jwt())
+            .map((response: Response) => {
+              this.controlResponse(response);
+              return <any[]>response.json();
+            })
+            .catch(this.handleError);
+    }
 
     uploadFile(file: any, type: string, id: string): Observable<any[]> {
       const url = this.getUrl('/basicupload/' + type + '/' + id);
@@ -133,6 +145,25 @@ export class UploadService {
             } else {
                 throw new Error('empty user');
             }
+        }
+
+        private jwt(): RequestOptions {
+            // create authorization header with jwt token
+
+
+            if (localStorage.getItem('currentUser')) {
+              const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+              if (currentUser && currentUser.token) {
+
+                  const headers = new Headers({ 'Authorization': 'Bearer ' + currentUser.token });
+                  return new RequestOptions({ headers: headers });
+              } else {
+                throw new Error('invalid token');
+              }
+            } else {
+                throw new Error('empty user');
+            }
+
         }
 
 }

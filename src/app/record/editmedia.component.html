@@ -2,8 +2,12 @@
   <span>Media : </span>
   <input type='file' #file (change)='upload(file.files)' multiple='multiple' />
   <button *ngIf='display' md-button (click)='open()' ><md-icon>remove_circle_outline</md-icon></button>
+  <button *ngIf='display' md-button (click)='refresh()' ><md-icon>autorenew</md-icon></button>
+
   <button *ngIf='!display' md-button (click)='open()' ><md-icon>add_circle_outline</md-icon></button>
+
 </md-toolbar>
+
 <md-spinner *ngIf='loading' mode='indeterminate'></md-spinner>
 
 <div *ngIf='responsemessage && responsemessage.error' class='error-label-message'>
@@ -19,7 +23,7 @@
 
   <md-card>
     <md-input-container class='full-width-input'>
-      <input mdInput placeholder='{{'field.label.attachment.title' | translate}}' [(ngModel)]='attachments[i].title' type='text'>
+      <input mdInput placeholder='{{"field.label.attachment.title" | translate}}' [(ngModel)]='attachments[i].title' type='text'>
     </md-input-container>
 
     <md-input-container class='full-width-input'>
