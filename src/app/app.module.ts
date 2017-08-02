@@ -27,11 +27,12 @@ import { AlertComponent } from './_directives/index';
 import { AuthGuard } from './_guards/index';
 import { AlertService, AuthenticationService, UserService, ContentService, UploadService,
    LocaleService, StringUtils } from './_services/index';
-import { HomeComponent } from './home/index';
+import { HomeComponent, HomeHelpDialogComponent } from './home/index';
 import { LoginComponent } from './login/index';
 import { RegisterComponent } from './register/index';
 import { RecordListComponent } from 'app/recordlist/index';
-import { RecordComponent, EditLinksComponent, EditMediaComponent, ErrorDialogComponent, DeleteDialogComponent } from 'app/record';
+import { RecordComponent, EditLinksComponent, EditMediaComponent,
+   ErrorDialogComponent, DeleteDialogComponent, RecordHelpDialogComponent } from 'app/record';
 
 import { ModifyPasswordComponent } from 'app/modifypassword';
 
@@ -63,12 +64,14 @@ import {  OrderbyPipe } from './shared/filters';
     AppComponent,
     AlertComponent,
     HomeComponent,
+    HomeHelpDialogComponent,
     TopMenuComponent,
     LoginComponent,
     ModifyPasswordComponent,
     RegisterComponent,
     RecordListComponent,
     RecordComponent,
+    RecordHelpDialogComponent,
     DeleteDialogComponent,
     OrderbyPipe,
     SlidemenuComponent,
@@ -77,6 +80,8 @@ import {  OrderbyPipe } from './shared/filters';
     ErrorDialogComponent
   ],
   entryComponents: [
+    HomeHelpDialogComponent,
+    RecordHelpDialogComponent,
     DeleteDialogComponent,
     ErrorDialogComponent
   ],

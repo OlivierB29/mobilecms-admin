@@ -30,8 +30,12 @@ export class EditMediaComponent extends EditLinksComponent implements OnInit {
                 } else {
                   console.log('upload result ' + JSON.stringify(mediadata));
                   mediadata.forEach((f: any) => {
-                    console.log('adding ' + f.title);
-                    this.current.media.push(f);
+                    console.log('--- current  ' + f.url);
+                    if (!this.exists(this.current.media, 'url', f.url)) {
+                      console.log('adding ' + f.title);
+                      this.current.media.push(f);
+                    }
+
                   });
                 }
               },
@@ -51,6 +55,18 @@ export class EditMediaComponent extends EditLinksComponent implements OnInit {
         this.openDialog('No file selected');
       }
 
+    }
+
+    private exists(array: any[], key: any, value: any): boolean {
+        let result = false;
+        if (array) {
+          const filter = array.filter(e => {
+              return e[key] === value;
+          });
+          result = filter.length > 0;
+        }
+
+        return result;
     }
 
       refresh() {

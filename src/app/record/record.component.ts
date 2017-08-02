@@ -8,6 +8,7 @@ import { User, Label, RecordType, Metadata } from '../_models';
 import { ContentService, UploadService, StringUtils } from 'app/_services';
 import { environment } from '../../environments/environment';
 import { DeleteDialogComponent } from './deletedialog.component';
+import { RecordHelpDialogComponent } from './recordhelpdialog.component';
 
 @Component({
   moduleId: module.id,
@@ -290,5 +291,15 @@ export class RecordComponent implements OnInit {
           console.log('delete complete');
         });
 
+    }
+
+    /**
+    * help
+    */
+    openHelpDialog() {
+      const dialogRef = this.dialog.open(RecordHelpDialogComponent, {
+         data: '',
+      });
+      dialogRef.afterClosed().subscribe(result => { console.log('Dialog result'); });
     }
 }

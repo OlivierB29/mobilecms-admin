@@ -17,24 +17,12 @@
 
           <button [routerLink]='["/home"]' md-button><md-icon>home</md-icon></button>
           <button *ngIf='currentUser' md-button [routerLink]='["/login"]' class='disconnectbutton'><md-icon alt='disconnect'>close</md-icon></button>
+          <button md-button (click)='openHelpDialog()'><md-icon alt='help'>help_outline</md-icon></button>
 
       </md-toolbar>
 <!-- TODO
         <button md-button [routerLink]='['/modifypasssword']' class='topmenucontent'><md-icon>account_circle</md-icon>Password </button>
 -->
-
-<!-- help content -->
-  <md-card>
-    <div>{{'home.help.title' | translate}}</div>
-    <md-list>
-     <md-list-item> <md-icon>menu</md-icon> {{'home.help.menu' | translate}} </md-list-item>
-     <md-list-item> <md-icon>home</md-icon> {{'home.help.home' | translate}} </md-list-item>
-     <md-list-item> <md-icon>close</md-icon> {{'home.help.disconnect' | translate}} </md-list-item>
-
-    </md-list>
-
-    </md-card>
-<!-- help content -->
 
   </div>
 

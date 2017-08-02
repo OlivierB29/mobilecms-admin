@@ -1,10 +1,10 @@
 <md-toolbar color='primary'>
-  <span>Media : </span>
+  <span>{{'record.edit.media' | translate}} : {{attachments.length}}&nbsp;</span>
   <input type='file' #file (change)='upload(file.files)' multiple='multiple' />
-  <button *ngIf='display' md-button (click)='open()' ><md-icon>remove_circle_outline</md-icon></button>
+  <button *ngIf='display' md-button (click)='open()' ><md-icon>expand_less</md-icon></button>
   <button *ngIf='display' md-button (click)='refresh()' ><md-icon>autorenew</md-icon></button>
 
-  <button *ngIf='!display' md-button (click)='open()' ><md-icon>add_circle_outline</md-icon></button>
+  <button *ngIf='!display' md-button (click)='open()' ><md-icon>expand_more</md-icon></button>
 
 </md-toolbar>
 

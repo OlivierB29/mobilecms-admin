@@ -1,8 +1,8 @@
 <md-toolbar color='primary'>
   <span *ngIf='attachments'>{{title | translate}} : {{attachments.length}}</span>
   <button md-button (click)='addAttachmentTop()' mdTooltip='{{"record.edit.addattachment" | translate}}'><md-icon>insert_link</md-icon></button>
-  <button *ngIf='display' md-button (click)='open()' ><md-icon>remove_circle_outline</md-icon></button>
-  <button *ngIf='!display' md-button (click)='open()' ><md-icon>add_circle_outline</md-icon></button>
+  <button *ngIf='display' md-button (click)='open()' ><md-icon>expand_less</md-icon></button>
+  <button *ngIf='!display' md-button (click)='open()' ><md-icon>expand_more</md-icon></button>
 </md-toolbar>
 <md-spinner *ngIf='loading' mode='indeterminate'></md-spinner>
 <div *ngIf='responsemessage && responsemessage.error' class='error-label-message'>

@@ -1,11 +1,13 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { ContentService, LocaleService } from '../_services/index';
+import { MdDialog } from '@angular/material';
+
 
 import { TranslatePipe } from '@ngx-translate/core';
 
 import { User } from '../_models/index';
 import { AuthenticationService } from '../_services/index';
-
+import { HomeHelpDialogComponent } from './homehelpdialog.component';
 
 
 @Component({
@@ -33,7 +35,7 @@ export class HomeComponent implements OnInit {
   menuOpened: true;
 
 
-    constructor(private authenticationService: AuthenticationService) {
+    constructor(private authenticationService: AuthenticationService, public dialog: MdDialog) {
 
     }
 
@@ -42,7 +44,15 @@ export class HomeComponent implements OnInit {
     }
 
 
-
+    /**
+    * help
+    */
+    openHelpDialog() {
+      const dialogRef = this.dialog.open(HomeHelpDialogComponent, {
+         data: '',
+      });
+      dialogRef.afterClosed().subscribe(result => { console.log('Dialog result'); });
+    }
 
 
 }
