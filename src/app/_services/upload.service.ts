@@ -38,7 +38,7 @@ export class UploadService {
         return this.serverUrl + this.api + path;
     }
 
-    getFilesDescriptions(type: string, id: string): Observable<any[]> {
+    public getFilesDescriptions(type: string, id: string): Observable<any[]> {
       const url = this.getUrl('/basicupload/' + type + '/' + id);
 
         console.log('getFilesDescriptions ' + url);
@@ -51,7 +51,7 @@ export class UploadService {
             .catch(this.handleError);
     }
 
-    uploadFile(file: any, type: string, id: string): Observable<any[]> {
+    public uploadFile(file: any, type: string, id: string): Observable<any[]> {
       const url = this.getUrl('/basicupload/' + type + '/' + id);
 
         return Observable.fromPromise(new Promise((resolve, reject) => {
@@ -87,10 +87,37 @@ export class UploadService {
         }));
     }
 
-    public sync = (type: string, id: string, obj: any): Observable<any> => {
+    public sync(type: string, id: string, obj: any): Observable<any> {
 
         // eg : /content/calendar
         const url = this.getUrl('/download/' + type + '/' + id);
+
+        console.log(url);
+
+
+         let postData = '';
+         if (this.postFormData) {
+           // escape issue, with some characters like &
+           postData = 'requestbody=' + encodeURIComponent(JSON.stringify(JSON.parse(JSON.stringify(obj))));
+         } else {
+           postData = JSON.stringify(obj);
+         }
+
+        return this.http.post(url,
+            postData,
+            this.jwtPost())
+            .map((response: Response) => {
+              this.controlResponse(response);
+              return <any>response.json();
+            })
+            .catch(this.handleError);
+
+    }
+
+    public delete(type: string, id: string, obj: any): Observable<any> {
+
+        // eg : /content/calendar
+        const url = this.getUrl('/delete/' + type + '/' + id);
 
         console.log(url);
 

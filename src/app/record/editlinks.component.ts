@@ -131,7 +131,7 @@ moveAttachmentDown(index: number) {
       this.responsemessage = {};
       const files  = [];
 
-      files.push(this.current.attachments[index]);
+      files.push(this.attachments[index]);
       console.log('files '  + files);
       this.loading = true;
       this.uploadService.sync(this.type, this.current.id, files)
