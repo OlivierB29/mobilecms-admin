@@ -4,6 +4,8 @@ This project is a admin app for writing content through a RESTful API.
 It is initially intended to manage content from a sport organization, with such content : News, calendar events, public pages, documents, ...
 All the data is public, by default. (except users)
 
+Visit the [admin demo](https://olivierb29.github.io/mobilecms-demo/admin) on github pages
+
 ## Dependencies
 
 - Angular.io + Angular Material
@@ -25,7 +27,7 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
 
 Build with specified web context : `ng build --prod --base-href /admin/`
-
+Demo build for github pages : `ng build --prod --env=demo --base-href /mobilecms-demo/admin/`
 
 ## register a new user
 - open `http://localhost:4200/register`
