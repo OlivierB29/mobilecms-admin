@@ -10,8 +10,7 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
-    // return new TranslateHttpLoader(http);
-    return new TranslateHttpLoader(http, '/assets/i18n-admin/', '.json');
+      return new TranslateHttpLoader(http, 'assets/i18n-admin/', '.json');
 }
 
 
@@ -43,9 +42,9 @@ import { MainPageComponent } from 'app/mainpage/mainpage.component';
 import {  OrderbyPipe } from './shared/filters';
 
 // used to create fake backend
-import { fakeBackendProvider } from './_helpers/index';
-import { MockBackend, MockConnection } from '@angular/http/testing';
-import { BaseRequestOptions } from '@angular/http';
+// import { fakeBackendProvider } from './_helpers/index';
+// import { MockBackend, MockConnection } from '@angular/http/testing';
+// import { BaseRequestOptions } from '@angular/http';
 
 @NgModule({
   imports: [
@@ -103,9 +102,9 @@ import { BaseRequestOptions } from '@angular/http';
     StringUtils,
     OrderbyPipe,
     // providers used to create fake backend
-    fakeBackendProvider,
-    MockBackend,
-    BaseRequestOptions
+    // fakeBackendProvider,
+    // MockBackend,
+    // BaseRequestOptions
   ],
   bootstrap: [AppComponent]
 })

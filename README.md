@@ -5,6 +5,7 @@ It is initially intended to manage content from a sport organization, with such 
 All the data is public, by default. (except users)
 
 Visit the [admin demo](https://olivierb29.github.io/mobilecms-demo/admin) on github pages
+Use any user-password combination on this version. All API calls use a mocked API.
 
 ## Dependencies
 
