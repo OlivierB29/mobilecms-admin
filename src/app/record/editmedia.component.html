@@ -1,5 +1,5 @@
 <md-toolbar color='primary'>
-  <span>{{'record.edit.media' | translate}} : {{attachments.length}}&nbsp;</span>
+  <span mdTooltip='{{ "record.edit.mediasubtitle" | translate }}'>{{'record.edit.media' | translate}} : {{attachments.length}}&nbsp;</span>
 
   <button *ngIf='display' md-button (click)='open()' ><md-icon>expand_less</md-icon></button>
 
@@ -23,7 +23,7 @@
       <md-icon>cloud_done</md-icon>
     </div>
   </md-card>
-  
+
 <div *ngFor='let item of attachments; let i=index' class='input-group'>
 
 
