@@ -20,9 +20,17 @@
           <button md-button (click)='openHelpDialog()'><md-icon alt='help'>help_outline</md-icon></button>
 
       </md-toolbar>
-<!-- TODO
-        <button md-button [routerLink]='['/modifypasssword']' class='topmenucontent'><md-icon>account_circle</md-icon>Password </button>
--->
+
+<div *ngIf='menuItems'>
+  <div *ngFor='let menu of menuItems'>
+
+
+    <button [routerLink]='["/recordlist", menu.type]' routerLinkActive='active' md-button color='primary' class='mainpage-button'>
+                       <span >{{menu.label}}</span>
+  </button>
+
+  </div>
+</div>
 
   </div>
 

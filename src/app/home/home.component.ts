@@ -4,8 +4,7 @@ import { MdDialog } from '@angular/material';
 
 
 import { TranslatePipe } from '@ngx-translate/core';
-
-import { User } from '../_models/index';
+import { User, Label, RecordType } from '../_models/index';
 import { AuthenticationService } from '../_services/index';
 import { HomeHelpDialogComponent } from './homehelpdialog.component';
 
@@ -34,14 +33,34 @@ export class HomeComponent implements OnInit {
   */
   menuOpened: true;
 
+  hasRole = false;
 
-    constructor(private authenticationService: AuthenticationService, public dialog: MdDialog) {
+  hasAdminRole = false;
+
+  menuItems: RecordType[] = null;
+
+  lang: string;
+
+
+
+
+    constructor(private contentService: ContentService,
+       private authenticationService: AuthenticationService,
+       private locale: LocaleService,
+       public dialog: MdDialog) {
 
     }
 
-    ngOnInit(): void {
-       this.currentUser = this.authenticationService.initUser();
-    }
+
+      ngOnInit() {
+
+        this.lang = this.locale.getLang();
+
+        this.initUser();
+
+        this.initMenu();
+
+      }
 
 
     /**
@@ -55,4 +74,56 @@ export class HomeComponent implements OnInit {
     }
 
 
+    private initUser(): void {
+
+      const currentUserLocalStorage = localStorage.getItem('currentUser');
+
+      if (currentUserLocalStorage) {
+        this.currentUser = JSON.parse(currentUserLocalStorage);
+        this.currentUser.token = '';
+        console.log('currentUser ...');
+
+        this.hasAdminRole = this.currentUser.role === 'admin';
+        this.hasRole = this.currentUser.role === 'editor' || this.currentUser.role === 'admin';
+      }
+
+    }
+
+    private initMenu() {
+      //
+      // About roles : this just a frontend features. Roles must be tested in the API.
+      //
+
+      if (this.hasRole) {
+        this.contentService.getTables()
+          .subscribe((data: RecordType[]) => this.menuItems = data,
+          error => console.log('getItems ' + error),
+          () => {
+            console.log('getItems complete :' + this.menuItems.length);
+
+            // iterate each type
+            if (this.menuItems) {
+
+              this.menuItems.forEach((record: RecordType) => {
+                // detect label value
+                record.labels.map((label: Label) => {
+                  if (label.i18n === this.lang) {
+                    record.label = label.label;
+                    return label;
+                  }
+                });
+
+
+
+              });
+            }
+          });
+
+
+      } else {
+        console.log('guest ');
+      }
+
+
+}
 }

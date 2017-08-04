@@ -29,8 +29,22 @@ export class SlidemenuComponent implements OnInit {
 
   hasAdminRole = false;
 
+
+
   constructor(private contentService: ContentService, private locale: LocaleService) { }
 
+
+
+
+  ngOnInit() {
+
+    this.lang = this.locale.getLang();
+
+    this.initUser();
+
+    this.initMenu();
+
+  }
 
   private initUser(): void {
 
@@ -47,23 +61,12 @@ export class SlidemenuComponent implements OnInit {
 
   }
 
-  ngOnInit() {
-
-
-    const lang = this.locale.getLang();
-
-    this.initUser();
-
+  private initMenu() {
     //
     // About roles : this just a frontend features. Roles must be tested in the API.
     //
 
-
-
-
     if (this.hasRole) {
-
-
       this.contentService.getTables()
         .subscribe((data: RecordType[]) => this.menuItems = data,
         error => console.log('getItems ' + error),
@@ -76,7 +79,7 @@ export class SlidemenuComponent implements OnInit {
             this.menuItems.forEach((record: RecordType) => {
               // detect label value
               record.labels.map((label: Label) => {
-                if (label.i18n === lang) {
+                if (label.i18n === this.lang) {
                   record.label = label.label;
                   return label;
                 }
@@ -91,9 +94,7 @@ export class SlidemenuComponent implements OnInit {
 
     } else {
       console.log('guest ');
-
     }
-
   }
 
 }

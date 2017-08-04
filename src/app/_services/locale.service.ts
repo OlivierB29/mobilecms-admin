@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Http, Response } from '@angular/http';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class LocaleService {
-  private i18n = 'i18n';
+  private i18n = 'i18n-admin';
 
   private lang = 'en';
 
