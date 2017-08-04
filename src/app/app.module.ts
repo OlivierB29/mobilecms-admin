@@ -42,6 +42,10 @@ import { MainPageComponent } from 'app/mainpage/mainpage.component';
 
 import {  OrderbyPipe } from './shared/filters';
 
+// used to create fake backend
+import { fakeBackendProvider } from './_helpers/index';
+import { MockBackend, MockConnection } from '@angular/http/testing';
+import { BaseRequestOptions } from '@angular/http';
 
 @NgModule({
   imports: [
@@ -97,7 +101,11 @@ import {  OrderbyPipe } from './shared/filters';
     UploadService,
     LocaleService,
     StringUtils,
-    OrderbyPipe
+    OrderbyPipe,
+    // providers used to create fake backend
+    fakeBackendProvider,
+    MockBackend,
+    BaseRequestOptions
   ],
   bootstrap: [AppComponent]
 })

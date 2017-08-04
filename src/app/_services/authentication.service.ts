@@ -29,7 +29,7 @@ export class AuthenticationService {
   constructor(private http: Http) { }
 
   login(user: string, password: string) {
-
+    console.log('login...');
 
 
     localStorage.removeItem('currentUser');
@@ -55,6 +55,7 @@ export class AuthenticationService {
 
           localStorage.setItem('currentUser', JSON.stringify(userObject));
         } else {
+          console.error('invalid auth token');
           throw new Error('invalid auth token');
         }
       });
