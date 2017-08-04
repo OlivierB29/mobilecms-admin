@@ -4,8 +4,12 @@ This project is a admin app for writing content through a RESTful API.
 It is initially intended to manage content from a sport organization, with such content : News, calendar events, public pages, documents, ...
 All the data is public, by default. (except users)
 
-Visit the [admin demo](https://olivierb29.github.io/mobilecms-demo/admin) on github pages
+Visit the [admin demo](https://olivierb29.github.io/mobilecms-demo/admin) on github pages.
 Use any user-password combination on this version. All API calls use a mocked API.
+
+# Web site frontend
+- visit the [demo](https://olivierb29.github.io/mobilecms-demo).
+- source code : [mobilecms](https://github.com/OlivierB29/mobilecms)
 
 ## Dependencies
 
