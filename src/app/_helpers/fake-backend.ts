@@ -221,7 +221,7 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.",\
             body: {
               username: user.username,
               email: user.username,
-              role: 'editor',
+              role: 'admin',
               token: 'fake-jwt-token'
             }
 
