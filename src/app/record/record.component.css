@@ -21,10 +21,16 @@ input:read-only {
     background-color: #ddd;
 }
 
-
 .container {
-  padding: 2em;
+  padding: 0.2em;
 }
+
+@media all and (min-width: 55em) {
+  .container {
+    padding: 2em;
+  }
+}
+
 
 .list-container {
   padding-bottom: 0.5em;

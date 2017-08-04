@@ -27,19 +27,20 @@
     <!-- #################################### -->
 
 
-    <div>{{'record.list.title' | translate}}</div>
+
     <div class='recordlist'>
       <div>
-        <md-card>
+        <div class='secondary-button-bar'>
           <span mdTooltip='{{ "record.list.create" | translate }}'><button md-button [routerLink]='["/record", type ,  "new"]'><md-icon>add</md-icon> </button></span>
 
-        <button md-button (click)='rebuildIndex()'><md-icon>refresh</md-icon></button></md-card>
+        <button md-button (click)='rebuildIndex()'><md-icon>refresh</md-icon></button>
+      </div>
 
 
 
         <div *ngIf='items'>
           <div *ngFor='let item of items'>
-            <button *ngIf='item.title' md-button [routerLink]='["/record", type ,  item.id]'>{{item.title}}</button>
+            <button *ngIf='item.title' md-button [routerLink]='["/record", type ,  item.id]' class='item-title'>{{item.title}}</button>
             <button *ngIf='!item.title' md-button [routerLink]='["/record", type ,  item.id]'>{{item.id}}</button>
           </div>
         </div>
