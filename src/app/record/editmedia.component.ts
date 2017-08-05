@@ -152,7 +152,7 @@ export class EditMediaComponent extends EditLinksComponent implements OnInit {
         return super.getDisplayClass();
       }
 
-      getResponseMessage(): string {
+      getResponseMessage(): any {
         return super.getResponseMessage();
       }
 }
