@@ -160,4 +160,18 @@ moveAttachmentDown(index: number) {
          data: msg,
       });
     }
+
+    isDisplay(): boolean {
+      return this.display;
+    }
+
+    isLoading(): boolean {
+      return this.loading;
+    }
+
+    getResponseMessage(): string {
+      return this.responsemessage;
+    }
+
+
 }

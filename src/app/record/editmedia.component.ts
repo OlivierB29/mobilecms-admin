@@ -121,4 +121,38 @@ export class EditMediaComponent extends EditLinksComponent implements OnInit {
         });
       }
 
+      getAttachments(): any[] {
+        return this.attachments;
+      }
+
+      moveAttachmentUp(index: number) {
+        super.moveAttachmentUp(index);
+      }
+
+      /**
+      * move an attachment downward
+      */
+      moveAttachmentDown(index: number) {
+        super.moveAttachmentDown(index);
+      }
+
+      open() {
+        super.open();
+      }
+
+      isDisplay(): boolean {
+        return super.isDisplay();
+      }
+
+      isLoading(): boolean {
+        return super.isLoading();
+      }
+
+      getDisplayClass(): string {
+        return super.getDisplayClass();
+      }
+
+      getResponseMessage(): string {
+        return super.getResponseMessage();
+      }
 }

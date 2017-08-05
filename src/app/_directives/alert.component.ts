@@ -4,11 +4,11 @@ import { AlertService } from '../_services/index';
 
 @Component({
     moduleId: module.id,
-    selector: 'alert',
+    selector: 'app-alert',
     templateUrl: 'alert.component.html'
 })
 
-export class AlertComponent {
+export class AlertComponent implements OnInit {
     message: any;
 
     constructor(private alertService: AlertService) { }

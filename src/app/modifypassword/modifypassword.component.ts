@@ -1,4 +1,4 @@
-﻿import { Component } from '@angular/core';
+﻿import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertService, AuthenticationService } from '../_services/index';
 
@@ -9,7 +9,7 @@ import { User, Label, RecordType } from '../_models/index';
   templateUrl: 'modifypassword.component.html'
 })
 
-export class ModifyPasswordComponent {
+export class ModifyPasswordComponent implements OnInit {
   model: any = {};
 
   currentUser: User;
