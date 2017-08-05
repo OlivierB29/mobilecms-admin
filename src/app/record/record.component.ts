@@ -78,6 +78,7 @@ export class RecordComponent extends StandardComponent implements OnInit {
    }
 
   ngOnInit() {
+    super.ngOnInit();
     console.log('record.component');
 
     this.route.params.forEach((params: Params) => {
@@ -286,5 +287,9 @@ export class RecordComponent extends StandardComponent implements OnInit {
          data: '',
       });
       dialogRef.afterClosed().subscribe(result => { console.log('Dialog result'); });
+    }
+
+    isAdminRole() {
+      return this.hasAdminRole;
     }
 }

@@ -1,7 +1,7 @@
 
 <md-card>
   <button md-button (click)="save()" mdTooltip="{{'record.edit.save' | translate }}"><md-icon>save</md-icon></button>
-  <button md-button *ngIf="!newrecord && hasAdminRole" (click)="preview()"> <md-icon>open_in_new</md-icon></button>
+  <button md-button *ngIf="!newrecord && isAdminRole()" (click)="preview()"> <md-icon>open_in_new</md-icon></button>
   <button md-button *ngIf="!newrecord" (click)="openConfirmDialog()" mdTooltip="{{'record.edit.delete' | translate }}"> <md-icon>delete</md-icon></button>
   <button md-button (click)='openHelpDialog()'><md-icon alt='help'>help_outline</md-icon></button>
 </md-card>
@@ -60,7 +60,7 @@
 
         </div>
 
-        <div *ngIf="hasAdminRole && !newrecord && property.editor === 'medialist' && property.name === 'media'" class="list-container">
+        <div *ngIf="isAdminRole() && !newrecord && property.editor === 'medialist' && property.name === 'media'" class="list-container">
           <app-editmedia [type]='type' [current]='current' [attachments]='current.media' [title]='"record.edit.media"'></app-editmedia>
         </div>
         <!-- list-container -->
@@ -68,11 +68,11 @@
 
 
         <div *ngIf="property.editor === 'imagelist' && property.name === 'images'" class="list-container">
-          <app-editlinks [type]='type' [current]='current' [attachments]='current.images' [title]='"record.edit.images"' [adminrole]='hasAdminRole'></app-editlinks>
+          <app-editlinks [type]='type' [current]='current' [attachments]='current.images' [title]='"record.edit.images"' [adminrole]='isAdminRole()'></app-editlinks>
         </div>
 
         <div *ngIf="property.editor === 'attachmentlist' && property.name === 'attachments'" class="list-container">
-          <app-editlinks [type]='type' [current]='current' [attachments]='current.attachments' [title]='"record.edit.attachments"' [adminrole]='hasAdminRole'></app-editlinks>
+          <app-editlinks [type]='type' [current]='current' [attachments]='current.attachments' [title]='"record.edit.attachments"' [adminrole]='isAdminRole()'></app-editlinks>
         </div>
         <!-- attachments -->
 

@@ -36,7 +36,7 @@ export class TopMenuComponent implements OnInit {
     if (currentUserLocalStorage) {
       this.currentUser = JSON.parse(currentUserLocalStorage);
       this.currentUser.token = '';
-      console.log('currentUser ...');
+
     } else {
 
     }

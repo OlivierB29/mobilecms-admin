@@ -104,9 +104,9 @@ export class MainPageComponent  implements OnInit, AfterViewInit {
             if (currentUserLocalStorage) {
               this.currentUser = JSON.parse(currentUserLocalStorage);
               this.currentUser.token = '';
-              console.log('currentUser ...');
 
               this.hasAdminRole = this.currentUser.role === 'admin';
+              console.log('currentUser ...' + this.currentUser.role + ' ' + this.hasAdminRole);
               this.hasRole = this.currentUser.role === 'editor' || this.currentUser.role === 'admin';
             }
 
