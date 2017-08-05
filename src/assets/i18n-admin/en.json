@@ -21,6 +21,7 @@
     "record.help.attachments":"Add document link",
     "record.help.media":"Attach files to the current record",
     "deletedialog.title": "Delete",
+    "recordlist.help.refresh": "Refresh record list if not found in index",
     "field.label.id":"id",
     "field.label.description":"Record description",
     "field.label.activity":"Activity",

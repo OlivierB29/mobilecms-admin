@@ -1,12 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
+import { MdDialog } from '@angular/material';
 
-import { ContentService } from '../_services/index';
+import { RecordListHelpDialogComponent } from './recordlisthelpdialog.component';
+
+import { AuthenticationService, ContentService, LocaleService } from '../_services/index';
 
 import { User } from '../_models/index';
-import { AuthenticationService } from '../_services/index';
 
 import { OrderbyPipe } from '../shared/filters';
+
+import { StandardComponent } from 'app/home';
 
 @Component({
   moduleId: module.id,
@@ -14,10 +18,9 @@ import { OrderbyPipe } from '../shared/filters';
   styleUrls: ['recordlist.component.css']
 })
 
-export class RecordListComponent implements OnInit {
+export class RecordListComponent extends StandardComponent implements OnInit {
 
 
-    currentUser: User;
 
 
   /**
@@ -36,27 +39,17 @@ export class RecordListComponent implements OnInit {
   response: any = null;
 
 
-  /*
 
-  https://material.angular.io/components/component/sidenav
-  */
-  menuMode:  'side';
-
-  /*
-  opened
-  https://www.npmjs.com/package/@angular2-material/sidenav
-  */
-  menuOpened: true;
-
-
-  constructor(private route: ActivatedRoute, private contentService: ContentService,
-    private authenticationService: AuthenticationService,
-  private orderby: OrderbyPipe) { }
+  constructor(contentService: ContentService,
+      authenticationService: AuthenticationService,
+      locale: LocaleService, private route: ActivatedRoute,
+  private orderby: OrderbyPipe, public dialog: MdDialog) {
+   super(contentService, authenticationService, locale);
+ }
 
   ngOnInit() {
+    super.ngOnInit();
     console.log('RecordListComponent ');
-
-    this.currentUser = this.authenticationService.initUser();
 
 
     this.route.params.forEach((params: Params) => {
@@ -98,6 +91,14 @@ export class RecordListComponent implements OnInit {
 
   }
 
-
+  /**
+  * help
+  */
+  openHelpDialog() {
+    const dialogRef = this.dialog.open(RecordListHelpDialogComponent, {
+       data: '',
+    });
+    dialogRef.afterClosed().subscribe(result => { console.log('Dialog result'); });
+  }
 
 }

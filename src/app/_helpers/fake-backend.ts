@@ -219,7 +219,7 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.",\
           connection.mockRespond(new Response(new ResponseOptions({
             status: 200,
             body: {
-              username: user.username,
+              name: user.username,
               email: user.username,
               role: 'admin',
               token: 'fake-jwt-token'
@@ -240,6 +240,18 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.",\
       // generic responses
       //
 
+      // refresh index
+      if (connection.request.url.indexOf('/index/') !== -1 && connection.request.method === RequestMethod.Post) {
+
+        connection.mockRespond(new Response(new ResponseOptions({
+          status: 200,
+          body: JSON.parse('{}')
+
+        })));
+        return;
+      }
+
+      // get index
       if (connection.request.url.indexOf('/index/') !== -1 && connection.request.method === RequestMethod.Get) {
         connection.mockRespond(new Response(new ResponseOptions({
           status: 200,
@@ -251,8 +263,9 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.",\
         })));
         return;
       }
+
+      // save record
       if (connection.request.url.indexOf('/content/') !== -1 && connection.request.method === RequestMethod.Post) {
-        console.log('!!!!!!!!!!! fake POST /content/ ');
         const ts = Math.ceil(new Date().getTime() / 1000);
         connection.mockRespond(new Response(new ResponseOptions({
           status: 200,
@@ -261,6 +274,7 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.",\
         })));
         return;
       }
+      // get record
       if (connection.request.url.indexOf('content/')
        && connection.request.method === RequestMethod.Get) {
 
@@ -310,7 +324,7 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.",\
           connection.mockError(error);
         });
 
-    }, 500);
+    }, 100);
 
   });
 

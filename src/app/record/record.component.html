@@ -1,14 +1,9 @@
-<md-toolbar color="primary">
-  <button md-button [routerLink]="['/recordlist/'+type]" mdTooltip="{{'record.edit.back' | translate }}"><md-icon>arrow_back</md-icon></button> {{'record.edit.title' | translate }}
-  <button md-button (click)='openHelpDialog()'><md-icon alt='help'>help_outline</md-icon></button>
-
-</md-toolbar>
 
 <md-card>
   <button md-button (click)="save()" mdTooltip="{{'record.edit.save' | translate }}"><md-icon>save</md-icon></button>
   <button md-button *ngIf="!newrecord && hasAdminRole" (click)="preview()"> <md-icon>open_in_new</md-icon></button>
   <button md-button *ngIf="!newrecord" (click)="openConfirmDialog()" mdTooltip="{{'record.edit.delete' | translate }}"> <md-icon>delete</md-icon></button>
-
+  <button md-button (click)='openHelpDialog()'><md-icon alt='help'>help_outline</md-icon></button>
 </md-card>
 
 <div class="container">

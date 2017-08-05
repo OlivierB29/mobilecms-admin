@@ -1,56 +1,18 @@
-<md-sidenav-container>
+<div>
+  <div class='secondary-button-bar'>
+    <span mdTooltip='{{ "record.list.create" | translate }}'><button md-button [routerLink]='["/record", type ,  "new"]'><md-icon>add</md-icon> </button></span>
 
-  <!-- slide menu -->
-
-  <md-sidenav #sidenav [mode]='this.menuMode' [opened]='menuOpened'>
-    <nav>
-      <app-my-slidemenu class='slidemenu'></app-my-slidemenu>
-    </nav>
-  </md-sidenav>
-
-
-  <!-- container -->
-  <div class='my-content'>
-      <md-toolbar color='primary'>
-        <button *ngIf='!menuOpened' md-button (click)='sidenav.open()'><md-icon>menu</md-icon></button>
-        <app-my-topmenu  class='topmenucontent'></app-my-topmenu>
-
-
-          <button [routerLink]='["/home"]' md-button><md-icon>home</md-icon></button>
-          <button *ngIf='currentUser' md-button [routerLink]='["/login"]' class='disconnectbutton'><md-icon alt='disconnect'>close</md-icon></button>
-          <button md-button ><md-icon alt='help'>help_outline</md-icon></button>
-      </md-toolbar>
-<!-- TODO
-        <button md-button [routerLink]='['/modifypasssword']' class='topmenucontent'><md-icon>account_circle</md-icon>Password </button>
--->
-
-    <!-- #################################### -->
+  <button md-button (click)='rebuildIndex()'><md-icon>refresh</md-icon></button>
+  <button md-button (click)='openHelpDialog()'><md-icon alt='help'>help_outline</md-icon></button>
+</div>
 
 
 
-    <div class='recordlist'>
-      <div>
-        <div class='secondary-button-bar'>
-          <span mdTooltip='{{ "record.list.create" | translate }}'><button md-button [routerLink]='["/record", type ,  "new"]'><md-icon>add</md-icon> </button></span>
-
-        <button md-button (click)='rebuildIndex()'><md-icon>refresh</md-icon></button>
-      </div>
-
-
-
-        <div *ngIf='items'>
-          <div *ngFor='let item of items'>
-            <button *ngIf='item.title' md-button [routerLink]='["/record", type ,  item.id]' class='item-title'>{{item.title}}</button>
-            <button *ngIf='!item.title' md-button [routerLink]='["/record", type ,  item.id]'>{{item.id}}</button>
-          </div>
-        </div>
-
-      </div>
+  <div *ngIf='items'>
+    <div *ngFor='let item of items'>
+      <button *ngIf='item.title' md-button [routerLink]='["/record", type ,  item.id]' class='item-title'>{{item.title}}</button>
+      <button *ngIf='!item.title' md-button [routerLink]='["/record", type ,  item.id]'>{{item.id}}</button>
     </div>
-    <!-- #################################### -->
   </div>
 
-
-
-
-</md-sidenav-container>
+</div>

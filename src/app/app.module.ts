@@ -21,30 +21,30 @@ import 'hammerjs';
 
 // project imports
 import { routing } from './app.routing';
-import { AppComponent } from './app.component';
-import { SlidemenuComponent } from './slidemenu/slidemenu.component';
-import { AlertComponent } from './_directives/index';
-import { AuthGuard } from './_guards/index';
+import { AppComponent } from 'app/app.component';
+import { SlidemenuComponent } from 'app/slidemenu/slidemenu.component';
+import { AlertComponent } from 'app/_directives/index';
+import { AuthGuard } from 'app/_guards/index';
 import { AlertService, AuthenticationService, UserService, ContentService, UploadService,
-   LocaleService, StringUtils } from './_services/index';
-import { HomeComponent, HomeHelpDialogComponent } from './home/index';
-import { LoginComponent } from './login/index';
-import { RegisterComponent } from './register/index';
-import { RecordListComponent } from 'app/recordlist/index';
+   LocaleService, StringUtils } from 'app/_services/index';
+import { HomeComponent, HomeHelpDialogComponent } from './home';
+
+import { RegisterComponent } from 'app/register/index';
+import { RecordListComponent, RecordListHelpDialogComponent } from 'app/recordlist/index';
 import { RecordComponent, EditLinksComponent, EditMediaComponent,
    ErrorDialogComponent, DeleteDialogComponent, RecordHelpDialogComponent } from 'app/record';
 
 import { ModifyPasswordComponent } from 'app/modifypassword';
 
 import { TopMenuComponent } from 'app/topmenu/topmenu.component';
-import { MainPageComponent } from 'app/mainpage/mainpage.component';
+import { MainPageComponent } from 'app/mainpage';
 
-import {  OrderbyPipe } from './shared/filters';
+import {  OrderbyPipe } from 'app/shared/filters';
 
 // used to create fake backend
-// import { fakeBackendProvider } from './_helpers/index';
-// import { MockBackend, MockConnection } from '@angular/http/testing';
-// import { BaseRequestOptions } from '@angular/http';
+import { fakeBackendProvider } from 'app/_helpers/index';
+import { MockBackend, MockConnection } from '@angular/http/testing';
+import { BaseRequestOptions } from '@angular/http';
 
 @NgModule({
   imports: [
@@ -71,10 +71,10 @@ import {  OrderbyPipe } from './shared/filters';
     HomeComponent,
     HomeHelpDialogComponent,
     TopMenuComponent,
-    LoginComponent,
     ModifyPasswordComponent,
     RegisterComponent,
     RecordListComponent,
+    RecordListHelpDialogComponent,
     RecordComponent,
     RecordHelpDialogComponent,
     DeleteDialogComponent,
@@ -87,6 +87,7 @@ import {  OrderbyPipe } from './shared/filters';
   entryComponents: [
     HomeHelpDialogComponent,
     RecordHelpDialogComponent,
+    RecordListHelpDialogComponent,
     DeleteDialogComponent,
     ErrorDialogComponent
   ],
@@ -102,9 +103,9 @@ import {  OrderbyPipe } from './shared/filters';
     StringUtils,
     OrderbyPipe,
     // providers used to create fake backend
-    // fakeBackendProvider,
-    // MockBackend,
-    // BaseRequestOptions
+    fakeBackendProvider,
+    MockBackend,
+    BaseRequestOptions
   ],
   bootstrap: [AppComponent]
 })

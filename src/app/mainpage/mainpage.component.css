@@ -1,0 +1,54 @@
+.topmenucontent {
+  box-shadow: 5px 5px 10px 0px #656565;
+}
+
+.top-menu-spacer {
+ padding-right: 1em;
+}
+
+.top-menu-middle-spacer {
+  flex: 1 1 auto;
+}
+
+.top-menu-title {
+  font-size: 1.25em;
+}
+
+.top-menu-icon {
+  padding: 0 0.875em;
+}
+
+
+@media all and (min-width: 55em) {
+  .top-menu-spacer {
+   padding-right: 5em;
+  }
+}
+
+
+
+.loginform {
+  padding: 2em;
+}
+
+
+
+.slidemenu {
+padding-top: 5em;
+box-shadow: 5px 5px 10px 0px #656565;
+
+}
+
+
+
+
+.my-content {
+  margin: 0;
+  padding: 0.5em;
+  min-height: 800px;
+}
+
+
+.disconnectbutton {
+
+}

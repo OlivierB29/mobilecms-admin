@@ -1,1 +1,1 @@
-﻿export * from './login.component';
+// deprecated

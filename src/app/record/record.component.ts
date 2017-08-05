@@ -5,7 +5,10 @@ import { MdDialog } from '@angular/material';
 import { TranslatePipe } from '@ngx-translate/core';
 
 import { User, Label, RecordType, Metadata } from '../_models';
-import { ContentService, UploadService, StringUtils } from 'app/_services';
+
+import { AuthenticationService, ContentService, LocaleService, UploadService, StringUtils } from '../_services/index';
+import { StandardComponent } from 'app/home';
+
 import { environment } from '../../environments/environment';
 import { DeleteDialogComponent } from './deletedialog.component';
 import { RecordHelpDialogComponent } from './recordhelpdialog.component';
@@ -16,7 +19,7 @@ import { RecordHelpDialogComponent } from './recordhelpdialog.component';
   styleUrls: ['record.component.css']
 })
 
-export class RecordComponent implements OnInit {
+export class RecordComponent extends StandardComponent implements OnInit {
 
   i18n = {};
 
@@ -55,20 +58,7 @@ export class RecordComponent implements OnInit {
   */
   newrecord = false;
 
-  /**
-  * client check if user has role. Needs to be checked on backend.
-  */
-  hasRole = false;
 
-  /**
-  * client check if user has admin role. Needs to be checked on backend.
-  */
-  hasAdminRole = false;
-
-  /**
-  * current user
-  */
-  currentUser: User;
 
   /**
   * properties :
@@ -78,22 +68,17 @@ export class RecordComponent implements OnInit {
   */
   responsemessage: any;
 
-  constructor(private route: ActivatedRoute, private router: Router, public dialog: MdDialog,
-    private contentService: ContentService, private uploadService: UploadService, private stringUtils: StringUtils) { }
 
-  private initRoles(): void {
-    this.hasAdminRole = this.currentUser.role === 'admin';
-    this.hasRole = this.currentUser.role === 'editor' || this.currentUser.role === 'admin';
-  }
+  constructor(contentService: ContentService,
+      authenticationService: AuthenticationService,
+      locale: LocaleService,
+      private route: ActivatedRoute, private router: Router, public dialog: MdDialog,
+    private uploadService: UploadService, private stringUtils: StringUtils) {
+    super(contentService, authenticationService, locale);
+   }
 
   ngOnInit() {
     console.log('record.component');
-    const currentUserLocalStorage = localStorage.getItem('currentUser');
-
-    if (currentUserLocalStorage) {
-      this.currentUser = JSON.parse(currentUserLocalStorage);
-    }
-    this.initRoles();
 
     this.route.params.forEach((params: Params) => {
 
@@ -231,7 +216,7 @@ export class RecordComponent implements OnInit {
   * Use case : each event is unique. Such as : 28 oct 2017 - tournament at Some City
   */
   generateId() {
-    if (this.newrecord || this.hasAdminRole) {
+    if (this.newrecord) {
       // replace accents by US ASCII
       let newId = this.stringUtils.removeDiacritics(this.current.title);
 

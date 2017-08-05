@@ -16,7 +16,7 @@ export class SlidemenuComponent implements OnInit {
   lang: string;
 
 
-  menuItems: RecordType[] = null;
+  menuItems: any[] = null;
 
 
 

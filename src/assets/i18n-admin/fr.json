@@ -21,6 +21,7 @@
     "record.help.images":"Liens externes vers des images",
     "record.help.attachments":"Liens externes vers des documents",
     "record.help.media":"Attacher des documents ou des images",
+    "recordlist.help.refresh": "Actualiser la liste des enregistrements",
     "deletedialog.title": "Supprimer",
     "field.label.id":"identifiant technique",
     "field.label.description":"Description",
