@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService, TranslatePipe } from '@ngx-translate/core';
+import { environment } from '../environments/environment';
 
 import './rxjs-extensions';
 
@@ -14,8 +15,8 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     // this language will be used as a fallback when a translation isn't found in the current language
-    this.translate.setDefaultLang('fr');
+    this.translate.setDefaultLang(environment.defaultlang);
     // the lang to use, if the lang isn't available, it will use the current loader to get them
-    this.translate.use('fr');
+    this.translate.use(environment.defaultlang);
   }
 }

@@ -7,6 +7,7 @@ export const environment = {
   production: false,
   server: 'http://localhost',
   website: 'http://localhost/#',
+  defaultlang: 'en',
   api: '/restapi/v1',
   fileapi: '/fileapi/v1',
   authapi: '/authapi/v1'

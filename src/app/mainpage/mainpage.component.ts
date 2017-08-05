@@ -94,7 +94,6 @@ export class MainPageComponent  implements OnInit, AfterViewInit {
                this.menuOpened = false;
             }
 
-            console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!! ' +  this.menuMode + ' ' + this.menuOpened);
           }
 
           private initUser(): void {
