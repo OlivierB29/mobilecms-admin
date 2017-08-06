@@ -22,7 +22,7 @@ import 'hammerjs';
 // project imports
 import { routing } from './app.routing';
 import { AppComponent } from 'app/app.component';
-import { SlidemenuComponent } from 'app/slidemenu/slidemenu.component';
+
 import { AlertComponent } from 'app/_directives/index';
 import { AuthGuard } from 'app/_guards/index';
 import { AlertService, AuthenticationService, UserService, ContentService, UploadService,
@@ -79,7 +79,6 @@ import { BaseRequestOptions } from '@angular/http';
     RecordHelpDialogComponent,
     DeleteDialogComponent,
     OrderbyPipe,
-    SlidemenuComponent,
     EditLinksComponent,
     EditMediaComponent,
     ErrorDialogComponent
@@ -103,9 +102,9 @@ import { BaseRequestOptions } from '@angular/http';
     StringUtils,
     OrderbyPipe,
     // providers used to create fake backend
-    fakeBackendProvider,
-    MockBackend,
-    BaseRequestOptions
+    // fakeBackendProvider,
+    // MockBackend,
+    // BaseRequestOptions
   ],
   bootstrap: [AppComponent]
 })

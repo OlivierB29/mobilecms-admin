@@ -36,5 +36,9 @@
     "field.label.attachment.title":"Titre du lien",
     "field.label.attachment.url":"Adresse http",
     "field.label.attachment.size":"Taille",
-    "field.label.attachment.description":"Description optionnelle"
+    "field.label.attachment.description":"Description optionnelle",
+    "delete.warning.1": "Etes-vous sûr de supprimer ?",
+    "delete.warning.2": "Cette action est définitive.",
+    "cancel.label": "Abandonner",
+    "delete.label": "Supprimer"
 }

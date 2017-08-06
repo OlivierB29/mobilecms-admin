@@ -55,6 +55,40 @@ if (connection.request.url.indexOf('fileapi/v1/basicupload') !== -1 && connectio
         return;
       }
 
+      if (connection.request.url.endsWith('file/?file=calendar/index/new.json') && connection.request.method === RequestMethod.Get) {
+
+        connection.mockRespond(new Response(new ResponseOptions({
+          status: 200,
+          body: JSON.parse('{\
+    "id": "",\
+    "date": "",\
+    "activity": "tennis",\
+    "title": "sample",\
+    "organization": "",\
+    "description": "",\
+    "location": "...",\
+    "url": "",\
+    "images": [],\
+    "attachments": []\
+}')
+        })));
+        return;
+      }
+
+      if (connection.request.url.endsWith('index/new.json') && connection.request.method === RequestMethod.Get) {
+
+        connection.mockRespond(new Response(new ResponseOptions({
+          status: 200,
+          body: JSON.parse('{\
+    "id": "",\
+    "title": "sample",\
+    "description": "",\
+    "url": ""\
+}')
+        })));
+        return;
+      }
+
       if (connection.request.url.endsWith('/index/calendar') && connection.request.method === RequestMethod.Get) {
 
         connection.mockRespond(new Response(new ResponseOptions({
@@ -163,7 +197,7 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.",\
 
 
 
-      if (connection.request.url.endsWith('index/metadata.json') && connection.request.method === RequestMethod.Get) {
+      if (connection.request.url.endsWith('calendar/index/metadata.json') && connection.request.method === RequestMethod.Get) {
 
         connection.mockRespond(new Response(new ResponseOptions({
           status: 200,
@@ -183,7 +217,39 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.",\
         return;
       }
 
+      if (connection.request.url.endsWith('news/index/metadata.json') && connection.request.method === RequestMethod.Get) {
 
+        connection.mockRespond(new Response(new ResponseOptions({
+          status: 200,
+          body: JSON.parse('[\
+            {"name" : "id" , "primary" : "true", "type" : "string",  "editor":"line"},\
+            {"name" : "title" , "primary" : "false", "type" : "string",  "editor":"line"},\
+            {"name" : "date" , "primary" : "false", "type" : "string",  "editor":"date"},\
+            {"name" : "activity" , "primary" : "false", "type" : "text",  "editor":"choice", "choices" : ["tennis", "basketball", "golf"]},\
+            {"name" : "description" , "primary" : "false", "type" : "string",  "editor":"text"},\
+            {"name" : "media" , "primary" : "false", "type" : "array",  "editor":"medialist"},\
+            {"name" : "images" , "primary" : "false", "type" : "array",  "editor":"imagelist"},\
+            {"name" : "attachments" , "primary" : "false", "type" : "array",  "editor":"attachmentlist"}\
+          ]')
+        })));
+        return;
+      }
+
+      if (connection.request.url.endsWith('/index/metadata.json') && connection.request.method === RequestMethod.Get) {
+
+        connection.mockRespond(new Response(new ResponseOptions({
+          status: 200,
+          body: JSON.parse('[\
+            {"name" : "id" , "primary" : "true", "type" : "string",  "editor":"line"},\
+            {"name" : "title" , "primary" : "false", "type" : "string",  "editor":"line"},\
+            {"name" : "description" , "primary" : "false", "type" : "string",  "editor":"text"},\
+            {"name" : "media" , "primary" : "false", "type" : "array",  "editor":"medialist"},\
+            {"name" : "images" , "primary" : "false", "type" : "array",  "editor":"imagelist"},\
+            {"name" : "attachments" , "primary" : "false", "type" : "array",  "editor":"attachmentlist"}\
+          ]')
+        })));
+        return;
+      }
 
 
       if (connection.request.url.endsWith('/content') && connection.request.method === RequestMethod.Get) {
@@ -275,7 +341,7 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.",\
         return;
       }
       // get record
-      if (connection.request.url.indexOf('content/')
+      if (connection.request.url.indexOf('content/news/')
        && connection.request.method === RequestMethod.Get) {
 
         connection.mockRespond(new Response(new ResponseOptions({
@@ -285,21 +351,38 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.",\
     "date": "2017-11-17",\
     "activity": "basketball",\
     "title": "Lorem ipsum",\
-    "organization": "another org",\
     "description": "Lorem ipsum dolor sit amet, \
     consectetur adipiscing elit, \
     sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, \
     quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit \
     in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, \
     sunt in culpa qui officia deserunt mollit anim id est laborum.",\
-    "url": "",\
-    "location": "",\
-    "startdate": "",\
-    "enddate": "",\
-    "updated": "",\
-    "updatedby": "",\
+    "media": [],\
     "images": [],\
     "attachments": []\
+    }')
+        })));
+        return;
+      }
+
+      if (connection.request.url.indexOf('content/')
+       && connection.request.method === RequestMethod.Get) {
+
+        connection.mockRespond(new Response(new ResponseOptions({
+          status: 200,
+          body: JSON.parse('{\
+            "id": "foobar",\
+            "date": "2017-11-17",\
+            "title": "Lorem ipsum",\
+            "description": "Lorem ipsum dolor sit amet, \
+            consectetur adipiscing elit, \
+            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, \
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit \
+            in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, \
+            sunt in culpa qui officia deserunt mollit anim id est laborum.",\
+            "media": [],\
+            "images": [],\
+            "attachments": []\
     }')
         })));
         return;

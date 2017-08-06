@@ -1,5 +1,5 @@
 
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { User, Label, RecordType } from '../_models/index';
 import { AlertService, AuthenticationService, ContentService, LocaleService } from '../_services/index';
 
@@ -9,7 +9,7 @@ import { AlertService, AuthenticationService, ContentService, LocaleService } fr
   templateUrl: 'mainpage.component.html',
   styleUrls: ['mainpage.component.css']
 })
-export class MainPageComponent  implements OnInit, AfterViewInit {
+export class MainPageComponent  implements OnInit {
 
 
     currentUser: User;
@@ -33,7 +33,9 @@ export class MainPageComponent  implements OnInit, AfterViewInit {
 
     hasAdminRole = false;
 
-    menuItems: RecordType[] = null;
+    menuItems: any[] = null;
+
+
 
     lang: string;
 
@@ -51,28 +53,21 @@ export class MainPageComponent  implements OnInit, AfterViewInit {
 
         this.lang = this.locale.getLang();
 
-
-
+        this.initUser();
         if (this.isConnected()) {
           this.initUi();
         }
 
       }
 
-      ngAfterViewInit() {
-        // TODO doesn't work
-      /*  if (!this.isConnected()) {
-          this.openLoginDialog();
-        }
-        */
-      }
+
 
 
 
       private initUi() {
         this.initMenuLayout();
 
-        this.initUser();
+
 
         this.initMenu();
       }
@@ -115,7 +110,7 @@ export class MainPageComponent  implements OnInit, AfterViewInit {
             //
             // About roles : this just a frontend features. Roles must be tested in the API.
             //
-
+            console.log('initMenu ...' + this.currentUser.role + ' ' + this.hasAdminRole);
             if (this.isConnected() && this.hasRole) {
               this.contentService.getTables()
                 .subscribe((data: RecordType[]) => this.menuItems = data,
@@ -173,8 +168,14 @@ export class MainPageComponent  implements OnInit, AfterViewInit {
               .subscribe(
                   data => {
                       console.log('success');
+                      this.initUser();
+                      if (this.isConnected()) {
+                        this.alertService.success('authenticated');
                         this.initUi();
-                        this.loading = false;
+                      } else {
+                        this.alertService.error('empty user');
+                      }
+                      this.loading = false;
                   },
                   error => {
                       console.log('error');

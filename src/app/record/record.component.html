@@ -1,11 +1,11 @@
 
 <md-card>
-  <button md-button (click)="save()" mdTooltip="{{'record.edit.save' | translate }}"><md-icon>save</md-icon></button>
+  <button md-button *ngIf="f.form.valid" (click)="save()" mdTooltip="{{'record.edit.save' | translate }}"><md-icon>save</md-icon></button>
   <button md-button *ngIf="!newrecord && isAdminRole()" (click)="preview()"> <md-icon>open_in_new</md-icon></button>
   <button md-button *ngIf="!newrecord" (click)="openConfirmDialog()" mdTooltip="{{'record.edit.delete' | translate }}"> <md-icon>delete</md-icon></button>
   <button md-button (click)='openHelpDialog()'><md-icon alt='help'>help_outline</md-icon></button>
 </md-card>
-
+<form name='form' (ngSubmit)='f.form.valid' #f='ngForm' novalidate>
 <div class="container">
   <div>
     <div *ngIf='responsemessage && responsemessage.error' class='error-label-message'>
@@ -35,19 +35,19 @@
         </div>
         <div *ngIf="property.name === 'title'">
           <md-input-container class="full-width-input" *ngIf="property.editor === 'line'">
-            <input (keypress)="generateId()" (change)="generateId()" mdInput placeholder="{{'field.label.' + property.name | translate }}" [(ngModel)]="current[property.name]" name="{{property.name}}" type="text">
+            <input (keypress)="generateId()" (change)="generateId()" mdInput placeholder="{{'field.label.' + property.name | translate }}" [(ngModel)]="current[property.name]" name="{{property.name}}" type="text" required>
           </md-input-container>
         </div>
 
         <div *ngIf="property.name !== 'id' && property.name !== 'title'">
           <md-input-container class="full-width-input" *ngIf="property.editor === 'line'">
-            <input mdInput placeholder="{{'field.label.' + property.name | translate }}" [(ngModel)]="current[property.name]" name="{{property.name}}" type="text">
+            <input mdInput placeholder="{{'field.label.' + property.name | translate }}" [(ngModel)]="current[property.name]" name="{{property.name}}" type="text" >
           </md-input-container>
         </div>
 
         <div *ngIf="property.editor === 'date'">
           <md-input-container *ngIf="property.editor === 'date'">
-            <input mdInput placeholder="{{'field.label.' + property.name | translate }}" [(ngModel)]="current[property.name]" name="{{property.name}}" type="date">
+            <input mdInput placeholder="{{'field.label.' + property.name | translate }}" [(ngModel)]="current[property.name]" name="{{property.name}}" type="date" required>
           </md-input-container>
         </div>
 
@@ -92,3 +92,4 @@
 
   </div>
 </div>
+</form>

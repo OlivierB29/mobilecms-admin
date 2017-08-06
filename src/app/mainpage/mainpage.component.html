@@ -4,7 +4,20 @@
 
   <md-sidenav  #sidenav [mode]='menuMode' [opened]='menuOpened' class='slidemenu'>
     <nav *ngIf='isConnected()'>
-      <app-my-slidemenu></app-my-slidemenu>
+      <div *ngIf='menuItems'>
+        <div *ngFor='let menu of menuItems'>
+
+
+
+          <button *ngIf='menuMode !== "over"' [routerLink]='["/recordlist", menu.type]' routerLinkActive='active' md-button color='primary'>
+          <span class='adminslidemenu-button-text'>{{menu.label}}</span>
+          </button>
+          <button *ngIf='menuMode === "over"' (click)='sidenav.close()' [routerLink]='["/recordlist", menu.type]' routerLinkActive='active' md-button color='primary'>
+          <span class='adminslidemenu-button-text'>{{menu.label}}</span>
+          </button>
+        </div>
+      </div>
+
     </nav>
   </md-sidenav>
 
@@ -24,6 +37,7 @@
 -->
       </md-toolbar>
   <div class='my-content'>
+<app-alert-message></app-alert-message>
 
     <!-- content -->
     <router-outlet *ngIf='isConnected()'></router-outlet>
