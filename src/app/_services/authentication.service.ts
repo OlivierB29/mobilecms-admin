@@ -39,14 +39,14 @@ export class AuthenticationService {
 
     // TODO RESTful endpoint
     const url: string = this.getUrl('/authenticate');
-    const data = 'requestbody=' + JSON.stringify({ user: user, password: this.hash(password) });
+    const data = 'requestbody=' + encodeURIComponent(JSON.stringify({ user: user, password: this.hash(password) }));
 
     return this.http.post(url, data, { headers: headers })
       .map((response: Response) => {
         // login successful if there's a jwt token in the response
         const userObject = response.json();
         if (userObject && userObject.token) {
-          console.log('connecting ' + JSON.stringify(userObject));
+
           // store user details and jwt token in local storage to keep user logged in between page refreshes
           if (localStorage.getItem('currentUser')) {
             console.log('emptying ');
@@ -78,6 +78,8 @@ export class AuthenticationService {
       });
   }
 
+
+
   /**
    * Hash an input string password to a sha256 password.
    * Explanation : this is just a client hash. The backend API has its own encrypt features.
@@ -91,16 +93,19 @@ export class AuthenticationService {
         return new TextDecoder().decode(myarray);
   }
 
-  changepasssword(userInput: any) {
+  changepassword(userInput: any) {
 
-    //
+    const url: string = this.getUrl('/changepassword');
+
     const headers = new Headers();
     headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 
 
-    const url: string = this.getUrl('/changepassword');
-    userInput.password = this.hash(userInput.password);
-    const data = 'requestbody=' + JSON.stringify(userInput);
+    const user: any = {};
+    user.email = userInput.email;
+    user.password = this.hash(userInput.password);
+    user.newpassword = this.hash(userInput.newpassword);
+    const data = 'requestbody=' + encodeURIComponent(JSON.stringify(user));
 
     return this.http.post(url, data, { headers: headers })
       .map((response: Response) => {

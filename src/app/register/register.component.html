@@ -23,15 +23,15 @@
                 </md-input-container>
     </div>
 
-    <div [ngClass]='{ "has-error": f.submitted && !email.valid }'>
+    <div [ngClass]='{ "has-error": f.submitted}'>
                     <md-input-container >
-                        <input type='text'  mdInput placeholder='secretQuestion' class='form-control' name='secretQuestion' [(ngModel)]='model.secretQuestion' #name='ngModel' required />
+                        <input type='text'  mdInput placeholder='secretQuestion' class='form-control' name='secretQuestion' [(ngModel)]='model.secretQuestion' #name='ngModel' />
                     </md-input-container>
     </div>
 
-    <div [ngClass]='{ "has-error": f.submitted && !email.valid }'>
+    <div [ngClass]='{ "has-error": f.submitted}'>
       <md-input-container >
-          <input type='text'  mdInput placeholder='secretResponse' class='form-control' name='secretResponse' [(ngModel)]='model.secretResponse' #name='ngModel' required />
+          <input type='text'  mdInput placeholder='secretResponse' class='form-control' name='secretResponse' [(ngModel)]='model.secretResponse' #name='ngModel' />
       </md-input-container>
     </div>
 

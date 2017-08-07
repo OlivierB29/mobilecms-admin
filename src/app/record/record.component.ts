@@ -6,7 +6,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 
 import { User, Label, RecordType, Metadata } from '../_models';
 
-import { AuthenticationService, ContentService, LocaleService, UploadService, StringUtils } from '../_services/index';
+import { AuthenticationService, ContentService, LocaleService, UploadService, StringUtils } from 'app/_services/index';
 import { StandardComponent } from 'app/home';
 
 import { environment } from '../../environments/environment';

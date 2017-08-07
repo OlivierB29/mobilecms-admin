@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { Router } from '@angular/router';
 import { User } from '../_models/index';
-import { AuthenticationService } from '../_services/index';
+import { AuthenticationService } from 'app/_services/index';
 
 
 /**

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { User, Label, RecordType } from '../_models/index';
-import { AuthenticationService, ContentService, LocaleService } from '../_services/index';
+import { AuthenticationService, ContentService, LocaleService } from 'app/_services/index';
 
 
 export class StandardComponent  implements OnInit  {

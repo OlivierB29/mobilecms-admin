@@ -4,7 +4,7 @@ import { MdDialog } from '@angular/material';
 
 import { RecordListHelpDialogComponent } from './recordlisthelpdialog.component';
 
-import { AuthenticationService, ContentService, LocaleService } from '../_services/index';
+import { AuthenticationService, ContentService, LocaleService } from 'app/_services/index';
 
 import { User } from '../_models/index';
 

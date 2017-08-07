@@ -124,10 +124,6 @@ in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint o
 sunt in culpa qui officia deserunt mollit anim id est laborum.",\
     "url": "",\
     "location": "",\
-    "startdate": "",\
-    "enddate": "",\
-    "updated": "",\
-    "updatedby": "",\
     "images": [],\
     "attachments": []\
     }')
@@ -154,10 +150,6 @@ in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint o
 sunt in culpa qui officia deserunt mollit anim id est laborum.",\
     "url": "",\
     "location": "",\
-    "startdate": "",\
-    "enddate": "",\
-    "updated": "",\
-    "updatedby": "",\
     "images": [],\
     "attachments": []\
   }')
@@ -184,10 +176,6 @@ in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint o
 sunt in culpa qui officia deserunt mollit anim id est laborum.",\
     "url": "",\
     "location": "",\
-    "startdate": "",\
-    "enddate": "",\
-    "updated": "",\
-    "updatedby": "",\
     "images": [],\
     "attachments": []\
 }')

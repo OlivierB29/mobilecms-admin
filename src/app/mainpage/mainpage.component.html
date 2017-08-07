@@ -6,9 +6,6 @@
     <nav *ngIf='isConnected()'>
       <div *ngIf='menuItems'>
         <div *ngFor='let menu of menuItems'>
-
-
-
           <button *ngIf='menuMode !== "over"' [routerLink]='["/recordlist", menu.type]' routerLinkActive='active' md-button color='primary'>
           <span class='adminslidemenu-button-text'>{{menu.label}}</span>
           </button>
@@ -32,9 +29,9 @@
         <span class="top-menu-middle-spacer"></span>
 
         <button *ngIf='isConnected()' md-button (click)='disconnect()' class='top-menu-icon'><md-icon alt='disconnect'>cancel</md-icon></button>
-<!--
-        <button *ngIf='!isConnected()' md-button (click)='openLoginDialog()'><md-icon alt='login'>account_circle</md-icon></button>
--->
+
+        <button *ngIf='isConnected()' md-button [routerLink]='["/modifypasssword"]'><md-icon alt='login'>account_circle</md-icon></button>
+
       </md-toolbar>
   <div class='my-content'>
 <app-alert-message></app-alert-message>
