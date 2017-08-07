@@ -3,7 +3,7 @@
 
   <button *ngIf='isDisplay()' md-button (click)='open()' ><md-icon>expand_less</md-icon></button>
 
-  <button *ngIf='!isDisplay' md-button (click)='open()' ><md-icon>expand_more</md-icon></button>
+  <button *ngIf='!isDisplay()' md-button (click)='open()' ><md-icon>expand_more</md-icon></button>
 
 </md-toolbar>
 

@@ -102,9 +102,9 @@ import { BaseRequestOptions } from '@angular/http';
     StringUtils,
     OrderbyPipe,
     // providers used to create fake backend
-    // fakeBackendProvider,
-    // MockBackend,
-    // BaseRequestOptions
+    fakeBackendProvider,
+    MockBackend,
+    BaseRequestOptions
   ],
   bootstrap: [AppComponent]
 })

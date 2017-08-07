@@ -388,24 +388,13 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.",\
         return;
       }
 
-      console.log('fakeBackendFactory realHttp call ' + connection.request.url);
+      console.log('fakeBackendFactory default call ' + connection.request.url);
       // pass through any requests not handled above
-      const realHttp = new Http(realBackend, options);
-      const requestOptions = new RequestOptions({
-        method: connection.request.method,
-        headers: connection.request.headers,
-        body: connection.request.getBody(),
-        url: connection.request.url,
-        withCredentials: connection.request.withCredentials,
-        responseType: connection.request.responseType
-      });
-      realHttp.request(connection.request.url, requestOptions)
-        .subscribe((response: Response) => {
-          connection.mockRespond(response);
-        },
-        (error: any) => {
-          connection.mockError(error);
-        });
+        connection.mockRespond(new Response(new ResponseOptions({
+          status: 200,
+          body: JSON.parse('{}')
+        })));
+        return;
 
     }, 100);
 
