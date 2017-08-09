@@ -33,6 +33,19 @@ public addItem(name: string, newItem: any): any {
   localStorage.setItem(name, JSON.stringify(list));
 }
 
+public saveItem(name: string, newItem: any): any {
+  const list = this.getItems(name);
+
+  list.forEach(function(part, index, list2) {
+    if (part.id = newItem.id) {
+      list[index] = newItem;
+    }
+
+});
+
+  localStorage.setItem(name, JSON.stringify(list));
+}
+
 
 public getItems(name: string): any[] {
     // array in local storage for registered users

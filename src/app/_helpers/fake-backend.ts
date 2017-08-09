@@ -223,8 +223,10 @@ if (connection.request.url.match(/\/content\/[-a-zA-Z0-9_]*\/[-a-zA-Z0-9_]*/) &&
       // save record
       if (connection.request.url.match(/content\/[-a-zA-Z0-9_]*/) && connection.request.method === RequestMethod.Post) {
 
-        const params = JSON.parse(connection.request.getBody());
-        cmsApi.addItem(getLast(connection.request.url), params);
+        const bodyStr = decodeURIComponent(connection.request.getBody().replace('requestbody=', ''));
+        const params = JSON.parse(bodyStr);
+
+        cmsApi.saveItem(getLast(connection.request.url), params);
 
         const ts = Math.ceil(new Date().getTime() / 1000);
         connection.mockRespond(new Response(new ResponseOptions({
