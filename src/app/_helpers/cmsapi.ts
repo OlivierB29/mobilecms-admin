@@ -1,0 +1,133 @@
+
+import { Http, BaseRequestOptions, Response, ResponseOptions, RequestMethod, XHRBackend, RequestOptions } from '@angular/http';
+import { MockBackend, MockConnection } from '@angular/http/testing';
+
+export class CmsApi {
+
+public content(backend: MockBackend, options: BaseRequestOptions, realBackend: XHRBackend) {
+}
+
+public getItem(name: string, id: string): any {
+  const list = this.getItems(name);
+  const matched = list.filter(u => { return u.id === id; });
+  return matched.length ? matched[0] : null;
+}
+
+public deleteItem(name: string, id: string): any {
+  const list = this.getItems(name);
+  const matched = list.filter(u => { return u.id !== id; });
+  localStorage.setItem(name, JSON.stringify(matched));
+}
+
+public addItem(name: string, newItem: any): any {
+  const list = this.getItems(name);
+  // validation
+  /*
+  const duplicateItem = list.filter(u => { return u.id === newItem.id; }).length;
+  if (duplicateItem) {
+      return connection.mockError(new Error('item "' + newItem.id + '" is already taken'));
+  }
+*/
+
+  list.push(newItem);
+  localStorage.setItem(name, JSON.stringify(list));
+}
+
+
+public getItems(name: string): any[] {
+    // array in local storage for registered users
+    let result: any[] = null;
+    const existingItems = localStorage.getItem(name);
+    if (existingItems) {
+      result = JSON.parse(existingItems);
+    } else {
+      result = [];
+      result.push(this.buildNewItem('1'));
+      result.push(this.buildNewItem('2'));
+      result.push(this.buildNewItem('3'));
+      localStorage.setItem(name, JSON.stringify(result));
+    }
+
+
+  return result;
+  }
+
+  public getIndex(name: string): any[] {
+    return this.getItems(name);
+  }
+
+
+
+  public buildNewItem(index: string): any {
+    const item = JSON.parse('{\
+      "id": "foobar",\
+      "date": "2017-11-17",\
+      "title": "Lorem ipsum",\
+      "description": "Lorem ipsum dolor sit amet, \
+      consectetur adipiscing elit, \
+      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, \
+      quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit \
+      in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, \
+      sunt in culpa qui officia deserunt mollit anim id est laborum.",\
+      "media": [],\
+      "images": [],\
+      "attachments": []\
+  }');
+
+  item.id = item.id + index;
+  item.title = item.title + index;
+  return item;
+  }
+
+public getMetadata(name: string): any[] {
+  let result = [];
+  if ('calendar' === name) {
+    result = JSON.parse('[\
+      {"name" : "id" , "primary" : "true", "type" : "string",  "editor":"line"},\
+      {"name" : "title" , "primary" : "false", "type" : "string",  "editor":"line"},\
+      {"name" : "date" , "primary" : "false", "type" : "string",  "editor":"date"},\
+      {"name" : "organization" , "primary" : "false", "type" : "string",  "editor":"line"},\
+      {"name" : "activity" , "primary" : "false", "type" : "text",  "editor":"choice", "choices" : ["tennis", "basketball", "golf"]},\
+      {"name" : "description" , "primary" : "false", "type" : "string",  "editor":"text"},\
+      {"name" : "location" , "primary" : "false", "type" : "string",  "editor":"line"},\
+      {"name" : "media" , "primary" : "false", "type" : "array",  "editor":"medialist"},\
+      {"name" : "images" , "primary" : "false", "type" : "array",  "editor":"imagelist"},\
+      {"name" : "attachments" , "primary" : "false", "type" : "array",  "editor":"attachmentlist"}\
+    ]');
+  } else if ('news' === name) {
+    result = JSON.parse('[\
+      {"name" : "id" , "primary" : "true", "type" : "string",  "editor":"line"},\
+      {"name" : "title" , "primary" : "false", "type" : "string",  "editor":"line"},\
+      {"name" : "date" , "primary" : "false", "type" : "string",  "editor":"date"},\
+      {"name" : "activity" , "primary" : "false", "type" : "text",  "editor":"choice", "choices" : ["tennis", "basketball", "golf"]},\
+      {"name" : "description" , "primary" : "false", "type" : "string",  "editor":"text"},\
+      {"name" : "media" , "primary" : "false", "type" : "array",  "editor":"medialist"},\
+      {"name" : "images" , "primary" : "false", "type" : "array",  "editor":"imagelist"},\
+      {"name" : "attachments" , "primary" : "false", "type" : "array",  "editor":"attachmentlist"}\
+    ]');
+  } else {
+    result = JSON.parse('[\
+      {"name" : "id" , "primary" : "true", "type" : "string",  "editor":"line"},\
+      {"name" : "title" , "primary" : "false", "type" : "string",  "editor":"line"},\
+      {"name" : "description" , "primary" : "false", "type" : "string",  "editor":"text"},\
+      {"name" : "media" , "primary" : "false", "type" : "array",  "editor":"medialist"},\
+      {"name" : "images" , "primary" : "false", "type" : "array",  "editor":"imagelist"},\
+      {"name" : "attachments" , "primary" : "false", "type" : "array",  "editor":"attachmentlist"}\
+    ]')
+  }
+  return result;
+}
+
+public getTypes(): any[] {
+  return JSON.parse('[{"type":"calendar","labels":[{"i18n":"en","label":"Calendar"},{"i18n":"fr","label":"Calendrier"}]},\
+{"type":"news","labels":[{"i18n":"en","label":"News"},{"i18n":"fr","label":"Actualit\u00e9s"}]},\
+{"type":"documents","labels":[{"i18n":"en","label":"Documents"},{"i18n":"fr","label":"Documents"}]},\
+{"type":"clubs","labels":[{"i18n":"en","label":"Clubs"},{"i18n":"fr","label":"Clubs"}]},\
+{"type":"contacts","labels":[{"i18n":"en","label":"Contacts"},{"i18n":"fr","label":"Contacts"}]},\
+{"type":"links","labels":[{"i18n":"en","label":"Links"},{"i18n":"fr","label":"Liens"}]},\
+{"type":"structure","labels":[{"i18n":"en","label":"Structure"},{"i18n":"fr","label":"Organisation"}]},\
+{"type":"reports","labels":[{"i18n":"en","label":"Reports"},{"i18n":"fr","label":"Comptes Rendus"}]}]\
+');
+}
+
+}

@@ -1,12 +1,60 @@
 ﻿import { Http, BaseRequestOptions, Response, ResponseOptions, RequestMethod, XHRBackend, RequestOptions } from '@angular/http';
 import { MockBackend, MockConnection } from '@angular/http/testing';
 
+import { AuthApi } from './authapi';
+import { CmsApi } from './cmsapi';
+
+
+function getMethod(connection: MockConnection) {
+  let result = '';
+  if (connection.request.method === RequestMethod.Get) {
+    result = 'GET';
+  } else if (connection.request.method === RequestMethod.Post) {
+    result = 'POST';
+  } else if (connection.request.method === RequestMethod.Put) {
+    result = 'PUT';
+  } else if (connection.request.method === RequestMethod.Delete) {
+    result = 'DELETE';
+  }else if (connection.request.method === RequestMethod.Options) {
+    result = 'OPTIONS';
+  }
+  return result;
+}
+
+function getTokens(url: string): string[] {
+  return url.split('/');
+}
+
+function getTokenFromEnd(url: string, i: number): string {
+  const urlParts = url.split('/');
+  return urlParts[urlParts.length - i];
+}
+
+function getTokenFromBeginning(url: string, i: number): string {
+  const urlParts = url.split('/');
+  return urlParts[i];
+}
+
+function getBeforeLast(url: string): string {
+  const urlParts = url.split('/');
+  return urlParts[urlParts.length - 2];
+}
+
+function getLast(url: string): string {
+  const urlParts = url.split('/');
+  return urlParts[urlParts.length - 1 ];
+}
 
 export function fakeBackendFactory(backend: MockBackend, options: BaseRequestOptions, realBackend: XHRBackend) {
 
+  const authApi = new AuthApi();
+  const cmsApi = new CmsApi();
+
+
   // configure fake backend
   backend.connections.subscribe((connection: MockConnection) => {
-console.log('fakeBackendFactory ... ' + connection.request.url);
+    console.log('fakeBackendFactory ... ' + getMethod(connection) + ' ' + connection.request.url);
+
     // wrap in timeout to simulate server api call
     setTimeout(() => {
       // OPTIONS
@@ -17,6 +65,19 @@ console.log('fakeBackendFactory ... ' + connection.request.url);
         })));
         return;
 
+      }
+
+      // authenticate
+      if (connection.request.url.endsWith('/authenticate') && connection.request.method === RequestMethod.Post) {
+        // get parameters from post request
+            authApi.auth(connection);
+        return;
+      }
+
+      if (connection.request.url.indexOf('authapi') !== -1 && connection.request.headers.get('Authorization') !== 'Bearer fake-jwt-token') {
+          // return 401 not authorised if token is null or invalid
+          connection.mockRespond(new Response(new ResponseOptions({ status: 401 })));
+          return;
       }
 
     // upload doesn't work. Because of  XMLHttpRequest ?
@@ -35,7 +96,7 @@ console.log('fakeBackendFactory ... ' + connection.request.url);
 
 if (connection.request.url.indexOf('fileapi/v1/basicupload') !== -1 && connection.request.method === RequestMethod.Get) {
 
-  // console.log('!!!!!!!!!!! fake /basicupload 2 ' + connection.request.blob);
+
   connection.mockRespond(new Response(new ResponseOptions({
     status: 200,
     body: JSON.parse('[{"title":"Lorem ipsum","url":"foobar","size":325203,"mimetype":"application\/pdf"},\
@@ -89,206 +150,57 @@ if (connection.request.url.indexOf('fileapi/v1/basicupload') !== -1 && connectio
         return;
       }
 
-      if (connection.request.url.endsWith('/index/calendar') && connection.request.method === RequestMethod.Get) {
-
-        connection.mockRespond(new Response(new ResponseOptions({
-          status: 200,
-          body: JSON.parse('[\
-          {"id": "another-basketball-tournament", "date": "2017-11-17","activity": "basketball","title": "another basketball tournament"},\
-          {"id": "golf-tournament", "date": "2015-09-01", "activity": "tennis", "title": "golf tournament" },\
-          {"id": "some-seminar-of-tennis", "date": "2015-09-01", "activity": "tennis", "title": "some seminar of tennis"}\
-          ]')
-
-        })));
-        return;
-      }
 
 
 
-      if (connection.request.url.endsWith('content/calendar/another-basketball-tournament')
-       && connection.request.method === RequestMethod.Get) {
+if (connection.request.url.match(/\?.+\/index\/metadata\.json/) && connection.request.method === RequestMethod.Get) {
 
-        connection.mockRespond(new Response(new ResponseOptions({
-          status: 200,
-          body: JSON.parse('{\
-    "id": "another-basketball-tournament",\
-    "date": "2017-11-17",\
-    "activity": "basketball",\
-    "title": "another basketball tournament",\
-    "organization": "another org",\
-    "description": "Lorem ipsum dolor sit amet, \
-consectetur adipiscing elit, \
-sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, \
-quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit \
-in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, \
-sunt in culpa qui officia deserunt mollit anim id est laborum.",\
-    "url": "",\
-    "location": "",\
-    "images": [],\
-    "attachments": []\
-    }')
-        })));
-        return;
-      }
 
-      if (connection.request.url.endsWith('content/calendar/golf-tournament')
-       && connection.request.method === RequestMethod.Get) {
+              const fileAndType = getTokenFromEnd(connection.request.url, 3);
+              const fileAndTypeArray = fileAndType.split('=');
 
-        connection.mockRespond(new Response(new ResponseOptions({
-          status: 200,
-          body: JSON.parse('{\
-    "id": "golf-tournament",\
-    "date": "2015-09-01",\
-    "activity": "golf",\
-    "title": "golf tournament",\
-    "organization": "another org",\
-    "description": "Lorem ipsum dolor sit amet, \
-consectetur adipiscing elit, \
-sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, \
-quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit \
-in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, \
-sunt in culpa qui officia deserunt mollit anim id est laborum.",\
-    "url": "",\
-    "location": "",\
-    "images": [],\
-    "attachments": []\
-  }')
-        })));
-        return;
-      }
+              connection.mockRespond(new Response(new ResponseOptions({
+                status: 200,
+                body: cmsApi.getMetadata(fileAndTypeArray[1])
+              })));
+              return;
+}
 
-      if (connection.request.url.endsWith('content/calendar/some-seminar-of-tennis')
-       && connection.request.method === RequestMethod.Get) {
+// get index
+if (connection.request.url.match(/index\/[-a-zA-Z0-9_]*/) && connection.request.method === RequestMethod.Get) {
 
-        connection.mockRespond(new Response(new ResponseOptions({
-          status: 200,
-          body: JSON.parse('{\
-    "id": "some-seminar-of-tennis",\
-    "date": "2015-09-01",\
-    "activity": "tennis",\
-    "title": "tennis seminar",\
-    "organization": "another org",\
-    "description": "Lorem ipsum dolor sit amet, \
-consectetur adipiscing elit, \
-sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, \
-quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit \
-in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, \
-sunt in culpa qui officia deserunt mollit anim id est laborum.",\
-    "url": "",\
-    "location": "",\
-    "images": [],\
-    "attachments": []\
-}')
-        })));
-        return;
-      }
+  connection.mockRespond(new Response(new ResponseOptions({
+    status: 200,
+    body: cmsApi.getIndex(getLast(connection.request.url))
+  })));
+  return;
+}
+
+
+// get item by id
+if (connection.request.url.match(/\/content\/[-a-zA-Z0-9_]*\/[-a-zA-Z0-9_]*/) && connection.request.method === RequestMethod.Get) {
+
+        // find item by id in array
+        const item: any = cmsApi.getItem( getBeforeLast(connection.request.url), getLast(connection.request.url));
+        // respond 200 OK
+        connection.mockRespond(new Response(new ResponseOptions({ status: 200, body: item })));
+
+    return;
+}
 
 
 
-      if (connection.request.url.endsWith('calendar/index/metadata.json') && connection.request.method === RequestMethod.Get) {
-
-        connection.mockRespond(new Response(new ResponseOptions({
-          status: 200,
-          body: JSON.parse('[\
-            {"name" : "id" , "primary" : "true", "type" : "string",  "editor":"line"},\
-            {"name" : "title" , "primary" : "false", "type" : "string",  "editor":"line"},\
-            {"name" : "date" , "primary" : "false", "type" : "string",  "editor":"date"},\
-            {"name" : "organization" , "primary" : "false", "type" : "string",  "editor":"line"},\
-            {"name" : "activity" , "primary" : "false", "type" : "text",  "editor":"choice", "choices" : ["tennis", "basketball", "golf"]},\
-            {"name" : "description" , "primary" : "false", "type" : "string",  "editor":"text"},\
-            {"name" : "location" , "primary" : "false", "type" : "string",  "editor":"line"},\
-            {"name" : "media" , "primary" : "false", "type" : "array",  "editor":"medialist"},\
-            {"name" : "images" , "primary" : "false", "type" : "array",  "editor":"imagelist"},\
-            {"name" : "attachments" , "primary" : "false", "type" : "array",  "editor":"attachmentlist"}\
-          ]')
-        })));
-        return;
-      }
-
-      if (connection.request.url.endsWith('news/index/metadata.json') && connection.request.method === RequestMethod.Get) {
-
-        connection.mockRespond(new Response(new ResponseOptions({
-          status: 200,
-          body: JSON.parse('[\
-            {"name" : "id" , "primary" : "true", "type" : "string",  "editor":"line"},\
-            {"name" : "title" , "primary" : "false", "type" : "string",  "editor":"line"},\
-            {"name" : "date" , "primary" : "false", "type" : "string",  "editor":"date"},\
-            {"name" : "activity" , "primary" : "false", "type" : "text",  "editor":"choice", "choices" : ["tennis", "basketball", "golf"]},\
-            {"name" : "description" , "primary" : "false", "type" : "string",  "editor":"text"},\
-            {"name" : "media" , "primary" : "false", "type" : "array",  "editor":"medialist"},\
-            {"name" : "images" , "primary" : "false", "type" : "array",  "editor":"imagelist"},\
-            {"name" : "attachments" , "primary" : "false", "type" : "array",  "editor":"attachmentlist"}\
-          ]')
-        })));
-        return;
-      }
-
-      if (connection.request.url.endsWith('/index/metadata.json') && connection.request.method === RequestMethod.Get) {
-
-        connection.mockRespond(new Response(new ResponseOptions({
-          status: 200,
-          body: JSON.parse('[\
-            {"name" : "id" , "primary" : "true", "type" : "string",  "editor":"line"},\
-            {"name" : "title" , "primary" : "false", "type" : "string",  "editor":"line"},\
-            {"name" : "description" , "primary" : "false", "type" : "string",  "editor":"text"},\
-            {"name" : "media" , "primary" : "false", "type" : "array",  "editor":"medialist"},\
-            {"name" : "images" , "primary" : "false", "type" : "array",  "editor":"imagelist"},\
-            {"name" : "attachments" , "primary" : "false", "type" : "array",  "editor":"attachmentlist"}\
-          ]')
-        })));
-        return;
-      }
 
 
       if (connection.request.url.endsWith('/content') && connection.request.method === RequestMethod.Get) {
 
         connection.mockRespond(new Response(new ResponseOptions({
           status: 200,
-          body: JSON.parse('[{"type":"calendar","labels":[{"i18n":"en","label":"Calendar"},{"i18n":"fr","label":"Calendrier"}]},\
-      {"type":"news","labels":[{"i18n":"en","label":"News"},{"i18n":"fr","label":"Actualit\u00e9s"}]},\
-      {"type":"documents","labels":[{"i18n":"en","label":"Documents"},{"i18n":"fr","label":"Documents"}]},\
-      {"type":"clubs","labels":[{"i18n":"en","label":"Clubs"},{"i18n":"fr","label":"Clubs"}]},\
-      {"type":"contacts","labels":[{"i18n":"en","label":"Contacts"},{"i18n":"fr","label":"Contacts"}]},\
-      {"type":"links","labels":[{"i18n":"en","label":"Links"},{"i18n":"fr","label":"Liens"}]},\
-      {"type":"structure","labels":[{"i18n":"en","label":"Structure"},{"i18n":"fr","label":"Organisation"}]},\
-      {"type":"reports","labels":[{"i18n":"en","label":"Reports"},{"i18n":"fr","label":"Comptes Rendus"}]}]\
-      ')
-
+          body: cmsApi.getTypes()
         })));
         return;
       }
-      // authenticate
-      if (connection.request.url.endsWith('/authenticate') && connection.request.method === RequestMethod.Post) {
-        // get parameters from post request
 
-        let bodyStr = '' + connection.request.getBody();
-        bodyStr = bodyStr.replace('requestbody=', '');
-
-        const params = JSON.parse(bodyStr);
-
-        if (params.user && params.password) {
-          const user = JSON.parse('{}');
-          user.username = params.user;
-
-          connection.mockRespond(new Response(new ResponseOptions({
-            status: 200,
-            body: {
-              name: user.username,
-              email: user.username,
-              role: 'admin',
-              token: 'fake-jwt-token'
-            }
-
-          })));
-          console.log('mock ' + JSON.stringify(user));
-        } else {
-          console.error('Username or password is incorrect ');
-          // else return 400 bad request
-          connection.mockError(new Error('Username or password is incorrect'));
-        }
-
-        return;
-      }
 
       //
       // generic responses
@@ -296,7 +208,6 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.",\
 
       // refresh index
       if (connection.request.url.indexOf('/index/') !== -1 && connection.request.method === RequestMethod.Post) {
-
         connection.mockRespond(new Response(new ResponseOptions({
           status: 200,
           body: JSON.parse('{}')
@@ -305,21 +216,16 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.",\
         return;
       }
 
-      // get index
-      if (connection.request.url.indexOf('/index/') !== -1 && connection.request.method === RequestMethod.Get) {
-        connection.mockRespond(new Response(new ResponseOptions({
-          status: 200,
-          body: JSON.parse('[\
-          {"id": "foobar1", "date": "2017-11-17","activity": "basketball","title": "Lorem ipsum 1"},\
-          {"id": "foobar2", "date": "2015-09-01", "activity": "tennis", "title": "Lorem ipsum 2" },\
-          {"id": "foobar3", "date": "2015-09-01", "activity": "tennis", "title": "Lorem ipsum 3"}]')
 
-        })));
-        return;
-      }
+
+
 
       // save record
-      if (connection.request.url.indexOf('/content/') !== -1 && connection.request.method === RequestMethod.Post) {
+      if (connection.request.url.match(/content\/[-a-zA-Z0-9_]*/) && connection.request.method === RequestMethod.Post) {
+
+        const params = JSON.parse(connection.request.getBody());
+        cmsApi.addItem(getLast(connection.request.url), params);
+
         const ts = Math.ceil(new Date().getTime() / 1000);
         connection.mockRespond(new Response(new ResponseOptions({
           status: 200,
@@ -328,59 +234,24 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.",\
         })));
         return;
       }
-      // get record
-      if (connection.request.url.indexOf('content/news/')
-       && connection.request.method === RequestMethod.Get) {
 
-        connection.mockRespond(new Response(new ResponseOptions({
-          status: 200,
-          body: JSON.parse('{\
-    "id": "foobar",\
-    "date": "2017-11-17",\
-    "activity": "basketball",\
-    "title": "Lorem ipsum",\
-    "description": "Lorem ipsum dolor sit amet, \
-    consectetur adipiscing elit, \
-    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, \
-    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit \
-    in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, \
-    sunt in culpa qui officia deserunt mollit anim id est laborum.",\
-    "media": [],\
-    "images": [],\
-    "attachments": []\
-    }')
-        })));
-        return;
-      }
 
-      if (connection.request.url.indexOf('content/')
-       && connection.request.method === RequestMethod.Get) {
+// delete item by id
+if (connection.request.url.match(/\/content\/[-a-zA-Z0-9_]*\/[-a-zA-Z0-9_]*/) && connection.request.method === RequestMethod.Delete) {
 
-        connection.mockRespond(new Response(new ResponseOptions({
-          status: 200,
-          body: JSON.parse('{\
-            "id": "foobar",\
-            "date": "2017-11-17",\
-            "title": "Lorem ipsum",\
-            "description": "Lorem ipsum dolor sit amet, \
-            consectetur adipiscing elit, \
-            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, \
-            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit \
-            in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, \
-            sunt in culpa qui officia deserunt mollit anim id est laborum.",\
-            "media": [],\
-            "images": [],\
-            "attachments": []\
-    }')
-        })));
-        return;
-      }
+        // find item by id in array
+        cmsApi.deleteItem( getBeforeLast(connection.request.url), getLast(connection.request.url));
+        // respond 200 OK
+        connection.mockRespond(new Response(new ResponseOptions({ status: 200, body: {} })));
+
+    return;
+}
 
       console.log('fakeBackendFactory default call ' + connection.request.url);
       // pass through any requests not handled above
         connection.mockRespond(new Response(new ResponseOptions({
           status: 200,
-          body: JSON.parse('{}')
+          body: {}
         })));
         return;
 
