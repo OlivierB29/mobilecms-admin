@@ -83,8 +83,7 @@ export function fakeBackendFactory(backend: MockBackend, options: BaseRequestOpt
     // upload doesn't work. Because of  XMLHttpRequest ?
     /*
     if (connection.request.url.indexOf('basicupload') !== -1 && connection.request.method === RequestMethod.Post) {
-      console.log('!!!!!!!!!!! fake /basicupload ' );
-      // console.log('!!!!!!!!!!! fake /basicupload 2 ' + connection.request.blob);
+
       connection.mockRespond(new Response(new ResponseOptions({
         status: 200,
         body: JSON.parse('[{"title":"Lorem ipsum","url":"foobar","size":325203,"mimetype":"application\/pdf"}]')

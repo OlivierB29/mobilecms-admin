@@ -37,7 +37,7 @@ public saveItem(name: string, newItem: any): any {
   const list = this.getItems(name);
 
   list.forEach(function(part, index, list2) {
-    if (part.id = newItem.id) {
+    if (part.id === newItem.id) {
       list[index] = newItem;
     }
 
@@ -48,7 +48,7 @@ public saveItem(name: string, newItem: any): any {
 
 
 public getItems(name: string): any[] {
-    // array in local storage for registered users
+
     let result: any[] = null;
     const existingItems = localStorage.getItem(name);
     if (existingItems) {

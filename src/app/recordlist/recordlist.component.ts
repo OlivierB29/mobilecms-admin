@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { MdDialog } from '@angular/material';
 
@@ -14,6 +14,7 @@ import { StandardComponent } from 'app/home';
 
 @Component({
   moduleId: module.id,
+  selector: 'app-recordlist',
   templateUrl: 'recordlist.component.html',
   styleUrls: ['recordlist.component.css']
 })
@@ -32,6 +33,9 @@ export class RecordListComponent extends StandardComponent implements OnInit {
    * current type : news, calendar, ...
    */
   type = '';
+
+
+  @Input() recordtype: string;
 
   /**
    * response on rebuild
@@ -55,9 +59,15 @@ export class RecordListComponent extends StandardComponent implements OnInit {
     this.route.params.forEach((params: Params) => {
 
 
-      this.type = params['type'];
+      const routetype = params['type'];
 
-      if (this.type) {
+      if (routetype || this.recordtype) {
+
+        if (routetype) {
+          this.type = routetype;
+        } else {
+          this.type = this.recordtype;
+        }
 
         this.contentService.getIndex(this.type)
           .subscribe((data: any[]) => this.items = data,
