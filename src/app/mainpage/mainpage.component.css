@@ -19,17 +19,33 @@
 }
 
 
+
+.loginform {
+  padding: 1em;
+}
+
+
+.loginform-input {
+  width: 100%;
+}
+
+
+
 @media all and (min-width: 55em) {
   .top-menu-spacer {
    padding-right: 5em;
   }
+  .loginform-input {
+    width: 25%;
+  }
+
+  .loginform {
+    padding-left: 10em;
+    padding-right: 10em;
+  }
 }
 
 
-
-.loginform {
-  padding: 2em;
-}
 
 
 
