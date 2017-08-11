@@ -17,11 +17,11 @@ const appRoutes: Routes = [
     { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
     { path: '', component: HomeComponent, canActivate: [AuthGuard] },
     { path: 'login', component: HomeComponent, canActivate: [AuthGuard] },
-    { path: 'register', component: RegisterComponent },
     { path: 'modifypasssword', component: ModifyPasswordComponent, canActivate: [AuthGuard] },
     { path: 'recordlist/:type',  component: RecordListComponent, canActivate: [AuthGuard] },
-    { path: 'userlist',  component: UserListComponent, canActivate: [AuthGuard] },
     { path: 'record/:type/:id',  component: RecordComponent, canActivate: [AuthGuard] },
+    { path: 'userlist',  component: UserListComponent, canActivate: [AuthGuard] },
+    { path: 'register', component: RegisterComponent, canActivate: [AuthGuard] },
     { path: '**', redirectTo: '' }
 ];
 

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { User, Label, RecordType } from '../_models/index';
+import { User, Label, RecordType } from 'app/_models/index';
 import { AuthenticationService, ContentService, LocaleService } from 'app/_services/index';
 
 

@@ -6,9 +6,9 @@ import { RecordListHelpDialogComponent } from './recordlisthelpdialog.component'
 
 import { AuthenticationService, ContentService, LocaleService } from 'app/_services/index';
 
-import { User } from '../_models/index';
+import { User } from 'app/_models/index';
 
-import { OrderbyPipe } from '../shared/filters';
+import { OrderbyPipe } from 'app/shared/filters';
 
 import { StandardComponent } from 'app/home';
 

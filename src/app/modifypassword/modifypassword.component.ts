@@ -2,7 +2,7 @@
 import { Router } from '@angular/router';
 import { AlertService, AuthenticationService } from 'app/_services/index';
 
-import { User, Label, RecordType } from '../_models/index';
+import { User, Label, RecordType } from 'app/_models/index';
 
 @Component({
   moduleId: module.id,

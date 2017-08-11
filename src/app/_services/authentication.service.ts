@@ -8,7 +8,7 @@ import { environment } from '../../environments/environment';
 import hash, { Hash, HMAC } from 'fast-sha256';
 import * as textencoding from 'text-encoding';
 
-import { User } from '../_models/index';
+import { User } from 'app/_models/index';
 
 /*
 * Credits :

@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
 import 'rxjs/add/operator/toPromise';
 
-import { User } from '../_models/index';
+import { User } from 'app/_models/index';
 
 import { environment } from '../../environments/environment';
 
