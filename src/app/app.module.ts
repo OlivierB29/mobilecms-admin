@@ -37,7 +37,6 @@ import { RecordComponent, EditLinksComponent, EditMediaComponent,
 
 import { ModifyPasswordComponent } from 'app/modifypassword';
 
-import { TopMenuComponent } from 'app/topmenu/topmenu.component';
 import { MainPageComponent, MenubuttonComponent } from 'app/mainpage';
 
 import {  OrderbyPipe } from 'app/shared/filters';
@@ -72,7 +71,7 @@ import { BaseRequestOptions } from '@angular/http';
     AlertComponent,
     HomeComponent,
     HomeHelpDialogComponent,
-    TopMenuComponent,
+
     ModifyPasswordComponent,
     RegisterComponent,
     RecordListComponent,
