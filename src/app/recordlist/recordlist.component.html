@@ -1,6 +1,6 @@
 <div>
   <div class='secondary-button-bar'>
-    <span mdTooltip='{{ "record.list.create" | translate }}'><button md-button [routerLink]='["/record", type ,  "new"]'><md-icon>add</md-icon> </button></span>
+    <span mdTooltip='{{ "record.list.create" | translate }}'><a md-button [routerLink]='["/record", type ,  "new"]'><md-icon>add</md-icon> </a></span>
 
   <button md-button (click)='rebuildIndex()'><md-icon>refresh</md-icon></button>
   <button md-button (click)='openHelpDialog()'><md-icon alt='help'>help_outline</md-icon></button>

@@ -20,28 +20,29 @@ public deleteItem(name: string, id: string): any {
 }
 
 public addItem(name: string, newItem: any): any {
+
   const list = this.getItems(name);
-  // validation
-  /*
-  const duplicateItem = list.filter(u => { return u.id === newItem.id; }).length;
-  if (duplicateItem) {
-      return connection.mockError(new Error('item "' + newItem.id + '" is already taken'));
-  }
-*/
+  console.log('adding ... ' + list.length + ' ' + newItem.id);
 
   list.push(newItem);
+  console.log('adding done ' + list.length );
   localStorage.setItem(name, JSON.stringify(list));
 }
 
 public saveItem(name: string, newItem: any): any {
   const list = this.getItems(name);
-
+  let save = false;
   list.forEach(function(part, index, list2) {
     if (part.id === newItem.id) {
       list[index] = newItem;
+      save = true;
     }
 
 });
+
+if (!save) {
+  list.push(newItem);
+}
 
   localStorage.setItem(name, JSON.stringify(list));
 }
@@ -55,9 +56,11 @@ public getItems(name: string): any[] {
       result = JSON.parse(existingItems);
     } else {
       result = [];
-      result.push(this.buildNewItem('1'));
-      result.push(this.buildNewItem('2'));
-      result.push(this.buildNewItem('3'));
+      for (let i = 1; i < 10; i++) {
+        result.push(this.buildNewItem(name, i.toString()));
+      }
+
+
       localStorage.setItem(name, JSON.stringify(result));
     }
 
@@ -71,7 +74,7 @@ public getItems(name: string): any[] {
 
 
 
-  public buildNewItem(index: string): any {
+  public buildNewItem(type: string, index: string): any {
     const item = JSON.parse('{\
       "id": "foobar",\
       "date": "2017-11-17",\
@@ -88,7 +91,7 @@ public getItems(name: string): any[] {
   }');
 
   item.id = item.id + index;
-  item.title = item.title + index;
+  item.title = type + ' ' + item.title + ' ' + index;
   return item;
   }
 

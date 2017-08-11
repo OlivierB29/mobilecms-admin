@@ -9,10 +9,10 @@ function getMethod(connection: MockConnection) {
   let result = '';
   if (connection.request.method === RequestMethod.Get) {
     result = 'GET';
-  } else if (connection.request.method === RequestMethod.Post) {
-    result = 'POST';
   } else if (connection.request.method === RequestMethod.Put) {
     result = 'PUT';
+  } else if (connection.request.method === RequestMethod.Post) {
+    result = 'POST';
   } else if (connection.request.method === RequestMethod.Delete) {
     result = 'DELETE';
   }else if (connection.request.method === RequestMethod.Options) {
@@ -214,7 +214,6 @@ if (connection.request.url.match(/\/content\/[-a-zA-Z0-9_]*\/[-a-zA-Z0-9_]*/) &&
         })));
         return;
       }
-
 
 
 
