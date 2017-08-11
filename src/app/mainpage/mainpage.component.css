@@ -1,5 +1,5 @@
 .topmenucontent {
-  box-shadow: 5px 5px 10px 0px #656565;
+  box-shadow: 5px 5px 10px 0 #656565;
 }
 
 .top-menu-spacer {
@@ -51,8 +51,7 @@
 
 .slidemenu {
 padding-top: 5em;
-box-shadow: 5px 5px 10px 0px #656565;
-
+box-shadow: 5px 5px 10px 0 #656565;
 }
 
 

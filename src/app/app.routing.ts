@@ -1,15 +1,16 @@
 ﻿import { Routes, RouterModule } from '@angular/router';
 
-import { HomeComponent } from './home/index';
+import { HomeComponent } from 'app/home/index';
 
-import { RegisterComponent } from './register/index';
-import { AuthGuard } from './_guards/index';
+import { RegisterComponent } from 'app/register/index';
+import { AuthGuard } from 'app/_guards/index';
 import { RecordListComponent } from 'app/recordlist/recordlist.component';
 import { RecordComponent } from 'app/record/record.component';
 
 import { ModifyPasswordComponent } from 'app/modifypassword/modifypassword.component';
 
 import { MainPageComponent } from 'app/mainpage/mainpage.component';
+import { UserListComponent } from 'app/users';
 
 const appRoutes: Routes = [
 
@@ -19,6 +20,7 @@ const appRoutes: Routes = [
     { path: 'register', component: RegisterComponent },
     { path: 'modifypasssword', component: ModifyPasswordComponent, canActivate: [AuthGuard] },
     { path: 'recordlist/:type',  component: RecordListComponent, canActivate: [AuthGuard] },
+    { path: 'userlist',  component: UserListComponent, canActivate: [AuthGuard] },
     { path: 'record/:type/:id',  component: RecordComponent, canActivate: [AuthGuard] },
     { path: '**', redirectTo: '' }
 ];

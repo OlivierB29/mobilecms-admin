@@ -31,20 +31,21 @@ import { HomeComponent, HomeHelpDialogComponent } from './home';
 
 import { RegisterComponent } from 'app/register/index';
 import { RecordListComponent, RecordListHelpDialogComponent } from 'app/recordlist/index';
+import { UserListComponent } from 'app/users';
 import { RecordComponent, EditLinksComponent, EditMediaComponent,
    ErrorDialogComponent, DeleteDialogComponent, RecordHelpDialogComponent } from 'app/record';
 
 import { ModifyPasswordComponent } from 'app/modifypassword';
 
 import { TopMenuComponent } from 'app/topmenu/topmenu.component';
-import { MainPageComponent } from 'app/mainpage';
+import { MainPageComponent, MenubuttonComponent } from 'app/mainpage';
 
 import {  OrderbyPipe } from 'app/shared/filters';
 
 // used to create fake backend
-// import { fakeBackendProvider } from 'app/_helpers/index';
-// import { MockBackend, MockConnection } from '@angular/http/testing';
-// import { BaseRequestOptions } from '@angular/http';
+import { fakeBackendProvider } from 'app/_helpers/index';
+import { MockBackend, MockConnection } from '@angular/http/testing';
+import { BaseRequestOptions } from '@angular/http';
 
 @NgModule({
   imports: [
@@ -66,6 +67,7 @@ import {  OrderbyPipe } from 'app/shared/filters';
   declarations: [
 
     MainPageComponent,
+    MenubuttonComponent,
     AppComponent,
     AlertComponent,
     HomeComponent,
@@ -76,6 +78,7 @@ import {  OrderbyPipe } from 'app/shared/filters';
     RecordListComponent,
     RecordListHelpDialogComponent,
     RecordComponent,
+    UserListComponent,
     RecordHelpDialogComponent,
     DeleteDialogComponent,
     OrderbyPipe,
@@ -102,9 +105,9 @@ import {  OrderbyPipe } from 'app/shared/filters';
     StringUtils,
     OrderbyPipe,
     // providers used to create fake backend
-    // fakeBackendProvider,
-    // MockBackend,
-    // BaseRequestOptions
+    fakeBackendProvider,
+    MockBackend,
+    BaseRequestOptions
   ],
   bootstrap: [AppComponent]
 })

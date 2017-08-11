@@ -2,6 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User, Label, RecordType } from '../_models/index';
 import { AlertService, AuthenticationService, ContentService, LocaleService } from 'app/_services/index';
+import { MenuItem } from './menuitem';
 
 @Component({
   moduleId: module.id,
@@ -34,6 +35,8 @@ export class MainPageComponent  implements OnInit {
     hasAdminRole = false;
 
     menuItems: any[] = null;
+
+    adminMenuItems: any[] = null;
 
 
 
@@ -100,29 +103,36 @@ export class MainPageComponent  implements OnInit {
               this.currentUser.token = '';
 
               this.hasAdminRole = this.currentUser.role === 'admin';
-              console.log('currentUser ...' + this.currentUser.role + ' ' + this.hasAdminRole);
+              console.log('currentUser ...' + this.currentUser.role + ' ' + this.currentUser.role);
               this.hasRole = this.currentUser.role === 'editor' || this.currentUser.role === 'admin';
             }
 
           }
 
           private initMenu() {
+            this.menuItems = [];
+
+            this.adminMenuItems = [];
             //
             // About roles : this just a frontend features. Roles must be tested in the API.
             //
             console.log('initMenu ...' + this.currentUser.role + ' ' + this.hasAdminRole);
             if (this.isConnected() && this.hasRole) {
+
+              let recordTypes: RecordType[] = null;
+
+
               this.contentService.getTables()
-                .subscribe((data: RecordType[]) => this.menuItems = data,
+                .subscribe((data: RecordType[]) => recordTypes = data,
                 error => console.log('getItems ' + error),
                 () => {
-                  console.log('getItems complete :' + this.menuItems.length);
+                  console.log('getItems complete :' + recordTypes.length);
 
                   // iterate each type
-                  if (this.menuItems) {
+                  if (recordTypes) {
 
-                    this.menuItems.forEach((record: RecordType) => {
-                      // detect label value
+                    // record type
+                    recordTypes.forEach((record: RecordType) => {
                       record.labels.map((label: Label) => {
                         if (label.i18n === this.lang) {
                           record.label = label.label;
@@ -130,10 +140,25 @@ export class MainPageComponent  implements OnInit {
                         }
                       });
 
-
+                      // create menu from record type
+                      const menuItem = new MenuItem();
+                      menuItem.routerLink = ['/recordlist', record.type];
+                      menuItem.title = record.label;
+                      this.menuItems.push(menuItem);
 
                     });
                   }
+
+                  if (this.hasAdminRole) {
+                    const userlist = new MenuItem();
+                    userlist.routerLink = ['/userlist'];
+                    userlist.title = 'Users';
+                    this.adminMenuItems.push(userlist);
+                  }
+
+
+                  console.log('menu complete :' + this.menuItems.length);
+
                 });
 
 

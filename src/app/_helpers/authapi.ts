@@ -13,13 +13,17 @@ public auth(connection: MockConnection) {
   if (params.user && params.password) {
     const user = JSON.parse('{}');
     user.username = params.user;
-
+    let role = 'editor';
+    // enable dynamic of admin role
+    if (user.username.indexOf('admin') !== -1) {
+      role = 'admin';
+    }
     connection.mockRespond(new Response(new ResponseOptions({
       status: 200,
       body: {
         name: user.username,
         email: user.username,
-        role: 'admin',
+        role: role,
         token: 'fake-jwt-token'
       }
 
