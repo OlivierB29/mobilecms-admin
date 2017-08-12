@@ -2,7 +2,7 @@
 
   <!-- slide menu -->
 
-  <md-sidenav  #sidenav [mode]='menuMode' [opened]='menuOpened' class='slidemenu'>
+  <md-sidenav #sidenav [mode]='menuMode' [opened]='menuOpened' class='slidemenu'>
     <nav *ngIf='isConnected()'>
       <div *ngIf='!menuItems'>
 
@@ -15,10 +15,10 @@
         </div>
 
         <div *ngIf='hasAdminRole && adminMenuItems'>
-        <div *ngFor='let menu of adminMenuItems'>
-          <app-menubutton *ngIf='menuMode !== "over"' [item]='menu'></app-menubutton>
-          <app-menubutton *ngIf='menuMode === "over"' [item]='menu' (click)='sidenav.close()'></app-menubutton>
-        </div>
+          <div *ngFor='let menu of adminMenuItems'>
+            <app-menubutton *ngIf='menuMode !== "over"' [item]='menu'></app-menubutton>
+            <app-menubutton *ngIf='menuMode === "over"' [item]='menu' (click)='sidenav.close()'></app-menubutton>
+          </div>
         </div>
 
 
@@ -30,50 +30,45 @@
 
   <!-- container -->
 
-      <md-toolbar color='primary' class='topmenucontent'>
+  <md-toolbar color='primary' class='topmenucontent'>
 
-        <button *ngIf='isConnected() && !menuOpened' md-button (click)='sidenav.open()'><md-icon>menu</md-icon></button>
+    <button *ngIf='isConnected() && !menuOpened' md-button (click)='sidenav.open()'><md-icon>menu</md-icon></button>
 
-        <button [routerLink]='["/home"]' md-button class='top-menu-title'>Admin</button>
-        <span class="top-menu-middle-spacer"></span>
+    <button [routerLink]='["/home"]' md-button class='top-menu-title'>Admin</button>
+    <span class="top-menu-middle-spacer"></span>
 
-        <button *ngIf='isConnected()' md-button (click)='disconnect()' class='top-menu-icon'><md-icon alt='disconnect'>cancel</md-icon></button>
+    <button *ngIf='isConnected()' md-button (click)='disconnect()' class='top-menu-icon'><md-icon alt='disconnect'>cancel</md-icon></button>
 
-        <button *ngIf='isConnected()' md-button [routerLink]='["/modifypasssword"]'><md-icon alt='login'>account_circle</md-icon></button>
+    <button *ngIf='isConnected()' md-button [routerLink]='["/modifypasssword"]'><md-icon alt='login'>account_circle</md-icon></button>
 
-      </md-toolbar>
+  </md-toolbar>
   <div class='my-content'>
-<app-alert-message></app-alert-message>
+    <app-alert-message></app-alert-message>
 
     <!-- content -->
     <router-outlet *ngIf='isConnected()'></router-outlet>
-    <div  *ngIf='!isConnected()' class='loginform'>
-
-        <form name='form' (ngSubmit)='f.form.valid && login()' #f='ngForm' novalidate>
-            <div class='form-group' [ngClass]='{ "has-error": f.submitted && !username.valid }'>
-
-                <md-input-container class='loginform-input'>
-                <input type='text'  mdInput placeholder='{{"login.user" | translate}}'  name='username' [(ngModel)]='model.username' #username='ngModel' required />
-                </md-input-container>
-
-            </div>
-
-              <md-input-container class='loginform-input'>
-              <input type='password'  mdInput placeholder='{{"login.password" | translate}}'  name='password' [(ngModel)]='model.password' #password='ngModel' required />
-              </md-input-container>
-
-            <div class='form-group'>
-                <button md-button [disabled]='loading' ><md-icon>check_circle</md-icon></button>
-                <md-spinner *ngIf='loading' mode='indeterminate'></md-spinner>
-
-            </div>
+    <!-- login -->
+    <div *ngIf='!isConnected()' class='loginform'>
+      <form name='form' (ngSubmit)='f.form.valid && login()' #f='ngForm' novalidate>
+        <div [ngClass]='{ "has-error": f.submitted && !username.valid }'>
+          <md-input-container class='loginform-input'>
+            <input type='text' mdInput placeholder='{{"login.user" | translate}}' name='username' [(ngModel)]='model.username' #username='ngModel' required />
+          </md-input-container>
+        </div>
+        <md-input-container class='loginform-input'>
+          <input type='password' mdInput placeholder='{{"login.password" | translate}}' name='password' [(ngModel)]='model.password' #password='ngModel' required />
+        </md-input-container>
+        <div>
+          <button md-button [disabled]='loading'><md-icon>check_circle</md-icon></button>
+          <md-spinner *ngIf='loading' mode='indeterminate'></md-spinner>
+        </div>
 
 
-        </form>
+      </form>
     </div>
 
 
-</div>
+  </div>
 
 
 

@@ -42,9 +42,9 @@ import { MainPageComponent, MenubuttonComponent } from 'app/mainpage';
 import {  OrderbyPipe } from 'app/shared/filters';
 
 // used to create fake backend
-import { fakeBackendProvider } from 'app/_helpers/index';
-import { MockBackend, MockConnection } from '@angular/http/testing';
-import { BaseRequestOptions } from '@angular/http';
+// import { fakeBackendProvider } from 'app/_helpers/index';
+// import { MockBackend, MockConnection } from '@angular/http/testing';
+// import { BaseRequestOptions } from '@angular/http';
 
 @NgModule({
   imports: [
@@ -104,9 +104,9 @@ import { BaseRequestOptions } from '@angular/http';
     StringUtils,
     OrderbyPipe,
     // providers used to create fake backend
-    fakeBackendProvider,
-    MockBackend,
-    BaseRequestOptions
+    // fakeBackendProvider,
+    // MockBackend,
+    // BaseRequestOptions
   ],
   bootstrap: [AppComponent]
 })

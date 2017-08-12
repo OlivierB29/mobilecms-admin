@@ -15,7 +15,11 @@ export class ModifyPasswordComponent implements OnInit {
 
   currentUser: User;
 
+
+
   loading = false;
+
+  success = false;
 
   private initUser(): void {
 
@@ -53,7 +57,7 @@ export class ModifyPasswordComponent implements OnInit {
           this.alertService.success('success', true);
           this.loading = false;
           this.userService.logout();
-          this.router.navigate(['/']);
+          this.success = true;
         },
         error => {
           this.alertService.error(error);
