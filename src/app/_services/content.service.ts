@@ -6,34 +6,17 @@ import { Metadata } from 'app/_models';
 
 import { environment } from '../../environments/environment';
 
+import { RestClientService } from './restclient.service';
 
 @Injectable()
-export class ContentService {
-
-    /**
-    * server base admin API app
-    */
-    private serverUrl = environment.server;
+export class ContentService extends RestClientService {
 
 
-    /**
-    * API endpoint
-    */
-    private api = environment.api;
-
-    private postFormData = true;
+    constructor(private http: Http) {
+      super( environment.server, environment.api);
+     }
 
 
-    constructor(private http: Http) { }
-
-    /**
-    * get API url
-    * @arg path  eg : '/content'
-    * @returns http://server//adminapp/api.php?path=/content
-    */
-    private getUrl(path: string): string {
-        return this.serverUrl + this.api + path;
-    }
 
     public options = (): Observable<any> => {
         const url: string = this.getUrl('/content');
@@ -239,11 +222,6 @@ export class ContentService {
             .catch(this.handleError);
     }
 
-    public controlResponse = (response: Response): void => {
-      if (response.status < 200 || response.status >= 300) {
-        throw new Error('This request has failed ' + response.status);
-      }
-    }
 
 /**
 
@@ -259,65 +237,7 @@ export class ContentService {
 
 */
 
-    // private helper methods
-
-    private jwt(): RequestOptions {
-        // create authorization header with jwt token
 
 
-        if (localStorage.getItem('currentUser')) {
-          const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-          if (currentUser && currentUser.token) {
-
-              const headers = new Headers({ 'Authorization': 'Bearer ' + currentUser.token });
-              return new RequestOptions({ headers: headers });
-          } else {
-            throw new Error('invalid token');
-          }
-        } else {
-            throw new Error('empty user');
-        }
-
-    }
-
-    private jwtPost(): RequestOptions {
-        // create authorization header with jwt token
-        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        if (currentUser && currentUser.token) {
-
-            const headers = new Headers({ 'Authorization': 'Bearer ' + currentUser.token });
-
-            // for POST
-            if (this.postFormData) {
-              headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-            } else {
-              headers.append('Content-Type', 'application/json; charset=UTF-8');
-            }
-
-
-            return new RequestOptions({ headers: headers });
-        } else {
-            throw new Error('empty user');
-        }
-    }
-
-    private handleError(error: Response) {
-        // console.error('handleError ' + JSON.stringify(error));
-        // return Observable.throw(error.json().error || 'Server error');
-        return Observable.throw( 'Server error');
-    }
-
-    private escape(text: string): string {
-
-    return text.replace(/[\\]/g, '\\\\')
-    .replace(/[\"]/g, '\\\"')
-    .replace(/[\/]/g, '\\/')
-    .replace(/[\b]/g, '\\b')
-    .replace(/[\f]/g, '\\f')
-    .replace(/[\n]/g, '\\n')
-    .replace(/[\r]/g, '\\r')
-    .replace(/[\t]/g, '\\t');
-
-    }
 
 }

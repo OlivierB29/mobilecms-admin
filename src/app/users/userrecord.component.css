@@ -1,0 +1,47 @@
+.full-width-input {
+  width: 100%;
+
+}
+
+.half-width-input {
+  width: 50%;
+
+}
+
+
+.full-width-textarea {
+  width: 100%;
+}
+
+.input-group {
+  padding-bottom: 0.2em;
+}
+
+input:read-only {
+    background-color: #ddd;
+}
+
+.container {
+  padding: 0.2em;
+}
+
+@media all and (min-width: 55em) {
+  .container {
+    padding: 2em;
+  }
+}
+
+
+.list-container {
+  padding-bottom: 0.5em;
+}
+
+.success-label-message {
+  font-size: 0.81em;
+  color: #777777;
+}
+
+.error-label-message {
+  font-size: 0.81em;
+  color: red;
+}

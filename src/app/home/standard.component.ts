@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { User, Label, RecordType } from 'app/_models/index';
-import { AuthenticationService, ContentService, LocaleService } from 'app/_services/index';
+import { LocaleService } from 'app/_services/index';
 
 
 export class StandardComponent  implements OnInit  {
@@ -19,15 +19,11 @@ export class StandardComponent  implements OnInit  {
 
   ngOnInit() {
 
-    this.lang = this.locale.getLang();
-
     this.initUser();
   }
 
 
-      constructor(protected contentService: ContentService,
-         private authenticationService: AuthenticationService,
-         private locale: LocaleService) {
+      constructor() {
 
       }
 

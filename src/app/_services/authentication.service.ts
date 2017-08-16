@@ -101,11 +101,7 @@ export class AuthenticationService {
     headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 
 
-    /*const user: any = {};
-    user.email = userInput.email;
-    user.password = this.hash(userInput.password);
-    user.newpassword = this.hash(userInput.newpassword);
-    const data = 'requestbody=' + encodeURIComponent(JSON.stringify(user));*/
+
     const data = 'requestbody=' + encodeURIComponent(JSON.stringify({ email: userInput.email,
       newpassword: this.hash(userInput.newpassword),
       password: this.hash(userInput.password)

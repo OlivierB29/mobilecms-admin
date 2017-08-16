@@ -8,7 +8,8 @@ export const environment = {
   server: 'http://localhost',
   website: 'http://localhost/#',
   defaultlang: 'en',
-  api: '/restapi/v1',
+  api: '/cmsapi/v1',
+  adminapi: '/adminapi/v1',
   fileapi: '/fileapi/v1',
   authapi: '/authapi/v1'
 };

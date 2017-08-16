@@ -3,7 +3,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { MdDialog } from '@angular/material';
 
 
-import { AuthenticationService, ContentService, LocaleService } from 'app/_services/index';
+import { AuthenticationService, AdminService, LocaleService } from 'app/_services/index';
 
 import { User } from 'app/_models/index';
 
@@ -18,7 +18,7 @@ import { StandardComponent } from 'app/home';
   styleUrls: ['userlist.component.css']
 })
 
-export class UserListComponent extends StandardComponent implements OnInit {
+export class UserListComponent implements OnInit {
 
 
 
@@ -31,7 +31,7 @@ export class UserListComponent extends StandardComponent implements OnInit {
   /**
    * current type : news, calendar, ...
    */
-  type = '';
+  type = 'users';
 
 
   @Input() recordtype: string;
@@ -43,30 +43,16 @@ export class UserListComponent extends StandardComponent implements OnInit {
 
 
 
-  constructor(contentService: ContentService,
-      authenticationService: AuthenticationService,
+  constructor(private contentService: AdminService,
       locale: LocaleService, private route: ActivatedRoute,
   private orderby: OrderbyPipe, public dialog: MdDialog) {
-   super(contentService, authenticationService, locale);
+
  }
 
   ngOnInit() {
-    super.ngOnInit();
     console.log('RecordListComponent ');
 
 
-    this.route.params.forEach((params: Params) => {
-
-
-      const routetype = params['type'];
-
-      if (routetype || this.recordtype) {
-
-        if (routetype) {
-          this.type = routetype;
-        } else {
-          this.type = this.recordtype;
-        }
 
         this.contentService.getIndex(this.type)
           .subscribe((data: any[]) => this.items = data,
@@ -74,17 +60,11 @@ export class UserListComponent extends StandardComponent implements OnInit {
           () => {
             console.log('getItems complete ' + this.type + ' ' + this.items.length);
 
-            // TODO generic sort by metadata
-            if (this.items.length > 0 && this.items[0].date) {
-              this.orderby.transform(this.items, 'date', 'desc');
-            }
-
 
           });
 
-      }
 
-    });
+
 
 
 

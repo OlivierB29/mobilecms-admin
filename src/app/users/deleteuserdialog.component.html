@@ -1,0 +1,9 @@
+<h2 md-dialog-title>{{'deletedialog.title' | translate}}</h2>
+<md-dialog-content>{{'delete.warning.1' | translate}}</md-dialog-content>
+<md-dialog-content>{{ data }}</md-dialog-content>
+<md-dialog-content>{{'delete.warning.2' | translate}}</md-dialog-content>
+<md-dialog-actions>
+  <button md-button md-dialog-close>{{'cancel.label' | translate}}</button>
+  <!-- Can optionally provide a result for the closing dialog. -->
+  <button md-button [md-dialog-close]="true">{{'delete.label' | translate}}</button>
+</md-dialog-actions>

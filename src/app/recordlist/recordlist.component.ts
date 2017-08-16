@@ -44,11 +44,10 @@ export class RecordListComponent extends StandardComponent implements OnInit {
 
 
 
-  constructor(contentService: ContentService,
-      authenticationService: AuthenticationService,
+  constructor(private contentService: ContentService,
       locale: LocaleService, private route: ActivatedRoute,
   private orderby: OrderbyPipe, public dialog: MdDialog) {
-   super(contentService, authenticationService, locale);
+   super();
  }
 
   ngOnInit() {

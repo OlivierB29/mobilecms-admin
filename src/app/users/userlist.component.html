@@ -1,17 +1,15 @@
 <div>
   <div class='secondary-button-bar'>
-    <span mdTooltip='{{ "record.list.create" | translate }}'><button md-button [routerLink]='["/register"]'><md-icon>add</md-icon> </button></span>
+    <span mdTooltip='{{ "record.list.create" | translate }}'><button md-button [routerLink]='["/userrecord", "new"]'><md-icon>add</md-icon> </button></span>
 
 
 
 </div>
 
-
-TODO
   <div *ngIf='items'>
     <div *ngFor='let item of items'>
-      <button *ngIf='item.title' md-button [routerLink]='["/record", type ,  item.id]' class='item-title'>{{item.title}}</button>
-      <button *ngIf='!item.title' md-button [routerLink]='["/record", type ,  item.id]'>{{item.id}}</button>
+      <button *ngIf='item.name' md-button [routerLink]='["/userrecord", item.email]' class='item-title'>{{item.name}}</button>
+      <button *ngIf='!item.name' md-button [routerLink]='["/userrecord", item.email]'>{{item.email}}</button>
     </div>
   </div>
 

@@ -3,7 +3,7 @@ export const environment = {
   server: '',
   website: 'https://olivierb29.github.io/mobilecms-demo/#',
   defaultlang: 'en',
-  api: '/restapi/v1',
+  api: '/cmsapi/v1',
   fileapi: '/fileapi/v1',
   authapi: '/authapi/v1'
 };

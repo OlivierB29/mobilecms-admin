@@ -25,13 +25,13 @@ import { AppComponent } from 'app/app.component';
 
 import { AlertComponent } from 'app/_directives/index';
 import { AuthGuard } from 'app/_guards/index';
-import { AlertService, AuthenticationService, UserService, ContentService, UploadService,
+import { AlertService, AuthenticationService, AdminService, ContentService, UploadService,
    LocaleService, StringUtils } from 'app/_services/index';
 import { HomeComponent, HomeHelpDialogComponent } from './home';
 
 import { RegisterComponent } from 'app/register/index';
 import { RecordListComponent, RecordListHelpDialogComponent } from 'app/recordlist/index';
-import { UserListComponent } from 'app/users';
+import { UserListComponent, DeleteUserDialogComponent, UserRecordComponent } from 'app/users';
 import { RecordComponent, EditLinksComponent, EditMediaComponent,
    ErrorDialogComponent, DeleteDialogComponent, RecordHelpDialogComponent } from 'app/record';
 
@@ -78,8 +78,10 @@ import { BaseRequestOptions } from '@angular/http';
     RecordListHelpDialogComponent,
     RecordComponent,
     UserListComponent,
+    UserRecordComponent,
     RecordHelpDialogComponent,
     DeleteDialogComponent,
+    DeleteUserDialogComponent,
     OrderbyPipe,
     EditLinksComponent,
     EditMediaComponent,
@@ -90,6 +92,7 @@ import { BaseRequestOptions } from '@angular/http';
     RecordHelpDialogComponent,
     RecordListHelpDialogComponent,
     DeleteDialogComponent,
+    DeleteUserDialogComponent,
     ErrorDialogComponent
   ],
 
@@ -97,7 +100,7 @@ import { BaseRequestOptions } from '@angular/http';
     AuthGuard,
     AlertService,
     AuthenticationService,
-    UserService,
+    AdminService,
     ContentService,
     UploadService,
     LocaleService,
