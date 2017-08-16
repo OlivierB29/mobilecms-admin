@@ -79,10 +79,20 @@ export abstract class RestClientService {
 
 
   protected handleError(error: Response) {
+
     // console.error('handleError ' + JSON.stringify(error));
-    // return Observable.throw(error.json().error || 'Server error');
-    return Observable.throw('Server error');
+    if (error) {
+      if (401 === error.status || 403 === error.status) {
+        localStorage.removeItem('currentUser');
+      }
+        return Observable.throw(error);
+    } else {
+
+      return Observable.throw('Server error');
+    }
   }
+
+
 
 
 }

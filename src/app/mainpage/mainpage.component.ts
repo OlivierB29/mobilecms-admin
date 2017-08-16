@@ -1,6 +1,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { User, Label, RecordType } from 'app/_models/index';
+import { Router } from '@angular/router';
 import { AlertService, AuthenticationService, ContentService, LocaleService } from 'app/_services/index';
 import { MenuItem } from './menuitem';
 
@@ -48,7 +49,8 @@ export class MainPageComponent  implements OnInit {
 
     constructor(protected contentService: ContentService,
        private authenticationService: AuthenticationService,
-       private locale: LocaleService, private alertService: AlertService) {
+       private locale: LocaleService, private alertService: AlertService,
+       private router: Router) {
 
     }
 
@@ -59,6 +61,9 @@ export class MainPageComponent  implements OnInit {
         this.initUser();
         if (this.isConnected()) {
           this.initUi();
+        } else {
+          console.log('logout');
+          this.authenticationService.logout();
         }
 
       }
@@ -124,9 +129,16 @@ export class MainPageComponent  implements OnInit {
 
               this.contentService.getTables()
                 .subscribe((data: RecordType[]) => recordTypes = data,
-                error => console.log('getItems ' + error),
+                error => {
+                  console.log('getTables ' + JSON.stringify(error));
+                  if (401 === error.status || 403 === error.status) {
+                    // TODO enhance redirect on error
+                    console.log('not connected! ');
+                    this.disconnect();
+                  }
+                },
                 () => {
-                  console.log('getItems complete :' + recordTypes.length);
+                  console.log('getTables complete :' + recordTypes.length);
 
                   // iterate each type
                   if (recordTypes) {

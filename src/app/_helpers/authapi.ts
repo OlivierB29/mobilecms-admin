@@ -1,6 +1,6 @@
 
-import { Http, BaseRequestOptions, Response, ResponseOptions, RequestMethod, XHRBackend, RequestOptions } from '@angular/http';
-import { MockBackend, MockConnection } from '@angular/http/testing';
+import {  Response, ResponseOptions } from '@angular/http';
+import { MockConnection } from '@angular/http/testing';
 
 export class AuthApi {
 

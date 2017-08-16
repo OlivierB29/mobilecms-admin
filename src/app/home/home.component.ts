@@ -15,10 +15,6 @@ export class HomeComponent {
 
     constructor(
        public dialog: MdDialog) {
-         console.log(' 1 ' + JSON.stringify({a: 'a'}));
-         console.log(' 2 ' + JSON.stringify({a: 'b,'}));
-         console.log(' 3 ' + JSON.stringify(JSON.parse(JSON.stringify({c: 'b,'.replace(',', '\,')}))));
-         console.log(' 4 ' + JSON.stringify({d: 'b,'.replace(',', '\,')}));
     }
 
     /**

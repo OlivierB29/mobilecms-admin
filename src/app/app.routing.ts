@@ -14,7 +14,7 @@ import { UserListComponent, UserRecordComponent } from 'app/users';
 
 const appRoutes: Routes = [
 
-    { path: 'home', component: HomeComponent },
+    { path: 'home', component: HomeComponent},
     { path: '', component: HomeComponent },
     { path: 'login', component: HomeComponent },
     { path: 'modifypasssword', component: ModifyPasswordComponent, canActivate: [AuthGuard] },

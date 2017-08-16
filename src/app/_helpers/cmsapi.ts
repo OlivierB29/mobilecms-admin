@@ -1,10 +1,7 @@
 
-import { Http, BaseRequestOptions, Response, ResponseOptions, RequestMethod, XHRBackend, RequestOptions } from '@angular/http';
-import { MockBackend, MockConnection } from '@angular/http/testing';
-
 export class CmsApi {
 
-public content(backend: MockBackend, options: BaseRequestOptions, realBackend: XHRBackend) {
+public content() {
 }
 
 public getItem(name: string, id: string): any {

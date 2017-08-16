@@ -5,8 +5,7 @@ import 'rxjs/add/operator/map'
 
 import { environment } from '../../environments/environment';
 
-import hash, { Hash, HMAC } from 'fast-sha256';
-import * as textencoding from 'text-encoding';
+import { HashUtils } from 'app/_helpers';
 
 import { User } from 'app/_models/index';
 
@@ -30,7 +29,7 @@ export class AuthenticationService {
 
   login(user: string, password: string) {
     console.log('login...');
-
+    const hashUtils = new HashUtils();
 
     localStorage.removeItem('currentUser');
     //
@@ -39,7 +38,7 @@ export class AuthenticationService {
 
     // TODO RESTful endpoint
     const url: string = this.getUrl('/authenticate');
-    const data = 'requestbody=' + encodeURIComponent(JSON.stringify({ user: user, password: this.hash(password) }));
+    const data = 'requestbody=' + encodeURIComponent(JSON.stringify({ user: user, password: hashUtils.hash(password) }));
 
     return this.http.post(url, data, { headers: headers })
       .map((response: Response) => {
@@ -62,14 +61,14 @@ export class AuthenticationService {
   }
 
   register(userInput: any) {
-
+    const hashUtils = new HashUtils();
     //
     const headers = new Headers();
     headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 
 
     const url: string = this.getUrl('/register');
-    userInput.password = encodeURIComponent(this.hash(userInput.password));
+    userInput.password = encodeURIComponent(hashUtils.hash(userInput.password));
     const data = 'requestbody=' + JSON.stringify(userInput);
 
     return this.http.post(url, data, { headers: headers })
@@ -80,21 +79,9 @@ export class AuthenticationService {
 
 
 
-  /**
-   * Hash an input string password to a sha256 password.
-   * Explanation : this is just a client hash. The backend API has its own encrypt features.
-   * For the backend API, the hashed password is like the clear password.
-   * @param password clear text password
-   * @return a sha256 in string format
-   */
-  private hash(password: string): string {
-        const uint8array = new TextEncoder().encode(password);
-        const myarray = hash(uint8array);
-        return new TextDecoder().decode(myarray);
-  }
 
   changepassword(userInput: any) {
-
+    const hashUtils = new HashUtils();
     const url: string = this.getUrl('/changepassword');
 
     const headers = new Headers();
@@ -103,8 +90,8 @@ export class AuthenticationService {
 
 
     const data = 'requestbody=' + encodeURIComponent(JSON.stringify({ email: userInput.email,
-      newpassword: this.hash(userInput.newpassword),
-      password: this.hash(userInput.password)
+      newpassword: hashUtils.hash(userInput.newpassword),
+      password: hashUtils.hash(userInput.password)
        }));
     return this.http.post(url, data, { headers: headers })
       .map((response: Response) => {
