@@ -14,22 +14,25 @@ export class AuthGuard implements CanActivate {
 
 
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean>|boolean  {
-    console.log('AuthGuard ...');
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):  Observable<boolean>|Promise<boolean>|boolean  {
     if (localStorage.getItem('currentUser')) {
       // check authentication token
       return this.contentService.options().map(data => {
               if (data) {
                   return true;
               }
+              this.logout();
               return false;
           });
     } else {
-      // TODO : issue when redirect. Nothing done
+        this.logout();
       return false;
     }
-
-
-
   }
+
+  private logout() {
+    localStorage.removeItem('currentUser');
+    this.router.navigate(['/login']);
+  }
+
 }

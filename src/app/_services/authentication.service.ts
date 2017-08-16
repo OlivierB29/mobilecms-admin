@@ -47,10 +47,6 @@ export class AuthenticationService {
         if (userObject && userObject.token) {
 
           // store user details and jwt token in local storage to keep user logged in between page refreshes
-          if (localStorage.getItem('currentUser')) {
-            console.log('emptying ');
-            localStorage.removeItem('currentUser');
-          }
 
           localStorage.setItem('currentUser', JSON.stringify(userObject));
         } else {

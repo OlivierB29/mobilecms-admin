@@ -46,6 +46,8 @@ import { fakeBackendProvider } from 'app/_helpers/index';
 import { MockBackend, MockConnection } from '@angular/http/testing';
 import { BaseRequestOptions } from '@angular/http';
 
+
+
 @NgModule({
   imports: [
     FormsModule,
@@ -71,7 +73,6 @@ import { BaseRequestOptions } from '@angular/http';
     AlertComponent,
     HomeComponent,
     HomeHelpDialogComponent,
-
     ModifyPasswordComponent,
     RegisterComponent,
     RecordListComponent,

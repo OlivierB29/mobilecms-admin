@@ -125,8 +125,41 @@ export class MainPageComponent  implements OnInit {
             if (this.isConnected() && this.hasRole) {
 
               let recordTypes: RecordType[] = null;
+              this.contentService.getTables2().subscribe(users => {
+                 recordTypes = users;
+
+                 // iterate each type
+                 if (recordTypes) {
+
+                   // record type
+                   recordTypes.forEach((record: RecordType) => {
+                     record.labels.map((label: Label) => {
+                       if (label.i18n === this.lang) {
+                         record.label = label.label;
+                         return label;
+                       }
+                     });
+
+                     // create menu from record type
+                     const menuItem = new MenuItem();
+                     menuItem.routerLink = ['/recordlist', record.type];
+                     menuItem.title = record.label;
+                     this.menuItems.push(menuItem);
+
+                   });
+                 }
+
+                 if (this.hasAdminRole) {
+                   const userlist = new MenuItem();
+                   userlist.routerLink = ['/userlist'];
+                   userlist.title = 'Users';
+                   this.adminMenuItems.push(userlist);
+                 }
 
 
+                 console.log('menu complete :' + this.menuItems.length);
+                });
+/*
               this.contentService.getTables()
                 .subscribe((data: RecordType[]) => recordTypes = data,
                 error => {
@@ -172,7 +205,7 @@ export class MainPageComponent  implements OnInit {
                   console.log('menu complete :' + this.menuItems.length);
 
                 });
-
+*/
 
             } else {
               console.log('guest ');
@@ -194,7 +227,7 @@ export class MainPageComponent  implements OnInit {
       }
 
       isConnected(): boolean {
-        return this.currentUser != null;
+        return localStorage.getItem('currentUser') != null;
       }
 
 

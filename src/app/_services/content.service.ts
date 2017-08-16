@@ -16,20 +16,25 @@ export class ContentService extends RestClientService {
       super( environment.server, environment.api);
      }
 
-
-
     public options = (): Observable<any> => {
         const url: string = this.getUrl('/content');
-
-        console.log('options ' + url);
-
-
         return this.http.get(url, this.jwt())
             .map((response: Response) => {
               this.controlResponse(response);
               return <any>response.json();
             })
-            .catch(this.handleError);
+            .catch(() => {
+              return Observable.of('');
+            });
+    }
+
+
+
+
+    getTables2() {
+      const url: string = this.getUrl('/content');
+
+        return this.http.get(url, this.jwt()).map((response: Response) => response.json());
     }
 
     /**

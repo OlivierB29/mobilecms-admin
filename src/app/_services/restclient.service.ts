@@ -82,9 +82,6 @@ export abstract class RestClientService {
 
     // console.error('handleError ' + JSON.stringify(error));
     if (error) {
-      if (401 === error.status || 403 === error.status) {
-        localStorage.removeItem('currentUser');
-      }
         return Observable.throw(error);
     } else {
 
