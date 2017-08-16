@@ -4,6 +4,7 @@ export const environment = {
   website: 'https://olivierb29.github.io/mobilecms-demo/#',
   defaultlang: 'en',
   api: '/cmsapi/v1',
+  adminapi: '/adminapi/v1',
   fileapi: '/fileapi/v1',
   authapi: '/authapi/v1'
 };

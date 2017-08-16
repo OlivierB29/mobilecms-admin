@@ -4,6 +4,7 @@ export const environment = {
   website: '/#',
   defaultlang: 'fr',
   api: '/cmsapi/v1',
+  adminapi: '/adminapi/v1',
   fileapi: '/fileapi/v1',
   authapi: '/authapi/v1'
 };
