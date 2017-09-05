@@ -5,6 +5,8 @@
     "home.help.menu":"Open categories",
     "home.help.disconnect":"Disconnect",
     "home.help.home":"return to this page",
+    "sendpassworddialog.title":"Reset password",
+    "sendpassworddialog.warning":"Send password on this account ",
     "record.list.title": "List",
     "record.list.create": "Create a new record",
     "record.edit.title": "Edit",
@@ -44,6 +46,7 @@
     "field.label.attachment.description":"optionnal description",
     "delete.warning.1": "Are you sure you want to delete ? ",
     "delete.warning.2": "This action can’t be undone.",
+    "validate.label": "Validate",
     "cancel.label": "Cancel",
     "delete.label": "Delete"
 

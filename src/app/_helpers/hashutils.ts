@@ -1,6 +1,9 @@
 
 import hash, { Hash, HMAC } from 'fast-sha256';
+
 import * as textencoding from 'text-encoding';
+
+import { Base64 } from './base64';
 
 export class HashUtils {
 
@@ -16,6 +19,14 @@ export class HashUtils {
           const uint8array = new TextEncoder().encode(password);
           const myarray = hash(uint8array);
           return new TextDecoder().decode(myarray);
+
     }
 
+    /**
+    * same as previous + base64 encode
+    */
+    public hash64(password: string): string {
+
+           return new Base64().encode(this.hash(password));
+    }
 }

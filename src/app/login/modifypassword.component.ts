@@ -1,4 +1,4 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertService, AuthenticationService } from 'app/_services/index';
 
@@ -6,16 +6,16 @@ import { User, Label, RecordType } from 'app/_models/index';
 
 @Component({
   moduleId: module.id,
+  selector: 'app-modifypassword',
   templateUrl: 'modifypassword.component.html',
-    styleUrls: ['modifypassword.component.css']
+    styleUrls: ['login.component.css']
 })
 
 export class ModifyPasswordComponent implements OnInit {
-  model: any = {};
 
-  currentUser: User;
+  @Input() model: any = {};
 
-
+  @Input() userinfo: any = {};
 
   loading = false;
 
@@ -23,20 +23,10 @@ export class ModifyPasswordComponent implements OnInit {
 
   private initUser(): void {
 
-    const currentUserLocalStorage = localStorage.getItem('currentUser');
-
-    if (currentUserLocalStorage) {
-      this.currentUser = JSON.parse(currentUserLocalStorage);
-      this.currentUser.token = '';
-      this.model.email = this.currentUser.email;
-      console.log('currentUser ...');
-
-    }
-
   }
 
   constructor(private router: Router,
-    private userService: AuthenticationService,
+    private authenticationService: AuthenticationService,
     private alertService: AlertService) { }
 
   ngOnInit() {
@@ -51,13 +41,15 @@ export class ModifyPasswordComponent implements OnInit {
     if (this.model.newpassword === this.model.newpassword2) {
       this.loading = true;
 
-      this.userService.changepassword(this.model)
+      this.authenticationService.changepassword(this.model.username, this.model.password, this.model.newpassword, 'none')
         .subscribe(
         data => {
           this.alertService.success('success', true);
           this.loading = false;
-          this.userService.logout();
+          this.authenticationService.logout();
           this.success = true;
+          this.userinfo.newpasswordrequired = 'false';
+          this.userinfo.clientalgorithm = 'hashmacbase64';
         },
         error => {
           this.alertService.error(error);
@@ -68,7 +60,12 @@ export class ModifyPasswordComponent implements OnInit {
     }
   }
 
+
   isSecurePassword(): boolean {
+    return this.model.newpassword && this.model.newpassword.length >= 10;
+  }
+
+  oldIsSecurePassword(): boolean {
     // (?=.*\d)                // should contain at least one digit
     // (?=.*[a-z])             // should contain at least one lower case
     // (?=.*[A-Z])             // should contain at least one upper case

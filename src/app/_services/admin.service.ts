@@ -89,11 +89,46 @@ export class AdminService extends RestClientService {
       const hashUtils = new HashUtils();
 
       const url: string = this.getUrl('/content/' + type);
+      const user = JSON.parse('{"name":"", "email":"", "password":"", "secretQuestion":"", "secretResponse":"" }');
+      user.name = userInput.name;
+      user.email = userInput.email;
+      user.password = userInput.email;
+      user.password = hashUtils.hash64(userInput.password);
 
-      userInput.password = encodeURIComponent(hashUtils.hash(userInput.password));
 
+      const data = 'requestbody=' + JSON.stringify(user);
 
-      const data = 'requestbody=' + JSON.stringify(userInput);
+      return this.http.put(url, data,
+                  this.jwtPost())
+        .map((response: Response) => {
+          this.controlResponse(response);
+          return <any>response.json();
+        });
+    }
+
+    }
+
+    postUser(type: string, userInput: any) {
+    if (type === 'users') {
+      const hashUtils = new HashUtils();
+
+      const url: string = this.getUrl('/content/' + type);
+      const user = JSON.parse('{"name":"", "email":"", "password":"", "secretQuestion":"", "secretResponse":"" }');
+      user.name = userInput.name;
+      user.email = userInput.email;
+      user.password = hashUtils.hash64(userInput.password);
+
+      const jsonStr = JSON.stringify({
+        email: user.email,
+        password: user.password,
+        name : user.name,
+        secretQuestion : user.secretResponse,
+        secretResponse : user.secretResponse
+      });
+
+    //  const data = 'requestbody=' + jsonStr + '&password=' + user.password;
+    const data = 'requestbody=' + jsonStr;
+
 
       return this.http.post(url, data,
                   this.jwtPost())
@@ -105,7 +140,8 @@ export class AdminService extends RestClientService {
 
     }
 
-  public post(type: string, userInput: any): Observable<any> {
+
+  public updateUser(type: string, userInput: any): Observable<any> {
   if (type === 'users') {
     const hashUtils = new HashUtils();
 
@@ -114,11 +150,11 @@ export class AdminService extends RestClientService {
     let data = '';
     if (userInput.password) {
 
-      data = 'requestbody=' + encodeURIComponent(JSON.stringify({ email: userInput.email,
-        newpassword: hashUtils.hash(userInput.password),
+      data = 'requestbody=' + JSON.stringify({ email: userInput.email,
+        newpassword: hashUtils.hash64(userInput.password),
         role : userInput.role,
         name : userInput.name
-         }));
+         });
 
     } else {
 

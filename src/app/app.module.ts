@@ -35,16 +35,16 @@ import { UserListComponent, DeleteUserDialogComponent, UserRecordComponent } fro
 import { RecordComponent, EditLinksComponent, EditMediaComponent,
    ErrorDialogComponent, DeleteDialogComponent, RecordHelpDialogComponent } from 'app/record';
 
-import { ModifyPasswordComponent } from 'app/modifypassword';
+import { ModifyPasswordComponent , SendPasswordDialogComponent } from 'app/login';
 
 import { MainPageComponent, MenubuttonComponent } from 'app/mainpage';
 
 import {  OrderbyPipe } from 'app/shared/filters';
 
 // used to create fake backend
-import { fakeBackendProvider } from 'app/_helpers/index';
-import { MockBackend, MockConnection } from '@angular/http/testing';
-import { BaseRequestOptions } from '@angular/http';
+// import { fakeBackendProvider } from 'app/_helpers/index';
+// import { MockBackend, MockConnection } from '@angular/http/testing';
+// import { BaseRequestOptions } from '@angular/http';
 
 
 
@@ -68,6 +68,7 @@ import { BaseRequestOptions } from '@angular/http';
   declarations: [
 
     MainPageComponent,
+    SendPasswordDialogComponent,
     MenubuttonComponent,
     AppComponent,
     AlertComponent,
@@ -90,6 +91,7 @@ import { BaseRequestOptions } from '@angular/http';
   ],
   entryComponents: [
     HomeHelpDialogComponent,
+    SendPasswordDialogComponent,
     RecordHelpDialogComponent,
     RecordListHelpDialogComponent,
     DeleteDialogComponent,

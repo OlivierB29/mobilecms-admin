@@ -1,9 +1,13 @@
 
 import { Component, OnInit } from '@angular/core';
 import { User, Label, RecordType } from 'app/_models/index';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { MdDialog } from '@angular/material';
+
+
 import { AlertService, AuthenticationService, ContentService, LocaleService } from 'app/_services/index';
 import { MenuItem } from './menuitem';
+import { SendPasswordDialogComponent } from 'app/login';
 
 @Component({
   moduleId: module.id,
@@ -45,17 +49,22 @@ export class MainPageComponent  implements OnInit {
 
     loading = false;
 
+
     model: any = {};
+
+    userinfo: any = {};
+
+    success = false;
 
     constructor(protected contentService: ContentService,
        private authenticationService: AuthenticationService,
        private locale: LocaleService, private alertService: AlertService,
-       private router: Router) {
+        public dialog: MdDialog,
+       private router: Router, private route: ActivatedRoute) {
 
     }
 
       ngOnInit() {
-
         this.lang = this.locale.getLang();
 
         this.initUser();
@@ -73,6 +82,7 @@ export class MainPageComponent  implements OnInit {
 
 
       private initUi() {
+        console.log("initUi");
         this.initMenuLayout();
 
 
@@ -122,7 +132,7 @@ export class MainPageComponent  implements OnInit {
             // About roles : this just a frontend features. Roles must be tested in the API.
             //
             console.log('initMenu ...' + this.currentUser.role + ' ' + this.hasAdminRole);
-            if (this.isConnected() && this.hasRole) {
+            if (this.isAuthenticated() && this.hasRole) {
 
               let recordTypes: RecordType[] = null;
               this.contentService.getTables2().subscribe(users => {
@@ -159,53 +169,7 @@ export class MainPageComponent  implements OnInit {
 
                  console.log('menu complete :' + this.menuItems.length);
                 });
-/*
-              this.contentService.getTables()
-                .subscribe((data: RecordType[]) => recordTypes = data,
-                error => {
-                  console.log('getTables ' + JSON.stringify(error));
-                  if (401 === error.status || 403 === error.status) {
-                    // TODO enhance redirect on error
-                    console.log('not connected! ');
-                    this.disconnect();
-                  }
-                },
-                () => {
-                  console.log('getTables complete :' + recordTypes.length);
 
-                  // iterate each type
-                  if (recordTypes) {
-
-                    // record type
-                    recordTypes.forEach((record: RecordType) => {
-                      record.labels.map((label: Label) => {
-                        if (label.i18n === this.lang) {
-                          record.label = label.label;
-                          return label;
-                        }
-                      });
-
-                      // create menu from record type
-                      const menuItem = new MenuItem();
-                      menuItem.routerLink = ['/recordlist', record.type];
-                      menuItem.title = record.label;
-                      this.menuItems.push(menuItem);
-
-                    });
-                  }
-
-                  if (this.hasAdminRole) {
-                    const userlist = new MenuItem();
-                    userlist.routerLink = ['/userlist'];
-                    userlist.title = 'Users';
-                    this.adminMenuItems.push(userlist);
-                  }
-
-
-                  console.log('menu complete :' + this.menuItems.length);
-
-                });
-*/
 
             } else {
               console.log('guest ');
@@ -226,26 +190,43 @@ export class MainPageComponent  implements OnInit {
         return layout;
       }
 
-      isConnected(): boolean {
+      public isAuthenticated(): boolean {
         return localStorage.getItem('currentUser') != null;
       }
 
+      public isConnected(): boolean {
+        return this.isAuthenticated() && this.hasRole && !this.isNewPasswordRequired();
+      }
 
+      public isUserExists(): boolean {
+        return this.userinfo.name != null;
+      }
+
+      public isNewPasswordRequired(): boolean {
+        return this.userinfo.newpasswordrequired === 'true';
+      }
 
       login() {
           this.loading = true;
-          this.authenticationService.login(this.model.username, this.model.password)
+          this.authenticationService.login(this.model.username, this.model.password, this.userinfo.clientalgorithm)
               .subscribe(
                   data => {
                       console.log('success');
                       this.initUser();
-                      if (this.isConnected()) {
+                      if (this.isAuthenticated()) {
                         this.alertService.success('authenticated');
                         this.initUi();
                       } else {
                         this.alertService.error('empty user');
                       }
+
+
                       this.loading = false;
+                      // ensure clear password
+                      if (!this.isNewPasswordRequired()) {
+                          this.model.password = '';
+                      }
+
                   },
                   error => {
                       console.log('error');
@@ -254,6 +235,68 @@ export class MainPageComponent  implements OnInit {
                   });
       }
 
+      private sendpassword() {
+
+
+
+          this.loading = true;
+
+          this.authenticationService.resetpassword(this.model.username)
+            .subscribe(
+            data => {
+              this.alertService.success('success', true);
+              this.loading = false;
+              this.userinfo.clientalgorithm = 'none';
+
+            },
+            error => {
+              this.alertService.error(error);
+              this.loading = false;
+            });
+
+      }
+
+      validateuser() {
+        console.log('validateemail');
+        this.loading = true;
+
+        this.authenticationService.publicinfo(this.model.username)
+          .subscribe(
+          (data: any) => {
+            this.userinfo = data;
+            this.alertService.success('success', true);
+            this.loading = false;
+
+          },
+          error => {
+            this.alertService.error(error);
+            this.loading = false;
+          });
+      }
+
+      /**
+      * delete
+      */
+      openSendPassword() {
+
+        const dialogRef = this.dialog.open(SendPasswordDialogComponent, {
+           data: this.model.username,
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+
+      if (result) {
+        this.sendpassword();
+      }
+    });
+
+      }
+
+
+      clearPassword() {
+
+      }
 
 
       disconnect() {
@@ -261,6 +304,8 @@ export class MainPageComponent  implements OnInit {
         this.hasRole = false;
         this.hasAdminRole = false;
         this.authenticationService.logout();
+        this.userinfo = {};
+        this.model = {};
       }
 
 

@@ -250,7 +250,7 @@ export class RecordComponent extends StandardComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-  console.log(`Dialog result: ${result}`); // Pizza!
+  console.log(`Dialog result: ${result}`); 
 
   if (result) {
     this.delete();

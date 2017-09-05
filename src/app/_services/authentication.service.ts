@@ -9,6 +9,7 @@ import { HashUtils } from 'app/_helpers';
 
 import { User } from 'app/_models/index';
 
+
 /*
 * Credits :
 * based on http://jasonwatmore.com/post/2016/09/29/angular-2-user-registration-and-login-example-tutorial
@@ -27,9 +28,10 @@ export class AuthenticationService {
 
   constructor(private http: Http) { }
 
-  login(user: string, password: string) {
+
+
+  login(user: string, password: string, mode: string) {
     console.log('login...');
-    const hashUtils = new HashUtils();
 
     localStorage.removeItem('currentUser');
     //
@@ -38,7 +40,11 @@ export class AuthenticationService {
 
     // TODO RESTful endpoint
     const url: string = this.getUrl('/authenticate');
-    const data = 'requestbody=' + encodeURIComponent(JSON.stringify({ user: user, password: hashUtils.hash(password) }));
+
+
+
+    const data = 'requestbody=' + JSON.stringify({ user: user, password: this.getPassword(password, mode) });
+
 
     return this.http.post(url, data, { headers: headers })
       .map((response: Response) => {
@@ -56,6 +62,20 @@ export class AuthenticationService {
       });
   }
 
+  private getPassword(password: string, mode: string) {
+    let data = '';
+    const hashUtils = new HashUtils();
+
+    if ( 'hashmacbase64' === mode) {
+      data = hashUtils.hash64(password);
+    } else if ( 'none' === mode ) {
+      data =  password;
+    } else {
+      data =  hashUtils.hash(password);
+    }
+    return data;
+  }
+
   register(userInput: any) {
     const hashUtils = new HashUtils();
     //
@@ -64,7 +84,7 @@ export class AuthenticationService {
 
 
     const url: string = this.getUrl('/register');
-    userInput.password = encodeURIComponent(hashUtils.hash(userInput.password));
+    userInput.password = hashUtils.hash64(userInput.password);
     const data = 'requestbody=' + JSON.stringify(userInput);
 
     return this.http.post(url, data, { headers: headers })
@@ -73,22 +93,41 @@ export class AuthenticationService {
       });
   }
 
+  resetpassword(user: string) {
+    const hashUtils = new HashUtils();
+    //
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+    const url: string = this.getUrl('/resetpassword');
+    const data = 'requestbody=' + JSON.stringify({user: user});
+    return this.http.post(url, data, { headers: headers })
+      .map((response: Response) => {
+        const registerResponse = response.json();
+      });
+  }
+
+  publicinfo(user: string) {
+
+    const url: string = this.getUrl('/publicinfo/' + user);
+      return this.http.get(url)
+      .map((response: Response) => <any>response.json());
+
+  }
 
 
 
-  changepassword(userInput: any) {
+  changepassword(user: string, oldPassword: string, newPassword: string, oldPasswordMode: string) {
     const hashUtils = new HashUtils();
     const url: string = this.getUrl('/changepassword');
 
     const headers = new Headers();
     headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+    const newPasswordMode = 'hashmacbase64';
+    const data = 'requestbody=' + JSON.stringify({ user: user,
+        newpassword: this.getPassword(newPassword, newPasswordMode),
+        password: this.getPassword(oldPassword, oldPasswordMode)
+         });
 
-
-
-    const data = 'requestbody=' + encodeURIComponent(JSON.stringify({ email: userInput.email,
-      newpassword: hashUtils.hash(userInput.newpassword),
-      password: hashUtils.hash(userInput.password)
-       }));
     return this.http.post(url, data, { headers: headers })
       .map((response: Response) => {
         const registerResponse = response.json();

@@ -138,10 +138,9 @@ export class UserRecordComponent extends StandardComponent implements OnInit {
 
       if (this.newrecord) {
 
-      this.contentService.put(this.type, this.current)
+      this.contentService.postUser(this.type, this.current)
         .subscribe((data: any) => {
           this.response = data;
-          console.log('!!!!!!!!!!!!!!!!!!!!!!!' + JSON.stringify(this.response));
         },
         error => {
           this.responsemessage.error = error;
@@ -165,8 +164,9 @@ export class UserRecordComponent extends StandardComponent implements OnInit {
           }
 
           // forward to record modification page
+          // forward to record modification page
           if (this.newrecord) {
-            this.router.navigate(['/record', this.type, this.current.id]);
+            this.router.navigate(['/userrecord', this.current.email]);
           }
 
 
@@ -175,10 +175,9 @@ export class UserRecordComponent extends StandardComponent implements OnInit {
 
       } else {
 
-              this.contentService.post(this.type, this.current)
+              this.contentService.updateUser(this.type, this.current)
                 .subscribe((data: any) => {
                   this.response = data;
-                  console.log('!!!!!!!!!!!!!!!!!!!!!!!' + JSON.stringify(this.response));
                 },
                 error => {
                   this.responsemessage.error = error;
@@ -203,7 +202,7 @@ export class UserRecordComponent extends StandardComponent implements OnInit {
 
                   // forward to record modification page
                   if (this.newrecord) {
-                    this.router.navigate(['/record', this.type, this.current.id]);
+                    this.router.navigate(['/userrecord', this.current.email]);
                   }
 
 
@@ -230,7 +229,7 @@ export class UserRecordComponent extends StandardComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-  console.log(`Dialog result: ${result}`); // Pizza!
+  console.log(`Dialog result: ${result}`);
 
   if (result) {
     this.delete();

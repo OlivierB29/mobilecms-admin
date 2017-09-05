@@ -20,7 +20,7 @@
 @media all and (min-width: 55em) {
 
   .loginform-input {
-    width: 40%;
+    width: 20em;
   }
 
   .loginform {
