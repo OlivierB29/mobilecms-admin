@@ -307,6 +307,46 @@ export class MainPageComponent  implements OnInit {
         this.userinfo = {};
         this.model = {};
       }
+      modifypassword() {
 
 
+        if (this.model.newpassword === this.model.newpassword2) {
+          this.loading = true;
+
+          this.authenticationService.changepassword(this.model.username, this.model.password, this.model.newpassword, 'none')
+            .subscribe(
+            data => {
+              this.alertService.success('success', true);
+              this.loading = false;
+              this.authenticationService.logout();
+              this.success = true;
+              this.userinfo.newpasswordrequired = 'false';
+              this.userinfo.clientalgorithm = 'hashmacbase64';
+            },
+            error => {
+              this.alertService.error(error);
+              this.loading = false;
+            });
+        } else {
+            this.alertService.error('Different passwords !');
+        }
+      }
+
+      isSecurePassword(): boolean {
+        return this.model.newpassword && this.model.newpassword.length >= 10;
+      }
+
+      isSecurePasswordV2(): boolean {
+        // (?=.*\d)                // should contain at least one digit
+        // (?=.*[a-z])             // should contain at least one lower case
+        // (?=.*[A-Z])             // should contain at least one upper case
+        // [a-zA-Z0-9]{8,}         // should contain at least 8 from the mentioned characters
+        // $/);
+        return this.model.newpassword && this.model.newpassword.match((/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{10,}$/));
+
+      }
+
+      canSubmit(): boolean {
+        return this.model.newpassword === this.model.newpassword2 && this.isSecurePassword();
+      }
 }
