@@ -49,7 +49,7 @@ export class ModifyPasswordComponent implements OnInit {
           this.authenticationService.logout();
           this.success = true;
           this.userinfo.newpasswordrequired = 'false';
-          this.userinfo.clientalgorithm = 'hashmacbase64';
+
         },
         error => {
           this.alertService.error(error);

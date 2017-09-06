@@ -82,11 +82,8 @@ export class MainPageComponent  implements OnInit {
 
 
       private initUi() {
-        console.log("initUi");
+
         this.initMenuLayout();
-
-
-
         this.initMenu();
       }
 
@@ -199,11 +196,11 @@ export class MainPageComponent  implements OnInit {
       }
 
       public isUserExists(): boolean {
-        return this.userinfo.name != null;
+        return this.userinfo && this.userinfo.name != null;
       }
 
       public isNewPasswordRequired(): boolean {
-        return this.userinfo.newpasswordrequired === 'true';
+        return this.userinfo && this.userinfo.newpasswordrequired === 'true';
       }
 
       login() {
@@ -246,7 +243,9 @@ export class MainPageComponent  implements OnInit {
             data => {
               this.alertService.success('success', true);
               this.loading = false;
-              this.userinfo.clientalgorithm = 'none';
+              this.userinfo = data;
+              this.clearPassword();
+
 
             },
             error => {
@@ -295,7 +294,7 @@ export class MainPageComponent  implements OnInit {
 
 
       clearPassword() {
-
+        this.model.password = '';
       }
 
 
@@ -320,8 +319,8 @@ export class MainPageComponent  implements OnInit {
               this.loading = false;
               this.authenticationService.logout();
               this.success = true;
-              this.userinfo.newpasswordrequired = 'false';
-              this.userinfo.clientalgorithm = 'hashmacbase64';
+              this.userinfo = data;
+              this.clearPassword();
             },
             error => {
               this.alertService.error(error);

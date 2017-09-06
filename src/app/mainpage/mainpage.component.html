@@ -48,6 +48,8 @@
     <!-- content -->
     <router-outlet *ngIf='isConnected()'></router-outlet>
     <!-- login -->
+
+    <div *ngIf='!isConnected()'>
     <div *ngIf='!isAuthenticated() && isUserExists()' class='loginform'>
 
       <form name='form' (ngSubmit)='f.form.valid && login()' #f='ngForm' novalidate>
@@ -57,7 +59,7 @@
         </md-input-container>
         <div>
           <button md-button [disabled]='loading'><md-icon>check_circle</md-icon></button>
-          <md-spinner *ngIf='loading' mode='indeterminate'></md-spinner>
+
         </div>
 
       </form>
@@ -74,7 +76,7 @@
 
         <div>
           <button md-button [disabled]='loading'><md-icon>check_circle</md-icon></button>
-          <md-spinner *ngIf='loading' mode='indeterminate'></md-spinner>
+
         </div>
 
 
@@ -89,7 +91,7 @@
 
         <div>
           <button md-button [disabled]='loading'><md-icon>settings_backup_restore</md-icon></button>
-          <md-spinner *ngIf='loading' mode='indeterminate'></md-spinner>
+
         </div>
 
 
@@ -117,12 +119,15 @@
 
         <div>
           <button *ngIf='canSubmit()' md-button [disabled]="loading"><md-icon>check_circle</md-icon></button>
-            <md-spinner *ngIf='loading' mode='indeterminate'></md-spinner>
+
         </div>
       </form>
     </div>
 
-
+    <div class='loginform'>
+      <md-spinner *ngIf='loading' mode='indeterminate'></md-spinner>
+    </div>
+    </div>
 
   </div>
 </md-sidenav-container>
