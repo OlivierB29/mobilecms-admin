@@ -1,20 +1,21 @@
 ﻿import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions, Response } from '@angular/http';
+
 import { Observable } from 'rxjs/Observable';
 import { User } from 'app/_models/index';
 
 import { HashUtils } from 'app/_helpers';
 import { Metadata } from 'app/_models';
 import { environment } from '../../environments/environment';
-import { RestClientService } from './restclient.service';
+import { CommonClientService } from './commonclient.service';
+import { HttpClient } from '@angular/common/http';
 /*
 * Credits :
 * based on http://jasonwatmore.com/post/2016/09/29/angular-2-user-registration-and-login-example-tutorial
 */
 @Injectable()
-export class AdminService extends RestClientService {
+export class AdminService extends CommonClientService {
 
-  constructor(private http: Http) {
+  constructor(private http: HttpClient) {
     super(environment.server, environment.adminapi);
   }
 
@@ -26,12 +27,7 @@ export class AdminService extends RestClientService {
     console.log('getRecords ' + url);
 
 
-    return this.http.get(url, this.jwt())
-      .map((response: Response) => {
-        this.controlResponse(response);
-        return <any[]>response.json();
-      })
-      .catch(this.handleError);
+    return this.http.get<any[]>(url, {headers: this.jwt()});
   }
 
 
@@ -46,14 +42,9 @@ export class AdminService extends RestClientService {
 
     const postData = 'requestbody={}';
 
-    return this.http.post(url,
+    return this.http.post<any>(url,
       postData,
-      this.jwtPost())
-      .map((response: Response) => {
-        this.controlResponse(response);
-        return <any>response.json();
-      })
-      .catch(this.handleError);
+      {headers: this.jwtPost()});
 
   }
 
@@ -98,12 +89,8 @@ export class AdminService extends RestClientService {
 
       const data = 'requestbody=' + JSON.stringify(user);
 
-      return this.http.put(url, data,
-                  this.jwtPost())
-        .map((response: Response) => {
-          this.controlResponse(response);
-          return <any>response.json();
-        });
+      return this.http.put<any>(url, data,
+                  {headers: this.jwtPost()});
     }
 
     }
@@ -131,11 +118,7 @@ export class AdminService extends RestClientService {
 
 
       return this.http.post(url, data,
-                  this.jwtPost())
-        .map((response: Response) => {
-          this.controlResponse(response);
-          return <any>response.json();
-        });
+                  {headers: this.jwtPost()});
     }
 
     }
@@ -164,11 +147,7 @@ export class AdminService extends RestClientService {
 
 
     return this.http.post(url, data,
-                this.jwtPost())
-      .map((response: Response) => {
-        this.controlResponse(response);
-        return <any>response.json();
-      });
+                {headers: this.jwtPost()});
   }
 
   }
@@ -185,12 +164,7 @@ export class AdminService extends RestClientService {
           console.log(url);
 
 
-          return this.http.get(url, this.jwt())
-              .map((response: Response) => {
-                this.controlResponse(response);
-                return <any>response.json();
-              })
-              .catch(this.handleError);
+          return this.http.get<any>(url, {headers: this.jwt()});
       }
 
       /**
@@ -217,19 +191,19 @@ export class AdminService extends RestClientService {
 
 
   getAll() {
-    return this.http.get('/api/users', this.jwt()).map((response: Response) => response.json());
+    return this.http.get('/api/users', {headers: this.jwt()}).map((response: Response) => response.json());
   }
 
   getById(id: number) {
-    return this.http.get('/api/users/' + id, this.jwt()).map((response: Response) => response.json());
+    return this.http.get('/api/users/' + id, {headers: this.jwt()}).map((response: Response) => response.json());
   }
 
   create(user: User) {
-    return this.http.post('/api/users', user, this.jwt()).map((response: Response) => response.json());
+    return this.http.post('/api/users', user, {headers: this.jwt()}).map((response: Response) => response.json());
   }
 
   update(user: User) {
-    return this.http.put('/api/users/' + user.id, user, this.jwt()).map((response: Response) => response.json());
+    return this.http.put('/api/users/' + user.id, user, {headers: this.jwt()}).map((response: Response) => response.json());
   }
 
   /**
@@ -243,12 +217,7 @@ export class AdminService extends RestClientService {
 
 
       return this.http.delete(url,
-          this.jwt())
-          .map((response: Response) => {
-            this.controlResponse(response);
-            return <any>response.json();
-          })
-          .catch(this.handleError);
+          {headers: this.jwt()});
 
   }
 }

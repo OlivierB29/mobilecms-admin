@@ -1,13 +1,15 @@
 ﻿import { Injectable } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
+
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map'
+
 
 import { environment } from '../../environments/environment';
 
 import { HashUtils } from 'app/_helpers';
 
 import { User } from 'app/_models/index';
+import { HttpClient } from '@angular/common/http';
+import { HttpHeaders } from '@angular/common/http';
 
 
 /*
@@ -26,17 +28,16 @@ export class AuthenticationService {
   private api = environment.authapi;
 
 
-  constructor(private http: Http) { }
+  constructor(private http: HttpClient) { }
 
-
+  private getHeaders() {
+    return new HttpHeaders ({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
+  }
 
   login(user: string, password: string, mode: string) {
     console.log('login...');
 
     localStorage.removeItem('currentUser');
-    //
-    const headers = new Headers();
-    headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 
     // TODO RESTful endpoint
     const url: string = this.getUrl('/authenticate');
@@ -45,21 +46,7 @@ export class AuthenticationService {
 
     const data = 'requestbody=' + JSON.stringify({ user: user, password: this.getPassword(password, mode) });
 
-
-    return this.http.post(url, data, { headers: headers })
-      .map((response: Response) => {
-        // login successful if there's a jwt token in the response
-        const userObject = response.json();
-        if (userObject && userObject.token) {
-
-          // store user details and jwt token in local storage to keep user logged in between page refreshes
-
-          localStorage.setItem('currentUser', JSON.stringify(userObject));
-        } else {
-          console.error('invalid auth token');
-          throw new Error('invalid auth token');
-        }
-      });
+      return this.http.post<any>(url, data, { headers: this.getHeaders() });
   }
 
   private getPassword(password: string, mode: string) {
@@ -78,29 +65,21 @@ export class AuthenticationService {
 
   register(userInput: any) {
     const hashUtils = new HashUtils();
-    //
-    const headers = new Headers();
-    headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 
 
     const url: string = this.getUrl('/register');
     userInput.password = hashUtils.hash64(userInput.password);
     const data = 'requestbody=' + JSON.stringify(userInput);
 
-    return this.http.post(url, data, { headers: headers })
-      .map((response: Response) => {
-        const registerResponse = response.json();
-      });
+    return this.http.post(url, data, { headers: this.getHeaders() });
   }
 
   resetpassword(user: string) {
     const hashUtils = new HashUtils();
-    //
-    const headers = new Headers();
-    headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+
     const url: string = this.getUrl('/resetpassword');
     const data = 'requestbody=' + JSON.stringify({user: user});
-    return this.http.post(url, data, { headers: headers })
+    return this.http.post(url, data, { headers: this.getHeaders() })
       .map((response: Response) => {
         const registerResponse = response.json();
       });
@@ -109,8 +88,13 @@ export class AuthenticationService {
   publicinfo(user: string) {
 
     const url: string = this.getUrl('/publicinfo/' + user);
-      return this.http.get(url)
-      .map((response: Response) => <any>response.json());
+      return this.http.get<any>(url);
+
+  }
+
+  publicinfoUrl(user: string) {
+
+    return this.getUrl('/publicinfo/' + user);
 
   }
 
@@ -120,18 +104,13 @@ export class AuthenticationService {
     const hashUtils = new HashUtils();
     const url: string = this.getUrl('/changepassword');
 
-    const headers = new Headers();
-    headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
     const newPasswordMode = 'hashmacbase64';
     const data = 'requestbody=' + JSON.stringify({ user: user,
         newpassword: this.getPassword(newPassword, newPasswordMode),
         password: this.getPassword(oldPassword, oldPasswordMode)
          });
 
-    return this.http.post(url, data, { headers: headers })
-      .map((response: Response) => {
-        const registerResponse = response.json();
-      });
+    return this.http.post<any>(url, data, { headers: this.getHeaders() });
   }
 
 

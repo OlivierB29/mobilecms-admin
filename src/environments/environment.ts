@@ -8,6 +8,7 @@ export const environment = {
   server: 'http://localhost',
   website: 'http://localhost/#',
   defaultlang: 'en',
+  usemockbackend: false,
   api: '/cmsapi/v1',
   adminapi: '/adminapi/v1',
   fileapi: '/fileapi/v1',

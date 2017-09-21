@@ -3,6 +3,7 @@ export const environment = {
   server: '',
   website: '/#',
   defaultlang: 'fr',
+  usemockbackend: false,
   api: '/cmsapi/v1',
   adminapi: '/adminapi/v1',
   fileapi: '/fileapi/v1',

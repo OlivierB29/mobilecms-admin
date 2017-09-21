@@ -2,8 +2,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { HttpModule, Http } from '@angular/http';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+
+import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 // translate
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -41,17 +41,40 @@ import { MainPageComponent, MenubuttonComponent } from 'app/mainpage';
 
 import {  OrderbyPipe } from 'app/shared/filters';
 
-// used to create fake backend
-// import { fakeBackendProvider } from 'app/_helpers/index';
-// import { MockBackend, MockConnection } from '@angular/http/testing';
-// import { BaseRequestOptions } from '@angular/http';
+
+// @angular/common/http
+
+import { MockHttpInterceptor } from 'app/_helpers/mock-http.interceptor';
+import { environment } from 'environments/environment';
+
+const providers: any[] = [
+  AuthGuard,
+  AlertService,
+  AuthenticationService,
+  AdminService,
+  ContentService,
+  UploadService,
+  LocaleService,
+  StringUtils,
+  OrderbyPipe,
+  HttpClient,
 
 
+];
+
+// use mock backend if env variable is set
+if (environment.usemockbackend === true) {
+    providers.push({
+        provide: HTTP_INTERCEPTORS,
+        useClass: MockHttpInterceptor,
+        multi: true
+    });
+}
 
 @NgModule({
   imports: [
     FormsModule,
-    HttpModule,
+
     routing,
     MaterialModule,
     NoopAnimationsModule,
@@ -99,21 +122,7 @@ import {  OrderbyPipe } from 'app/shared/filters';
     ErrorDialogComponent
   ],
 
-  providers: [
-    AuthGuard,
-    AlertService,
-    AuthenticationService,
-    AdminService,
-    ContentService,
-    UploadService,
-    LocaleService,
-    StringUtils,
-    OrderbyPipe,
-    // providers used to create fake backend
-    // fakeBackendProvider,
-    // MockBackend,
-    // BaseRequestOptions
-  ],
+  providers: providers,
   bootstrap: [AppComponent]
 })
 

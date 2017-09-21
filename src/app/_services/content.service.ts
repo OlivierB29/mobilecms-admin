@@ -1,41 +1,29 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { User } from 'app/_models/index';
 import { Metadata } from 'app/_models';
 
 import { environment } from '../../environments/environment';
+import { CommonClientService } from './commonclient.service';
 
-import { RestClientService } from './restclient.service';
 
 @Injectable()
-export class ContentService extends RestClientService {
+export class ContentService extends CommonClientService {
 
 
-    constructor(private http: Http) {
+    constructor(private http: HttpClient) {
       super( environment.server, environment.api);
      }
 
     public options = (): Observable<any> => {
         const url: string = this.getUrl('/content');
-        return this.http.get(url, this.jwt())
-            .map((response: Response) => {
-              this.controlResponse(response);
-              return <any>response.json();
-            })
-            .catch(() => {
-              return Observable.of('');
-            });
+        const h = new HttpHeaders();
+        return this.http.get<any>(url, {headers: this.jwt()});
     }
 
 
 
-
-    getTables2() {
-      const url: string = this.getUrl('/content');
-
-        return this.http.get(url, this.jwt()).map((response: Response) => response.json());
-    }
 
     /**
      * Get list of tables
@@ -47,12 +35,8 @@ export class ContentService extends RestClientService {
         console.log('getTables ' + url);
 
 
-        return this.http.get(url, this.jwt())
-            .map((response: Response) => {
-              this.controlResponse(response);
-              return <any[]>response.json();
-            })
-            .catch(this.handleError);
+        return this.http.get<any[]>(url, {headers: this.jwt()})
+;
     }
 
     /**
@@ -64,32 +48,21 @@ export class ContentService extends RestClientService {
 
         console.log('getRecords ' + url);
 
-
-        return this.http.get(url, this.jwt())
-            .map((response: Response) => {
-              this.controlResponse(response);
-              return <any[]>response.json();
-            })
-            .catch(this.handleError);
+          return  this.http.get<any>(url, {headers: this.jwt()});
     }
 
     /**
      * @arg type : news, calendar, ...
      * Response :
      */
-    public getIndex = (type: string): Observable<any[]> => {
+    public getIndex = (type: string): Observable<any> => {
       const url: string = this.getUrl('/index/' + type);
       console.log(url);
 
         console.log('getRecords ' + url);
 
 
-        return this.http.get(url, this.jwt())
-            .map((response: Response) => {
-              this.controlResponse(response);
-              return <any[]>response.json();
-            })
-            .catch(this.handleError);
+        return this.http.get(url, {headers: this.jwt()});
     }
 
     /**
@@ -102,12 +75,7 @@ export class ContentService extends RestClientService {
         const url: string = this.getUrl('/content/' + type + '/' + id);
         console.log(url);
 
-        return this.http.get(url, this.jwt())
-            .map((response: Response) => {
-              this.controlResponse(response);
-              return <any>response.json();
-            })
-            .catch(this.handleError);
+        return this.http.get<any>(url, {headers: this.jwt()});
     }
 
     /**
@@ -120,22 +88,17 @@ export class ContentService extends RestClientService {
         console.log(url);
 
 
-         let postData = '';
+         let postData: any;
          if (this.postFormData) {
            // escape issue, with some characters like &
            postData = 'requestbody=' + encodeURIComponent(JSON.stringify(JSON.parse(JSON.stringify(obj))));
          } else {
-           postData = JSON.stringify(obj);
+           postData = obj;
          }
 
         return this.http.post(url,
             postData,
-            this.jwtPost())
-            .map((response: Response) => {
-              this.controlResponse(response);
-              return <any>response.json();
-            })
-            .catch(this.handleError);
+             {headers: this.jwtPost()});
 
     }
 
@@ -149,13 +112,7 @@ export class ContentService extends RestClientService {
         console.log(url);
 
 
-        return this.http.delete(url,
-            this.jwt())
-            .map((response: Response) => {
-              this.controlResponse(response);
-              return <any>response.json();
-            })
-            .catch(this.handleError);
+        return this.http.delete<any>(url, {headers: this.jwt()});
 
     }
 
@@ -168,14 +125,7 @@ export class ContentService extends RestClientService {
         const url: string = this.getUrl('/content/' + type);
         console.log(url);
 
-        return this.http.put(url,
-            obj,
-            this.jwtPost())
-            .map((response: Response) => {
-              this.controlResponse(response);
-              return <any>response.json();
-            })
-            .catch(this.handleError);
+        return this.http.put(url, obj, {headers: this.jwtPost()});
 
     }
 
@@ -190,14 +140,9 @@ export class ContentService extends RestClientService {
 
         const postData = 'requestbody={}';
 
-        return this.http.post(url,
+        return this.http.post<any>(url,
             postData,
-            this.jwtPost())
-            .map((response: Response) => {
-              this.controlResponse(response);
-              return <any>response.json();
-            })
-            .catch(this.handleError);
+            {headers: this.jwtPost()});
 
     }
 
@@ -208,12 +153,7 @@ export class ContentService extends RestClientService {
 
          const url: string = this.getUrl('/file/?file=' + file);
 
-        return this.http.get(url, this.jwt())
-            .map((response: Response) => {
-              this.controlResponse(response);
-              return <Metadata[]>response.json();
-            })
-            .catch(this.handleError);
+        return this.http.get<Metadata[]>(url, {headers: this.jwt()});
     }
 
     /**
@@ -222,25 +162,10 @@ export class ContentService extends RestClientService {
     public getNewRecord = (file: string): Observable<any[]> => {
 
         const url: string = this.getUrl('/file/?file=' + file);
-        return this.http.get(url, this.jwt())
-            .map((response: Response) => <Metadata[]>response.json())
-            .catch(this.handleError);
+        return this.http.get<Metadata[]>(url, {headers: this.jwt()});
     }
 
 
-/**
-
-      response => {
-    // If request fails, throw an Error that will be caught
-    if(response.status < 200 || response.status >= 300) {
-      throw new Error('This request has failed ' + response.status);
-    }
-    // If everything went fine, return the response
-    else {
-      return <Metadata[]>response.json();
-    }
-
-*/
 
 
 

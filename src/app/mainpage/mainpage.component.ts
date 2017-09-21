@@ -5,7 +5,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MdDialog } from '@angular/material';
 
 
-import { AlertService, AuthenticationService, ContentService, LocaleService } from 'app/_services/index';
+import { AlertService, AuthenticationService, ContentService, LocaleService } from 'app/_services';
 import { MenuItem } from './menuitem';
 import { SendPasswordDialogComponent } from 'app/login';
 
@@ -108,6 +108,7 @@ export class MainPageComponent  implements OnInit {
 
           private initUser(): void {
 
+
             const currentUserLocalStorage = localStorage.getItem('currentUser');
 
             if (currentUserLocalStorage) {
@@ -132,7 +133,8 @@ export class MainPageComponent  implements OnInit {
             if (this.isAuthenticated() && this.hasRole) {
 
               let recordTypes: RecordType[] = null;
-              this.contentService.getTables2().subscribe(users => {
+
+              this.contentService.getTables().subscribe(users => {
                  recordTypes = users;
 
                  // iterate each type
@@ -207,7 +209,16 @@ export class MainPageComponent  implements OnInit {
           this.loading = true;
           this.authenticationService.login(this.model.username, this.model.password, this.userinfo.clientalgorithm)
               .subscribe(
-                  data => {
+                  userObject => {
+                    if (userObject && userObject.token) {
+                      // store user details and jwt token in local storage to keep user logged in between page refreshes
+
+                      localStorage.setItem('currentUser', JSON.stringify(userObject));
+                    } else {
+                      console.error('invalid auth token');
+                      throw new Error('invalid auth token');
+                    }
+
                       console.log('success');
                       this.initUser();
                       if (this.isAuthenticated()) {
@@ -221,13 +232,13 @@ export class MainPageComponent  implements OnInit {
                       this.loading = false;
                       // ensure clear password
                       if (!this.isNewPasswordRequired()) {
-                          this.model.password = '';
+                          this.clearPassword();
                       }
 
                   },
                   error => {
-                      console.log('error');
-                      this.alertService.error(error);
+                      console.log('error' + JSON.stringify(error));
+                      this.alertService.error('not connected');
                       this.loading = false;
                   });
       }
@@ -258,6 +269,19 @@ export class MainPageComponent  implements OnInit {
       validateuser() {
         console.log('validateemail');
         this.loading = true;
+/*
+        this.http.get<any>(this.authenticationService.publicinfoUrl(this.model.username))
+        .subscribe(
+        (data: any) => {
+          this.userinfo = data;
+          this.alertService.success('success', true);
+          this.loading = false;
+
+        },
+        error => {
+          this.alertService.error(error);
+          this.loading = false;
+        });*/
 
         this.authenticationService.publicinfo(this.model.username)
           .subscribe(
@@ -297,6 +321,10 @@ export class MainPageComponent  implements OnInit {
         this.model.password = '';
       }
 
+      clearNewPassword() {
+        this.model.newpassword = '';
+      }
+
 
       disconnect() {
         this.currentUser = null;
@@ -321,6 +349,7 @@ export class MainPageComponent  implements OnInit {
               this.success = true;
               this.userinfo = data;
               this.clearPassword();
+              this.clearNewPassword();
             },
             error => {
               this.alertService.error(error);

@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Http, Response } from '@angular/http';
+
 import { environment } from '../../environments/environment';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class LocaleService {
@@ -9,7 +10,7 @@ export class LocaleService {
 
   private lang = 'en';
 
-  constructor(private http: Http) {
+  constructor(private http: HttpClient) {
     this.lang = this.initLang();
   }
 
@@ -32,14 +33,9 @@ export class LocaleService {
   public getLocale = (uri: string, locale: string): Observable<any> => {
       const url = this.i18n  +  uri  +  '/'  +  locale  +  '.json';
 
-      return this.http.get(url)
-          .map((response: Response) => response.json())
-          .catch(this.handleError);
+      return this.http.get<any>(url);
   }
 
-  private handleError(error: Response) {
-      console.error('LocaleService.handleError '  +  error.statusText);
-      return Observable.throw(error.json().error || 'Server error');
-  }
+
 
 }

@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { ContentService } from 'app/_services';
 import { Observable } from 'rxjs/Observable';
+import { environment } from '../../environments/environment';
+
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -10,21 +13,23 @@ export class AuthGuard implements CanActivate {
 
 
 
-  constructor(private router: Router, private contentService: ContentService) {}
+  constructor(private router: Router, private contentService: ContentService, private http: HttpClient) {}
+
 
 
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):  Observable<boolean>|Promise<boolean>|boolean  {
     if (localStorage.getItem('currentUser')) {
-      // check authentication token
-      return this.contentService.options().map(data => {
-              if (data) {
-                  return true;
-              }
-              this.logout();
-              return false;
-          });
+
+      const url: string = this.contentService.getUrl('/content');
+
+      return this.http.get<boolean>(url, {headers: this.contentService.jwt()}).map( data => {
+        return data ? true : false;
+     });
+
+
     } else {
+
         this.logout();
       return false;
     }

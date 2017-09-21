@@ -181,8 +181,8 @@ export class RecordComponent extends StandardComponent implements OnInit {
 
         },
         error => {
-          this.responsemessage.error = error;
-          console.error('post' + error);
+          this.responsemessage.error = JSON.stringify(error);
+
       },
         () => {
           // calculate diff from PHP time https://stackoverflow.com/questions/13022524/javascript-time-to-php-time
@@ -250,7 +250,7 @@ export class RecordComponent extends StandardComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-  console.log(`Dialog result: ${result}`); 
+  console.log(`Dialog result: ${result}`);
 
   if (result) {
     this.delete();
