@@ -136,20 +136,8 @@ export class EditMediaComponent extends EditLinksComponent implements OnInit {
         super.moveAttachmentDown(index);
       }
 
-      open() {
-        super.open();
-      }
-
-      isDisplay(): boolean {
-        return super.isDisplay();
-      }
-
       isLoading(): boolean {
         return super.isLoading();
-      }
-
-      getDisplayClass(): string {
-        return super.getDisplayClass();
       }
 
       getResponseMessage(): any {

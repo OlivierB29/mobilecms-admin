@@ -32,10 +32,7 @@ export class EditLinksComponent implements OnInit {
 
   @Input() protected adminrole = false;
 
-  /**
-  * display
-  */
-  @Input() display = false;
+
   /**
   * properties :
   * error
@@ -119,13 +116,6 @@ moveAttachmentDown(index: number) {
     }
   }
 
-  open() {
-    this.display = !this.display;
-  }
-
-  getDisplayClass(): string {
-    return this.display ? 'input-group-visible' : 'input-group-hidden';
-  }
 
     download(index: number) {
       this.responsemessage = {};
@@ -154,15 +144,10 @@ moveAttachmentDown(index: number) {
 
     }
 
-
     openDialog(msg: string) {
       this.dialog.open(ErrorDialogComponent, {
          data: msg,
       });
-    }
-
-    isDisplay(): boolean {
-      return this.display;
     }
 
     isLoading(): boolean {

@@ -1,19 +1,56 @@
-<md-toolbar color='primary'>
-  <span mdTooltip='{{ "record.edit.mediasubtitle" | translate }}'>{{'record.edit.media' | translate}} : {{getAttachments().length}}&nbsp;</span>
-
-  <button *ngIf='isDisplay()' md-button (click)='open()' ><md-icon>expand_less</md-icon></button>
-
-  <button *ngIf='!isDisplay()' md-button (click)='open()' ><md-icon>expand_more</md-icon></button>
-
-</md-toolbar>
 
 
+<md-expansion-panel>
+  <md-expansion-panel-header>
+    <md-panel-title>
+      {{'record.edit.media' | translate}} : {{getAttachments().length}}
+    </md-panel-title>
+    <md-panel-description>
+      {{ 'record.edit.media.subtitle' | translate }}
+    </md-panel-description>
+  </md-expansion-panel-header>
 
 
-<div  [class]='getDisplayClass()'>
-  <md-card>
+
+  <div>
+
+
+  <div *ngFor='let item of getAttachments(); let i=index' class='input-group'>
+
+
+    <md-card>
+      <md-input-container class='full-width-input'>
+        <input mdInput placeholder='{{"field.label.attachment.title" | translate}}' [(ngModel)]='getAttachments()[i].title' type='text'>
+      </md-input-container>
+
+      <md-input-container class='full-width-input'>
+        <input readonly mdInput placeholder='{{"field.label.attachment.url" | translate}}' [(ngModel)]='getAttachments()[i].url' type='text'>
+      </md-input-container>
+
+      <md-input-container class='half-width-input'>
+        <input readonly mdInput placeholder='{{"field.label.attachment.mimetype" | translate}}' [(ngModel)]='getAttachments()[i].mimetype' type='text'>
+      </md-input-container>
+
+      <md-input-container class='half-width-input'>
+        <input readonly mdInput placeholder='{{"field.label.attachment.size" | translate}}' [(ngModel)]='getAttachments()[i].size' type='text'>
+      </md-input-container>
+
+      <md-input-container class='full-width-input'>
+        <input mdInput placeholder='{{"field.label.attachment.description" | translate}}' [(ngModel)]='getAttachments()[i].description' type='text'>
+      </md-input-container>
+
+      <button (click)='moveAttachmentUp(i)'  md-raised-button color='primary' ><md-icon>arrow_upward</md-icon></button>
+      <button (click)='moveAttachmentDown(i)'  md-raised-button color='primary' ><md-icon>arrow_downward</md-icon></button>
+      <button (click)='deleteMedia(i)'  md-raised-button color='primary' ><md-icon>delete_forever</md-icon></button>
+    </md-card>
+
+  </div>
+  <!-- ngFor -->
+
+
+  <md-action-row>
     <input type='file' #file (change)='upload(file.files)' multiple='multiple' />
-    <button *ngIf='isDisplay()' md-button (click)='refresh()' ><md-icon>autorenew</md-icon></button>
+    <button  md-raised-button color='primary' (click)='refresh()' ><md-icon>autorenew</md-icon></button>
 
     <md-spinner *ngIf='isLoading()' mode='indeterminate'></md-spinner>
     <div *ngIf='getResponseMessage() && getResponseMessage().error' class='error-label-message'>
@@ -22,37 +59,6 @@
     <div *ngIf='getResponseMessage() && !getResponseMessage().error' class='success-label-message'>
       <md-icon>cloud_done</md-icon>
     </div>
-  </md-card>
-
-<div *ngFor='let item of getAttachments(); let i=index' class='input-group'>
-
-
-  <md-card>
-    <md-input-container class='full-width-input'>
-      <input mdInput placeholder='{{"field.label.attachment.title" | translate}}' [(ngModel)]='getAttachments()[i].title' type='text'>
-    </md-input-container>
-
-    <md-input-container class='full-width-input'>
-      <input readonly mdInput placeholder='{{"field.label.attachment.url" | translate}}' [(ngModel)]='getAttachments()[i].url' type='text'>
-    </md-input-container>
-
-    <md-input-container class='half-width-input'>
-      <input readonly mdInput placeholder='{{"field.label.attachment.mimetype" | translate}}' [(ngModel)]='getAttachments()[i].mimetype' type='text'>
-    </md-input-container>
-
-    <md-input-container class='half-width-input'>
-      <input readonly mdInput placeholder='{{"field.label.attachment.size" | translate}}' [(ngModel)]='getAttachments()[i].size' type='text'>
-    </md-input-container>
-
-    <md-input-container class='full-width-input'>
-      <input mdInput placeholder='{{"field.label.attachment.description" | translate}}' [(ngModel)]='getAttachments()[i].description' type='text'>
-    </md-input-container>
-
-    <button (click)='moveAttachmentUp(i)' md-button><md-icon>arrow_upward</md-icon></button>
-    <button (click)='moveAttachmentDown(i)' md-button><md-icon>arrow_downward</md-icon></button>
-    <button (click)='deleteMedia(i)' md-button><md-icon>delete_forever</md-icon></button>
-  </md-card>
-
-</div>
-<!-- ngFor -->
-</div>
+  </md-action-row>
+  </div>
+</md-expansion-panel>

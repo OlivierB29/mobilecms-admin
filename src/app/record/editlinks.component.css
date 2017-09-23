@@ -21,13 +21,6 @@ input:read-only {
     background-color: #ddd;
 }
 
-.input-group-visible {
-
-}
-
-.input-group-hidden {
-  display: none;
-}
 
 .success-label-message {
   font-size: 0.81em;
