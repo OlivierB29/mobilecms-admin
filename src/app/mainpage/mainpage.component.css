@@ -2,13 +2,14 @@
   box-shadow: 5px 5px 10px 0 #656565;
 }
 
+.fill-remaining-space {
+  flex: 1 1 auto;
+}
+
 .top-menu-spacer {
  padding-right: 1em;
 }
 
-.top-menu-middle-spacer {
-  flex: 1 1 auto;
-}
 
 .top-menu-title {
   font-size: 1.25em;
@@ -30,45 +31,44 @@
 }
 
 
+.login-button {
+  font-weight: bold;
+}
+
 .loginform-input {
   width: 100%;
 }
 
 
+.slidemenu {
+box-shadow: 5px 5px 10px 0 #656565;
+padding-top: 5em;
+}
+
+
+.my-content {
+  margin-left: 0;
+  min-height: 800px;
+}
+
+
 
 @media all and (min-width: 55em) {
+  .my-content {
+    margin-left: 5em;
+  }
+
   .top-menu-spacer {
    padding-right: 5em;
   }
+
   .loginform-input {
     width: 20em;
   }
+
 
   .loginform {
     padding-left: 10em;
     padding-right: 10em;
   }
-}
-
-
-
-
-
-.slidemenu {
-padding-top: 5em;
-box-shadow: 5px 5px 10px 0 #656565;
-}
-
-
-
-
-.my-content {
-  margin: 0;
-  padding: 0.5em;
-  min-height: 800px;
-}
-
-
-.disconnectbutton {
-
 }

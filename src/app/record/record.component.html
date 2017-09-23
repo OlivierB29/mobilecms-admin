@@ -60,7 +60,7 @@
 
         </div>
 
-        <div *ngIf="isAdminRole() && !newrecord && property.editor === 'medialist' && property.name === 'media'" class="list-container">
+        <div *ngIf="!newrecord && property.editor === 'medialist' && property.name === 'media'" class="list-container">
           <app-editmedia [type]='type' [current]='current' [attachments]='current.media' [title]='"record.edit.media"'></app-editmedia>
         </div>
         <!-- list-container -->

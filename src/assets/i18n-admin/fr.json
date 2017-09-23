@@ -47,6 +47,7 @@
     "field.label.attachment.description":"Description optionnelle",
     "delete.warning.1": "Etes-vous sûr de supprimer ?",
     "delete.warning.2": "Cette action est définitive.",
+    "next.label": "Suivant",
     "validate.label": "Valider",
     "cancel.label": "Abandonner",
     "delete.label": "Supprimer"

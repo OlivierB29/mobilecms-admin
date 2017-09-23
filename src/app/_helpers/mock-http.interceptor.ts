@@ -16,7 +16,7 @@ export class MockHttpInterceptor implements HttpInterceptor {
         const url: string = request.url;
         const method: string = request.method;
 
-        console.log(method + ' ' + url);
+        console.log(method + ' -> ' + url);
 
         return commonHttpFakeBackend(url, method, request) ||
             next.handle(request); // fallback in case url isn't caught

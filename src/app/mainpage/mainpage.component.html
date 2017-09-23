@@ -1,3 +1,15 @@
+<md-toolbar color='primary' class='topmenucontent'>
+
+  <button *ngIf='isAuthenticated() && !menuOpened' md-button (click)='sidenav.open()'><md-icon>menu</md-icon></button>
+
+  <button [routerLink]='["/home"]' md-button class='top-menu-title'>Admin</button>
+  <span class='fill-remaining-space'></span>
+  <button *ngIf='isAuthenticated() || isUserExists()' md-button (click)='disconnect()' class='top-menu-icon'><md-icon alt='disconnect'>cancel</md-icon></button>
+
+
+
+</md-toolbar>
+
 <md-sidenav-container>
 
   <!-- slide menu -->
@@ -30,18 +42,7 @@
 
   <!-- container -->
 
-  <md-toolbar color='primary' class='topmenucontent'>
 
-    <button *ngIf='isAuthenticated() && !menuOpened' md-button (click)='sidenav.open()'><md-icon>menu</md-icon></button>
-
-    <button [routerLink]='["/home"]' md-button class='top-menu-title'>Admin</button>
-    <span class="top-menu-middle-spacer"></span>
-
-    <button *ngIf='isAuthenticated() || isUserExists()' md-button (click)='disconnect()' class='top-menu-icon'><md-icon alt='disconnect'>cancel</md-icon></button>
-
-
-
-  </md-toolbar>
   <div class='my-content'>
     <app-alert-message></app-alert-message>
 
@@ -58,13 +59,14 @@
           <input type='password' mdInput placeholder='{{"login.password" | translate}}' name='password' [(ngModel)]='model.password' #password='ngModel' required />
         </md-input-container>
         <div>
-          <button md-button [disabled]='loading'><md-icon>check_circle</md-icon></button>
+          <button md-raised-button color='primary' [disabled]='loading' class='login-button'>{{ 'validate.label' | translate | uppercase }}</button>
 
         </div>
 
       </form>
     </div>
 
+    <!-- username / email -->
     <div *ngIf='!isAuthenticated() && !isUserExists()' class='loginform'>
       <form name='form2' (ngSubmit)='f2.form.valid && validateuser()' #f2='ngForm' novalidate>
         <div [ngClass]='{ "has-error": f2.submitted && !username.valid }'>
@@ -75,7 +77,8 @@
         </div>
 
         <div>
-          <button md-button [disabled]='loading'><md-icon>check_circle</md-icon></button>
+
+          <button md-raised-button  color='primary' [disabled]='loading' class='login-button'>{{ 'next.label' | translate | uppercase }}</button>
 
         </div>
 

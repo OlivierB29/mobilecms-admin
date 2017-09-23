@@ -14,10 +14,10 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 
 
-// Material Theme
+// Material
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { MaterialModule } from '@angular/material';
 import 'hammerjs';
+import { MyMaterialModule } from 'app/mymaterial.module';
 
 // project imports
 import { routing } from './app.routing';
@@ -39,13 +39,16 @@ import { ModifyPasswordComponent , SendPasswordDialogComponent } from 'app/login
 
 import { MainPageComponent, MenubuttonComponent } from 'app/mainpage';
 
-import {  OrderbyPipe } from 'app/shared/filters';
+import { OrderbyPipe } from 'app/shared/filters';
+
 
 
 // @angular/common/http
-
 import { MockHttpInterceptor } from 'app/_helpers/mock-http.interceptor';
+
 import { environment } from 'environments/environment';
+
+
 
 const providers: any[] = [
   AuthGuard,
@@ -74,12 +77,11 @@ if (environment.usemockbackend === true) {
 @NgModule({
   imports: [
     FormsModule,
-
     routing,
-    MaterialModule,
-    NoopAnimationsModule,
     BrowserModule,
     HttpClientModule,
+    NoopAnimationsModule,
+    MyMaterialModule,
     TranslateModule.forRoot({
                 loader: {
                     provide: TranslateLoader,
