@@ -1,6 +1,8 @@
 # MobilecmsAdmin
 
-This project is the admin tool part for [mobilecms](https://github.com/OlivierB29/mobilecms).
+### This project is the admin tool of [mobilecms](https://github.com/OlivierB29/mobilecms).
+
+[![Build Status](https://travis-ci.org/OlivierB29/mobilecms-admin.svg?branch=master)](https://travis-ci.org/OlivierB29/mobilecms-admin)
 
 Manage content for a sport organization : News, calendar events, public pages, documents, ...
 Like any CMS, it is intended to post articles and attach files (images or documents).
