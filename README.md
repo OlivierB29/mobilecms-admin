@@ -1,8 +1,8 @@
 # MobilecmsAdmin
 
-This project is the admin tool part for [mobilecms](https://github.com/OlivierB29/mobilecms):
+This project is the admin tool part for [mobilecms](https://github.com/OlivierB29/mobilecms).
 
-It is intended to manage content for a sport organization : News, calendar events, public pages, documents, ...
+Manage content for a sport organization : News, calendar events, public pages, documents, ...
 Like any CMS, it is intended to post articles and attach files (images or documents).
 
 The responsive design with [Material](https://material.angular.io/) can be used with a mobile phone.
