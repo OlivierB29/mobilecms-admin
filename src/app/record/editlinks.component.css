@@ -31,3 +31,10 @@ input:read-only {
   font-size: 0.81em;
   color: red;
 }
+
+/*
+* panel button on the left
+*/
+.panel-button {
+  justify-content: flex-end;
+}

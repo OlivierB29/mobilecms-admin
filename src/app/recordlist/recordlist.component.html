@@ -1,12 +1,14 @@
 <div>
-  <div class='secondary-button-bar'>
+  <md-toolbar class='secondary-button-bar'>
+    <span class='fill-remaining-space'></span>
     <span mdTooltip='{{ "record.list.create" | translate }}'>
       <a  md-raised-button color='primary' [routerLink]='["/record", type ,  "new"]'><md-icon>add</md-icon> </a>
     </span>
-
-  <button  md-raised-button color='primary' (click)='rebuildIndex()'><md-icon>refresh</md-icon></button>
-  <button  md-raised-button color='primary' (click)='openHelpDialog()'><md-icon alt='help'>help_outline</md-icon></button>
-</div>
+    <span class='toolbar-spacer'></span>
+  <button md-raised-button color='primary' (click)='rebuildIndex()' ><md-icon>refresh</md-icon></button>
+  <span class='toolbar-spacer'></span>
+  <button md-raised-button color='primary' (click)='openHelpDialog()' ><md-icon alt='help'>help_outline</md-icon></button>
+</md-toolbar>
 
 
 

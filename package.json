@@ -8,7 +8,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng serve --env=demo"
+    "e2e": "ng e2e",
+    "demo": "ng serve --env=demo"
   },
   "private": true,
   "dependencies": {

@@ -38,10 +38,14 @@
       <md-input-container class='full-width-input'>
         <input mdInput placeholder='{{"field.label.attachment.description" | translate}}' [(ngModel)]='getAttachments()[i].description' type='text'>
       </md-input-container>
-
+      <md-toolbar>
+      <span class='fill-remaining-space'></span>
       <button (click)='moveAttachmentUp(i)'  md-raised-button color='primary' ><md-icon>arrow_upward</md-icon></button>
+      <span class='toolbar-spacer'></span>
       <button (click)='moveAttachmentDown(i)'  md-raised-button color='primary' ><md-icon>arrow_downward</md-icon></button>
+      <span class='toolbar-spacer'></span>
       <button (click)='deleteMedia(i)'  md-raised-button color='primary' ><md-icon>delete_forever</md-icon></button>
+      </md-toolbar>
     </md-card>
 
   </div>

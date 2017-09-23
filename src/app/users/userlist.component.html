@@ -1,10 +1,8 @@
 <div>
-  <div class='secondary-button-bar'>
+  <md-toolbar>
     <span mdTooltip='{{ "record.list.create" | translate }}'><button md-button [routerLink]='["/userrecord", "new"]'><md-icon>add</md-icon> </button></span>
 
-
-
-</div>
+</md-toolbar>
 
   <div *ngIf='items'>
     <div *ngFor='let item of items'>

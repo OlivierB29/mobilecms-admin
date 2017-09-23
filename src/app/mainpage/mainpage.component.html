@@ -58,10 +58,17 @@
         <md-input-container class='loginform-input'>
           <input type='password' mdInput placeholder='{{"login.password" | translate}}' name='password' [(ngModel)]='model.password' #password='ngModel' required />
         </md-input-container>
-        <div>
-          <button md-raised-button color='primary' [disabled]='loading' class='login-button'>{{ 'validate.label' | translate | uppercase }}</button>
 
-        </div>
+          <md-toolbar  class='loginform-input'>
+
+            <span class='fill-remaining-space'></span>
+          <button md-raised-button color='primary' [disabled]='loading' class='login-button'>{{ 'validate.label' | translate | uppercase }}</button>
+          </md-toolbar>
+          <md-toolbar  class='loginform-input'>
+            <form name='form3' (ngSubmit)='f3.form.valid && openSendPassword()' #f3='ngForm' novalidate>
+                <button md-button [disabled]='loading'>{{'sendpassworddialog.warning' | translate}}<md-icon>settings_backup_restore</md-icon></button>
+            </form>
+          </md-toolbar>
 
       </form>
     </div>
@@ -76,29 +83,15 @@
 
         </div>
 
-        <div>
 
+          <md-toolbar class='loginform-input'>
+            <span class='fill-remaining-space'></span>
           <button md-raised-button  color='primary' [disabled]='loading' class='login-button'>{{ 'next.label' | translate | uppercase }}</button>
-
-        </div>
-
-
-      </form>
-
-    </div>
-
-
-    <div *ngIf='!isAuthenticated() && isUserExists()' class='loginform'>
-      <md-dialog-content>{{'sendpassworddialog.warning' | translate}}</md-dialog-content>
-      <form name='form3' (ngSubmit)='f3.form.valid && openSendPassword()' #f3='ngForm' novalidate>
-
-        <div>
-          <button md-button [disabled]='loading'><md-icon>settings_backup_restore</md-icon></button>
-
-        </div>
+          </md-toolbar>
 
 
       </form>
+
     </div>
 
     <div *ngIf='isAuthenticated() && isNewPasswordRequired()' class='loginform'>
