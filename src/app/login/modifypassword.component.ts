@@ -1,8 +1,8 @@
 ﻿import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertService, AuthenticationService } from 'app/_services/index';
 
 import { User, Label, RecordType } from 'app/_models/index';
+import { LoginService, AlertService } from 'app/shared';
 
 @Component({
   moduleId: module.id,
@@ -26,7 +26,7 @@ export class ModifyPasswordComponent implements OnInit {
   }
 
   constructor(private router: Router,
-    private authenticationService: AuthenticationService,
+    private authenticationService: LoginService,
     private alertService: AlertService) { }
 
   ngOnInit() {

@@ -24,9 +24,8 @@ import { routing } from './app.routing';
 import { AppComponent } from 'app/app.component';
 
 import { AlertComponent } from 'app/_directives/index';
-import { AuthGuard } from 'app/_guards/index';
-import { AlertService, AuthenticationService, AdminService, ContentService, UploadService,
-   LocaleService, StringUtils } from 'app/_services/index';
+// import { AuthGuard } from 'app/_guards/index';
+import { AdminService, ContentService, UploadService} from 'app/_services/index';
 import { HomeComponent, HomeHelpDialogComponent } from './home';
 
 import { RegisterComponent } from 'app/register/index';
@@ -47,22 +46,15 @@ import { OrderbyPipe } from 'app/shared/filters';
 import { MockHttpInterceptor } from 'app/_helpers/mock-http.interceptor';
 
 import { environment } from 'environments/environment';
+import { AdminCmsSharedModule } from 'app/shared/shared.module';
 
 
 
 const providers: any[] = [
-  AuthGuard,
-  AlertService,
-  AuthenticationService,
   AdminService,
   ContentService,
   UploadService,
-  LocaleService,
-  StringUtils,
-  OrderbyPipe,
   HttpClient,
-
-
 ];
 
 // use mock backend if env variable is set
@@ -88,7 +80,8 @@ if (environment.usemockbackend === true) {
                     useFactory: HttpLoaderFactory,
                     deps: [HttpClient]
                 }
-            })
+            }),
+  AdminCmsSharedModule
   ],
   declarations: [
 
@@ -109,7 +102,7 @@ if (environment.usemockbackend === true) {
     RecordHelpDialogComponent,
     DeleteDialogComponent,
     DeleteUserDialogComponent,
-    OrderbyPipe,
+
     EditLinksComponent,
     EditMediaComponent,
     ErrorDialogComponent

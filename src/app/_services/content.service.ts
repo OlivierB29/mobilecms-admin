@@ -5,7 +5,8 @@ import { User } from 'app/_models/index';
 import { Metadata } from 'app/_models';
 
 import { environment } from '../../environments/environment';
-import { CommonClientService } from './commonclient.service';
+import { CommonClientService } from 'app/shared';
+
 
 
 @Injectable()
@@ -13,7 +14,8 @@ export class ContentService extends CommonClientService {
 
 
     constructor(private http: HttpClient) {
-      super( environment.server, environment.api);
+      super();
+      this.init( environment.server, environment.api);
      }
 
     public options = (): Observable<any> => {

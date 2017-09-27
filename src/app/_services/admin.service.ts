@@ -6,7 +6,8 @@ import { User } from 'app/_models/index';
 import { HashUtils } from 'app/_helpers';
 import { Metadata } from 'app/_models';
 import { environment } from '../../environments/environment';
-import { CommonClientService } from './commonclient.service';
+import { CommonClientService } from 'app/shared';
+
 import { HttpClient } from '@angular/common/http';
 /*
 * Credits :
@@ -16,7 +17,8 @@ import { HttpClient } from '@angular/common/http';
 export class AdminService extends CommonClientService {
 
   constructor(private http: HttpClient) {
-    super(environment.server, environment.adminapi);
+    super();
+    this.init(environment.server, environment.adminapi);
   }
 
 
@@ -121,6 +123,32 @@ export class AdminService extends CommonClientService {
 
     }
 
+    public disableUser(type: string, userInput: any): Observable<any> {
+    if (type === 'users') {
+      const hashUtils = new HashUtils();
+
+
+      const url: string = this.getUrl('/content/' + type + '/' + userInput.email);
+      let data = '';
+      if (userInput.password) {
+
+        data = this.getRequestBody({ email: userInput.email,
+          role : 'none',
+          name : userInput.name
+           });
+
+      } else {
+
+        data = this.getRequestBody(userInput);
+
+      }
+
+
+      return this.http.post(url, data,
+                  {headers: this.jwtPost()});
+    }
+
+    }
 
   public updateUser(type: string, userInput: any): Observable<any> {
   if (type === 'users') {

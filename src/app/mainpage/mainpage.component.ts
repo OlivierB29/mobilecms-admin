@@ -5,9 +5,10 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MdDialog } from '@angular/material';
 
 
-import { AlertService, AuthenticationService, ContentService, LocaleService } from 'app/_services';
+import {  ContentService } from 'app/_services';
 import { MenuItem } from './menuitem';
 import { SendPasswordDialogComponent } from 'app/login';
+import { LoginService, LocaleService, AlertService } from 'app/shared';
 
 @Component({
   moduleId: module.id,
@@ -57,7 +58,7 @@ export class MainPageComponent  implements OnInit {
     success = false;
 
     constructor(protected contentService: ContentService,
-       private authenticationService: AuthenticationService,
+       private authenticationService: LoginService,
        private locale: LocaleService, private alertService: AlertService,
         public dialog: MdDialog,
        private router: Router, private route: ActivatedRoute) {

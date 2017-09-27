@@ -7,7 +7,8 @@ import 'rxjs/add/operator/toPromise';
 import { User } from 'app/_models/index';
 
 import { environment } from '../../environments/environment';
-import { CommonClientService } from './commonclient.service';
+import { CommonClientService } from 'app/shared';
+
 import { HttpClient } from '@angular/common/http';
 
 
@@ -16,7 +17,8 @@ export class UploadService extends CommonClientService {
 
 
     constructor(private http: HttpClient) {
-      super( environment.server, environment.fileapi);
+      super();
+      this.init( environment.server, environment.fileapi);
      }
 
 

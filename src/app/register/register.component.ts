@@ -1,7 +1,8 @@
 ﻿import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AlertService, AuthenticationService } from 'app/_services/index';
+
+import { LoginService, AlertService } from 'app/shared';
 
 @Component({
     moduleId: module.id,
@@ -15,7 +16,7 @@ export class RegisterComponent {
 
     constructor(
         private router: Router,
-        private userService: AuthenticationService,
+        private userService: LoginService,
         private alertService: AlertService) { }
 
     register() {

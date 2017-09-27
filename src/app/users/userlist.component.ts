@@ -3,8 +3,8 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { MdDialog } from '@angular/material';
 
 
-import { AuthenticationService, AdminService, LocaleService } from 'app/_services/index';
-
+import { AdminService } from 'app/_services/index';
+import { LocaleService } from 'app/shared';
 import { User } from 'app/_models/index';
 
 import { OrderbyPipe } from 'app/shared/filters';

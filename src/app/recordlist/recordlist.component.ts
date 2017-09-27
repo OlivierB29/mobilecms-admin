@@ -4,8 +4,8 @@ import { MdDialog } from '@angular/material';
 
 import { RecordListHelpDialogComponent } from './recordlisthelpdialog.component';
 
-import { AuthenticationService, ContentService, LocaleService } from 'app/_services/index';
-
+import { ContentService } from 'app/_services';
+import { AlertService, LocaleService } from 'app/shared';
 import { User } from 'app/_models/index';
 
 import { OrderbyPipe } from 'app/shared/filters';

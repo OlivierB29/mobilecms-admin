@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 import { User, Label, RecordType } from 'app/_models/index';
-import { LocaleService } from 'app/_services/index';
 
+import { LocaleService } from 'app/shared';
 
 export class StandardComponent  implements OnInit  {
 

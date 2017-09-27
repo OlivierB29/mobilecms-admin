@@ -6,7 +6,8 @@ import { TranslatePipe } from '@ngx-translate/core';
 
 import { User, Label, RecordType, Metadata } from 'app/_models';
 
-import { AuthenticationService, AdminService, LocaleService, UploadService, StringUtils } from 'app/_services/index';
+import { AdminService, UploadService } from 'app/_services';
+import { LocaleService, StringUtils } from 'app/shared';
 import { StandardComponent } from 'app/home';
 
 import { environment } from '../../environments/environment';
@@ -69,7 +70,7 @@ export class UserRecordComponent extends StandardComponent implements OnInit {
 
 
   constructor(private contentService: AdminService,
-      authenticationService: AuthenticationService,
+
       locale: LocaleService,
       private route: ActivatedRoute, private router: Router, public dialog: MdDialog,
     private uploadService: UploadService, private stringUtils: StringUtils) {
@@ -225,7 +226,7 @@ export class UserRecordComponent extends StandardComponent implements OnInit {
   openConfirmDialog() {
 
     const dialogRef = this.dialog.open(DeleteUserDialogComponent, {
-       data: this.current.title,
+       data: this.current.email,
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -244,7 +245,7 @@ export class UserRecordComponent extends StandardComponent implements OnInit {
   */
     private delete() {
 
-      this.contentService.delete(this.type, this.current.id)
+      this.contentService.disableUser(this.type, this.current)
         .subscribe((data: any) => this.response = JSON.stringify(data),
         error => console.error('delete ' + error),
         () => {

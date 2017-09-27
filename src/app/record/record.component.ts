@@ -6,7 +6,8 @@ import { TranslatePipe } from '@ngx-translate/core';
 
 import { User, Label, RecordType, Metadata } from 'app/_models';
 
-import { AuthenticationService, ContentService, LocaleService, UploadService, StringUtils } from 'app/_services/index';
+import { ContentService, UploadService,  } from 'app/_services';
+import { StringUtils, LocaleService } from 'app/shared';
 import { StandardComponent } from 'app/home';
 
 import { environment } from '../../environments/environment';
@@ -70,7 +71,7 @@ export class RecordComponent extends StandardComponent implements OnInit {
 
 
   constructor(protected contentService: ContentService,
-      authenticationService: AuthenticationService,
+
       locale: LocaleService,
       private route: ActivatedRoute, private router: Router, public dialog: MdDialog,
     private uploadService: UploadService, private stringUtils: StringUtils) {
@@ -132,7 +133,7 @@ export class RecordComponent extends StandardComponent implements OnInit {
 
             }
           },
-          error => console.error('get' + error),
+          error => console.error('get' + JSON.stringify(error)),
           () => {
             console.log('get complete' + JSON.stringify(this.current));
           });
