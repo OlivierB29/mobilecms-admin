@@ -10,7 +10,7 @@ import { HttpHeaders } from '@angular/common/http';
 export abstract class CommonClientService {
 
 
-  protected postFormData = true;
+  protected postFormData = false;
 
 
 
@@ -76,6 +76,14 @@ export abstract class CommonClientService {
     }
   }
 
-
+  protected getRequestBody(obj: any) {
+    let data = null;
+    if (this.postFormData) {
+      data = this.getRequestBody(obj)
+    } else {
+      data = obj;
+    }
+    return obj;
+  }
 
 }

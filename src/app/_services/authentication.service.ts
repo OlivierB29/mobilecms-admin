@@ -21,6 +21,7 @@ export class AuthenticationService {
 
   private serverUrl = environment.server;
 
+  private postFormData = false;
 
   /**
   * API endpoint
@@ -44,7 +45,7 @@ export class AuthenticationService {
 
 
 
-    const data = 'requestbody=' + JSON.stringify({ user: user, password: this.getPassword(password, mode) });
+    const data = this.getRequestBody({ user: user, password: this.getPassword(password, mode) });
 
       return this.http.post<any>(url, data, { headers: this.getHeaders() });
   }
@@ -69,7 +70,7 @@ export class AuthenticationService {
 
     const url: string = this.getUrl('/register');
     userInput.password = hashUtils.hash64(userInput.password);
-    const data = 'requestbody=' + JSON.stringify(userInput);
+    const data = this.getRequestBody(userInput);
 
     return this.http.post(url, data, { headers: this.getHeaders() });
   }
@@ -78,7 +79,7 @@ export class AuthenticationService {
     const hashUtils = new HashUtils();
 
     const url: string = this.getUrl('/resetpassword');
-    const data = 'requestbody=' + JSON.stringify({user: user});
+    const data = this.getRequestBody({user: user});
     return this.http.post(url, data, { headers: this.getHeaders() })
       .map((response: Response) => {
         const registerResponse = response.json();
@@ -105,7 +106,7 @@ export class AuthenticationService {
     const url: string = this.getUrl('/changepassword');
 
     const newPasswordMode = 'hashmacbase64';
-    const data = 'requestbody=' + JSON.stringify({ user: user,
+    const data = this.getRequestBody({ user: user,
         newpassword: this.getPassword(newPassword, newPasswordMode),
         password: this.getPassword(oldPassword, oldPasswordMode)
          });
@@ -113,6 +114,15 @@ export class AuthenticationService {
     return this.http.post<any>(url, data, { headers: this.getHeaders() });
   }
 
+  private getRequestBody(obj: any) {
+    let data = null;
+    if (this.postFormData) {
+      data = this.getRequestBody(obj)
+    } else {
+      data = obj;
+    }
+    return obj;
+  }
 
   /**
   * get API url

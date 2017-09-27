@@ -87,7 +87,7 @@ export class AdminService extends CommonClientService {
       user.password = hashUtils.hash64(userInput.password);
 
 
-      const data = 'requestbody=' + JSON.stringify(user);
+      const data = this.getRequestBody(user);
 
       return this.http.put<any>(url, data,
                   {headers: this.jwtPost()});
@@ -105,16 +105,14 @@ export class AdminService extends CommonClientService {
       user.email = userInput.email;
       user.password = hashUtils.hash64(userInput.password);
 
-      const jsonStr = JSON.stringify({
-        email: user.email,
-        password: user.password,
-        name : user.name,
-        secretQuestion : user.secretResponse,
-        secretResponse : user.secretResponse
-      });
 
-    //  const data = 'requestbody=' + jsonStr + '&password=' + user.password;
-    const data = 'requestbody=' + jsonStr;
+    const data = this.getRequestBody({
+      email: user.email,
+      password: user.password,
+      name : user.name,
+      secretQuestion : user.secretResponse,
+      secretResponse : user.secretResponse
+    });
 
 
       return this.http.post(url, data,
@@ -133,7 +131,7 @@ export class AdminService extends CommonClientService {
     let data = '';
     if (userInput.password) {
 
-      data = 'requestbody=' + JSON.stringify({ email: userInput.email,
+      data = this.getRequestBody({ email: userInput.email,
         newpassword: hashUtils.hash64(userInput.password),
         role : userInput.role,
         name : userInput.name
@@ -141,7 +139,7 @@ export class AdminService extends CommonClientService {
 
     } else {
 
-      data = 'requestbody=' + JSON.stringify(userInput);
+      data = this.getRequestBody(userInput);
 
     }
 

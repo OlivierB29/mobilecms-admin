@@ -79,7 +79,7 @@ export class UploadService extends CommonClientService {
            // escape issue, with some characters like &
            postData = 'requestbody=' + encodeURIComponent(JSON.stringify(JSON.parse(JSON.stringify(obj))));
          } else {
-           postData = JSON.stringify(obj);
+           postData = obj;
          }
 
         return this.http.post<any>(url,
@@ -96,12 +96,12 @@ export class UploadService extends CommonClientService {
         console.log(url);
 
 
-         let postData = '';
+         let postData = null;
          if (this.postFormData) {
            // escape issue, with some characters like &
            postData = 'requestbody=' + encodeURIComponent(JSON.stringify(JSON.parse(JSON.stringify(obj))));
          } else {
-           postData = JSON.stringify(obj);
+           postData = obj;
          }
 
         return this.http.post<any>(url,
