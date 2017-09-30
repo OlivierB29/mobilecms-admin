@@ -147,4 +147,31 @@ export class LoginService {
     }
     return currentUser;
   }
+
+  public resetToken(): User {
+    let currentUser: User = null;
+    const currentUserLocalStorage = localStorage.getItem('currentUser');
+    if (currentUserLocalStorage) {
+      currentUser = JSON.parse(currentUserLocalStorage);
+      currentUser.token = '';
+      localStorage.setItem('currentUser', JSON.stringify(currentUser));
+    }
+
+    return currentUser;
+  }
+
+  /**
+  * lightweight client control : authencation is ensured by the API
+  */
+  public isAuthenticated(): boolean {
+    let result = false;
+    const currentUserLocalStorage = localStorage.getItem('currentUser');
+    if (currentUserLocalStorage) {
+      const currentUser = JSON.parse(currentUserLocalStorage);
+      if (currentUser.token != null && currentUser.token !== '') {
+        result = true;
+      }
+    }
+    return result;
+  }
 }

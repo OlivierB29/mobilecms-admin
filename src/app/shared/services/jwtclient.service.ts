@@ -26,9 +26,10 @@ export class JwtClientService {
       const currentUser = JSON.parse(localStorage.getItem('currentUser'));
       if (currentUser && currentUser.token) {
         return new HttpHeaders ({ 'Authorization': 'Bearer ' + currentUser.token });
-      } else {
-        throw new Error('invalid token');
       }
+      //  else {
+      //   throw new Error('invalid token');
+      // }
     } else {
       throw new Error('empty user');
     }

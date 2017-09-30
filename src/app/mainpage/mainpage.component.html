@@ -94,6 +94,7 @@
 
     </div>
 
+    <!-- new password -->
     <div *ngIf='isAuthenticated() && isNewPasswordRequired()' class='loginform'>
       <form *ngIf='!success' name='form' (ngSubmit)="f.form.valid && modifypassword() " #f='ngForm' novalidate class='loginform'>
 

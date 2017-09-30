@@ -57,6 +57,8 @@ export class MainPageComponent  implements OnInit {
 
     success = false;
 
+    private debug = false;
+
     constructor(protected contentService: ContentService,
        private authenticationService: LoginService,
        private locale: LocaleService, private alertService: AlertService,
@@ -109,16 +111,33 @@ export class MainPageComponent  implements OnInit {
 
           private initUser(): void {
 
-
+            if (this.debug) {
+              console.log('initUser');
+            }
             const currentUserLocalStorage = localStorage.getItem('currentUser');
 
             if (currentUserLocalStorage) {
+              if (this.debug) {
+                console.log('local storage');
+              }
               this.currentUser = JSON.parse(currentUserLocalStorage);
               this.currentUser.token = '';
+
+              this.userinfo = this.getPublicInfoFromLocalStorage(this.currentUser);
 
               this.hasAdminRole = this.currentUser.role === 'admin';
               console.log('currentUser ...' + this.currentUser.role + ' ' + this.currentUser.role);
               this.hasRole = this.currentUser.role === 'editor' || this.currentUser.role === 'admin';
+
+              if (this.debug) {
+                console.log('isConnected' + this.isConnected());
+                console.log('isAuthenticated' + this.authenticationService.isAuthenticated());
+                console.log('isUserExists' + this.isUserExists());
+              }
+            } else {
+              if (this.debug) {
+                console.log('no local storage');
+              }
             }
 
           }
@@ -130,8 +149,10 @@ export class MainPageComponent  implements OnInit {
             //
             // About roles : this just a frontend features. Roles must be tested in the API.
             //
-            console.log('initMenu ...' + this.currentUser.role + ' ' + this.hasAdminRole);
-            if (this.isAuthenticated() && this.hasRole) {
+            if (this.debug) {
+              console.log('initMenu ...' + this.currentUser.role + ' ' + this.hasAdminRole);
+            }
+            if (this.authenticationService.isAuthenticated() && this.hasRole) {
 
               let recordTypes: RecordType[] = null;
 
@@ -168,7 +189,17 @@ export class MainPageComponent  implements OnInit {
 
 
                  console.log('menu complete :' + this.menuItems.length);
-                });
+               },
+               error => {
+                 console.log('init menu failure');
+                 this.currentUser = this.authenticationService.resetToken();
+                 if (this.debug) {
+                   console.log('isConnected' + this.isConnected());
+                   console.log('isAuthenticated' + this.authenticationService.isAuthenticated());
+                   console.log('isUserExists' + this.isUserExists());
+                 }
+               },
+             () => console.log('init menu success'));
 
 
             } else {
@@ -191,11 +222,11 @@ export class MainPageComponent  implements OnInit {
       }
 
       public isAuthenticated(): boolean {
-        return localStorage.getItem('currentUser') != null;
+        return this.authenticationService.isAuthenticated();
       }
 
       public isConnected(): boolean {
-        return this.isAuthenticated() && this.hasRole && !this.isNewPasswordRequired();
+        return this.authenticationService.isAuthenticated() && this.hasRole && !this.isNewPasswordRequired();
       }
 
       public isUserExists(): boolean {
@@ -204,6 +235,12 @@ export class MainPageComponent  implements OnInit {
 
       public isNewPasswordRequired(): boolean {
         return this.userinfo && this.userinfo.newpasswordrequired === 'true';
+      }
+
+      private getPublicInfoFromLocalStorage(user: any): any {
+        return { username : user.username,
+                 email: user.email,
+                 clientalgorithm: user.clientalgorithm};
       }
 
       login() {
@@ -222,7 +259,7 @@ export class MainPageComponent  implements OnInit {
 
                       console.log('success');
                       this.initUser();
-                      if (this.isAuthenticated()) {
+                      if (this.authenticationService.isAuthenticated()) {
                         this.alertService.success('authenticated');
                         this.initUi();
                       } else {
@@ -268,7 +305,10 @@ export class MainPageComponent  implements OnInit {
       }
 
       validateuser() {
-        console.log('validateemail');
+        if (this.debug) {
+          console.log('validateuser')
+        }
+
         this.loading = true;
 /*
         this.http.get<any>(this.authenticationService.publicinfoUrl(this.model.username))
@@ -290,11 +330,21 @@ export class MainPageComponent  implements OnInit {
             this.userinfo = data;
             this.alertService.success('success', true);
             this.loading = false;
-
+            if (this.debug) {
+              console.log('validateuser success' + JSON.stringify(this.userinfo))
+            }
+            if (this.debug) {
+              console.log('isConnected' + this.isConnected());
+              console.log('isAuthenticated' + this.authenticationService.isAuthenticated());
+              console.log('isUserExists' + this.isUserExists());
+            }
           },
           error => {
             this.alertService.error(error);
             this.loading = false;
+            if (this.debug) {
+              console.log('validateuser error')
+            }
           });
       }
 
