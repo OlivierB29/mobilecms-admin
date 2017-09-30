@@ -20,7 +20,7 @@ Use any user-password combination on this version. API calls use a mocked API.
 - Hosted on a cheap server, with no database available
 
 ## Dependencies
-- Angular.io + [Material](https://material.angular.io/)
+- Angular 5 + [Material](https://material.angular.io/)
 - [@ngx-translate](http://www.ngx-translate.com/)
 - A running API [mobilecms-api](https://github.com/OlivierB29/mobilecms-api)
 
