@@ -144,8 +144,7 @@ export class UserRecordComponent extends StandardComponent implements OnInit {
           this.response = data;
         },
         error => {
-          this.responsemessage.error = error;
-          console.error('post' + error);
+          this.responsemessage.error = JSON.stringify(error);
       },
         () => {
           // calculate diff from PHP time https://stackoverflow.com/questions/13022524/javascript-time-to-php-time
