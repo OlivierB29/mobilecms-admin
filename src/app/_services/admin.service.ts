@@ -5,7 +5,7 @@ import { User } from 'app/_models/index';
 
 import { HashUtils } from 'app/_helpers';
 import { Metadata } from 'app/_models';
-import { environment } from '../../environments/environment';
+import { environment } from 'environments/environment';
 import { CommonClientService } from 'app/shared';
 
 import { HttpClient } from '@angular/common/http';
@@ -23,11 +23,9 @@ export class AdminService extends CommonClientService {
 
 
   public getIndex = (type: string): Observable<any[]> => {
+
     const url: string = this.getUrl('/index/' + type);
-    console.log(url);
-
-    console.log('getRecords ' + url);
-
+    console.log('admin getIndex ' + url);
 
     return this.http.get<any[]>(url, {headers: this.jwt()});
   }
@@ -40,7 +38,7 @@ export class AdminService extends CommonClientService {
 
     // eg : /index/calendar
     const url: string = this.getUrl('/index/' + type);
-    console.log(url);
+    console.log('admin rebuildIndex ' + url);
 
     const postData = 'requestbody={}';
 
@@ -239,7 +237,7 @@ export class AdminService extends CommonClientService {
 
       // eg : /content/calendar
       const url: string = this.getUrl('/content/' + type + '/' + id);
-      console.log(url);
+      console.log('delete' + url);
 
 
       return this.http.delete(url,

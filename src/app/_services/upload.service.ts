@@ -6,7 +6,7 @@ import 'rxjs/add/operator/toPromise';
 
 import { User } from 'app/_models/index';
 
-import { environment } from '../../environments/environment';
+import { environment } from 'environments/environment';
 import { CommonClientService } from 'app/shared';
 
 import { HttpClient } from '@angular/common/http';

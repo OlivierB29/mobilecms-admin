@@ -10,7 +10,7 @@ import { AdminService, UploadService } from 'app/_services';
 import { LocaleService, StringUtils } from 'app/shared';
 import { StandardComponent } from 'app/home';
 
-import { environment } from '../../environments/environment';
+
 import { DeleteUserDialogComponent } from './deleteuserdialog.component';
 
 @Component({
@@ -245,13 +245,13 @@ export class UserRecordComponent extends StandardComponent implements OnInit {
   */
     private delete() {
 
-      this.contentService.disableUser(this.type, this.current)
+      this.contentService.delete(this.type, this.current.email)
         .subscribe((data: any) => this.response = JSON.stringify(data),
         error => console.error('delete ' + error),
         () => {
 
           // forward to record modification page
-          this.router.navigate(['/recordlist', this.type]);
+          this.router.navigate(['/userlist']);
 
 
           console.log('delete complete');

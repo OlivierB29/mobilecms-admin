@@ -10,7 +10,7 @@ import { ContentService, UploadService,  } from 'app/_services';
 import { StringUtils, LocaleService } from 'app/shared';
 import { StandardComponent } from 'app/home';
 
-import { environment } from '../../environments/environment';
+import { environment } from 'environments/environment';
 import { DeleteDialogComponent } from './deletedialog.component';
 import { RecordHelpDialogComponent } from './recordhelpdialog.component';
 

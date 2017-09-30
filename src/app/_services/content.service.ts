@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { User } from 'app/_models/index';
 import { Metadata } from 'app/_models';
 
-import { environment } from '../../environments/environment';
+import { environment } from 'environments/environment';
 import { CommonClientService } from 'app/shared';
 
 
