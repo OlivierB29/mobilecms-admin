@@ -100,7 +100,7 @@ export class RecordComponent extends StandardComponent implements OnInit, OnDest
   /**
   * if a service is loading
   */
-  private loading = false;
+  loading = false;
 
   /**
   * tick rate to launch autosave
