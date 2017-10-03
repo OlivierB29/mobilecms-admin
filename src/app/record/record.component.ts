@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MdDialog } from '@angular/material';
 
@@ -6,13 +6,15 @@ import { TranslatePipe } from '@ngx-translate/core';
 
 import { User, Label, RecordType, Metadata } from 'app/_models';
 
-import { ContentService, UploadService,  } from 'app/_services';
+import { ContentService, UploadService, } from 'app/_services';
 import { StringUtils, LocaleService } from 'app/shared';
 import { StandardComponent } from 'app/home';
 
 import { environment } from 'environments/environment';
 import { DeleteDialogComponent } from './deletedialog.component';
 import { RecordHelpDialogComponent } from './recordhelpdialog.component';
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   moduleId: module.id,
@@ -20,7 +22,7 @@ import { RecordHelpDialogComponent } from './recordhelpdialog.component';
   styleUrls: ['record.component.css']
 })
 
-export class RecordComponent extends StandardComponent implements OnInit {
+export class RecordComponent extends StandardComponent implements OnInit, OnDestroy {
 
   i18n = {};
 
@@ -69,16 +71,69 @@ export class RecordComponent extends StandardComponent implements OnInit {
   */
   responsemessage: any;
 
+  /**
+  * enable timer for autosave
+  *
+  * Issue: when typing text in description, the focus is lost
+  */
+  private enableTimer = false;
+
+  /**
+  * timer
+  */
+  private timer: Observable<number>;
+  /**
+  * Subscription object
+  */
+  private timerSub: Subscription;
+
+  /**
+  * last save
+  */
+  private lastSaveDate: Date = null;
+
+  /**
+  * previous record data
+  */
+  private previous: any = null;
+
+  /**
+  * if a service is loading
+  */
+  private loading = false;
+
+  /**
+  * tick rate to launch autosave
+  */
+  private timerTickRate = 15000;
+
+  /**
+  * last time between to save.
+  * Use case: when a manual save is done
+  */
+  private autosaveDelay = 15000;
 
   constructor(protected contentService: ContentService,
 
-      locale: LocaleService,
-      private route: ActivatedRoute, private router: Router, public dialog: MdDialog,
+    locale: LocaleService,
+    private route: ActivatedRoute, private router: Router, public dialog: MdDialog,
     private uploadService: UploadService, private stringUtils: StringUtils) {
     super();
-   }
+  }
+
+
+  ngOnDestroy() {
+    console.log('Destroy timer');
+    // unsubscribe here
+    if (this.timerSub) {
+      this.timerSub.unsubscribe();
+    }
+
+  }
+
 
   ngOnInit() {
+    this.loading = true;
     super.ngOnInit();
     console.log('record.component');
 
@@ -131,14 +186,21 @@ export class RecordComponent extends StandardComponent implements OnInit {
                 }
               }
 
+              this.previous = JSON.parse(JSON.stringify(this.current));
+
             }
           },
-          error => console.error('get' + JSON.stringify(error)),
+          error => {
+            this.loading = false;
+            console.error('get' + JSON.stringify(error));
+          },
           () => {
+            this.loading = false;
             console.log('get complete' + JSON.stringify(this.current));
           });
       } else {
         console.log('editcalendar-form empty id');
+        this.loading = true;
 
         this.newrecord = true;
 
@@ -160,58 +222,93 @@ export class RecordComponent extends StandardComponent implements OnInit {
               }
             }
           },
-          error => console.log('getNewRecord ' + error),
-          () => console.log('getNewRecord OK'));
+          error => {
+            this.loading = false;
+            console.log('getNewRecord ' + error);
+          },
+          () => {
+            this.loading = false;
+            console.log('getNewRecord OK');
+          });
       }
 
 
 
     });
 
+    // autosave feature
+    if (!this.newrecord) {
+      this.lastSaveDate = new Date();
+    } else {
+      this.lastSaveDate = null;
+    }
+    if (this.timerSub) {
+      this.timerSub.unsubscribe();
+    }
+    if (this.enableTimer) {
+      this.timer = Observable.timer(this.timerTickRate, this.timerTickRate);
+      // subscribing to a observable returns a subscription object
+      this.timerSub = this.timer.subscribe(t => this.tickerFunc(t));
+    }
+
+
   }
 
+  isAutosaveReady() {
+    // TODO : form valid ? (date, title attachments, ...)
+    return !this.newrecord && this.isModified() && !this.loading;
+  }
 
+  autosave() {
 
-    save() {
+    if (this.isAutosaveReady()) {
+      this.save();
+    }
+  }
 
-      this.responsemessage = {};
-      this.generateId();
-      this.contentService.post(this.type, this.current)
-        .subscribe((data: any) => {
-          this.response = data;
-
-        },
-        error => {
-          this.responsemessage.error = JSON.stringify(error);
+  save() {
+    this.loading = true;
+    this.responsemessage = {};
+    this.generateId();
+    this.previous = JSON.parse(JSON.stringify(this.current));
+    this.contentService.post(this.type, this.current)
+      .subscribe((data: any) => {
+        this.response = data;
 
       },
-        () => {
-          // calculate diff from PHP time https://stackoverflow.com/questions/13022524/javascript-time-to-php-time
-          const timestamp = Number.parseInt(this.response.timestamp) * 1000;
+      error => {
+        this.loading = false;
+        this.responsemessage.error = JSON.stringify(error);
 
-          // savedate
-          const savedate = new Date();
-          savedate.setTime(timestamp);
-          this.responsemessage.savedate = savedate.toLocaleDateString() + ' ' + savedate.toLocaleTimeString();
+      },
+      () => {
+        this.loading = false;
+        // calculate diff from PHP time https://stackoverflow.com/questions/13022524/javascript-time-to-php-time
+        const timestamp = Number.parseInt(this.response.timestamp) * 1000;
 
-          // time since save
-          const diffMilli = new Date().getTime() - timestamp;
-          if (diffMilli < 1000) {
-            this.responsemessage.since = '< 1s';
-          } else {
-            this.responsemessage.since = (diffMilli / 1000).toString();
-          }
+        // savedate
+        this.lastSaveDate = new Date();
+        this.lastSaveDate.setTime(timestamp);
+        this.responsemessage.savedate = this.lastSaveDate.toLocaleDateString() + ' ' + this.lastSaveDate.toLocaleTimeString();
 
-          // forward to record modification page
-          if (this.newrecord) {
-            this.router.navigate(['/record', this.type, this.current.id]);
-          }
+        // time since save
+        const diffMilli = new Date().getTime() - timestamp;
+        if (diffMilli < 1000) {
+          this.responsemessage.since = '< 1s';
+        } else {
+          this.responsemessage.since = (diffMilli / 1000).toString();
+        }
+
+        // forward to record modification page
+        if (this.newrecord) {
+          this.router.navigate(['/record', this.type, this.current.id]);
+        }
 
 
-          console.log('post complete');
-        });
+        console.log('post complete');
+      });
 
-    }
+  }
 
   /**
   * Generate id from title.
@@ -247,16 +344,16 @@ export class RecordComponent extends StandardComponent implements OnInit {
   openConfirmDialog() {
 
     const dialogRef = this.dialog.open(DeleteDialogComponent, {
-       data: this.current.title,
+      data: this.current.title,
     });
 
     dialogRef.afterClosed().subscribe(result => {
-  console.log(`Dialog result: ${result}`);
+      console.log(`Dialog result: ${result}`);
 
-  if (result) {
-    this.delete();
-  }
-});
+      if (result) {
+        this.delete();
+      }
+    });
 
   }
 
@@ -264,33 +361,51 @@ export class RecordComponent extends StandardComponent implements OnInit {
   /**
   * must click on dialog first
   */
-    private delete() {
+  private delete() {
 
-      this.contentService.delete(this.type, this.current.id)
-        .subscribe((data: any) => this.response = JSON.stringify(data),
-        error => console.error('delete ' + error),
-        () => {
+    this.contentService.delete(this.type, this.current.id)
+      .subscribe((data: any) => this.response = JSON.stringify(data),
+      error => console.error('delete ' + error),
+      () => {
 
-          // forward to record modification page
-          this.router.navigate(['/recordlist', this.type]);
+        // forward to record modification page
+        this.router.navigate(['/recordlist', this.type]);
 
 
-          console.log('delete complete');
-        });
-
-    }
-
-    /**
-    * help
-    */
-    openHelpDialog() {
-      const dialogRef = this.dialog.open(RecordHelpDialogComponent, {
-         data: '',
+        console.log('delete complete');
       });
-      dialogRef.afterClosed().subscribe(result => { console.log('Dialog result'); });
+
+  }
+
+  /**
+  * help
+  */
+  openHelpDialog() {
+    const dialogRef = this.dialog.open(RecordHelpDialogComponent, {
+      data: '',
+    });
+    dialogRef.afterClosed().subscribe(result => { console.log('Dialog result'); });
+  }
+
+  isAdminRole() {
+    return this.hasAdminRole;
+  }
+
+
+  tickerFunc(t: number) {
+
+    if (this.isAutosaveReady() && this.lastSaveDate && (new Date().getTime() - this.lastSaveDate.getTime()) > this.autosaveDelay) {
+      this.autosave();
     }
 
-    isAdminRole() {
-      return this.hasAdminRole;
-    }
+  }
+
+
+
+  /**
+  * if current record is modified since last save
+  */
+  isModified() {
+    return this.previous !== null && JSON.stringify(this.previous) !== JSON.stringify(this.current);
+  }
 }

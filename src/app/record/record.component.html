@@ -1,7 +1,15 @@
 
 <md-toolbar class='secondary-button-bar'>
+  <!-- deprecated ?
+  <span *ngIf='responsemessage && !responsemessage.error' class='success-label-message'>
+    <md-icon mdTooltip='{{responsemessage.since}} - {{responsemessage.savedate}}'>save</md-icon>
+  </span>
+-->
+  <span *ngIf='isModified()' class='success-label-message'>
+    <md-icon>warning</md-icon> {{'record.edit.unsaved' | translate}}
+  </span>
   <span class='fill-remaining-space'></span>
-  <button   md-raised-button color='primary'  *ngIf="f.form.valid" (click)="save()" mdTooltip="{{'record.edit.save' | translate }}"><md-icon>save</md-icon></button>
+  <button   md-raised-button color='primary'  *ngIf="f.form.valid && !loading" (click)="save()" mdTooltip="{{'record.edit.save' | translate }}"><md-icon>save</md-icon></button>
 
   <button   md-raised-button color='primary'  *ngIf="!newrecord && isAdminRole()" (click)="preview()"> <md-icon>open_in_new</md-icon></button>
   <span class='toolbar-spacer'></span>
@@ -12,12 +20,10 @@
 <form name='form' (ngSubmit)='f.form.valid' #f='ngForm' novalidate>
 <div class="container">
   <div>
-    <div *ngIf='responsemessage && responsemessage.error' class='error-label-message'>
+
+    <span *ngIf='responsemessage && responsemessage.error' class='error-label-message'>
       <md-icon>cloud_off</md-icon> {{responsemessage.error}}
-    </div>
-    <div *ngIf='responsemessage && !responsemessage.error' class='success-label-message'>
-      <md-icon mdTooltip='{{responsemessage.savedate}}'>cloud_done</md-icon> {{responsemessage.since}}
-    </div>
+    </span>
 
     <div *ngIf="current">
 
@@ -27,7 +33,7 @@
         <!-- multiline text edit -->
 
         <md-input-container *ngIf="property.editor === 'text'" class="full-width-textarea">
-          <textarea mdInput placeholder="{{'field.label.' + property.name | translate }}" rows="10" cols="" [(ngModel)]="current[property.name]" name="{{property.name}}">{{current[property.name]}}</textarea>
+          <textarea (blur)='autosave()' mdInput placeholder="{{'field.label.' + property.name | translate }}" rows="10" cols="" [(ngModel)]="current[property.name]" name="{{property.name}}">{{current[property.name]}}</textarea>
         </md-input-container>
 
 
@@ -39,19 +45,19 @@
         </div>
         <div *ngIf="property.name === 'title'">
           <md-input-container class="full-width-input" *ngIf="property.editor === 'line'">
-            <input (keypress)="generateId()" (change)="generateId()" mdInput placeholder="{{'field.label.' + property.name | translate }}" [(ngModel)]="current[property.name]" name="{{property.name}}" type="text" required>
+            <input (blur)='autosave()' (keypress)="generateId()" (change)="generateId()" mdInput placeholder="{{'field.label.' + property.name | translate }}" [(ngModel)]="current[property.name]" name="{{property.name}}" type="text" required>
           </md-input-container>
         </div>
 
         <div *ngIf="property.name !== 'id' && property.name !== 'title'">
           <md-input-container class="full-width-input" *ngIf="property.editor === 'line'">
-            <input mdInput placeholder="{{'field.label.' + property.name | translate }}" [(ngModel)]="current[property.name]" name="{{property.name}}" type="text" >
+            <input (blur)='autosave()' mdInput placeholder="{{'field.label.' + property.name | translate }}" [(ngModel)]="current[property.name]" name="{{property.name}}" type="text" >
           </md-input-container>
         </div>
 
         <div *ngIf="property.editor === 'date'">
           <md-input-container *ngIf="property.editor === 'date'">
-            <input mdInput placeholder="{{'field.label.' + property.name | translate }}" [(ngModel)]="current[property.name]" name="{{property.name}}" type="date" required>
+            <input (blur)='autosave()' mdInput placeholder="{{'field.label.' + property.name | translate }}" [(ngModel)]="current[property.name]" name="{{property.name}}" type="date" required>
           </md-input-container>
         </div>
 
