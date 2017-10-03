@@ -171,10 +171,9 @@ export function commonHttpFakeBackend(url: string, method: string, request: Http
       // save record
       if (url.match(/content\/[-a-zA-Z0-9_]*/) && method === 'POST') {
 
-        const bodyStr = decodeURIComponent(request.body.replace('requestbody=', ''));
-        const params = JSON.parse(bodyStr);
+        const params = request.body;
 
-        cmsApi.saveItem(getLast(url), params);
+        cmsApi.saveItem(getLast(url), request.body);
 
         const ts = Math.ceil(new Date().getTime() / 1000);
 
@@ -196,12 +195,13 @@ export function commonHttpFakeBackend(url: string, method: string, request: Http
 }
 
 
- function auth(bodyStr: string): Observable<HttpEvent<any>>  {
+ function auth(params: any): Observable<HttpEvent<any>>  {
 
-  bodyStr = decodeURIComponent(bodyStr.replace('requestbody=', ''));
-
-  const params = JSON.parse(bodyStr);
-
+  //  console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!! auth 0 ' + bodyStr);
+  // const decoded = decodeURIComponent(bodyStr);
+  // console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!! auth 1');
+  // const params = JSON.parse(decoded);
+  // console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!! auth 2');
   if (params.user && params.password) {
     const user = JSON.parse('{}');
     user.username = params.user;
