@@ -26,15 +26,24 @@ box-shadow: 5px 5px 10px 0 #656565;
 padding-top: 1em;
 }
 
+.my-content-default {
+  margin-left: 0;
+  min-height: 50em;
+}
 
 .my-content {
   margin-left: 0;
-  min-height: 800px;
+  min-height: 50em;
 }
 
 
 
 @media all and (min-width: 55em) {
+  .my-content-default {
+    margin-left: 0;
+    min-height: 50em;
+  }
+
   .my-content {
     padding-left: 4em;
   }

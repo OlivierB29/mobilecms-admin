@@ -14,8 +14,8 @@
 
   <!-- slide menu -->
 
-  <md-sidenav #sidenav [mode]='menuMode' [opened]='menuOpened' class='slidemenu'>
-    <nav *ngIf='isConnected()'>
+  <md-sidenav  *ngIf='isConnected()' #sidenav [mode]='menuMode' [opened]='menuOpened' class='slidemenu'>
+    <nav>
       <div *ngIf='!menuItems'>
 
       </div>
@@ -43,7 +43,7 @@
   <!-- container -->
 
 
-  <div class='my-content'>
+  <div [ngClass]="{ 'my-content': isConnected(), 'my-content-default': !isConnected() }">
     <app-alert-message></app-alert-message>
 
     <!-- content -->
@@ -63,7 +63,6 @@
         </md-input-container>
 
           <md-toolbar  class='loginform-input'>
-
             <span class='fill-remaining-space'></span>
           <button md-raised-button color='primary' [disabled]='loading' class='login-button'><md-icon>check_circle</md-icon></button>
           </md-toolbar>
