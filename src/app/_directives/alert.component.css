@@ -1,0 +1,18 @@
+
+.alertcontainer {
+  margin: auto;
+  width: 100%;
+}
+
+.alert {
+  float: right;
+}
+
+
+.alert-success {
+  color: green;
+}
+
+.alert-danger {
+  color: red;
+}

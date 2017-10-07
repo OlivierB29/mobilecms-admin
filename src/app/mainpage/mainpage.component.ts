@@ -14,7 +14,7 @@ import { LoginService, LocaleService, AlertService } from 'app/shared';
   moduleId: module.id,
   selector: 'app-my-mainpage',
   templateUrl: 'mainpage.component.html',
-  styleUrls: ['mainpage.component.css']
+  styleUrls: ['mainpage.component.css', 'login.css']
 })
 export class MainPageComponent  implements OnInit {
 
@@ -74,7 +74,9 @@ export class MainPageComponent  implements OnInit {
         if (this.isConnected()) {
           this.initUi();
         } else {
+          if (this.debug) {
           console.log('logout');
+          }
           this.authenticationService.logout();
         }
 
@@ -123,10 +125,13 @@ export class MainPageComponent  implements OnInit {
               this.currentUser = JSON.parse(currentUserLocalStorage);
               this.currentUser.token = '';
 
-              this.userinfo = this.getPublicInfoFromLocalStorage(this.currentUser);
+              this.updatePublicInfoFromLocalStorage(this.currentUser, this.userinfo);
 
               this.hasAdminRole = this.currentUser.role === 'admin';
-              console.log('currentUser ...' + this.currentUser.role + ' ' + this.currentUser.role);
+              if (this.debug) {
+                console.log('currentUser ...' + this.currentUser.role + ' ' + this.currentUser.role);
+              }
+
               this.hasRole = this.currentUser.role === 'editor' || this.currentUser.role === 'admin';
 
               if (this.debug) {
@@ -187,11 +192,12 @@ export class MainPageComponent  implements OnInit {
                    this.adminMenuItems.push(userlist);
                  }
 
-
-                 console.log('menu complete :' + this.menuItems.length);
+                 if (this.debug) {
+                   console.log('menu complete :' + this.menuItems.length);
+                 }
                },
                error => {
-                 console.log('init menu failure');
+                 console.error('init menu failure');
                  this.currentUser = this.authenticationService.resetToken();
                  if (this.debug) {
                    console.log('isConnected' + this.isConnected());
@@ -203,7 +209,9 @@ export class MainPageComponent  implements OnInit {
 
 
             } else {
-              console.log('guest ');
+              if (this.debug) {
+                console.log('guest ');
+              }
             }
 
 
@@ -237,10 +245,12 @@ export class MainPageComponent  implements OnInit {
         return this.userinfo && this.userinfo.newpasswordrequired === 'true';
       }
 
-      private getPublicInfoFromLocalStorage(user: any): any {
-        return { username : user.username,
-                 email: user.email,
-                 clientalgorithm: user.clientalgorithm};
+
+
+      private updatePublicInfoFromLocalStorage(from: any, to: any) {
+        to.username = from.username,
+        to.email =  from.email,
+        to.clientalgorithm = from.clientalgorithm;
       }
 
       login() {
@@ -252,6 +262,11 @@ export class MainPageComponent  implements OnInit {
                       // store user details and jwt token in local storage to keep user logged in between page refreshes
 
                       localStorage.setItem('currentUser', JSON.stringify(userObject));
+                      this.userinfo.newpasswordrequired = userObject.newpasswordrequired;
+                      if (this.debug) {
+                        console.log('newpasswordrequired' + this.userinfo.newpasswordrequired);
+                      }
+
                     } else {
                       console.error('invalid auth token');
                       throw new Error('invalid auth token');

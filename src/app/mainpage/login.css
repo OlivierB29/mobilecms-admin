@@ -1,0 +1,46 @@
+
+.logincontainer {
+  margin: auto;
+  width: 100%;
+}
+
+.loginform {
+  display: inline;
+  float: none;
+  padding: 1em;
+}
+
+
+.login-button {
+  font-weight: bold;
+}
+
+.loginform-input {
+  width: 100%;
+}
+
+.error-label {
+  color: red;
+}
+.success-label {
+  color: green;
+}
+
+
+@media all and (min-width: 55em) {
+
+  .logincontainer {
+    width: 29em;
+  }
+
+  .loginform-input {
+    width: 100%;
+  }
+
+
+  .loginform {
+    padding-left: 1em;
+    padding-right: 1em;
+  }
+
+}

@@ -33,11 +33,11 @@ Use any user-password combination on this version. API calls use a mocked API.
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-Run `ng serve --env=demo` for a live version without backend API.
+Run `npm run demo` | `ng serve --env=demo` for a live version without backend API.
 
 ## Build
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
 
-Build with specified web context : `ng build --prod --base-href /admin/`
-Demo build for github pages : `ng build --env=demo --base-href /mobilecms-demo/admin/`
+Build with specified web context : `npm run dist`
+Demo build for github pages : `npm run demobuild`

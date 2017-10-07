@@ -51,6 +51,9 @@
     <!-- login -->
 
     <div *ngIf='!isConnected()'>
+    <md-card class='logincontainer'>
+
+
     <div *ngIf='!isAuthenticated() && isUserExists()' class='loginform'>
 
       <form name='form' (ngSubmit)='f.form.valid && login()' #f='ngForm' novalidate>
@@ -62,7 +65,7 @@
           <md-toolbar  class='loginform-input'>
 
             <span class='fill-remaining-space'></span>
-          <button md-raised-button color='primary' [disabled]='loading' class='login-button'>{{ 'validate.label' | translate | uppercase }}</button>
+          <button md-raised-button color='primary' [disabled]='loading' class='login-button'><md-icon>check_circle</md-icon></button>
           </md-toolbar>
           <md-toolbar  class='loginform-input'>
             <form name='form3' (ngSubmit)='f3.form.valid && openSendPassword()' #f3='ngForm' novalidate>
@@ -124,7 +127,7 @@
     <div class='loginform'>
       <md-spinner *ngIf='loading' mode='indeterminate'></md-spinner>
     </div>
+  </md-card> <!-- login container -->
     </div>
-
   </div>
 </md-sidenav-container>

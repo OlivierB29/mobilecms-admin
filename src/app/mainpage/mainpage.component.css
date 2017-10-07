@@ -17,25 +17,8 @@
   padding: 0 0.875em;
 }
 
-.error-label {
-  color: red;
-}
-.success-label {
-  color: green;
-}
-
-.loginform {
-  padding: 1em;
-}
 
 
-.login-button {
-  font-weight: bold;
-}
-
-.loginform-input {
-  width: 100%;
-}
 
 
 .slidemenu {
@@ -60,15 +43,6 @@ padding-top: 1em;
    padding-right: 5em;
   }
 
-  .loginform-input {
-    width: 20em;
-  }
-
-
-  .loginform {
-    padding-left: 10em;
-    padding-right: 10em;
-  }
   .slidemenu {
   padding-top: 5em;
   }
