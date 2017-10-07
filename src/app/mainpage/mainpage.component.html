@@ -117,10 +117,12 @@
           <md-icon *ngIf='model.newpassword2 && model.newpassword !== model.newpassword2' class='error-label-message'>block</md-icon>
         </div>
 
-        <div>
-          <button *ngIf='canSubmit()' md-button [disabled]="loading"><md-icon>check_circle</md-icon></button>
 
-        </div>
+        <md-toolbar  class='loginform-input'>
+          <span class='fill-remaining-space'></span>
+        <button *ngIf='canSubmit()' md-raised-button color='primary' [disabled]='loading' class='login-button'><md-icon>check_circle</md-icon></button>
+        </md-toolbar>
+
       </form>
     </div>
 

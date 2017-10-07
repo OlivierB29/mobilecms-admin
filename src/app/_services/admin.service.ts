@@ -215,19 +215,19 @@ export class AdminService extends CommonClientService {
 
 
   getAll() {
-    return this.http.get('/api/users', {headers: this.jwt()}).map((response: Response) => response.json());
+    return this.http.get('/api/users', {headers: this.jwt()});
   }
 
   getById(id: number) {
-    return this.http.get('/api/users/' + id, {headers: this.jwt()}).map((response: Response) => response.json());
+    return this.http.get('/api/users/' + id, {headers: this.jwt()});
   }
 
   create(user: User) {
-    return this.http.post('/api/users', user, {headers: this.jwt()}).map((response: Response) => response.json());
+    return this.http.post('/api/users', user, {headers: this.jwt()});
   }
 
   update(user: User) {
-    return this.http.put('/api/users/' + user.id, user, {headers: this.jwt()}).map((response: Response) => response.json());
+    return this.http.put('/api/users/' + user.id, user, {headers: this.jwt()});
   }
 
   /**

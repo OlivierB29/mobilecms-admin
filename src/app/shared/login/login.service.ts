@@ -80,10 +80,7 @@ export class LoginService {
 
     const url: string = this.getUrl('/resetpassword');
     const data = this.getRequestBody({user: user});
-    return this.http.post(url, data, { headers: this.getHeaders() })
-      .map((response: Response) => {
-        const registerResponse = response.json();
-      });
+    return this.http.post(url, data, { headers: this.getHeaders() });
   }
 
   publicinfo(user: string) {
