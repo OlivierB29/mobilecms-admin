@@ -21,15 +21,8 @@ input:read-only {
     background-color: #ddd;
 }
 
-.container {
-  padding: 0.2em;
-}
 
-@media all and (min-width: 55em) {
-  .container {
-    padding: 2em;
-  }
-}
+
 
 
 .list-container {
