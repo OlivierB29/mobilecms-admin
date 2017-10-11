@@ -20,11 +20,11 @@
     "record.edit.attachments":"HTTP Links",
     "record.edit.media":"Files",
     "record.edit.media.subtitle":"Stored on server",
+    "record.edit.help":"Open help",
     "record.help.images":"Add images links",
     "record.help.attachments":"Add document link",
     "record.edit.attachments.subtitle":"External links (drive, ...)",
-
-    "record.help.media":"Attach files to the current record",
+    "record.help.media":"Upload files to the current record",
     "deletedialog.title": "Delete",
     "recordlist.help.refresh": "Refresh record list if not found in index",
     "field.label.id":"id",

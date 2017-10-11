@@ -13,7 +13,18 @@
 
 
   <div>
+    <md-action-row>
+      <input type='file' #file (change)='upload(file.files)' multiple='multiple' />
+      <button  md-raised-button color='primary' (click)='refresh()' ><md-icon>autorenew</md-icon></button>
 
+      <md-spinner *ngIf='isLoading()' mode='indeterminate'></md-spinner>
+      <div *ngIf='getResponseMessage() && getResponseMessage().error' class='error-label-message'>
+        <md-icon>cloud_off</md-icon>  {{getResponseMessage().error}}
+      </div>
+      <div *ngIf='getResponseMessage() && !getResponseMessage().error' class='success-label-message'>
+        <md-icon>cloud_done</md-icon>
+      </div>
+    </md-action-row>
 
   <div *ngFor='let item of getAttachments(); let i=index' class='input-group'>
 
@@ -52,17 +63,6 @@
   <!-- ngFor -->
 
 
-  <md-action-row>
-    <input type='file' #file (change)='upload(file.files)' multiple='multiple' />
-    <button  md-raised-button color='primary' (click)='refresh()' ><md-icon>autorenew</md-icon></button>
 
-    <md-spinner *ngIf='isLoading()' mode='indeterminate'></md-spinner>
-    <div *ngIf='getResponseMessage() && getResponseMessage().error' class='error-label-message'>
-      <md-icon>cloud_off</md-icon>  {{getResponseMessage().error}}
-    </div>
-    <div *ngIf='getResponseMessage() && !getResponseMessage().error' class='success-label-message'>
-      <md-icon>cloud_done</md-icon>
-    </div>
-  </md-action-row>
   </div>
 </md-expansion-panel>
