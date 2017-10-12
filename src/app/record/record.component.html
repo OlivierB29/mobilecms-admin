@@ -1,28 +1,28 @@
 
-<md-toolbar class='secondary-button-bar'>
+<mat-toolbar class='secondary-button-bar'>
   <!-- deprecated ?
   <span *ngIf='responsemessage && !responsemessage.error' class='success-label-message'>
-    <md-icon mdTooltip='{{responsemessage.since}} - {{responsemessage.savedate}}'>save</md-icon>
+    <mat-icon matTooltip='{{responsemessage.since}} - {{responsemessage.savedate}}'>save</mat-icon>
   </span>
 -->
   <span *ngIf='isModified()' class='success-label-message'>
-    <md-icon>warning</md-icon> {{'record.edit.unsaved' | translate}}
+    <mat-icon>warning</mat-icon> {{'record.edit.unsaved' | translate}}
   </span>
   <span class='fill-remaining-space'></span>
-  <button   md-raised-button color='primary'  *ngIf="f.form.valid && !loading" (click)="save()" mdTooltip="{{'record.edit.save' | translate }}"><md-icon>save</md-icon></button>
+  <button   mat-raised-button color='primary'  *ngIf="f.form.valid && !loading" (click)="save()" matTooltip="{{'record.edit.save' | translate }}"><mat-icon>save</mat-icon></button>
 
-  <button   md-raised-button color='primary'  *ngIf="!newrecord" (click)="preview()" mdTooltip="{{'record.edit.preview' | translate }}"> <md-icon>open_in_new</md-icon></button>
+  <button   mat-raised-button color='primary'  *ngIf="!newrecord" (click)="preview()" matTooltip="{{'record.edit.preview' | translate }}"> <mat-icon>open_in_new</mat-icon></button>
   <span class='toolbar-spacer'></span>
-  <button   md-raised-button color='primary'  *ngIf="!newrecord" (click)="openConfirmDialog()" mdTooltip="{{'record.edit.delete' | translate }}"> <md-icon>delete</md-icon></button>
+  <button   mat-raised-button color='primary'  *ngIf="!newrecord" (click)="openConfirmDialog()" matTooltip="{{'record.edit.delete' | translate }}"> <mat-icon>delete</mat-icon></button>
   <span class='toolbar-spacer'></span>
-  <button   md-raised-button color='primary'  (click)='openHelpDialog()'mdTooltip="{{'record.edit.help' | translate }}"><md-icon alt='help'>help_outline</md-icon></button>
-</md-toolbar>
+  <button   mat-raised-button color='primary'  (click)='openHelpDialog()'matTooltip="{{'record.edit.help' | translate }}"><mat-icon alt='help'>help_outline</mat-icon></button>
+</mat-toolbar>
 <form name='form' (ngSubmit)='f.form.valid' #f='ngForm' novalidate>
 <div class="container">
   <div>
 
     <span *ngIf='responsemessage && responsemessage.error' class='error-label-message'>
-      <md-icon>cloud_off</md-icon> {{responsemessage.error}}
+      <mat-icon>cloud_off</mat-icon> {{responsemessage.error}}
     </span>
 
     <div *ngIf="current">
@@ -32,41 +32,41 @@
 
         <!-- multiline text edit -->
 
-        <md-input-container *ngIf="property.editor === 'text'" class="full-width-textarea">
-          <textarea (blur)='autosave()' mdInput placeholder="{{'field.label.' + property.name | translate }}" rows="10" cols="" [(ngModel)]="current[property.name]" name="{{property.name}}">{{current[property.name]}}</textarea>
-        </md-input-container>
+        <mat-input-container *ngIf="property.editor === 'text'" class="full-width-textarea">
+          <textarea (blur)='autosave()' matInput placeholder="{{'field.label.' + property.name | translate }}" rows="10" cols="" [(ngModel)]="current[property.name]" name="{{property.name}}">{{current[property.name]}}</textarea>
+        </mat-input-container>
 
 
         <!-- single line text edit -->
         <div *ngIf="property.name === 'id'">
-          <md-input-container class="full-width-input" *ngIf="property.editor === 'line'">
-            <input readonly mdInput placeholder="{{'field.label.' + property.name | translate }}" [(ngModel)]="current[property.name]" name="{{property.name}}" type="text">
-          </md-input-container>
+          <mat-input-container class="full-width-input" *ngIf="property.editor === 'line'">
+            <input readonly matInput placeholder="{{'field.label.' + property.name | translate }}" [(ngModel)]="current[property.name]" name="{{property.name}}" type="text">
+          </mat-input-container>
         </div>
         <div *ngIf="property.name === 'title'">
-          <md-input-container class="full-width-input" *ngIf="property.editor === 'line'">
-            <input (blur)='autosave()' (keypress)="generateId()" (change)="generateId()" mdInput placeholder="{{'field.label.' + property.name | translate }}" [(ngModel)]="current[property.name]" name="{{property.name}}" type="text" required>
-          </md-input-container>
+          <mat-input-container class="full-width-input" *ngIf="property.editor === 'line'">
+            <input (blur)='autosave()' (keypress)="generateId()" (change)="generateId()" matInput placeholder="{{'field.label.' + property.name | translate }}" [(ngModel)]="current[property.name]" name="{{property.name}}" type="text" required>
+          </mat-input-container>
         </div>
 
         <div *ngIf="property.name !== 'id' && property.name !== 'title'">
-          <md-input-container class="full-width-input" *ngIf="property.editor === 'line'">
-            <input (blur)='autosave()' mdInput placeholder="{{'field.label.' + property.name | translate }}" [(ngModel)]="current[property.name]" name="{{property.name}}" type="text" >
-          </md-input-container>
+          <mat-input-container class="full-width-input" *ngIf="property.editor === 'line'">
+            <input (blur)='autosave()' matInput placeholder="{{'field.label.' + property.name | translate }}" [(ngModel)]="current[property.name]" name="{{property.name}}" type="text" >
+          </mat-input-container>
         </div>
 
         <div *ngIf="property.editor === 'date'">
-          <md-input-container *ngIf="property.editor === 'date'">
-            <input (blur)='autosave()' mdInput placeholder="{{'field.label.' + property.name | translate }}" [(ngModel)]="current[property.name]" name="{{property.name}}" type="date" required>
-          </md-input-container>
+          <mat-input-container *ngIf="property.editor === 'date'">
+            <input (blur)='autosave()' matInput placeholder="{{'field.label.' + property.name | translate }}" [(ngModel)]="current[property.name]" name="{{property.name}}" type="date" required>
+          </mat-input-container>
         </div>
 
         <!-- choice list -->
         <div *ngIf="property.editor === 'choice'">
-          <md-select placeholder="{{'field.label.' + property.name | translate }}" [(ngModel)]="current[property.name]" name="{{property.name}}">
+          <mat-select placeholder="{{'field.label.' + property.name | translate }}" [(ngModel)]="current[property.name]" name="{{property.name}}">
             <!-- list of choices from metadata -->
-            <md-option *ngFor="let choice of property.choices" [value]="choice">{{ choice }}</md-option>
-          </md-select>
+            <mat-option *ngFor="let choice of property.choices" [value]="choice">{{ choice }}</mat-option>
+          </mat-select>
 
         </div>
 

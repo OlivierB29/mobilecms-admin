@@ -1,55 +1,55 @@
 
-<md-expansion-panel>
-  <md-expansion-panel-header>
-    <md-panel-title>
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
         <span *ngIf='attachments'>{{title | translate}} : {{attachments.length}}</span>
-    </md-panel-title>
-    <md-panel-description>
+    </mat-panel-title>
+    <mat-panel-description>
       {{ 'record.edit.attachments.subtitle' | translate }}
-    </md-panel-description>
-  </md-expansion-panel-header>
+    </mat-panel-description>
+  </mat-expansion-panel-header>
 
 
 
 <div>
-  <md-action-row>
-    <button md-raised-button color='primary' (click)='addAttachmentBottom()' mdTooltip='{{"record.edit.addattachment" | translate}}' class='panel-button'><md-icon>insert_link</md-icon></button>
-    <md-spinner *ngIf='loading' mode='indeterminate'></md-spinner>
+  <mat-action-row>
+    <button mat-raised-button color='primary' (click)='addAttachmentBottom()' matTooltip='{{"record.edit.addattachment" | translate}}' class='panel-button'><mat-icon>insert_link</mat-icon></button>
+    <mat-spinner *ngIf='loading' mode='indeterminate'></mat-spinner>
     <div *ngIf='responsemessage && responsemessage.error' class='error-label-message'>
-      <md-icon>cloud_off</md-icon>  {{responsemessage.error}}
+      <mat-icon>cloud_off</mat-icon>  {{responsemessage.error}}
     </div>
     <div *ngIf='responsemessage && !responsemessage.error' class='success-label-message'>
-      <md-icon >cloud_done</md-icon>
+      <mat-icon >cloud_done</mat-icon>
     </div>
-  </md-action-row>
+  </mat-action-row>
   
 <div *ngFor='let attachment of attachments; let i=index' class='input-group'>
 
-  <md-card>
-    <md-input-container class='full-width-input'>
-      <input mdInput placeholder='{{"field.label.attachment.title" | translate}}' [(ngModel)]='attachments[i].title' type='text'>
-    </md-input-container>
+  <mat-card>
+    <mat-input-container class='full-width-input'>
+      <input matInput placeholder='{{"field.label.attachment.title" | translate}}' [(ngModel)]='attachments[i].title' type='text'>
+    </mat-input-container>
 
-    <md-input-container class='full-width-input'>
-      <input mdInput placeholder='{{"field.label.attachment.url" | translate}}' [(ngModel)]='attachments[i].url' type='text'>
-    </md-input-container>
+    <mat-input-container class='full-width-input'>
+      <input matInput placeholder='{{"field.label.attachment.url" | translate}}' [(ngModel)]='attachments[i].url' type='text'>
+    </mat-input-container>
 
-    <md-input-container class='full-width-input'>
-      <input mdInput placeholder='{{"field.label.attachment.description" | translate}}' [(ngModel)]='attachments[i].description' type='text'>
-    </md-input-container>
-    <md-toolbar>
+    <mat-input-container class='full-width-input'>
+      <input matInput placeholder='{{"field.label.attachment.description" | translate}}' [(ngModel)]='attachments[i].description' type='text'>
+    </mat-input-container>
+    <mat-toolbar>
       <span class='fill-remaining-space'></span>
-      <button (click)='moveAttachmentUp(i)'  md-raised-button color='primary'  class='panel-button'><md-icon>arrow_upward</md-icon></button>
+      <button (click)='moveAttachmentUp(i)'  mat-raised-button color='primary'  class='panel-button'><mat-icon>arrow_upward</mat-icon></button>
       <span class='toolbar-spacer'></span>
-      <button (click)='moveAttachmentDown(i)'  md-raised-button color='primary'  class='panel-button'><md-icon>arrow_downward</md-icon></button>
+      <button (click)='moveAttachmentDown(i)'  mat-raised-button color='primary'  class='panel-button'><mat-icon>arrow_downward</mat-icon></button>
       <span class='toolbar-spacer'></span>
       <span class='toolbar-spacer'></span>
-      <button (click)='deleteAttachment(i)'  md-raised-button color='primary'  class='panel-button'><md-icon>delete_forever</md-icon></button>
+      <button (click)='deleteAttachment(i)'  mat-raised-button color='primary'  class='panel-button'><mat-icon>delete_forever</mat-icon></button>
       <span class='toolbar-spacer'></span>
-      <button *ngIf='adminrole' (click)='download(i)'  md-raised-button color='primary' class='panel-button' ><md-icon>backup</md-icon></button>
+      <button *ngIf='adminrole' (click)='download(i)'  mat-raised-button color='primary' class='panel-button' ><mat-icon>backup</mat-icon></button>
 
-    </md-toolbar>
-  </md-card>
+    </mat-toolbar>
+  </mat-card>
 
 </div>
 
@@ -57,4 +57,4 @@
 </div>
 
 
-</md-expansion-panel>
+</mat-expansion-panel>

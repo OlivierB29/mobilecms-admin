@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 
-import { MdSidenavModule, MdButtonModule, MdDialogModule, MdListModule,
-   MdInputModule, MdSelectModule, MdIconModule, MdProgressSpinnerModule, MdCardModule,
- MdTooltipModule, MdToolbarModule, MatExpansionModule } from '@angular/material';
+import { NoConflictStyleCompatibilityMode , MatSidenavModule, MatButtonModule, MatDialogModule, MatListModule,
+   MatInputModule, MatSelectModule, MatIconModule, MatProgressSpinnerModule, MatCardModule,
+ MatTooltipModule, MatToolbarModule, MatExpansionModule } from '@angular/material';
 
 
 @NgModule({
-  imports: [ MdSidenavModule, MdButtonModule, MdDialogModule, MdListModule,
-     MdInputModule, MdSelectModule, MdIconModule, MdProgressSpinnerModule, MdCardModule,
-   MdTooltipModule, MdToolbarModule, MatExpansionModule ],
-  exports: [ MdSidenavModule, MdButtonModule, MdDialogModule, MdListModule,
-     MdInputModule, MdSelectModule, MdIconModule, MdProgressSpinnerModule, MdCardModule,
-   MdTooltipModule, MdToolbarModule, MatExpansionModule ],
+  imports: [ NoConflictStyleCompatibilityMode, MatSidenavModule, MatButtonModule, MatDialogModule, MatListModule,
+     MatInputModule, MatSelectModule, MatIconModule, MatProgressSpinnerModule, MatCardModule,
+   MatTooltipModule, MatToolbarModule, MatExpansionModule ],
+  exports: [ MatSidenavModule, MatButtonModule, MatDialogModule, MatListModule,
+     MatInputModule, MatSelectModule, MatIconModule, MatProgressSpinnerModule, MatCardModule,
+   MatTooltipModule, MatToolbarModule, MatExpansionModule ],
 })
 export class MyMaterialModule { }

@@ -1,63 +1,63 @@
 
 
-<md-expansion-panel>
-  <md-expansion-panel-header>
-    <md-panel-title>
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
       {{'record.edit.media' | translate}} : {{getAttachments().length}}
-    </md-panel-title>
-    <md-panel-description>
+    </mat-panel-title>
+    <mat-panel-description>
       {{ 'record.edit.media.subtitle' | translate }}
-    </md-panel-description>
-  </md-expansion-panel-header>
+    </mat-panel-description>
+  </mat-expansion-panel-header>
 
 
 
   <div>
-    <md-action-row>
+    <mat-action-row>
       <input type='file' #file (change)='upload(file.files)' multiple='multiple' />
-      <button  md-raised-button color='primary' (click)='refresh()' ><md-icon>autorenew</md-icon></button>
+      <button  mat-raised-button color='primary' (click)='refresh()' ><mat-icon>autorenew</mat-icon></button>
 
-      <md-spinner *ngIf='isLoading()' mode='indeterminate'></md-spinner>
+      <mat-spinner *ngIf='isLoading()' mode='indeterminate'></mat-spinner>
       <div *ngIf='getResponseMessage() && getResponseMessage().error' class='error-label-message'>
-        <md-icon>cloud_off</md-icon>  {{getResponseMessage().error}}
+        <mat-icon>cloud_off</mat-icon>  {{getResponseMessage().error}}
       </div>
       <div *ngIf='getResponseMessage() && !getResponseMessage().error' class='success-label-message'>
-        <md-icon>cloud_done</md-icon>
+        <mat-icon>cloud_done</mat-icon>
       </div>
-    </md-action-row>
+    </mat-action-row>
 
   <div *ngFor='let item of getAttachments(); let i=index' class='input-group'>
 
 
-    <md-card>
-      <md-input-container class='full-width-input'>
-        <input mdInput placeholder='{{"field.label.attachment.title" | translate}}' [(ngModel)]='getAttachments()[i].title' type='text'>
-      </md-input-container>
+    <mat-card>
+      <mat-input-container class='full-width-input'>
+        <input matInput placeholder='{{"field.label.attachment.title" | translate}}' [(ngModel)]='getAttachments()[i].title' type='text'>
+      </mat-input-container>
 
-      <md-input-container class='full-width-input'>
-        <input readonly mdInput placeholder='{{"field.label.attachment.url" | translate}}' [(ngModel)]='getAttachments()[i].url' type='text'>
-      </md-input-container>
+      <mat-input-container class='full-width-input'>
+        <input readonly matInput placeholder='{{"field.label.attachment.url" | translate}}' [(ngModel)]='getAttachments()[i].url' type='text'>
+      </mat-input-container>
 
-      <md-input-container class='half-width-input'>
-        <input readonly mdInput placeholder='{{"field.label.attachment.mimetype" | translate}}' [(ngModel)]='getAttachments()[i].mimetype' type='text'>
-      </md-input-container>
+      <mat-input-container class='half-width-input'>
+        <input readonly matInput placeholder='{{"field.label.attachment.mimetype" | translate}}' [(ngModel)]='getAttachments()[i].mimetype' type='text'>
+      </mat-input-container>
 
-      <md-input-container class='half-width-input'>
-        <input readonly mdInput placeholder='{{"field.label.attachment.size" | translate}}' [(ngModel)]='getAttachments()[i].size' type='text'>
-      </md-input-container>
+      <mat-input-container class='half-width-input'>
+        <input readonly matInput placeholder='{{"field.label.attachment.size" | translate}}' [(ngModel)]='getAttachments()[i].size' type='text'>
+      </mat-input-container>
 
-      <md-input-container class='full-width-input'>
-        <input mdInput placeholder='{{"field.label.attachment.description" | translate}}' [(ngModel)]='getAttachments()[i].description' type='text'>
-      </md-input-container>
-      <md-toolbar>
+      <mat-input-container class='full-width-input'>
+        <input matInput placeholder='{{"field.label.attachment.description" | translate}}' [(ngModel)]='getAttachments()[i].description' type='text'>
+      </mat-input-container>
+      <mat-toolbar>
       <span class='fill-remaining-space'></span>
-      <button (click)='moveAttachmentUp(i)'  md-raised-button color='primary' ><md-icon>arrow_upward</md-icon></button>
+      <button (click)='moveAttachmentUp(i)'  mat-raised-button color='primary' ><mat-icon>arrow_upward</mat-icon></button>
       <span class='toolbar-spacer'></span>
-      <button (click)='moveAttachmentDown(i)'  md-raised-button color='primary' ><md-icon>arrow_downward</md-icon></button>
+      <button (click)='moveAttachmentDown(i)'  mat-raised-button color='primary' ><mat-icon>arrow_downward</mat-icon></button>
       <span class='toolbar-spacer'></span>
-      <button (click)='deleteMedia(i)'  md-raised-button color='primary' ><md-icon>delete_forever</md-icon></button>
-      </md-toolbar>
-    </md-card>
+      <button (click)='deleteMedia(i)'  mat-raised-button color='primary' ><mat-icon>delete_forever</mat-icon></button>
+      </mat-toolbar>
+    </mat-card>
 
   </div>
   <!-- ngFor -->
@@ -65,4 +65,4 @@
 
 
   </div>
-</md-expansion-panel>
+</mat-expansion-panel>

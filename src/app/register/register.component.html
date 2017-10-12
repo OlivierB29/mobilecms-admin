@@ -3,23 +3,23 @@
   <form name='form' (ngSubmit)='f.form.valid && register()' #f='ngForm' novalidate class='loginform'>
     <div [ngClass]='{ "has-error": f.submitted && !email.valid }'>
 
-      <md-input-container class='loginform-input'>
-        <input type='text' mdInput placeholder='Username' name='name' [(ngModel)]='model.name' #name='ngModel' required />
-      </md-input-container>
+      <mat-input-container class='loginform-input'>
+        <input type='text' matInput placeholder='Username' name='name' [(ngModel)]='model.name' #name='ngModel' required />
+      </mat-input-container>
 
 
     </div>
 
     <div [ngClass]='{ "has-error": f.submitted && !email.valid }'>
-      <md-input-container class='loginform-input'>
-        <input type='text' mdInput placeholder='email' name='email' [(ngModel)]='model.email' #email='ngModel' required />
-      </md-input-container>
+      <mat-input-container class='loginform-input'>
+        <input type='text' matInput placeholder='email' name='email' [(ngModel)]='model.email' #email='ngModel' required />
+      </mat-input-container>
 
     </div>
     <div [ngClass]='{ "has-error": f.submitted && !password.valid }'>
-      <md-input-container class='loginform-input'>
-        <input type='password' mdInput placeholder='password' name='password' [(ngModel)]='model.password' #password='ngModel' required />
-      </md-input-container>
+      <mat-input-container class='loginform-input'>
+        <input type='password' matInput placeholder='password' name='password' [(ngModel)]='model.password' #password='ngModel' required />
+      </mat-input-container>
     </div>
 
 
@@ -28,8 +28,8 @@
 
 
     <div>
-      <button md-button [disabled]='loading'><md-icon>check_circle</md-icon></button>
-      <md-spinner *ngIf='loading' mode='indeterminate'></md-spinner>
+      <button mat-button [disabled]='loading'><mat-icon>check_circle</mat-icon></button>
+      <mat-spinner *ngIf='loading' mode='indeterminate'></mat-spinner>
 
     </div>
   </form>
