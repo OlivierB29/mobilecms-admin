@@ -93,9 +93,8 @@ export class MainPageComponent  implements OnInit, AfterViewInit {
         }
 
         this.home = new MenuItem();
-        this.home.icon = 'home';
         this.home.url = environment.website;
-        this.home.title = 'Site';
+        this.home.label = 'site.label';
       }
 
       ngAfterViewInit() {

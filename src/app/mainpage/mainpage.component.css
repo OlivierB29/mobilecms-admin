@@ -47,6 +47,7 @@ padding-top: 1em;
   .my-content {
     min-height: 50em;
     padding: 0 0.4em 0 0.4em;
+    margin-left: 4em;
   }
 
   .top-menu-spacer {

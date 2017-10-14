@@ -25,5 +25,7 @@ export class MenuItem {
 
   state = 'inactive';
 
+  label: string;
+
 
 }
