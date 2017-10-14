@@ -52,6 +52,8 @@ export class MainPageComponent  implements OnInit, AfterViewInit {
 
     private debug = false;
 
+    home: MenuItem;
+
     @ViewChild('sidenav') sidenav: MatSidenav;
 
 
@@ -64,7 +66,7 @@ export class MainPageComponent  implements OnInit, AfterViewInit {
          this.debug = environment.debug;
          if (this.debug) {
 
-           console.log('!!!!!!!!!!!!!!!!!!!!!!!! initialize ...');
+           console.log('initialize ...');
          }
     }
 
@@ -73,7 +75,7 @@ export class MainPageComponent  implements OnInit, AfterViewInit {
       ngOnInit() {
 
         if (this.debug) {
-          console.log('!!!!!!!!!!!!!!!!!!!!!!!!  ngOnInit ...');
+          console.log('ngOnInit ...');
         }
         this.lang = this.locale.getLang();
         this.initLayout();
@@ -90,6 +92,10 @@ export class MainPageComponent  implements OnInit, AfterViewInit {
           this.authenticationService.logout();
         }
 
+        this.home = new MenuItem();
+        this.home.icon = 'home';
+        this.home.url = environment.website;
+        this.home.title = 'Site';
       }
 
       ngAfterViewInit() {
@@ -109,7 +115,7 @@ export class MainPageComponent  implements OnInit, AfterViewInit {
 
                     let layoutDebugMsg = '';
                     if (this.debug) {
-                        layoutDebugMsg += ' default menuMode:' + this.menuMode + ' sidenav.opened:' + this.sidenav.opened;
+                        layoutDebugMsg += 'default menuMode:' + this.menuMode + 'sidenav.opened:' + this.sidenav.opened;
                     }
 
 
@@ -121,7 +127,7 @@ export class MainPageComponent  implements OnInit, AfterViewInit {
 
 
                     if (this.debug) {
-                        layoutDebugMsg += ' => init menuMode:' + this.menuMode + ' sidenav.opened:' + this.sidenav.opened;
+                        layoutDebugMsg += '=> init menuMode:' + this.menuMode + 'sidenav.opened:' + this.sidenav.opened;
                     }
 
                     if (this.debug) {
@@ -148,7 +154,7 @@ export class MainPageComponent  implements OnInit, AfterViewInit {
 
               this.hasAdminRole = this.currentUser.role === 'admin';
               if (this.debug) {
-                console.log('currentUser ...' + this.currentUser.role + ' ' + this.currentUser.role);
+                console.log('currentUser ...' + this.currentUser.role + '' + this.currentUser.role);
               }
 
               this.hasRole = this.currentUser.role === 'editor' || this.currentUser.role === 'admin';
@@ -177,7 +183,7 @@ export class MainPageComponent  implements OnInit, AfterViewInit {
             // About roles : this just a frontend features. Roles must be tested in the API.
             //
             if (this.debug) {
-              console.log('loadMenu ...' + this.currentUser.role + ' ' + this.hasAdminRole);
+              console.log('loadMenu ...' + this.currentUser.role + '' + this.hasAdminRole);
             }
             if (this.authenticationService.isAuthenticated() && this.hasRole) {
 

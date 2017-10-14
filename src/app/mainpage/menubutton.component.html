@@ -1,4 +1,11 @@
-<a [routerLink]='item.routerLink' routerLinkActive='active' mat-button color='primary'>
+
+<a *ngIf='item.routerLink' [routerLink]='item.routerLink' routerLinkActive='active' mat-button color='primary'>
+<i *ngIf='item.icon'  class='material-icons slidemenu-button-icon' [innerHTML]='item.icon' ></i>
+<span  class='adminslidemenu-button-text' [innerHTML]='item.title'></span>
+</a>
+
+
+<a *ngIf='item.url'  [href]='item.url' mat-button color='primary' target='_blank'>
 <i *ngIf='item.icon'  class='material-icons slidemenu-button-icon' [innerHTML]='item.icon' ></i>
 <span  class='adminslidemenu-button-text' [innerHTML]='item.title'></span>
 </a>

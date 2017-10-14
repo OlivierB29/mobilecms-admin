@@ -26,10 +26,6 @@ box-shadow: 5px 5px 10px 0 #656565;
 padding-top: 1em;
 }
 
-.slidemenu-hidden {
-  display: none;
-}
-
 .my-content-default {
   margin-left: 0;
   min-height: 50em;
@@ -57,7 +53,5 @@ padding-top: 1em;
    padding-right: 5em;
   }
 
-  .slidemenu {
-  padding-top: 5em;
-  }
+
 }
