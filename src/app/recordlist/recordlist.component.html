@@ -1,13 +1,34 @@
 <div>
   <mat-toolbar class='secondary-button-bar'>
-    <span class='fill-remaining-space'></span>
+<span class='fill-remaining-space'></span>
+
+  <span *ngIf='getLayout() === "mobile"'>
+  <button mat-raised-button color='primary' [matMenuTriggerFor]='menu'><mat-icon>more_horiz</mat-icon></button>
+  <mat-menu #menu="matMenu">
+    <span mat-menu-item matTooltip='{{ "record.list.create" | translate }}'>
+      <a color='primary' [routerLink]='["/record", type ,  "new"]'><mat-icon>add</mat-icon> {{ "record.list.create" | translate }}</a>
+    </span>
+
+    <button mat-menu-item color='primary' (click)='rebuildIndex()' matTooltip='{{"record.list.refresh" | translate }}'><mat-icon>refresh</mat-icon> {{'record.list.refresh' | translate }}</button>
+
+    <button mat-menu-item color='primary' (click)='openHelpDialog()' ><mat-icon alt='help'>help_outline</mat-icon> {{'record.list.help' | translate }}</button>
+
+
+  </mat-menu>
+  </span>
+
+  <span *ngIf='getLayout() === "desktop"'>
+
     <span matTooltip='{{ "record.list.create" | translate }}'>
       <a  mat-raised-button color='primary' [routerLink]='["/record", type ,  "new"]'><mat-icon>add</mat-icon> </a>
     </span>
     <span class='toolbar-spacer'></span>
-  <button mat-raised-button color='primary' (click)='rebuildIndex()' ><mat-icon>refresh</mat-icon></button>
+  <button mat-raised-button color='primary' (click)='rebuildIndex()'matTooltip='{{"record.list.refresh" | translate }}' ><mat-icon>refresh</mat-icon></button>
   <span class='toolbar-spacer'></span>
-  <button mat-raised-button color='primary' (click)='openHelpDialog()' ><mat-icon alt='help'>help_outline</mat-icon></button>
+  <button mat-raised-button color='primary' (click)='openHelpDialog()' matTooltip='{{"record.list.help" | translate }}'><mat-icon alt='help'>help_outline</mat-icon></button>
+
+  </span>
+
 </mat-toolbar>
 
 

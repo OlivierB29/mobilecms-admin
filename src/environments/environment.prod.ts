@@ -1,8 +1,9 @@
 export const environment = {
   production: true,
+  debug: false,
   server: '',
   website: '/#',
-  defaultlang: 'fr',
+  defaultlocale: 'fr',
   usemockbackend: false,
   api: '/cmsapi/v1',
   adminapi: '/adminapi/v1',

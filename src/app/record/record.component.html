@@ -1,4 +1,3 @@
-
 <mat-toolbar class='secondary-button-bar'>
   <!-- deprecated ?
   <span *ngIf='responsemessage && !responsemessage.error' class='success-label-message'>
@@ -6,100 +5,112 @@
   </span>
 -->
   <span *ngIf='isModified()' class='success-label-message'>
-    <mat-icon>warning</mat-icon> {{'record.edit.unsaved' | translate}}
+    <mat-icon >warning</mat-icon>{{"record.edit.unsaved" | translate}}
   </span>
   <span class='fill-remaining-space'></span>
-  <button   mat-raised-button color='primary'  *ngIf="f.form.valid && !loading" (click)="save()" matTooltip="{{'record.edit.save' | translate }}"><mat-icon>save</mat-icon></button>
 
-  <button   mat-raised-button color='primary'  *ngIf="!newrecord" (click)="preview()" matTooltip="{{'record.edit.preview' | translate }}"> <mat-icon>open_in_new</mat-icon></button>
-  <span class='toolbar-spacer'></span>
-  <button   mat-raised-button color='primary'  *ngIf="!newrecord" (click)="openConfirmDialog()" matTooltip="{{'record.edit.delete' | translate }}"> <mat-icon>delete</mat-icon></button>
-  <span class='toolbar-spacer'></span>
-  <button   mat-raised-button color='primary'  (click)='openHelpDialog()'matTooltip="{{'record.edit.help' | translate }}"><mat-icon alt='help'>help_outline</mat-icon></button>
+  <span *ngIf='getLayout() === "mobile"'>
+  <button mat-raised-button color='primary' [matMenuTriggerFor]='menu'><mat-icon>more_horiz</mat-icon></button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item *ngIf="f.form.valid && !loading" (click)="save()" matTooltip="{{'record.edit.save' | translate }}"><mat-icon>save</mat-icon> {{'record.edit.save' | translate }}</button>
+    <button mat-menu-item  *ngIf="!newrecord" (click)="preview()" matTooltip="{{'record.edit.preview' | translate }}"> <mat-icon>open_in_new</mat-icon> {{'record.edit.preview' | translate }}</button>
+    <button mat-menu-item  *ngIf="!newrecord" (click)="openConfirmDialog()" matTooltip="{{'record.edit.delete' | translate }}"> <mat-icon>delete</mat-icon> {{'record.edit.delete' | translate }}</button>
+    <button mat-menu-item  (click)='openHelpDialog()' matTooltip="{{'help.label' | translate }}"><mat-icon alt='help'>help_outline</mat-icon> {{'help.label' | translate }}</button>
+  </mat-menu>
+  </span>
+
+  <span *ngIf='getLayout() === "desktop"'>
+    <button  mat-raised-button color='primary'  *ngIf="f.form.valid && !loading" (click)="save()" matTooltip="{{'record.edit.save' | translate }}"><mat-icon>save</mat-icon></button>
+    <button   mat-raised-button color='primary'  *ngIf="!newrecord" (click)="preview()" matTooltip="{{'record.edit.preview' | translate }}"> <mat-icon>open_in_new</mat-icon></button>
+    <button   mat-raised-button color='primary'  *ngIf="!newrecord" (click)="openConfirmDialog()" matTooltip="{{'record.edit.delete' | translate }}"> <mat-icon>delete</mat-icon></button>
+    <button   mat-raised-button color='primary'  (click)='openHelpDialog()' matTooltip="{{'help.label' | translate }}"><mat-icon alt='help'>help_outline</mat-icon></button>
+  </span>
+
+
 </mat-toolbar>
 <form name='form' (ngSubmit)='f.form.valid' #f='ngForm' novalidate>
-<div class="container">
-  <div>
+  <div class="container">
+    <div>
 
-    <span *ngIf='responsemessage && responsemessage.error' class='error-label-message'>
+      <span *ngIf='responsemessage && responsemessage.error' class='error-label-message'>
       <mat-icon>cloud_off</mat-icon> {{responsemessage.error}}
     </span>
 
-    <div *ngIf="current">
+      <div *ngIf="current">
 
 
-      <div *ngFor="let property of properties">
+        <div *ngFor="let property of properties">
 
-        <!-- multiline text edit -->
+          <!-- multiline text edit -->
 
-        <mat-input-container *ngIf="property.editor === 'text'" class="full-width-textarea">
-          <textarea (blur)='autosave()' matInput placeholder="{{'field.label.' + property.name | translate }}" rows="10" cols="" [(ngModel)]="current[property.name]" name="{{property.name}}">{{current[property.name]}}</textarea>
-        </mat-input-container>
-
-
-        <!-- single line text edit -->
-        <div *ngIf="property.name === 'id'">
-          <mat-input-container class="full-width-input" *ngIf="property.editor === 'line'">
-            <input readonly matInput placeholder="{{'field.label.' + property.name | translate }}" [(ngModel)]="current[property.name]" name="{{property.name}}" type="text">
+          <mat-input-container *ngIf="property.editor === 'text'" class="full-width-textarea">
+            <textarea (blur)='autosave()' matInput placeholder="{{'field.label.' + property.name | translate }}" rows="10" cols="" [(ngModel)]="current[property.name]" name="{{property.name}}">{{current[property.name]}}</textarea>
           </mat-input-container>
+
+
+          <!-- single line text edit -->
+          <div *ngIf="property.name === 'id'">
+            <mat-input-container class="full-width-input" *ngIf="property.editor === 'line'">
+              <input readonly matInput placeholder="{{'field.label.' + property.name | translate }}" [(ngModel)]="current[property.name]" name="{{property.name}}" type="text">
+            </mat-input-container>
+          </div>
+          <div *ngIf="property.name === 'title'">
+            <mat-input-container class="full-width-input" *ngIf="property.editor === 'line'">
+              <input (blur)='autosave()' (keypress)="generateId()" (change)="generateId()" matInput placeholder="{{'field.label.' + property.name | translate }}" [(ngModel)]="current[property.name]" name="{{property.name}}" type="text" required>
+            </mat-input-container>
+          </div>
+
+          <div *ngIf="property.name !== 'id' && property.name !== 'title'">
+            <mat-input-container class="full-width-input" *ngIf="property.editor === 'line'">
+              <input (blur)='autosave()' matInput placeholder="{{'field.label.' + property.name | translate }}" [(ngModel)]="current[property.name]" name="{{property.name}}" type="text">
+            </mat-input-container>
+          </div>
+
+          <div *ngIf="property.editor === 'date'">
+            <mat-input-container *ngIf="property.editor === 'date'">
+              <input (blur)='autosave()' matInput placeholder="{{'field.label.' + property.name | translate }}" [(ngModel)]="current[property.name]" name="{{property.name}}" type="date" required>
+            </mat-input-container>
+          </div>
+
+          <!-- choice list -->
+          <div *ngIf="property.editor === 'choice'">
+            <mat-select placeholder="{{'field.label.' + property.name | translate }}" [(ngModel)]="current[property.name]" name="{{property.name}}">
+              <!-- list of choices from metadata -->
+              <mat-option *ngFor="let choice of property.choices" [value]="choice">{{ choice }}</mat-option>
+            </mat-select>
+
+          </div>
+
+          <div *ngIf="!newrecord && property.editor === 'medialist' && property.name === 'media'" class="list-container">
+            <app-editmedia [type]='type' [current]='current' [attachments]='current.media' [title]='"record.edit.media"'></app-editmedia>
+          </div>
+          <!-- list-container -->
+
+
+
+          <div *ngIf="property.editor === 'imagelist' && property.name === 'images'" class="list-container">
+            <app-editlinks [type]='type' [current]='current' [attachments]='current.images' [title]='"record.edit.images"' [adminrole]='isAdminRole()'></app-editlinks>
+          </div>
+
+          <div *ngIf="property.editor === 'attachmentlist' && property.name === 'attachments'" class="list-container">
+            <app-editlinks [type]='type' [current]='current' [attachments]='current.attachments' [title]='"record.edit.attachments"' [adminrole]='isAdminRole()'></app-editlinks>
+          </div>
+          <!-- attachments -->
+
+
+
         </div>
-        <div *ngIf="property.name === 'title'">
-          <mat-input-container class="full-width-input" *ngIf="property.editor === 'line'">
-            <input (blur)='autosave()' (keypress)="generateId()" (change)="generateId()" matInput placeholder="{{'field.label.' + property.name | translate }}" [(ngModel)]="current[property.name]" name="{{property.name}}" type="text" required>
-          </mat-input-container>
-        </div>
-
-        <div *ngIf="property.name !== 'id' && property.name !== 'title'">
-          <mat-input-container class="full-width-input" *ngIf="property.editor === 'line'">
-            <input (blur)='autosave()' matInput placeholder="{{'field.label.' + property.name | translate }}" [(ngModel)]="current[property.name]" name="{{property.name}}" type="text" >
-          </mat-input-container>
-        </div>
-
-        <div *ngIf="property.editor === 'date'">
-          <mat-input-container *ngIf="property.editor === 'date'">
-            <input (blur)='autosave()' matInput placeholder="{{'field.label.' + property.name | translate }}" [(ngModel)]="current[property.name]" name="{{property.name}}" type="date" required>
-          </mat-input-container>
-        </div>
-
-        <!-- choice list -->
-        <div *ngIf="property.editor === 'choice'">
-          <mat-select placeholder="{{'field.label.' + property.name | translate }}" [(ngModel)]="current[property.name]" name="{{property.name}}">
-            <!-- list of choices from metadata -->
-            <mat-option *ngFor="let choice of property.choices" [value]="choice">{{ choice }}</mat-option>
-          </mat-select>
-
-        </div>
-
-        <div *ngIf="!newrecord && property.editor === 'medialist' && property.name === 'media'" class="list-container">
-          <app-editmedia [type]='type' [current]='current' [attachments]='current.media' [title]='"record.edit.media"'></app-editmedia>
-        </div>
-        <!-- list-container -->
+        <!-- properties -->
 
 
 
-        <div *ngIf="property.editor === 'imagelist' && property.name === 'images'" class="list-container">
-          <app-editlinks [type]='type' [current]='current' [attachments]='current.images' [title]='"record.edit.images"' [adminrole]='isAdminRole()'></app-editlinks>
-        </div>
-
-        <div *ngIf="property.editor === 'attachmentlist' && property.name === 'attachments'" class="list-container">
-          <app-editlinks [type]='type' [current]='current' [attachments]='current.attachments' [title]='"record.edit.attachments"' [adminrole]='isAdminRole()'></app-editlinks>
-        </div>
-        <!-- attachments -->
 
 
 
       </div>
-      <!-- properties -->
-
-
-
-
+      <!-- current -->
 
 
     </div>
-    <!-- current -->
-
-
   </div>
-</div>
 </form>

@@ -9,6 +9,7 @@
     "sendpassworddialog.warning":"Forgotten password ?",
     "record.list.title": "List",
     "record.list.create": "Create a new record",
+    "record.list.refresh":"Rebuild index on server",
     "record.edit.title": "Edit",
     "record.edit.unsaved": "Unsaved record",
     "record.edit.back": "Back",
@@ -20,7 +21,6 @@
     "record.edit.attachments":"HTTP Links",
     "record.edit.media":"Files",
     "record.edit.media.subtitle":"Stored on server",
-    "record.edit.help":"Open help",
     "record.help.images":"Add images links",
     "record.help.attachments":"Add document link",
     "record.edit.attachments.subtitle":"External links (drive, ...)",
@@ -52,6 +52,7 @@
     "next.label": "Next",
     "validate.label": "Validate",
     "cancel.label": "Cancel",
+    "help.label": "Open help",
     "delete.label": "Delete"
 
 

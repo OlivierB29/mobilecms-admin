@@ -22,10 +22,10 @@
       <mat-icon >cloud_done</mat-icon>
     </div>
   </mat-action-row>
-  
+
 <div *ngFor='let attachment of attachments; let i=index' class='input-group'>
 
-  <mat-card>
+
     <mat-input-container class='full-width-input'>
       <input matInput placeholder='{{"field.label.attachment.title" | translate}}' [(ngModel)]='attachments[i].title' type='text'>
     </mat-input-container>
@@ -49,7 +49,7 @@
       <button *ngIf='adminrole' (click)='download(i)'  mat-raised-button color='primary' class='panel-button' ><mat-icon>backup</mat-icon></button>
 
     </mat-toolbar>
-  </mat-card>
+
 
 </div>
 

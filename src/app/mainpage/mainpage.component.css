@@ -36,7 +36,7 @@ padding-top: 1em;
 }
 
 .my-content {
-  min-height: 50em;
+  min-height: 20em;
   padding: 0;
 }
 
@@ -49,7 +49,8 @@ padding-top: 1em;
   }
 
   .my-content {
-    padding: 0 0.4em 0 4.8em;
+    min-height: 50em;
+    padding: 0 0.4em 0 0.4em;
   }
 
   .top-menu-spacer {

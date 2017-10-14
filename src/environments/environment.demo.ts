@@ -1,8 +1,9 @@
 export const environment = {
   production: true,
+  debug: true,
   server: '',
   website: 'https://olivierb29.github.io/mobilecms-demo/#',
-  defaultlang: 'en',
+  defaultlocale: 'fr',
   usemockbackend: true,
   api: '/cmsapi/v1',
   adminapi: '/adminapi/v1',

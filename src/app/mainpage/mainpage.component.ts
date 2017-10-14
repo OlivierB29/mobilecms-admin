@@ -1,8 +1,8 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { User, Label, RecordType } from 'app/_models/index';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { MdDialog } from '@angular/material';
+import { MatDialog, MatSidenav } from '@angular/material';
 
 
 import {  ContentService } from 'app/_services';
@@ -16,23 +16,15 @@ import { LoginService, LocaleService, AlertService } from 'app/shared';
   templateUrl: 'mainpage.component.html',
   styleUrls: ['mainpage.component.css', 'login.css']
 })
-export class MainPageComponent  implements OnInit {
+export class MainPageComponent  implements OnInit, AfterViewInit {
 
 
     currentUser: User;
 
-
     /*
-
     https://material.angular.io/components/component/sidenav
     */
     menuMode = 'side';
-
-    /*
-    opened
-    https://www.npmjs.com/package/@angular2-material/sidenav
-    */
-    menuOpened = true;
 
     mobileLayout = true;
 
@@ -59,13 +51,19 @@ export class MainPageComponent  implements OnInit {
 
     private debug = false;
 
+    @ViewChild('sidenav') sidenav: MatSidenav;
+
+
+
     constructor(protected contentService: ContentService,
        private authenticationService: LoginService,
        private locale: LocaleService, private alertService: AlertService,
-        public dialog: MdDialog,
+        public dialog: MatDialog,
        private router: Router, private route: ActivatedRoute) {
 
     }
+
+
 
       ngOnInit() {
         this.lang = this.locale.getLang();
@@ -82,7 +80,10 @@ export class MainPageComponent  implements OnInit {
 
       }
 
+      ngAfterViewInit() {
+        //   this.menuMode = 'over';
 
+      }
 
 
 
@@ -92,22 +93,30 @@ export class MainPageComponent  implements OnInit {
         this.initMenu();
       }
 
+      public isMobile() {
+          return this.mobileLayout;
+        }
+
+      public getMenuMode() {
+        const layout = this.getLayout();
+        switch (layout)  {
+       case 'desktop':
+          this.menuMode = 'side';
+         break;
+       default:
+          this.menuMode = 'over';
+
+       }
+
+
+       return this.menuMode;
+     }
 
           private initMenuLayout(): void {
             // const layout = this.conf.getLayout();
             const layout = this.getLayout();
 
             this.mobileLayout = layout !== 'desktop';
-
-             switch (layout)  {
-            case 'desktop':
-               this.menuMode = 'side';
-               this.menuOpened = true;
-              break;
-            default:
-               this.menuMode = 'over';
-               this.menuOpened = false;
-            }
 
           }
 
@@ -214,6 +223,16 @@ export class MainPageComponent  implements OnInit {
               }
             }
 
+            if (this.debug) {
+                console.log('menuMode:' + this.menuMode + ' sidenav.opened:' + this.sidenav.opened);
+            }
+            if (!this.isMobile()) {
+              this.sidenav.toggle();
+            }
+
+            if (this.debug) {
+              console.log('menuMode:' + this.menuMode + ' sidenav.opened:' + this.sidenav.opened);
+            }
 
       }
 

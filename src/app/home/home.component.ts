@@ -1,5 +1,5 @@
 ﻿import { Component } from '@angular/core';
-import { MdDialog } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { HomeHelpDialogComponent } from './homehelpdialog.component';
 
 
@@ -14,7 +14,7 @@ export class HomeComponent {
 
 
     constructor(
-       public dialog: MdDialog) {
+       public dialog: MatDialog) {
     }
 
     /**

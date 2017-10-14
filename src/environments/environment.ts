@@ -5,9 +5,10 @@
 
 export const environment = {
   production: false,
+  debug: true,
   server: 'http://localhost',
   website: 'http://localhost/#',
-  defaultlang: 'en',
+  defaultlocale: 'en',
   usemockbackend: false,
   api: '/cmsapi/v1',
   adminapi: '/adminapi/v1',

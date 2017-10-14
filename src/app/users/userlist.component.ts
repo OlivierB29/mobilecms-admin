@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { MdDialog } from '@angular/material';
+import { MatDialog } from '@angular/material';
 
 
 import { AdminService } from 'app/_services/index';
@@ -45,7 +45,7 @@ export class UserListComponent implements OnInit {
 
   constructor(private contentService: AdminService,
       locale: LocaleService, private route: ActivatedRoute,
-  private orderby: OrderbyPipe, public dialog: MdDialog) {
+  private orderby: OrderbyPipe, public dialog: MatDialog) {
 
  }
 

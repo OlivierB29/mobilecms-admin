@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { MdDialog } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { ErrorDialogComponent } from './errordialog.component';
 import { UploadService } from 'app/_services';
 
@@ -44,7 +44,7 @@ export class EditLinksComponent implements OnInit {
   loading = false;
 
 
-  constructor(protected uploadService: UploadService, public dialog: MdDialog) { }
+  constructor(protected uploadService: UploadService, public dialog: MatDialog) { }
 
   ngOnInit() {
     if (!this.type) {

@@ -1,11 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { MdDialog } from '@angular/material';
+import { MatDialog } from '@angular/material';
 
 import { RecordListHelpDialogComponent } from './recordlisthelpdialog.component';
 
 import { ContentService } from 'app/_services';
-import { AlertService, LocaleService } from 'app/shared';
+import { AlertService, LocaleService, WindowService } from 'app/shared';
 import { User } from 'app/_models/index';
 
 import { OrderbyPipe } from 'app/shared/filters';
@@ -46,8 +46,13 @@ export class RecordListComponent extends StandardComponent implements OnInit {
 
   constructor(private contentService: ContentService,
       locale: LocaleService, private route: ActivatedRoute,
-  private orderby: OrderbyPipe, public dialog: MdDialog) {
+      private windowService: WindowService, private orderby: OrderbyPipe,
+       public dialog: MatDialog) {
    super();
+ }
+
+ getLayout(): string {
+   return this.windowService.getLayout();
  }
 
   ngOnInit() {

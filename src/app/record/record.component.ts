@@ -1,13 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { MdDialog } from '@angular/material';
+import { MatDialog } from '@angular/material';
 
 import { TranslatePipe } from '@ngx-translate/core';
 
 import { User, Label, RecordType, Metadata } from 'app/_models';
 
 import { ContentService, UploadService, } from 'app/_services';
-import { StringUtils, LocaleService } from 'app/shared';
+import { StringUtils, LocaleService, WindowService } from 'app/shared';
 import { StandardComponent } from 'app/home';
 
 import { environment } from 'environments/environment';
@@ -116,7 +116,8 @@ export class RecordComponent extends StandardComponent implements OnInit, OnDest
   constructor(protected contentService: ContentService,
 
     locale: LocaleService,
-    private route: ActivatedRoute, private router: Router, public dialog: MdDialog,
+    private route: ActivatedRoute, private router: Router,
+    private windowService: WindowService, public dialog: MatDialog,
     private uploadService: UploadService, private stringUtils: StringUtils) {
     super();
   }
@@ -129,6 +130,10 @@ export class RecordComponent extends StandardComponent implements OnInit, OnDest
       this.timerSub.unsubscribe();
     }
 
+  }
+
+  getLayout(): string {
+    return this.windowService.getLayout();
   }
 
 

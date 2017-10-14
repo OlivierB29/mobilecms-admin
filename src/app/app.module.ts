@@ -50,11 +50,13 @@ import { AdminCmsSharedModule } from 'app/shared/shared.module';
 
 
 
+
 const providers: any[] = [
   AdminService,
   ContentService,
   UploadService,
   HttpClient,
+
 ];
 
 // use mock backend if env variable is set
@@ -105,7 +107,9 @@ if (environment.usemockbackend === true) {
 
     EditLinksComponent,
     EditMediaComponent,
-    ErrorDialogComponent
+    ErrorDialogComponent,
+
+    MenubuttonComponent,
   ],
   entryComponents: [
     HomeHelpDialogComponent,

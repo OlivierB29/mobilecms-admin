@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { MdDialog } from '@angular/material';
+import { MatDialog } from '@angular/material';
 
 import { TranslatePipe } from '@ngx-translate/core';
 
@@ -72,7 +72,7 @@ export class UserRecordComponent extends StandardComponent implements OnInit {
   constructor(private contentService: AdminService,
 
       locale: LocaleService,
-      private route: ActivatedRoute, private router: Router, public dialog: MdDialog,
+      private route: ActivatedRoute, private router: Router, public dialog: MatDialog,
     private uploadService: UploadService, private stringUtils: StringUtils) {
     super();
    }

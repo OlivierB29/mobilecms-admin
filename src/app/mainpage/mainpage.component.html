@@ -1,6 +1,5 @@
 <mat-toolbar color='primary' class='topmenucontent'>
-
-  <button *ngIf='isAuthenticated() && !menuOpened' mat-button (click)='sidenav.open()'><mat-icon>menu</mat-icon></button>
+  <button mat-button  *ngIf='isMobile() && isAuthenticated()' (click)='sidenav.toggle()'><mat-icon>menu</mat-icon></button>
 
   <button [routerLink]='["/home"]' mat-button class='top-menu-title'>Admin</button>
   <span class='fill-remaining-space'></span>
@@ -14,7 +13,7 @@
 
   <!-- slide menu -->
 
-  <mat-sidenav  #sidenav [mode]='menuMode' [opened]='menuOpened' [ngClass]="{ 'slidemenu': isConnected(), 'slidemenu-hidden': !isConnected() }">
+  <mat-sidenav  #sidenav [mode]='getMenuMode()' [opened]='false' [ngClass]="{ 'slidemenu': isConnected(), 'slidemenu-hidden': !isConnected() }">
     <nav *ngIf='isConnected()'>
       <!-- if condition is only at this level. The test on sidenav causes an issue, since the object may not exists -->
 
@@ -43,6 +42,9 @@
 
 
   <div [ngClass]="{ 'my-content': isConnected(), 'my-content-default': !isConnected() }">
+    <div (myEvent)="sidenav.open()">
+
+    </div>
     <app-alert-message></app-alert-message>
 
     <!-- content -->

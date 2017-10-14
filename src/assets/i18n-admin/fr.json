@@ -23,7 +23,6 @@
     "record.edit.attachments.subtitle":"Liens externes (drive, ...)",
     "record.edit.media":"Fichiers joints",
     "record.edit.media.subtitle":"Stockage sur le serveur",
-    "record.edit.help":"Aide",
     "record.help.images":"Liens externes vers des images",
     "record.help.attachments":"Liens externes vers des documents",
     "record.help.media":"Envoyer des documents ou des images sur le serveur",
@@ -54,5 +53,6 @@
     "next.label": "Suivant",
     "validate.label": "Valider",
     "cancel.label": "Abandonner",
+    "label.help":"Aide",
     "delete.label": "Supprimer"
 }

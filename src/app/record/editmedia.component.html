@@ -15,6 +15,8 @@
   <div>
     <mat-action-row>
       <input type='file' #file (change)='upload(file.files)' multiple='multiple' />
+    </mat-action-row>
+    <mat-action-row>
       <button  mat-raised-button color='primary' (click)='refresh()' ><mat-icon>autorenew</mat-icon></button>
 
       <mat-spinner *ngIf='isLoading()' mode='indeterminate'></mat-spinner>
@@ -29,7 +31,7 @@
   <div *ngFor='let item of getAttachments(); let i=index' class='input-group'>
 
 
-    <mat-card>
+
       <mat-input-container class='full-width-input'>
         <input matInput placeholder='{{"field.label.attachment.title" | translate}}' [(ngModel)]='getAttachments()[i].title' type='text'>
       </mat-input-container>
@@ -57,7 +59,7 @@
       <span class='toolbar-spacer'></span>
       <button (click)='deleteMedia(i)'  mat-raised-button color='primary' ><mat-icon>delete_forever</mat-icon></button>
       </mat-toolbar>
-    </mat-card>
+    
 
   </div>
   <!-- ngFor -->
