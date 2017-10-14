@@ -8,7 +8,7 @@ import { MatDialog, MatSidenav } from '@angular/material';
 import {  ContentService } from 'app/_services';
 import { MenuItem } from './menuitem';
 import { SendPasswordDialogComponent } from 'app/login';
-import { LoginService, LocaleService, AlertService } from 'app/shared';
+import { LoginService, LocaleService, AlertService, WindowService } from 'app/shared';
 
 @Component({
   moduleId: module.id,
@@ -26,7 +26,7 @@ export class MainPageComponent  implements OnInit, AfterViewInit {
     */
     menuMode = 'side';
 
-    mobileLayout = true;
+    // mobileLayout = false;
 
     hasRole = false;
 
@@ -58,19 +58,30 @@ export class MainPageComponent  implements OnInit, AfterViewInit {
     constructor(protected contentService: ContentService,
        private authenticationService: LoginService,
        private locale: LocaleService, private alertService: AlertService,
-        public dialog: MatDialog,
+       private windowService: WindowService,  public dialog: MatDialog,
        private router: Router, private route: ActivatedRoute) {
+         this.debug = true;
+         if (this.debug) {
 
+           console.log('!!!!!!!!!!!!!!!!!!!!!!!! initialize ...');
+         }
     }
 
 
 
       ngOnInit() {
-        this.lang = this.locale.getLang();
 
+        if (this.debug) {
+          console.log('!!!!!!!!!!!!!!!!!!!!!!!!  ngOnInit ...');
+        }
+        this.lang = this.locale.getLang();
+        this.initLayout();
         this.initUser();
         if (this.isConnected()) {
-          this.initUi();
+          if (this.debug) {
+          console.log('already connected ...');
+          }
+          this.loadMenu();
         } else {
           if (this.debug) {
           console.log('logout');
@@ -81,44 +92,42 @@ export class MainPageComponent  implements OnInit, AfterViewInit {
       }
 
       ngAfterViewInit() {
-        //   this.menuMode = 'over';
 
-      }
-
-
-
-      private initUi() {
-
-        this.initMenuLayout();
-        this.initMenu();
-      }
-
-      public isMobile() {
-          return this.mobileLayout;
-        }
-
-      public getMenuMode() {
-        const layout = this.getLayout();
-        switch (layout)  {
-       case 'desktop':
-          this.menuMode = 'side';
-         break;
-       default:
-          this.menuMode = 'over';
-
-       }
-
-
-       return this.menuMode;
-     }
-
-          private initMenuLayout(): void {
-            // const layout = this.conf.getLayout();
-            const layout = this.getLayout();
-
-            this.mobileLayout = layout !== 'desktop';
-
+        // tricky: if toggle() is called with init, it doesn't work
+        if (this.menuMode === 'side') {
+          if (this.debug) {
+              console.log('toggle menu ...');
           }
+
+          this.sidenav.toggle();
+        }
+      }
+
+
+      private initLayout() {
+
+                    let layoutDebugMsg = '';
+                    if (this.debug) {
+                        layoutDebugMsg += ' default menuMode:' + this.menuMode + ' sidenav.opened:' + this.sidenav.opened;
+                    }
+
+
+                    this.menuMode = 'side';
+                    if (this.windowService.isMobile()) {
+                        this.menuMode = 'over';
+                    }
+
+
+
+                    if (this.debug) {
+                        layoutDebugMsg += ' => init menuMode:' + this.menuMode + ' sidenav.opened:' + this.sidenav.opened;
+                    }
+
+                    if (this.debug) {
+                      console.log(layoutDebugMsg);
+                    }
+      }
+
 
           private initUser(): void {
 
@@ -156,7 +165,10 @@ export class MainPageComponent  implements OnInit, AfterViewInit {
 
           }
 
-          private initMenu() {
+          private loadMenu() {
+            if (this.debug) {
+              console.log('loadMenu ... ');
+            }
             this.menuItems = [];
 
             this.adminMenuItems = [];
@@ -164,7 +176,7 @@ export class MainPageComponent  implements OnInit, AfterViewInit {
             // About roles : this just a frontend features. Roles must be tested in the API.
             //
             if (this.debug) {
-              console.log('initMenu ...' + this.currentUser.role + ' ' + this.hasAdminRole);
+              console.log('loadMenu ...' + this.currentUser.role + ' ' + this.hasAdminRole);
             }
             if (this.authenticationService.isAuthenticated() && this.hasRole) {
 
@@ -202,19 +214,17 @@ export class MainPageComponent  implements OnInit, AfterViewInit {
                  }
 
                  if (this.debug) {
-                   console.log('menu complete :' + this.menuItems.length);
+                   console.log('loadMenu complete :' + this.menuItems.length);
                  }
                },
                error => {
-                 console.error('init menu failure');
+                 console.error('loadMenu menu failure');
                  this.currentUser = this.authenticationService.resetToken();
                  if (this.debug) {
-                   console.log('isConnected' + this.isConnected());
-                   console.log('isAuthenticated' + this.authenticationService.isAuthenticated());
-                   console.log('isUserExists' + this.isUserExists());
+                   console.log('loadMenu isConnected' + this.isConnected() );
                  }
                },
-             () => console.log('init menu success'));
+             () => console.log('loadMenu success'));
 
 
             } else {
@@ -223,30 +233,11 @@ export class MainPageComponent  implements OnInit, AfterViewInit {
               }
             }
 
-            if (this.debug) {
-                console.log('menuMode:' + this.menuMode + ' sidenav.opened:' + this.sidenav.opened);
-            }
-            if (!this.isMobile()) {
-              this.sidenav.toggle();
-            }
 
-            if (this.debug) {
-              console.log('menuMode:' + this.menuMode + ' sidenav.opened:' + this.sidenav.opened);
-            }
 
       }
 
-      getLayout(): string {
 
-        let layout = 'desktop';
-
-        if (window.matchMedia('(min-width: 55em)').matches) {
-          layout = 'desktop';
-        } else {
-          layout = 'mobile';
-        }
-        return layout;
-      }
 
       public isAuthenticated(): boolean {
         return this.authenticationService.isAuthenticated();
@@ -295,7 +286,7 @@ export class MainPageComponent  implements OnInit, AfterViewInit {
                       this.initUser();
                       if (this.authenticationService.isAuthenticated()) {
                         this.alertService.success('authenticated');
-                        this.initUi();
+                        this.loadMenu();
                       } else {
                         this.alertService.error('empty user');
                       }
