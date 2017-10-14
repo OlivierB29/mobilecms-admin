@@ -14,7 +14,7 @@
   <!-- slide menu -->
 
   <mat-sidenav  #sidenav [mode]='menuMode' [opened]='false' [ngClass]="{ 'slidemenu': isConnected(), 'slidemenu-hidden': !isConnected() }">
-    ZZZZ<nav *ngIf='isConnected()'>
+    <nav *ngIf='isConnected()'>
       <!-- if condition is only at this level. The test on sidenav causes an issue, since the object may not exists -->
 
       <div *ngIf='menuItems'>

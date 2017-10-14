@@ -9,6 +9,7 @@ import {  ContentService } from 'app/_services';
 import { MenuItem } from './menuitem';
 import { SendPasswordDialogComponent } from 'app/login';
 import { LoginService, LocaleService, AlertService, WindowService } from 'app/shared';
+import { environment } from 'environments/environment';
 
 @Component({
   moduleId: module.id,
@@ -60,7 +61,7 @@ export class MainPageComponent  implements OnInit, AfterViewInit {
        private locale: LocaleService, private alertService: AlertService,
        private windowService: WindowService,  public dialog: MatDialog,
        private router: Router, private route: ActivatedRoute) {
-         this.debug = true;
+         this.debug = environment.debug;
          if (this.debug) {
 
            console.log('!!!!!!!!!!!!!!!!!!!!!!!! initialize ...');
