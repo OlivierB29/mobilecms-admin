@@ -1,5 +1,5 @@
 
-import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { User, Label, RecordType } from 'app/_models/index';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MatDialog, MatSidenav } from '@angular/material';
@@ -62,7 +62,8 @@ export class MainPageComponent  implements OnInit, AfterViewInit {
        private authenticationService: LoginService,
        private locale: LocaleService, private alertService: AlertService,
        private windowService: WindowService,  public dialog: MatDialog,
-       private router: Router, private route: ActivatedRoute) {
+       private router: Router, private route: ActivatedRoute,
+       private cdr: ChangeDetectorRef) {
          this.debug = environment.debug;
          if (this.debug) {
 
@@ -98,7 +99,6 @@ export class MainPageComponent  implements OnInit, AfterViewInit {
       }
 
       ngAfterViewInit() {
-
         // tricky: if toggle() is called with init, it doesn't work
         if (this.menuMode === 'side') {
           if (this.debug) {
@@ -107,6 +107,7 @@ export class MainPageComponent  implements OnInit, AfterViewInit {
 
           this.sidenav.toggle();
         }
+        this.cdr.detectChanges();
       }
 
 

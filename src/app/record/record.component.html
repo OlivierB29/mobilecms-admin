@@ -39,13 +39,8 @@
       <div *ngIf="current">
 
 
-        <div *ngFor="let property of properties">
+        <div *ngFor="let property of properties" [ngSwitch]='property.editor'>
 
-          <!-- multiline text edit -->
-
-          <mat-input-container *ngIf="property.editor === 'text'" class="full-width-textarea">
-            <textarea (blur)='autosave()' matInput placeholder="{{'field.label.' + property.name | translate }}" rows="10" cols="" [(ngModel)]="current[property.name]" name="{{property.name}}">{{current[property.name]}}</textarea>
-          </mat-input-container>
 
 
           <!-- single line text edit -->
@@ -66,40 +61,51 @@
             </mat-input-container>
           </div>
 
-          <div *ngIf="property.editor === 'date'">
+          <div *ngSwitchCase='"date"' >
             <mat-input-container *ngIf="property.editor === 'date'">
               <input (blur)='autosave()' matInput placeholder="{{'field.label.' + property.name | translate }}" [(ngModel)]="current[property.name]" name="{{property.name}}" type="date" required>
             </mat-input-container>
           </div>
 
           <!-- choice list -->
-          <div *ngIf="property.editor === 'choice'">
-            <mat-select placeholder="{{'field.label.' + property.name | translate }}" [(ngModel)]="current[property.name]" name="{{property.name}}">
+          <div *ngSwitchCase='"choice"' class='my-mat-input-container'>
+            <!-- issue:  placeholder not working -->
+            <div class='my-mat-input-placeholder'>{{'field.label.' + property.name | translate }}</div>
+            <mat-select placeholder='{{"field.label." + property.name | translate }}' [(ngModel)]="current[property.name]" name="{{property.name}}" class='my-mat-input half-width-input'>
               <!-- list of choices from metadata -->
               <mat-option *ngFor="let choice of property.choices" [value]="choice">{{ choice }}</mat-option>
             </mat-select>
 
           </div>
 
-          <div *ngIf="!newrecord && property.editor === 'medialist' && property.name === 'media'" class="list-container">
-            <app-editmedia [type]='type' [current]='current' [attachments]='current.media' [title]='"record.edit.media"'></app-editmedia>
+          <div *ngSwitchCase='"medialist"' class="list-container">
+            <app-editmedia  *ngIf="!newrecord && property.name === 'media'" [type]='type' [current]='current' [attachments]='current.media' [title]='"record.edit.media"'></app-editmedia>
           </div>
           <!-- list-container -->
 
 
 
-          <div *ngIf="property.editor === 'imagelist' && property.name === 'images'" class="list-container">
-            <app-editlinks [type]='type' [current]='current' [attachments]='current.images' [title]='"record.edit.images"' [adminrole]='isAdminRole()'></app-editlinks>
+          <div *ngSwitchCase='"imagelist"' class="list-container">
+            <app-editlinks  *ngIf="property.name === 'images'" [type]='type' [current]='current' [attachments]='current.images' [title]='"record.edit.images"' [adminrole]='isAdminRole()'></app-editlinks>
           </div>
 
-          <div *ngIf="property.editor === 'attachmentlist' && property.name === 'attachments'" class="list-container">
-            <app-editlinks [type]='type' [current]='current' [attachments]='current.attachments' [title]='"record.edit.attachments"' [adminrole]='isAdminRole()'></app-editlinks>
+          <div *ngSwitchCase='"attachmentlist"'class="list-container">
+            <app-editlinks *ngIf="property.name === 'attachments'"  [type]='type' [current]='current' [attachments]='current.attachments' [title]='"record.edit.attachments"' [adminrole]='isAdminRole()'></app-editlinks>
           </div>
           <!-- attachments -->
 
+          <div *ngSwitchCase='"text"' class='my-mat-input-container'>
+            <!-- issue with mat-input-container : throw an ExpressionChangedAfterItHasBeenCheckedError -->
+            <span class='my-mat-input-placeholder'>{{'field.label.' + property.name | translate }}</span>
+            <div >
+            <textarea  matInput rows="10" cols="" [(ngModel)]="current[property.name]" name="{{property.name}}" class='my-mat-input'>{{current[property.name]}}</textarea>
+            </div>
 
+          </div>
 
         </div>
+
+
         <!-- properties -->
 
 

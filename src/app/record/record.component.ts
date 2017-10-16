@@ -413,4 +413,6 @@ export class RecordComponent extends StandardComponent implements OnInit, OnDest
   isModified() {
     return this.previous !== null && JSON.stringify(this.previous) !== JSON.stringify(this.current);
   }
+
+
 }

@@ -197,11 +197,7 @@ export function commonHttpFakeBackend(url: string, method: string, request: Http
 
  function auth(params: any): Observable<HttpEvent<any>>  {
 
-  //  console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!! auth 0 ' + bodyStr);
-  // const decoded = decodeURIComponent(bodyStr);
-  // console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!! auth 1');
-  // const params = JSON.parse(decoded);
-  // console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!! auth 2');
+
   if (params.user && params.password) {
     const user = JSON.parse('{}');
     user.username = params.user;

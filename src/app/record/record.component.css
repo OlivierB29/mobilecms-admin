@@ -4,8 +4,7 @@
 }
 
 .half-width-input {
-  width: 50%;
-
+  width: 15em;
 }
 
 
@@ -30,11 +29,31 @@ input:read-only {
 }
 
 .success-label-message {
-  font-size: 0.81em;
   color: #777777;
+  font-size: 0.81em;
 }
 
 .error-label-message {
-  font-size: 0.81em;
   color: red;
+  font-size: 0.81em;
+}
+
+
+/* Material like CSS
+cf html: issue with mat-input-container : throw an ExpressionChangedAfterItHasBeenCheckedError
+*/
+.my-mat-input-container {
+  padding-bottom: 0.4em;
+}
+
+.my-mat-input-placeholder {
+  color: #818181;
+  font-size: 0.8em;
+}
+
+.my-mat-input {
+  border-bottom: 0.09em solid #919191;
+}
+.my-mat-input:focus {
+  border-bottom: 0.1em solid #7800A1;
 }
