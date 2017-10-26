@@ -5,9 +5,9 @@
   <span *ngIf='getLayout() === "mobile"'>
   <button mat-raised-button color='primary' [matMenuTriggerFor]='menu'><mat-icon>more_horiz</mat-icon></button>
   <mat-menu #menu="matMenu">
-    <span mat-menu-item matTooltip='{{ "record.list.create" | translate }}'>
-      <a color='primary' [routerLink]='["/record", type ,  "new"]'><mat-icon>add</mat-icon> {{ "record.list.create" | translate }}</a>
-    </span>
+
+    <button mat-menu-item color='primary' [routerLink]='["/record", type ,  "new"]' ><mat-icon>add</mat-icon>{{ "record.list.create" | translate }} </button>
+
 
     <button mat-menu-item color='primary' (click)='rebuildIndex()' matTooltip='{{"record.list.refresh" | translate }}'><mat-icon>refresh</mat-icon> {{'record.list.refresh' | translate }}</button>
 
