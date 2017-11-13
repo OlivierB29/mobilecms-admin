@@ -16,7 +16,3 @@
 .input-group {
   padding-bottom: 0.2em;
 }
-
-input:read-only {
-    background-color: #ddd;
-}

@@ -143,4 +143,31 @@ export class EditMediaComponent extends EditLinksComponent implements OnInit {
       getResponseMessage(): any {
         return super.getResponseMessage();
       }
+
+      thumbnails(index: number) {
+        this.responsemessage = {};
+        const files  = [];
+
+        files.push(this.attachments[index]);
+        console.log('files '  + files);
+        this.loading = true;
+        this.uploadService.thumbnails(this.type, this.current.id, files)
+          .subscribe((mediadata: any) => {
+            console.log('result '  + JSON.stringify(mediadata));
+            mediadata.forEach((f: any) => {
+              console.log('adding ' + f.title);
+              this.current.media.push(f);
+            });
+          },
+          error => {
+            this.responsemessage.error = error;
+            console.error('post' + error);
+            this.loading = false;
+        },
+          () => {
+            console.log('sync complete');
+            this.loading = false;
+          });
+
+      }
 }

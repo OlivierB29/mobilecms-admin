@@ -26,7 +26,7 @@ Use any user-password combination on this version. API calls use a mocked API.
 
 ## Dev dependencies
 
-- NodeJS
+- NodeJS 6 ( TODO 8 ) 
 - [Angular CLI](https://cli.angular.io/)
 
 ## Development server

@@ -17,9 +17,7 @@
   padding-bottom: 0.2em;
 }
 
-input:read-only {
-    background-color: #ddd;
-}
+
 
 .container {
   padding: 0.2em;

@@ -144,6 +144,8 @@ moveAttachmentDown(index: number) {
 
     }
 
+
+
     openDialog(msg: string) {
       this.dialog.open(ErrorDialogComponent, {
          data: msg,

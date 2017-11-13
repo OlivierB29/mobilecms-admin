@@ -1,13 +1,13 @@
 
 <a *ngIf='item.routerLink' mat-raised-button [routerLink]='item.routerLink' routerLinkActive='active'  color='primary' class='menubutton'>
 <i *ngIf='item.icon'  class='material-icons slidemenu-button-icon' [innerHTML]='item.icon' ></i>
-<span *ngIf='item.label' class='adminslidemenu-button-text' [innerHTML]='item.label | translate'></span>
-<span *ngIf='item.title' class='adminslidemenu-button-text' [innerHTML]='item.title'></span>
+<span *ngIf='item.label'  [innerHTML]='item.label | translate'></span>
+<span *ngIf='item.title'  [innerHTML]='item.title'></span>
 </a>
 
 
-<a *ngIf='item.url' mat-button  [href]='item.url' color='primary' target='_blank' class='menubutton'>
+<a *ngIf='item.url' mat-raised-button  [href]='item.url' color='primary' target='_blank' class='menubutton'>
 <i *ngIf='item.icon'  class='material-icons slidemenu-button-icon' [innerHTML]='item.icon' ></i>
-<span *ngIf='item.label' class='adminslidemenu-button-text' [innerHTML]='item.label | translate'></span>
-<span *ngIf='item.title' class='adminslidemenu-button-text' [innerHTML]='item.title'></span>
+<span *ngIf='item.label'  [innerHTML]='item.label | translate'></span>
+<span *ngIf='item.title'  [innerHTML]='item.title'></span>
 </a>

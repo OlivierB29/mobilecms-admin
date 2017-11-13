@@ -322,13 +322,26 @@ export class RecordComponent extends StandardComponent implements OnInit, OnDest
   generateId() {
     if (this.newrecord) {
       // replace accents by US ASCII
-      let newId = this.stringUtils.removeDiacritics(this.current.title);
+      let newId = '';
+
+      if (this.current.date) {
+        newId += new Date(this.current.date).getFullYear().toString() + '_' ; // weird issue when using '-'
+      }
+
+      newId += this.stringUtils.removeDiacritics(this.current.title);
 
       // remove all remaining special characters
       newId = newId.replace(/[^\w\s]/gi, '');
 
       // replace space by '-'
       newId = newId.replace(/\s/g, '-');
+
+      newId = newId.replace('_', '-');
+
+      // too much space
+      while (newId.indexOf('--') > -1) {
+        newId = newId.replace('--', '-');
+      }
 
       this.current.id = newId;
     }

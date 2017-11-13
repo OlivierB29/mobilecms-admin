@@ -37,8 +37,7 @@ export class ContentService extends CommonClientService {
         console.log('getTables ' + url);
 
 
-        return this.http.get<any[]>(url, {headers: this.jwt()})
-;
+        return this.http.get<any[]>(url, {headers: this.jwt()});
     }
 
     /**
