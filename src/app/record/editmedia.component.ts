@@ -147,16 +147,19 @@ export class EditMediaComponent extends EditLinksComponent implements OnInit {
       thumbnails(index: number) {
         this.responsemessage = {};
         const files  = [];
+        // const file = JSON.parse('{"url":""}');
+        const file: any = {};
+        file.url = this.attachments[index].url;
+        files.push(file);
 
-        files.push(this.attachments[index]);
-        console.log('files '  + files);
         this.loading = true;
         this.uploadService.thumbnails(this.type, this.current.id, files)
           .subscribe((mediadata: any) => {
-            console.log('result '  + JSON.stringify(mediadata));
-            mediadata.forEach((f: any) => {
-              console.log('adding ' + f.title);
-              this.current.media.push(f);
+
+
+            mediadata.forEach((fileAndThumbnails: any) => {
+              this.attachments[index].thumbnails = fileAndThumbnails.thumbnails;
+              console.log('thumbnails ' + JSON.stringify(this.attachments[index]));
             });
           },
           error => {
@@ -165,7 +168,7 @@ export class EditMediaComponent extends EditLinksComponent implements OnInit {
             this.loading = false;
         },
           () => {
-            console.log('sync complete');
+            console.log('thumbnails complete');
             this.loading = false;
           });
 

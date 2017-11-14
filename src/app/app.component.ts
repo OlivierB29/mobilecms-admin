@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { TranslateService, TranslatePipe } from '@ngx-translate/core';
 import { environment } from '../environments/environment';
 
-import './rxjs-extensions';
 
 @Component({
   selector: 'app-root',

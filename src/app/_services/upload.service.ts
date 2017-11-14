@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
-import 'rxjs/add/operator/toPromise';
+
 
 import { User } from 'app/_models/index';
 
