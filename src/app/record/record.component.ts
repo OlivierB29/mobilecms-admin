@@ -250,11 +250,13 @@ export class RecordComponent extends StandardComponent implements OnInit, OnDest
     if (this.timerSub) {
       this.timerSub.unsubscribe();
     }
-    if (this.enableTimer) {
-      this.timer = Observable.timer(this.timerTickRate, this.timerTickRate);
-      // subscribing to a observable returns a subscription object
-      this.timerSub = this.timer.subscribe(t => this.tickerFunc(t));
-    }
+    
+    // issue : error TS2339: Property 'timer' does not exist on type 'typeof Observable'.
+    // if (this.enableTimer) {
+    //   this.timer = Observable.timer(this.timerTickRate, this.timerTickRate);
+    //   // subscribing to a observable returns a subscription object
+    //   this.timerSub = this.timer.subscribe(t => this.tickerFunc(t));
+    // }
 
 
   }

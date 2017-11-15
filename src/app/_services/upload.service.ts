@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/Rx';
 
 
 import { User } from 'app/_models/index';
@@ -10,6 +8,7 @@ import { environment } from 'environments/environment';
 import { CommonClientService } from 'app/shared';
 
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
 
 
 @Injectable()
@@ -32,10 +31,10 @@ export class UploadService extends CommonClientService {
         return this.http.get<any[]>(url, {headers: this.jwt()});
     }
 
-    public uploadFile(file: any, type: string, id: string): Observable<any[]> {
+    public uploadFile(file: any, type: string, id: string): Promise<any[]> {
       const url = this.getUrl('/basicupload/' + type + '/' + id);
 
-        return Observable.fromPromise(new Promise((resolve, reject) => {
+        return new Promise((resolve, reject) => {
             const formData: any = new FormData()
             const xhr = new XMLHttpRequest()
 
@@ -65,7 +64,7 @@ export class UploadService extends CommonClientService {
                 throw new Error('empty user');
             }
             xhr.send(formData);
-        }));
+        });
     }
 
     public sync(type: string, id: string, obj: any): Observable<any> {

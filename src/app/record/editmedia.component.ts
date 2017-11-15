@@ -49,7 +49,7 @@ export class EditMediaComponent extends EditLinksComponent implements OnInit {
             console.log('uploading  ' + JSON.stringify(files[i]));
             this.loading = true;
             this.uploadService.uploadFile(files[i], this.type, this.current.id)
-              .subscribe((mediadata: any) => {
+              .then((mediadata: any) => {
                 if (mediadata.error) {
                     this.openDialog('Upload failed : ' + mediadata.error);
                 } else {
@@ -63,16 +63,25 @@ export class EditMediaComponent extends EditLinksComponent implements OnInit {
 
                   });
                 }
+                this.loading = false;
               },
               error => {
                 this.loading = false;
                 this.responsemessage.error = error;
                 this.openDialog('Upload error : ' + error);
-            },
-              () => {
-                this.loading = false;
-            });
-
+              }
+            );
+/*
+,
+error => {
+  this.loading = false;
+  this.responsemessage.error = error;
+  this.openDialog('Upload error : ' + error);
+},
+() => {
+  this.loading = false;
+}
+*/
 
         }
       } else {
