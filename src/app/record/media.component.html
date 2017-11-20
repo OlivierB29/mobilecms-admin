@@ -1,0 +1,43 @@
+
+
+
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      <span>{{attachments[index].title}}</span>
+    </mat-panel-title>
+    <mat-panel-description>
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+
+      <mat-input-container class='full-width-input'>
+        <input matInput placeholder='{{"field.label.attachment.title" | translate}}' [(ngModel)]='getAttachments()[index].title' type='text'>
+      </mat-input-container>
+
+      <mat-input-container class='full-width-input'>
+        <input readonly matInput placeholder='{{"field.label.attachment.url" | translate}}' [(ngModel)]='getAttachments()[index].url' type='text'>
+      </mat-input-container>
+
+      <mat-input-container class='half-width-input'>
+        <input readonly matInput placeholder='{{"field.label.attachment.mimetype" | translate}}' [(ngModel)]='getAttachments()[index].mimetype' type='text'>
+      </mat-input-container>
+
+      <mat-input-container class='half-width-input'>
+        <input readonly matInput placeholder='{{"field.label.attachment.size" | translate}}' [(ngModel)]='getAttachments()[index].size' type='text'>
+      </mat-input-container>
+
+      <mat-input-container class='full-width-input'>
+        <input matInput placeholder='{{"field.label.attachment.description" | translate}}' [(ngModel)]='getAttachments()[index].description' type='text'>
+      </mat-input-container>
+      <mat-toolbar>
+      <span class='fill-remaining-space'></span>
+      <button (click)='moveAttachmentUp(index)'  mat-raised-button color='primary' ><mat-icon>arrow_upward</mat-icon></button>
+      <span class='toolbar-spacer'></span>
+      <button (click)='moveAttachmentDown(index)'  mat-raised-button color='primary' ><mat-icon>arrow_downward</mat-icon></button>
+      <span class='toolbar-spacer'></span>
+      <button (click)='deleteMedia(index)'  mat-raised-button color='primary' ><mat-icon>delete_forever</mat-icon></button>
+      <span class='toolbar-spacer'></span>
+      <button  (click)='thumbnails(index)'  mat-raised-button color='primary' class='panel-button' ><mat-icon>photo_size_select_small</mat-icon></button>
+
+      </mat-toolbar>
+  </mat-expansion-panel>

@@ -10,31 +10,7 @@ import { EditLinksComponent } from './editlinks.component'
 })
 export class EditMediaComponent extends EditLinksComponent implements OnInit {
 
-  deleteMedia(index: number) {
-    console.log('deleteMedia '  + index + '/' + this.attachments.length);
-    this.responsemessage = {};
-    const files  = [];
 
-    files.push(this.attachments[index]);
-    console.log('deleteMedia '  + JSON.stringify(files));
-    this.loading = true;
-    this.uploadService.delete(this.type, this.current.id, files)
-      .subscribe((mediadata: any) => {
-        console.log('result '  + JSON.stringify(mediadata));
-        if (index > -1) {
-          this.attachments.splice(index, 1);
-        }
-      },
-      error => {
-        this.responsemessage.error = error;
-        console.error('post' + error);
-        this.loading = false;
-    },
-      () => {
-        console.log('delete complete');
-        this.loading = false;
-      });
-  }
 
     upload(files: any) {
 
@@ -134,16 +110,6 @@ error => {
         return this.attachments;
       }
 
-      moveAttachmentUp(index: number) {
-        super.moveAttachmentUp(index);
-      }
-
-      /**
-      * move an attachment downward
-      */
-      moveAttachmentDown(index: number) {
-        super.moveAttachmentDown(index);
-      }
 
       isLoading(): boolean {
         return super.isLoading();
@@ -153,33 +119,4 @@ error => {
         return super.getResponseMessage();
       }
 
-      thumbnails(index: number) {
-        this.responsemessage = {};
-        const files  = [];
-        // const file = JSON.parse('{"url":""}');
-        const file: any = {};
-        file.url = this.attachments[index].url;
-        files.push(file);
-
-        this.loading = true;
-        this.uploadService.thumbnails(this.type, this.current.id, files)
-          .subscribe((mediadata: any) => {
-
-
-            mediadata.forEach((fileAndThumbnails: any) => {
-              this.attachments[index].thumbnails = fileAndThumbnails.thumbnails;
-              console.log('thumbnails ' + JSON.stringify(this.attachments[index]));
-            });
-          },
-          error => {
-            this.responsemessage.error = error;
-            console.error('post' + error);
-            this.loading = false;
-        },
-          () => {
-            console.log('thumbnails complete');
-            this.loading = false;
-          });
-
-      }
 }

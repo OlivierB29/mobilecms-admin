@@ -31,8 +31,12 @@ import { HomeComponent, HomeHelpDialogComponent } from './home';
 import { RegisterComponent } from 'app/register/index';
 import { RecordListComponent, RecordListHelpDialogComponent } from 'app/recordlist/index';
 import { UserListComponent, DeleteUserDialogComponent, UserRecordComponent } from 'app/users';
-import { RecordComponent, EditLinksComponent, EditMediaComponent,
-   ErrorDialogComponent, DeleteDialogComponent, RecordHelpDialogComponent } from 'app/record';
+import { RecordComponent,
+LinkComponent,
+  MediaComponent,
+  EditLinksComponent,
+  EditMediaComponent,
+  ErrorDialogComponent, DeleteDialogComponent, RecordHelpDialogComponent } from 'app/record';
 
 import { ModifyPasswordComponent , SendPasswordDialogComponent } from 'app/login';
 
@@ -104,7 +108,8 @@ if (environment.usemockbackend === true) {
     RecordHelpDialogComponent,
     DeleteDialogComponent,
     DeleteUserDialogComponent,
-
+    LinkComponent,
+    MediaComponent,
     EditLinksComponent,
     EditMediaComponent,
     ErrorDialogComponent,

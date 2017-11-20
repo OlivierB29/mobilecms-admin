@@ -1,0 +1,37 @@
+.full-width-input {
+  width: 100%;
+
+}
+
+.half-width-input {
+  width: 50%;
+
+}
+
+
+.full-width-textarea {
+  width: 100%;
+}
+
+.input-group {
+  padding-bottom: 0.2em;
+}
+
+
+
+.success-label-message {
+  font-size: 0.81em;
+  color: #777777;
+}
+
+.error-label-message {
+  font-size: 0.81em;
+  color: red;
+}
+
+/*
+* panel button on the left
+*/
+.panel-button {
+  justify-content: flex-end;
+}

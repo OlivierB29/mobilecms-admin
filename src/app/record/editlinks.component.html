@@ -24,32 +24,7 @@
   </mat-action-row>
 
 <div *ngFor='let attachment of attachments; let i=index' class='input-group'>
-
-
-    <mat-input-container class='full-width-input'>
-      <input matInput placeholder='{{"field.label.attachment.title" | translate}}' [(ngModel)]='attachments[i].title' type='text'>
-    </mat-input-container>
-
-    <mat-input-container class='full-width-input'>
-      <input matInput placeholder='{{"field.label.attachment.url" | translate}}' [(ngModel)]='attachments[i].url' type='text'>
-    </mat-input-container>
-
-    <mat-input-container class='full-width-input'>
-      <input matInput placeholder='{{"field.label.attachment.description" | translate}}' [(ngModel)]='attachments[i].description' type='text'>
-    </mat-input-container>
-    <mat-toolbar>
-      <span class='fill-remaining-space'></span>
-      <button (click)='moveAttachmentUp(i)'  mat-raised-button color='primary'  class='panel-button'><mat-icon>arrow_upward</mat-icon></button>
-      <span class='toolbar-spacer'></span>
-      <button (click)='moveAttachmentDown(i)'  mat-raised-button color='primary'  class='panel-button'><mat-icon>arrow_downward</mat-icon></button>
-      <span class='toolbar-spacer'></span>
-      <span class='toolbar-spacer'></span>
-      <button (click)='deleteAttachment(i)'  mat-raised-button color='primary'  class='panel-button'><mat-icon>delete_forever</mat-icon></button>
-      <span class='toolbar-spacer'></span>
-      <button *ngIf='adminrole' (click)='download(i)'  mat-raised-button color='primary' class='panel-button' ><mat-icon>backup</mat-icon></button>
-    </mat-toolbar>
-
-
+  <app-link [type]='type' [current]='current' [attachments]='attachments' [index]='i'></app-link>
 </div>
 
 

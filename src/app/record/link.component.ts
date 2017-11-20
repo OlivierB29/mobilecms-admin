@@ -5,11 +5,11 @@ import { UploadService } from 'app/_services';
 
 @Component({
   moduleId: module.id,
-  selector: 'app-editlinks',
-  templateUrl: 'editlinks.component.html',
-  styleUrls: ['editlinks.component.css']
+  selector: 'app-link',
+  templateUrl: 'link.component.html',
+  styleUrls: ['link.component.css']
 })
-export class EditLinksComponent implements OnInit {
+export class LinkComponent implements OnInit {
   /**
    * title
    */
@@ -30,6 +30,8 @@ export class EditLinksComponent implements OnInit {
   */
   @Input() attachments: any[];
 
+  @Input() index: number;
+
   @Input() protected adminrole = false;
 
 
@@ -43,12 +45,6 @@ export class EditLinksComponent implements OnInit {
 
   loading = false;
 
-
-
-    // getAttachments()
-    // upload
-    // refresh()
-    // getResponseMessage()
 
   constructor(protected uploadService: UploadService, public dialog: MatDialog) { }
 
@@ -64,6 +60,19 @@ export class EditLinksComponent implements OnInit {
     }
   }
 
+  // <!--
+  // attachments
+  // moveAttachmentUp
+  //
+  //
+  // moveAttachmentDown
+  // deleteAttachment
+  //
+  // download
+  //
+  // -->
+
+
   /**
   * add an attachment at the beginning
   */
@@ -71,6 +80,10 @@ export class EditLinksComponent implements OnInit {
 
   this.attachments.push(this.getDefaultAttachment());
   this.attachments = this.move(this.attachments, this.attachments.length - 1, 0);
+  }
+
+  addAttachmentBottom() {
+    this.attachments.push(this.getDefaultAttachment());
   }
 
 /**
@@ -88,16 +101,65 @@ export class EditLinksComponent implements OnInit {
     return array;
 }
 
-
-
-  addAttachmentBottom() {
-    this.attachments.push(this.getDefaultAttachment());
+/**
+* move an attachment upward
+*/
+moveAttachmentUp(index: number) {
+  if (index > -1 ) {
+    this.move(this.attachments, index, index - 1);
   }
+}
+
+/**
+* move an attachment downward
+*/
+moveAttachmentDown(index: number) {
+  const newPosition = index + 1;
+  if (index > -1 && newPosition < this.attachments.length) {
+    this.move(this.attachments, index, newPosition);
+  }
+}
+
+
 
   private getDefaultAttachment(): any {
     // TODO : create a attachment_metadata.json
     return JSON.parse('{"url":"", "title":""}');
   }
+
+  deleteAttachment(index: number) {
+    if (index > -1) {
+      this.attachments.splice(index, 1);
+    }
+  }
+
+
+    download(index: number) {
+      this.responsemessage = {};
+      const files  = [];
+
+      files.push(this.attachments[index]);
+      console.log('files '  + files);
+      this.loading = true;
+      this.uploadService.sync(this.type, this.current.id, files)
+        .subscribe((mediadata: any) => {
+          console.log('result '  + JSON.stringify(mediadata));
+          mediadata.forEach((f: any) => {
+            console.log('adding ' + f.title);
+            this.current.media.push(f);
+          });
+        },
+        error => {
+          this.responsemessage.error = error;
+          console.error('post' + error);
+          this.loading = false;
+      },
+        () => {
+          console.log('sync complete');
+          this.loading = false;
+        });
+
+    }
 
 
 
