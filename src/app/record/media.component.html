@@ -29,6 +29,9 @@
       <mat-input-container class='full-width-input'>
         <input matInput placeholder='{{"field.label.attachment.description" | translate}}' [(ngModel)]='getAttachments()[index].description' type='text'>
       </mat-input-container>
+      <div class='full-width-input'>
+        <span *ngFor='let item of getThumbnails(index)' >{{item.width}}px </span>
+      </div>
       <mat-toolbar>
       <span class='fill-remaining-space'></span>
       <button (click)='moveAttachmentUp(index)'  mat-raised-button color='primary' ><mat-icon>arrow_upward</mat-icon></button>

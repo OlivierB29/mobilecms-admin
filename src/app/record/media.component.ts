@@ -66,6 +66,11 @@ export class MediaComponent extends LinkComponent implements OnInit {
 
   }
 
+  getThumbnails(index: number) {
+    return this.attachments[index].thumbnails;
+
+  }
+
     private exists(array: any[], key: any, value: any): boolean {
         let result = false;
         if (array) {

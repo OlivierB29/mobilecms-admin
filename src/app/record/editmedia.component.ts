@@ -79,6 +79,44 @@ error => {
         return result;
     }
 
+    createThumbnails() {
+      this.responsemessage = {};
+      const files  = [];
+
+      this.attachments.forEach((attachment: any) => {
+        const file: any = {url: attachment.url};
+        files.push(file);
+      });
+
+      console.log('createThumbnails ' + JSON.stringify(files));
+
+      this.loading = true;
+      this.uploadService.thumbnails(this.type, this.current.id, files)
+        .subscribe((mediadata: any) => {
+
+
+          mediadata.forEach((fileAndThumbnails: any) => {
+            const attachment = this.getAttachmentByUrl(fileAndThumbnails.url);
+            if (attachment) {
+              console.log('createThumbnails ' + JSON.stringify(fileAndThumbnails));
+              attachment.thumbnails = fileAndThumbnails.thumbnails;
+            }  else {
+              console.warn('createThumbnails url not found ' + fileAndThumbnails.url);
+            }
+          });
+        },
+        error => {
+          this.responsemessage.error = error;
+          console.error('createThumbnails' + error);
+          this.loading = false;
+      },
+        () => {
+          console.log('createThumbnails complete');
+          this.loading = false;
+        });
+
+    }
+
       refresh() {
         this.uploadService.getFilesDescriptions(this.type, this.current.id)
           .subscribe((mediadata: any) => {
@@ -108,6 +146,12 @@ error => {
 
       getAttachments(): any[] {
         return this.attachments;
+      }
+
+      getAttachmentByUrl(url: string): any {
+
+        const matched = this.attachments.filter(u => {return u.url === url;});
+        return matched.length ? matched[0] : null;
       }
 
 
