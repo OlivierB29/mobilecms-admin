@@ -250,7 +250,7 @@ export class RecordComponent extends StandardComponent implements OnInit, OnDest
     if (this.timerSub) {
       this.timerSub.unsubscribe();
     }
-    
+
     // issue : error TS2339: Property 'timer' does not exist on type 'typeof Observable'.
     // if (this.enableTimer) {
     //   this.timer = Observable.timer(this.timerTickRate, this.timerTickRate);
@@ -407,10 +407,6 @@ export class RecordComponent extends StandardComponent implements OnInit, OnDest
     dialogRef.afterClosed().subscribe(result => { console.log('Dialog result'); });
   }
 
-  isAdminRole() {
-    return this.hasAdminRole;
-  }
-
 
   tickerFunc(t: number) {
 
@@ -428,6 +424,7 @@ export class RecordComponent extends StandardComponent implements OnInit, OnDest
   isModified() {
     return this.previous !== null && JSON.stringify(this.previous) !== JSON.stringify(this.current);
   }
+
 
 
 }

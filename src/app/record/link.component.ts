@@ -32,8 +32,6 @@ export class LinkComponent implements OnInit {
 
   @Input() index: number;
 
-  @Input() protected adminrole = false;
-
 
   /**
   * properties :

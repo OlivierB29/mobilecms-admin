@@ -30,7 +30,6 @@ export class EditLinksComponent implements OnInit {
   */
   @Input() attachments: any[];
 
-  @Input() protected adminrole = false;
 
 
   /**
@@ -114,6 +113,8 @@ export class EditLinksComponent implements OnInit {
     getResponseMessage(): string {
       return this.responsemessage;
     }
+
+
 
 
 }

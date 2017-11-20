@@ -86,11 +86,11 @@
 
 
           <div *ngSwitchCase='"imagelist"' class="list-container">
-            <app-editlinks  *ngIf="property.name === 'images'" [type]='type' [current]='current' [attachments]='current.images' [title]='"record.edit.images"' [adminrole]='isAdminRole()'></app-editlinks>
+            <app-editlinks  *ngIf="property.name === 'images'" [type]='type' [current]='current' [attachments]='current.images' [title]='"record.edit.images"' ></app-editlinks>
           </div>
 
           <div *ngSwitchCase='"attachmentlist"'class="list-container">
-            <app-editlinks *ngIf="property.name === 'attachments'"  [type]='type' [current]='current' [attachments]='current.attachments' [title]='"record.edit.attachments"' [adminrole]='isAdminRole()'></app-editlinks>
+            <app-editlinks *ngIf="property.name === 'attachments'"  [type]='type' [current]='current' [attachments]='current.attachments' [title]='"record.edit.attachments"' ></app-editlinks>
           </div>
           <!-- attachments -->
 

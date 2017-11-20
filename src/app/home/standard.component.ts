@@ -46,4 +46,8 @@ export class StandardComponent  implements OnInit  {
       }
 
 
+      public  isAdminRole(): boolean {
+          return this.hasAdminRole;
+        }
+
 }
