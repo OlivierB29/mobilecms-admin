@@ -43,6 +43,8 @@ export class LinkComponent implements OnInit {
 
   loading = false;
 
+  displayDetails = false;
+
 
   constructor(protected uploadService: UploadService, public dialog: MatDialog) { }
 
@@ -56,7 +58,12 @@ export class LinkComponent implements OnInit {
     if (!this.attachments) {
       console.error('empty attachments');
     }
+    if (!this.attachments[this.index].title) {
+      this.displayDetails = true;
+    }
   }
+
+
 
   // <!--
   // attachments
@@ -82,6 +89,10 @@ export class LinkComponent implements OnInit {
 
   addAttachmentBottom() {
     this.attachments.push(this.getDefaultAttachment());
+  }
+
+  toggleDisplayDetails() {
+    this.displayDetails = !this.displayDetails;
   }
 
 /**

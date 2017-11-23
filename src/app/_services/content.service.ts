@@ -58,9 +58,7 @@ export class ContentService extends CommonClientService {
      */
     public getIndex = (type: string): Observable<any> => {
       const url: string = this.getUrl('/index/' + type);
-      console.log(url);
-
-        console.log('getRecords ' + url);
+        console.log('getIndex ' + url);
 
 
         return this.http.get(url, {headers: this.jwt()});

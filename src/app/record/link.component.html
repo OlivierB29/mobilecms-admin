@@ -1,14 +1,15 @@
 
+<div class='link-card'>
 
-<mat-expansion-panel>
-  <mat-expansion-panel-header>
-    <mat-panel-title>
-      <span>{{attachments[index].title}}</span>
-    </mat-panel-title>
-    <mat-panel-description>
-    </mat-panel-description>
-  </mat-expansion-panel-header>
+        <button (click)='toggleDisplayDetails()' mat-button class='large-button'>
+          <span class='attachment-title'>{{attachments[index].title}}</span>
+          <mat-icon *ngIf='!displayDetails'>keyboard_arrow_down</mat-icon>
+          <mat-icon *ngIf='displayDetails'>keyboard_arrow_up</mat-icon>
+        </button>
 
+
+
+<div *ngIf='displayDetails'>
   <mat-input-container class='full-width-input'>
     <input matInput placeholder='{{"field.label.attachment.title" | translate}}' [(ngModel)]='attachments[index].title' type='text'>
   </mat-input-container>
@@ -20,7 +21,7 @@
   <mat-input-container class='full-width-input'>
     <input matInput placeholder='{{"field.label.attachment.description" | translate}}' [(ngModel)]='attachments[index].description' type='text'>
   </mat-input-container>
-  <mat-toolbar>
+  <mat-toolbar class='whitetoolbar'>
     <span class='fill-remaining-space'></span>
     <button (click)='moveAttachmentUp(index)'  mat-raised-button color='primary'  class='panel-button'><mat-icon>arrow_upward</mat-icon></button>
     <span class='toolbar-spacer'></span>
@@ -32,4 +33,6 @@
   </mat-toolbar>
 
 
-  </mat-expansion-panel>
+
+</div>
+</div>

@@ -38,8 +38,10 @@ export class EditMediaComponent extends EditLinksComponent implements OnInit {
                     }
 
                   });
+                  this.thumbnails(this.current.media.length - 1);
                 }
                 this.loading = false;
+
               },
               error => {
                 this.loading = false;
@@ -77,6 +79,36 @@ error => {
         }
 
         return result;
+    }
+
+    thumbnails(index: number) {
+      this.responsemessage = {};
+      const files  = [];
+      // const file = JSON.parse('{"url":""}');
+      const file: any = {};
+      file.url = this.attachments[index].url;
+      files.push(file);
+
+      this.loading = true;
+      this.uploadService.thumbnails(this.type, this.current.id, files)
+        .subscribe((mediadata: any) => {
+
+
+          mediadata.forEach((fileAndThumbnails: any) => {
+            this.attachments[index].thumbnails = fileAndThumbnails.thumbnails;
+            console.log('thumbnails ' + JSON.stringify(this.attachments[index]));
+          });
+        },
+        error => {
+          this.responsemessage.error = error;
+          console.error('thumbnails ' + error);
+          this.loading = false;
+      },
+        () => {
+          console.log('thumbnails complete');
+          this.loading = false;
+        });
+
     }
 
     createThumbnails() {

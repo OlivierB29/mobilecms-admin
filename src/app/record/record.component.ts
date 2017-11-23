@@ -6,7 +6,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 
 import { User, Label, RecordType, Metadata } from 'app/_models';
 
-import { ContentService, UploadService, } from 'app/_services';
+import { ContentService, UploadService } from 'app/_services';
 import { StringUtils, LocaleService, WindowService } from 'app/shared';
 import { StandardComponent } from 'app/home';
 
@@ -118,7 +118,8 @@ export class RecordComponent extends StandardComponent implements OnInit, OnDest
     locale: LocaleService,
     private route: ActivatedRoute, private router: Router,
     private windowService: WindowService, public dialog: MatDialog,
-    private uploadService: UploadService, private stringUtils: StringUtils) {
+    private uploadService: UploadService, 
+     private stringUtils: StringUtils) {
     super();
   }
 
@@ -260,6 +261,7 @@ export class RecordComponent extends StandardComponent implements OnInit, OnDest
 
 
   }
+
 
   isAutosaveReady() {
     // TODO : form valid ? (date, title attachments, ...)
