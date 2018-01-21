@@ -30,7 +30,10 @@ export class EditLinksComponent implements OnInit {
   */
   @Input() attachments: any[];
 
-
+  /**
+  * list of attachments
+  */
+  @Input() newrecord: boolean;
 
   /**
   * properties :

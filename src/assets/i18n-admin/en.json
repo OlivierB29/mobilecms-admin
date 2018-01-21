@@ -25,6 +25,7 @@
     "record.help.attachments":"Add document link",
     "record.edit.attachments.subtitle":"External links (drive, ...)",
     "record.help.media":"Upload files to the current record",
+    "record.help.media.newrecordwarning":"Please save record before upload",
     "deletedialog.title": "Delete",
     "recordlist.help.refresh": "Refresh record list if not found in index",
     "field.label.id":"id",

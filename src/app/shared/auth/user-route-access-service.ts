@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
-
+import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/map';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment';
 import { JwtClientService } from '../services';

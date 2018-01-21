@@ -79,7 +79,8 @@
           </div>
 
           <div *ngSwitchCase='"medialist"' class="list-container">
-            <app-editmedia  *ngIf="!newrecord && property.name === 'media'" [type]='type' [current]='current' [attachments]='current.media' [title]='"record.edit.media"'></app-editmedia>
+
+            <app-editmedia  *ngIf="property.name === 'media'" [newrecord]='newrecord' [type]='type' [current]='current' [attachments]='current.media' [title]='"record.edit.media"'></app-editmedia>
           </div>
           <!-- list-container -->
 

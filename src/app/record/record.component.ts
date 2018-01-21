@@ -57,7 +57,7 @@ export class RecordComponent extends StandardComponent implements OnInit, OnDest
   response: any = null;
 
   /**
-  * if new record, not saved on backend
+  * new record = not saved on backend
   */
   newrecord = false;
 
@@ -118,7 +118,7 @@ export class RecordComponent extends StandardComponent implements OnInit, OnDest
     locale: LocaleService,
     private route: ActivatedRoute, private router: Router,
     private windowService: WindowService, public dialog: MatDialog,
-    private uploadService: UploadService, 
+    private uploadService: UploadService,
      private stringUtils: StringUtils) {
     super();
   }
@@ -313,6 +313,10 @@ export class RecordComponent extends StandardComponent implements OnInit, OnDest
           this.router.navigate(['/record', this.type, this.current.id]);
         }
 
+        // record is now saved
+        if (this.newrecord) {
+          this.newrecord = false;
+        }
 
         console.log('post complete');
       });

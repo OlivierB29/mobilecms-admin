@@ -1,6 +1,7 @@
 ﻿import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
 import { User } from 'app/_models/index';
 
 import { HashUtils } from 'app/_helpers';

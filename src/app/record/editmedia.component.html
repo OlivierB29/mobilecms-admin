@@ -11,8 +11,8 @@
   </mat-expansion-panel-header>
 
 
-
-  <div>
+  <span *ngIf='newrecord'>{{'record.help.media.newrecordwarning' | translate }}</span>
+  <div *ngIf='!newrecord'>
     <mat-progress-bar *ngIf='isLoading()' mode="indeterminate"></mat-progress-bar>
     <mat-action-row>
       <input type='file' #file (change)='upload(file.files)' multiple='multiple' />

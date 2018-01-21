@@ -3,7 +3,7 @@ export const environment = {
   debug: true,
   server: '',
   website: 'https://olivierb29.github.io/mobilecms-demo/#',
-  defaultlocale: 'fr',
+  defaultlocale: 'en',
   usemockbackend: true,
   api: '/cmsapi/v1',
   adminapi: '/adminapi/v1',

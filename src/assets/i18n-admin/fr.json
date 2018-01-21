@@ -27,6 +27,7 @@
     "record.help.images":"Liens externes vers des images",
     "record.help.attachments":"Liens externes vers des documents",
     "record.help.media":"Envoyer des documents ou des images sur le serveur",
+    "record.help.media.newrecordwarning":"Enregistrer l'article permet l'envoi de fichiers",
     "recordlist.help.refresh": "Actualiser la liste des enregistrements",
     "deletedialog.title": "Supprimer",
     "field.label.id":"identifiant technique",
