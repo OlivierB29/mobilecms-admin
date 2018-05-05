@@ -57,22 +57,25 @@ const providers: any[] = [
   AdminService,
   ContentService,
   UploadService,
-  HttpClient,
-  {
-      provide: HTTP_INTERCEPTORS,
-      useClass: MockHttpInterceptor,
-      multi: true
-  }
+  HttpClient
+  // ,
+  // {
+  //     provide: HTTP_INTERCEPTORS,
+  //     useClass: MockHttpInterceptor,
+  //     multi: true
+  // }
 ];
-// use mock backend if env variable is set
-if (environment.usemockbackend === true) {
-    console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!! usemockbackend');
-    providers.push({
-        provide: HTTP_INTERCEPTORS,
-        useClass: MockHttpInterceptor,
-        multi: true
-    });
-}
+
+
+// broken since angular 6
+// if (environment.usemockbackend === true) {
+//     console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!! usemockbackend');
+//     providers.push({
+//         provide: HTTP_INTERCEPTORS,
+//         useClass: MockHttpInterceptor,
+//         multi: true
+//     });
+// }
 
 
 @NgModule({
