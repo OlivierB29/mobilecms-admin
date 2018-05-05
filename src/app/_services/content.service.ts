@@ -1,19 +1,20 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { User } from 'app/_models/index';
 import { Metadata } from 'app/_models';
 
 import { environment } from 'environments/environment';
 import { CommonClientService } from 'app/shared';
+import { Log } from '../shared';
 
 
 
 @Injectable()
 export class ContentService extends CommonClientService {
 
-
-    constructor(private http: HttpClient) {
+ 
+    constructor(private log: Log, private http: HttpClient) {
       super();
       this.init( environment.server, environment.api);
      }
@@ -34,7 +35,7 @@ export class ContentService extends CommonClientService {
     public getTables = (): Observable<any[]> => {
         const url: string = this.getUrl('/content');
 
-        console.log('getTables ' + url);
+        this.log.debug('getTables ' + url);
 
 
         return this.http.get<any[]>(url, {headers: this.jwt()});
@@ -47,7 +48,7 @@ export class ContentService extends CommonClientService {
     public getRecords = (type: string): Observable<any[]> => {
         const url: string = this.getUrl('/content/' + type);
 
-        console.log('getRecords ' + url);
+        this.log.debug('getRecords ' + url);
 
           return  this.http.get<any>(url, {headers: this.jwt()});
     }
@@ -58,7 +59,7 @@ export class ContentService extends CommonClientService {
      */
     public getIndex = (type: string): Observable<any> => {
       const url: string = this.getUrl('/index/' + type);
-        console.log('getIndex ' + url);
+        this.log.debug('getIndex ' + url);
 
 
         return this.http.get(url, {headers: this.jwt()});
@@ -72,7 +73,7 @@ export class ContentService extends CommonClientService {
      */
     public getRecord = (type: string, id: string): Observable<any> => {
         const url: string = this.getUrl('/content/' + type + '/' + id);
-        console.log(url);
+        this.log.debug(url);
 
         return this.http.get<any>(url, {headers: this.jwt()});
     }
@@ -84,7 +85,7 @@ export class ContentService extends CommonClientService {
 
         // eg : /content/calendar
         const url: string = this.getUrl('/content/' + type);
-        console.log(url);
+        this.log.debug(url);
 
 
          let postData: any;
@@ -108,7 +109,7 @@ export class ContentService extends CommonClientService {
 
         // eg : /content/calendar
         const url: string = this.getUrl('/content/' + type + '/' + id);
-        console.log(url);
+        this.log.debug(url);
 
 
         return this.http.delete<any>(url, {headers: this.jwt()});
@@ -122,7 +123,7 @@ export class ContentService extends CommonClientService {
 
         // eg : /content/calendar
         const url: string = this.getUrl('/content/' + type);
-        console.log(url);
+        this.log.debug(url);
 
         return this.http.put(url, obj, {headers: this.jwtPost()});
 
@@ -135,7 +136,7 @@ export class ContentService extends CommonClientService {
 
         // eg : /index/calendar
         const url: string = this.getUrl('/index/' + type);
-        console.log(url);
+        this.log.debug(url);
 
         const postData = 'requestbody={}';
 
@@ -148,9 +149,9 @@ export class ContentService extends CommonClientService {
     /**
      * Table metadata for record modification
      */
-    public getMetadata = (file: string): Observable<Metadata[]> => {
+    public getMetadata = (type: string): Observable<Metadata[]> => {
 
-         const url: string = this.getUrl('/file/?file=' + file);
+         const url: string = this.getUrl('/metadata/' + type);
 
         return this.http.get<Metadata[]>(url, {headers: this.jwt()});
     }
@@ -160,7 +161,7 @@ export class ContentService extends CommonClientService {
      */
     public getNewRecord = (file: string): Observable<any[]> => {
 
-        const url: string = this.getUrl('/file/?file=' + file);
+        const url: string = this.getUrl('/metadata/' + file);
         return this.http.get<Metadata[]>(url, {headers: this.jwt()});
     }
 

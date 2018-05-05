@@ -1,6 +1,7 @@
 <div>
   <mat-toolbar>
     <span matTooltip='{{ "record.list.create" | translate }}'><button mat-button [routerLink]='["/userrecord", "new"]'><mat-icon>add</mat-icon> </button></span>
+    <button mat-menu-item color='primary' (click)='rebuildIndex()' matTooltip='{{"record.list.refresh" | translate }}'><mat-icon>refresh</mat-icon> {{'record.list.refresh' | translate }}</button>
 
 </mat-toolbar>
 

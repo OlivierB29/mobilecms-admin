@@ -14,8 +14,8 @@ export class CommonClientService extends JwtClientService {
 
   protected postFormData = false;
 
-  private serverUrl: string;
-  private api: string;
+  private serverUrl = '';
+  private api = '';
 
   constructor() {
     super();

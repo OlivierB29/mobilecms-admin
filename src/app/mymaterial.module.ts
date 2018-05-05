@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import {
   MatSidenavModule, MatButtonModule, MatDialogModule, MatListModule,
   MatInputModule, MatSelectModule, MatIconModule, MatProgressSpinnerModule, MatProgressBarModule, MatCardModule,
-  MatTooltipModule, MatToolbarModule, MatExpansionModule, MatMenuModule
+  MatTooltipModule, MatToolbarModule, MatExpansionModule, MatMenuModule, MatFormFieldModule
 } from '@angular/material';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 // NoConflictStyleCompatibilityMode https://github.com/angular/material2/blob/master/CHANGELOG.md#deprecation-of-md-prefix
@@ -11,10 +11,10 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
   imports: [MatSidenavModule, MatButtonModule, MatDialogModule, MatListModule,
     MatInputModule, MatSelectModule, MatIconModule, MatProgressSpinnerModule, MatProgressBarModule, MatCardModule,
     MatTooltipModule, MatToolbarModule, MatExpansionModule, MatMenuModule,
-    MatButtonToggleModule],
+    MatButtonToggleModule, MatFormFieldModule],
   exports: [MatSidenavModule, MatButtonModule, MatDialogModule, MatListModule,
     MatInputModule, MatSelectModule, MatIconModule, MatProgressSpinnerModule, MatProgressBarModule, MatCardModule,
     MatTooltipModule, MatToolbarModule, MatExpansionModule, MatMenuModule,
-    MatButtonToggleModule],
+    MatButtonToggleModule, MatFormFieldModule],
 })
 export class MyMaterialModule { }

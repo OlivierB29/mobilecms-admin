@@ -45,30 +45,30 @@
 
           <!-- single line text edit -->
           <div *ngIf="property.name === 'id'">
-            <mat-input-container class="full-width-input" *ngIf="property.editor === 'line'">
+            <mat-form-field class="full-width-input" *ngIf="property.editor === 'line'">
               <input readonly matInput placeholder="{{'field.label.' + property.name | translate }}" [(ngModel)]="current[property.name]" name="{{property.name}}" type="text">
-            </mat-input-container>
+            </mat-form-field>
           </div>
           <div *ngIf="property.name === 'title'">
-            <mat-input-container class="full-width-input" *ngIf="property.editor === 'line'">
+            <mat-form-field class="full-width-input" *ngIf="property.editor === 'line'">
               <input (blur)='autosave()' (keypress)="generateId()" (change)="generateId()" matInput placeholder="{{'field.label.' + property.name | translate }}" [(ngModel)]="current[property.name]" name="{{property.name}}" type="text" required>
-            </mat-input-container>
+            </mat-form-field>
           </div>
 
           <div *ngIf="property.name !== 'id' && property.name !== 'title'">
-            <mat-input-container class="full-width-input" *ngIf="property.editor === 'line'">
+            <mat-form-field class="full-width-input" *ngIf="property.editor === 'line'">
               <input (blur)='autosave()' matInput placeholder="{{'field.label.' + property.name | translate }}" [(ngModel)]="current[property.name]" name="{{property.name}}" type="text">
-            </mat-input-container>
+            </mat-form-field>
           </div>
 
           <div *ngSwitchCase='"date"' >
-            <mat-input-container *ngIf="property.editor === 'date'">
+            <mat-form-field *ngIf="property.editor === 'date'">
               <input (blur)='autosave()' matInput placeholder="{{'field.label.' + property.name | translate }}" [(ngModel)]="current[property.name]" name="{{property.name}}" type="date" required>
-            </mat-input-container>
+            </mat-form-field>
           </div>
 
           <!-- choice list -->
-          <div *ngSwitchCase='"choice"' class='my-mat-input-container'>
+          <div *ngSwitchCase='"choice"' class='my-mat-form-field'>
             <!-- issue:  placeholder not working -->
             <div class='my-mat-input-placeholder'>{{'field.label.' + property.name | translate }}</div>
             <mat-select placeholder='{{"field.label." + property.name | translate }}' [(ngModel)]="current[property.name]" name="{{property.name}}" class='my-mat-input half-width-input'>
@@ -95,8 +95,8 @@
           </div>
           <!-- attachments -->
 
-          <div *ngSwitchCase='"text"' class='my-mat-input-container'>
-            <!-- issue with mat-input-container : throw an ExpressionChangedAfterItHasBeenCheckedError -->
+          <div *ngSwitchCase='"text"' class='my-mat-form-field'>
+            <!-- issue with mat-form-field : throw an ExpressionChangedAfterItHasBeenCheckedError -->
             <span class='my-mat-input-placeholder'>{{'field.label.' + property.name | translate }}</span>
             <div >
             <textarea  matInput rows="10" cols="" [(ngModel)]="current[property.name]" name="{{property.name}}" class='my-mat-input'>{{current[property.name]}}</textarea>

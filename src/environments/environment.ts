@@ -5,7 +5,7 @@
 
 export const environment = {
   production: false,
-  debug: true,
+  log: 'debug',
   server: 'http://localhost',
   website: 'http://localhost/#',
   defaultlocale: 'en',

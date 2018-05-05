@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  debug: true,
+  log: 'debug',
   server: '',
   website: 'https://olivierb29.github.io/mobilecms-demo/#',
   defaultlocale: 'en',

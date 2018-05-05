@@ -40,9 +40,9 @@ input:read-only {
 
 
 /* Material like CSS
-cf html: issue with mat-input-container : throw an ExpressionChangedAfterItHasBeenCheckedError
+cf html: issue with mat-form-field : throw an ExpressionChangedAfterItHasBeenCheckedError
 */
-.my-mat-input-container {
+.my-mat-form-field {
   padding-bottom: 0.4em;
 }
 

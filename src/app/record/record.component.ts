@@ -13,8 +13,9 @@ import { StandardComponent } from 'app/home';
 import { environment } from 'environments/environment';
 import { DeleteDialogComponent } from './deletedialog.component';
 import { RecordHelpDialogComponent } from './recordhelpdialog.component';
-import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import { Observable } from 'rxjs';
+import { Subscription } from 'rxjs';
+import { Log } from '../shared';
 
 @Component({
   moduleId: module.id,
@@ -48,7 +49,7 @@ export class RecordComponent extends StandardComponent implements OnInit, OnDest
   /**
    * object metadata
    */
-  properties: Metadata[];
+  properties: any[];
 
 
   /**
@@ -113,19 +114,20 @@ export class RecordComponent extends StandardComponent implements OnInit, OnDest
   */
   private autosaveDelay = 15000;
 
-  constructor(protected contentService: ContentService,
+  constructor(private logger: Log,
+    protected contentService: ContentService,
 
     locale: LocaleService,
     private route: ActivatedRoute, private router: Router,
     private windowService: WindowService, public dialog: MatDialog,
     private uploadService: UploadService,
      private stringUtils: StringUtils) {
-    super();
+    super(logger);
   }
 
 
   ngOnDestroy() {
-    console.log('Destroy timer');
+    this.log.debug('Destroy timer');
     // unsubscribe here
     if (this.timerSub) {
       this.timerSub.unsubscribe();
@@ -141,7 +143,7 @@ export class RecordComponent extends StandardComponent implements OnInit, OnDest
   ngOnInit() {
     this.loading = true;
     super.ngOnInit();
-    console.log('record.component');
+    this.log.debug('record.component');
 
     this.route.params.forEach((params: Params) => {
 
@@ -149,15 +151,15 @@ export class RecordComponent extends StandardComponent implements OnInit, OnDest
 
       this.id = params['id'];
 
-      console.log('edit:' + this.type + ' id:' + this.id);
+      this.log.debug('edit:' + this.type + ' id:' + this.id);
 
       if (this.type) {
         // read metadata of record
 
-        this.contentService.getMetadata(this.type + '/index/metadata.json')
+        this.contentService.getMetadata(this.type)
           .subscribe((data: any[]) => { this.properties = data; },
-          error => console.log('loadMetadata ' + error),
-          () => console.log('loadMetadata OK'));
+          error => this.log.debug('loadMetadata ' + error),
+          () => this.log.debug('loadMetadata OK ' + this.properties));
       }
 
       if (this.id && this.id !== 'new') {
@@ -180,7 +182,7 @@ export class RecordComponent extends StandardComponent implements OnInit, OnDest
 
 
               if (!this.current.media) {
-                console.log('init media ');
+                this.log.debug('init media ');
                 this.current.media = [];
               }
 
@@ -202,15 +204,15 @@ export class RecordComponent extends StandardComponent implements OnInit, OnDest
           },
           () => {
             this.loading = false;
-            console.log('get complete' + JSON.stringify(this.current));
+            this.log.debug('get complete' + JSON.stringify(this.current));
           });
       } else {
-        console.log('editcalendar-form empty id');
+        this.log.debug('editcalendar-form empty id');
         this.loading = true;
 
         this.newrecord = true;
 
-        this.contentService.getNewRecord(this.type + '/index/new.json')
+        this.contentService.getNewRecord(this.type)
           .subscribe((data: any) => {
             this.current = data;
 
@@ -230,11 +232,11 @@ export class RecordComponent extends StandardComponent implements OnInit, OnDest
           },
           error => {
             this.loading = false;
-            console.log('getNewRecord ' + error);
+            this.log.debug('getNewRecord ' + error);
           },
           () => {
             this.loading = false;
-            console.log('getNewRecord OK');
+            this.log.debug('getNewRecord OK');
           });
       }
 
@@ -276,6 +278,7 @@ export class RecordComponent extends StandardComponent implements OnInit, OnDest
   }
 
   save() {
+    const timestamp = new Date().getTime();
     this.loading = true;
     this.responsemessage = {};
     this.generateId();
@@ -293,7 +296,8 @@ export class RecordComponent extends StandardComponent implements OnInit, OnDest
       () => {
         this.loading = false;
         // calculate diff from PHP time https://stackoverflow.com/questions/13022524/javascript-time-to-php-time
-        const timestamp = Number.parseInt(this.response.timestamp) * 1000;
+        // const timestamp = Number.parseInt(this.response.timestamp) * 1000;
+
 
         // savedate
         this.lastSaveDate = new Date();
@@ -318,7 +322,7 @@ export class RecordComponent extends StandardComponent implements OnInit, OnDest
           this.newrecord = false;
         }
 
-        console.log('post complete');
+        this.log.debug('post complete');
       });
 
   }
@@ -374,7 +378,7 @@ export class RecordComponent extends StandardComponent implements OnInit, OnDest
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+      this.log.debug(`Dialog result: ${result}`);
 
       if (result) {
         this.delete();
@@ -398,7 +402,7 @@ export class RecordComponent extends StandardComponent implements OnInit, OnDest
         this.router.navigate(['/recordlist', this.type]);
 
 
-        console.log('delete complete');
+        this.log.debug('delete complete');
       });
 
   }
@@ -410,7 +414,7 @@ export class RecordComponent extends StandardComponent implements OnInit, OnDest
     const dialogRef = this.dialog.open(RecordHelpDialogComponent, {
       data: '',
     });
-    dialogRef.afterClosed().subscribe(result => { console.log('Dialog result'); });
+    dialogRef.afterClosed().subscribe(result => { this.log.debug('Dialog result'); });
   }
 
 

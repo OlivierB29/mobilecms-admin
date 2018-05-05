@@ -11,16 +11,16 @@ import { LinkComponent } from './link.component'
 export class MediaComponent extends LinkComponent implements OnInit {
 
   deleteMedia(index: number) {
-    console.log('deleteMedia '  + index + '/' + this.attachments.length);
+    this.log.debug('deleteMedia '  + index + '/' + this.attachments.length);
     this.responsemessage = {};
     const files  = [];
 
     files.push(this.attachments[index]);
-    console.log('deleteMedia '  + JSON.stringify(files));
+    this.log.debug('deleteMedia '  + JSON.stringify(files));
     this.loading = true;
     this.uploadService.delete(this.type, this.current.id, files)
       .subscribe((mediadata: any) => {
-        console.log('result '  + JSON.stringify(mediadata));
+        this.log.debug('result '  + JSON.stringify(mediadata));
         if (index > -1) {
           this.attachments.splice(index, 1);
         }
@@ -31,7 +31,7 @@ export class MediaComponent extends LinkComponent implements OnInit {
         this.loading = false;
     },
       () => {
-        console.log('delete complete');
+        this.log.debug('delete complete');
         this.loading = false;
       });
   }
@@ -51,7 +51,7 @@ export class MediaComponent extends LinkComponent implements OnInit {
 
         mediadata.forEach((fileAndThumbnails: any) => {
           this.attachments[index].thumbnails = fileAndThumbnails.thumbnails;
-          console.log('thumbnails ' + JSON.stringify(this.attachments[index]));
+          this.log.debug('thumbnails ' + JSON.stringify(this.attachments[index]));
         });
       },
       error => {
@@ -60,7 +60,7 @@ export class MediaComponent extends LinkComponent implements OnInit {
         this.loading = false;
     },
       () => {
-        console.log('thumbnails complete');
+        this.log.debug('thumbnails complete');
         this.loading = false;
       });
 
@@ -118,12 +118,12 @@ export class MediaComponent extends LinkComponent implements OnInit {
               if (mediadata.error) {
                   this.openDialog('refresh failed : ' + mediadata.error);
               } else {
-                console.log('upload result ' + JSON.stringify(mediadata));
+                this.log.debug('upload result ' + JSON.stringify(mediadata));
                 mediadata.forEach((f: any) => {
-                  console.log('-> ' + f.title);
+                  this.log.debug('-> ' + f.title);
                   const test = this.current.media.filter((e: any) => e.url === f.url);
                   if (test.length === 0) {
-                    console.log('adding ' + f.title);
+                    this.log.debug('adding ' + f.title);
                     this.current.media.push(f);
                   }
                 });

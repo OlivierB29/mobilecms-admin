@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { ErrorDialogComponent } from './errordialog.component';
 import { UploadService } from 'app/_services';
+import { Log } from 'app/shared';
 
 @Component({
   moduleId: module.id,
@@ -52,7 +53,7 @@ export class EditLinksComponent implements OnInit {
     // refresh()
     // getResponseMessage()
 
-  constructor(protected uploadService: UploadService, public dialog: MatDialog) { }
+  constructor(protected log: Log, protected uploadService: UploadService, public dialog: MatDialog) { }
 
   ngOnInit() {
     if (!this.type) {

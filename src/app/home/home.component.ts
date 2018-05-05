@@ -1,6 +1,7 @@
 ﻿import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { HomeHelpDialogComponent } from './homehelpdialog.component';
+import { Log } from '../shared';
 
 
 @Component({
@@ -12,8 +13,8 @@ import { HomeHelpDialogComponent } from './homehelpdialog.component';
 
 export class HomeComponent {
 
-
-    constructor(
+  
+    constructor(private log: Log,
        public dialog: MatDialog) {
     }
 
@@ -24,7 +25,7 @@ export class HomeComponent {
       const dialogRef = this.dialog.open(HomeHelpDialogComponent, {
          data: '',
       });
-      dialogRef.afterClosed().subscribe(result => { console.log('Dialog result'); });
+      dialogRef.afterClosed().subscribe(result => { this.log.debug('Dialog result'); });
     }
 
 }

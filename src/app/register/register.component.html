@@ -3,23 +3,23 @@
   <form name='form' (ngSubmit)='f.form.valid && register()' #f='ngForm' novalidate class='loginform'>
     <div [ngClass]='{ "has-error": f.submitted && !email.valid }'>
 
-      <mat-input-container class='loginform-input'>
+      <mat-form-field class='loginform-input'>
         <input type='text' matInput placeholder='Username' name='name' [(ngModel)]='model.name' #name='ngModel' required />
-      </mat-input-container>
+      </mat-form-field>
 
 
     </div>
 
     <div [ngClass]='{ "has-error": f.submitted && !email.valid }'>
-      <mat-input-container class='loginform-input'>
+      <mat-form-field class='loginform-input'>
         <input type='text' matInput placeholder='email' name='email' [(ngModel)]='model.email' #email='ngModel' required />
-      </mat-input-container>
+      </mat-form-field>
 
     </div>
     <div [ngClass]='{ "has-error": f.submitted && !password.valid }'>
-      <mat-input-container class='loginform-input'>
+      <mat-form-field class='loginform-input'>
         <input type='password' matInput placeholder='password' name='password' [(ngModel)]='model.password' #password='ngModel' required />
-      </mat-input-container>
+      </mat-form-field>
     </div>
 
 

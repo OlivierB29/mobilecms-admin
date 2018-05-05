@@ -2,7 +2,7 @@
 
 <mat-expansion-panel>
   <mat-expansion-panel-header>
-    <mat-panel-title>
+    <mat-panel-title *ngIf='getAttachments()'>
       {{'record.edit.media' | translate}} : {{getAttachments().length}}
     </mat-panel-title>
     <mat-panel-description>

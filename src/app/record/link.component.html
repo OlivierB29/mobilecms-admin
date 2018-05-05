@@ -10,17 +10,17 @@
 
 
 <div *ngIf='displayDetails'>
-  <mat-input-container class='full-width-input'>
+  <mat-form-field class='full-width-input'>
     <input matInput placeholder='{{"field.label.attachment.title" | translate}}' [(ngModel)]='attachments[index].title' type='text'>
-  </mat-input-container>
+  </mat-form-field>
 
-  <mat-input-container class='full-width-input'>
+  <mat-form-field class='full-width-input'>
     <input matInput placeholder='{{"field.label.attachment.url" | translate}}' [(ngModel)]='attachments[index].url' type='text'>
-  </mat-input-container>
+  </mat-form-field>
 
-  <mat-input-container class='full-width-input'>
+  <mat-form-field class='full-width-input'>
     <input matInput placeholder='{{"field.label.attachment.description" | translate}}' [(ngModel)]='attachments[index].description' type='text'>
-  </mat-input-container>
+  </mat-form-field>
   <mat-toolbar class='whitetoolbar'>
     <span class='fill-remaining-space'></span>
     <button (click)='moveAttachmentUp(index)'  mat-raised-button color='primary'  class='panel-button'><mat-icon>arrow_upward</mat-icon></button>

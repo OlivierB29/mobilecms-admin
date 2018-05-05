@@ -11,6 +11,7 @@ import { User } from 'app/_models/index';
 import { OrderbyPipe } from 'app/shared/filters';
 
 import { StandardComponent } from 'app/home';
+import { Log } from '../shared';
 
 @Component({
   moduleId: module.id,
@@ -32,10 +33,10 @@ export class RecordListComponent extends StandardComponent implements OnInit {
   /**
    * current type : news, calendar, ...
    */
-  type = '';
+  type = 'calendar';
 
 
-  @Input() recordtype: string;
+  @Input() recordtype = 'calendar';
 
   /**
    * response on rebuild
@@ -44,11 +45,14 @@ export class RecordListComponent extends StandardComponent implements OnInit {
 
 
 
-  constructor(private contentService: ContentService,
+  constructor(
+    private logger: Log,
+    private contentService: ContentService,
       locale: LocaleService, private route: ActivatedRoute,
       private windowService: WindowService, private orderby: OrderbyPipe,
        public dialog: MatDialog) {
-   super();
+   super(logger);
+   this.log.debug("RecordListComponent")
  }
 
  getLayout(): string {
@@ -57,7 +61,7 @@ export class RecordListComponent extends StandardComponent implements OnInit {
 
   ngOnInit() {
     super.ngOnInit();
-    console.log('RecordListComponent ');
+    this.log.debug('RecordListComponent ');
 
 
     this.route.params.forEach((params: Params) => {
@@ -75,9 +79,9 @@ export class RecordListComponent extends StandardComponent implements OnInit {
 
         this.contentService.getIndex(this.type)
           .subscribe((data: any[]) => this.items = data,
-          error => console.log('getItems ' + error),
+          error => this.log.debug('getItems ' + error),
           () => {
-            console.log('getItems complete ' + this.type + ' ' + this.items.length);
+            this.log.debug('getItems complete ' + this.type + ' ' + this.items.length);
 
             // TODO generic sort by metadata
             if (this.items.length > 0 && this.items[0].date) {
@@ -101,7 +105,7 @@ export class RecordListComponent extends StandardComponent implements OnInit {
     this.contentService.rebuildIndex(this.type)
       .subscribe((data: any) => this.response = JSON.stringify(data),
       error => console.error('post' + error),
-      () => { console.log('post complete'); });
+      () => { this.log.debug('post complete'); });
 
   }
 
@@ -112,7 +116,7 @@ export class RecordListComponent extends StandardComponent implements OnInit {
     const dialogRef = this.dialog.open(RecordListHelpDialogComponent, {
        data: '',
     });
-    dialogRef.afterClosed().subscribe(result => { console.log('Dialog result'); });
+    dialogRef.afterClosed().subscribe(result => { this.log.debug('Dialog result'); });
   }
 
 }

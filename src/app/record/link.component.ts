@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { ErrorDialogComponent } from './errordialog.component';
 import { UploadService } from 'app/_services';
+import { Log } from 'app/shared';
 
 @Component({
   moduleId: module.id,
@@ -46,7 +47,7 @@ export class LinkComponent implements OnInit {
   displayDetails = false;
 
 
-  constructor(protected uploadService: UploadService, public dialog: MatDialog) { }
+  constructor(protected log: Log, protected uploadService: UploadService, public dialog: MatDialog) { }
 
   ngOnInit() {
     if (!this.type) {
@@ -148,13 +149,13 @@ moveAttachmentDown(index: number) {
       const files  = [];
 
       files.push(this.attachments[index]);
-      console.log('files '  + files);
+      this.log.debug('files '  + files);
       this.loading = true;
       this.uploadService.sync(this.type, this.current.id, files)
         .subscribe((mediadata: any) => {
-          console.log('result '  + JSON.stringify(mediadata));
+          this.log.debug('result '  + JSON.stringify(mediadata));
           mediadata.forEach((f: any) => {
-            console.log('adding ' + f.title);
+            this.log.debug('adding ' + f.title);
             this.current.media.push(f);
           });
         },
@@ -164,7 +165,7 @@ moveAttachmentDown(index: number) {
           this.loading = false;
       },
         () => {
-          console.log('sync complete');
+          this.log.debug('sync complete');
           this.loading = false;
         });
 

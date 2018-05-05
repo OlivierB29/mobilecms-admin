@@ -16,24 +16,24 @@ export class EditMediaComponent extends EditLinksComponent implements OnInit {
 
       this.responsemessage = {};
       if (files) {
-        console.log('files ' + files.length);
-        console.log(files);
+        this.log.debug('files ' + files.length);
+        this.log.debug(files);
 
 
 
         for (let i = 0; i < files.length; i++) {
-            console.log('uploading  ' + JSON.stringify(files[i]));
+            this.log.debug('uploading  ' + JSON.stringify(files[i]));
             this.loading = true;
             this.uploadService.uploadFile(files[i], this.type, this.current.id)
               .then((mediadata: any) => {
                 if (mediadata.error) {
                     this.openDialog('Upload failed : ' + mediadata.error);
                 } else {
-                  console.log('upload result ' + JSON.stringify(mediadata));
+                  this.log.debug('upload result ' + JSON.stringify(mediadata));
                   mediadata.forEach((f: any) => {
-                    console.log('--- current  ' + f.url);
+                    this.log.debug('--- current  ' + f.url);
                     if (!this.exists(this.current.media, 'url', f.url)) {
-                      console.log('adding ' + f.title);
+                      this.log.debug('adding ' + f.title);
                       this.current.media.push(f);
                     }
 
@@ -96,7 +96,7 @@ error => {
 
           mediadata.forEach((fileAndThumbnails: any) => {
             this.attachments[index].thumbnails = fileAndThumbnails.thumbnails;
-            console.log('thumbnails ' + JSON.stringify(this.attachments[index]));
+            this.log.debug('thumbnails ' + JSON.stringify(this.attachments[index]));
           });
         },
         error => {
@@ -105,7 +105,7 @@ error => {
           this.loading = false;
       },
         () => {
-          console.log('thumbnails complete');
+          this.log.debug('thumbnails complete');
           this.loading = false;
         });
 
@@ -120,7 +120,7 @@ error => {
         files.push(file);
       });
 
-      console.log('createThumbnails ' + JSON.stringify(files));
+      this.log.debug('createThumbnails ' + JSON.stringify(files));
 
       this.loading = true;
       this.uploadService.thumbnails(this.type, this.current.id, files)
@@ -130,7 +130,7 @@ error => {
           mediadata.forEach((fileAndThumbnails: any) => {
             const attachment = this.getAttachmentByUrl(fileAndThumbnails.url);
             if (attachment) {
-              console.log('createThumbnails ' + JSON.stringify(fileAndThumbnails));
+              this.log.debug('createThumbnails ' + JSON.stringify(fileAndThumbnails));
               attachment.thumbnails = fileAndThumbnails.thumbnails;
             }  else {
               console.warn('createThumbnails url not found ' + fileAndThumbnails.url);
@@ -143,7 +143,7 @@ error => {
           this.loading = false;
       },
         () => {
-          console.log('createThumbnails complete');
+          this.log.debug('createThumbnails complete');
           this.loading = false;
         });
 
@@ -155,12 +155,12 @@ error => {
             if (mediadata.error) {
                 this.openDialog('refresh failed : ' + mediadata.error);
             } else {
-              console.log('upload result ' + JSON.stringify(mediadata));
+              this.log.debug('upload result ' + JSON.stringify(mediadata));
               mediadata.forEach((f: any) => {
-                console.log('-> ' + f.title);
+                this.log.debug('-> ' + f.title);
                 const test = this.current.media.filter((e: any) => e.url === f.url);
                 if (test.length === 0) {
-                  console.log('adding ' + f.title);
+                  this.log.debug('adding ' + f.title);
                   this.current.media.push(f);
                 }
               });

@@ -4,12 +4,13 @@ import { MatDialog } from '@angular/material';
 
 
 import { AdminService } from 'app/_services/index';
-import { LocaleService } from 'app/shared';
+import { LocaleService, Log } from 'app/shared';
 import { User } from 'app/_models/index';
 
 import { OrderbyPipe } from 'app/shared/filters';
 
 import { StandardComponent } from 'app/home';
+
 
 @Component({
   moduleId: module.id,
@@ -43,31 +44,25 @@ export class UserListComponent implements OnInit {
 
 
 
-  constructor(private contentService: AdminService,
-      locale: LocaleService, private route: ActivatedRoute,
-  private orderby: OrderbyPipe, public dialog: MatDialog) {
+  constructor(private log: Log, private contentService: AdminService,
+    locale: LocaleService, private route: ActivatedRoute,
+    private orderby: OrderbyPipe, public dialog: MatDialog) {
 
- }
+  }
 
   ngOnInit() {
-    console.log('RecordListComponent ');
+    this.log.debug('RecordListComponent ');
 
 
 
-        this.contentService.getIndex(this.type)
-          .subscribe((data: any[]) => this.items = data,
-          error => console.log('getItems ' + error),
-          () => {
-            console.log('getItems complete ' + this.type + ' ' + this.items.length);
+    this.contentService.getIndex(this.type)
+      .subscribe((data: any[]) => this.items = data,
+        error => this.log.debug('getItems ' + error),
+        () => {
+          this.log.debug('getItems complete ' + this.type + ' ' + this.items.length);
 
 
-          });
-
-
-
-
-
-
+        });
 
   }
 
@@ -75,8 +70,8 @@ export class UserListComponent implements OnInit {
   rebuildIndex() {
     this.contentService.rebuildIndex(this.type)
       .subscribe((data: any) => this.response = JSON.stringify(data),
-      error => console.error('post' + error),
-      () => { console.log('post complete'); });
+        error => console.error('post' + error),
+        () => { this.log.debug('post complete'); });
 
   }
 

@@ -8,25 +8,25 @@
         </button>
 
 <div *ngIf='displayDetails'>
-      <mat-input-container class='full-width-input'>
+      <mat-form-field class='full-width-input'>
         <input matInput placeholder='{{"field.label.attachment.title" | translate}}' [(ngModel)]='getAttachments()[index].title' type='text'>
-      </mat-input-container>
+      </mat-form-field>
 
-      <mat-input-container class='full-width-input'>
+      <mat-form-field class='full-width-input'>
         <input readonly matInput placeholder='{{"field.label.attachment.url" | translate}}' [(ngModel)]='getAttachments()[index].url' type='text'>
-      </mat-input-container>
+      </mat-form-field>
 
-      <mat-input-container class='half-width-input'>
+      <mat-form-field class='half-width-input'>
         <input readonly matInput placeholder='{{"field.label.attachment.mimetype" | translate}}' [(ngModel)]='getAttachments()[index].mimetype' type='text'>
-      </mat-input-container>
+      </mat-form-field>
 
-      <mat-input-container class='half-width-input'>
+      <mat-form-field class='half-width-input'>
         <input readonly matInput placeholder='{{"field.label.attachment.size" | translate}}' [(ngModel)]='getAttachments()[index].size' type='text'>
-      </mat-input-container>
+      </mat-form-field>
 
-      <mat-input-container class='full-width-input'>
+      <mat-form-field class='full-width-input'>
         <input matInput placeholder='{{"field.label.attachment.description" | translate}}' [(ngModel)]='getAttachments()[index].description' type='text'>
-      </mat-input-container>
+      </mat-form-field>
       <div class='full-width-input'>
         <span *ngFor='let item of getThumbnails(index)' >{{item.width}}px </span>
       </div>

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 
 
@@ -10,6 +10,7 @@ import { User } from 'app/_models/index';
 import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { environment } from 'environments/environment';
+import { Log } from '../services';
 
 
 /*
@@ -29,14 +30,14 @@ export class LoginService {
   private api = environment.authapi;
 
 
-  constructor(private http: HttpClient) { }
+  constructor(private log: Log, private http: HttpClient) { }
 
   private getHeaders() {
     return new HttpHeaders ({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
   }
 
   login(user: string, password: string, mode: string) {
-    console.log('login...');
+    this.log.debug('login...');
 
     localStorage.removeItem('currentUser');
 

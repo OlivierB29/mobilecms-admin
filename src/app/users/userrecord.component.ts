@@ -7,11 +7,12 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { User, Label, RecordType, Metadata } from 'app/_models';
 
 import { AdminService, UploadService } from 'app/_services';
-import { LocaleService, StringUtils } from 'app/shared';
+import { LocaleService, StringUtils, Log } from 'app/shared';
 import { StandardComponent } from 'app/home';
 
 
 import { DeleteUserDialogComponent } from './deleteuserdialog.component';
+
 
 @Component({
   moduleId: module.id,
@@ -69,31 +70,33 @@ export class UserRecordComponent extends StandardComponent implements OnInit {
   responsemessage: any;
 
 
-  constructor(private contentService: AdminService,
+  constructor(
+    protected logger: Log,
+    private contentService: AdminService,
 
       locale: LocaleService,
       private route: ActivatedRoute, private router: Router, public dialog: MatDialog,
     private uploadService: UploadService, private stringUtils: StringUtils) {
-    super();
+    super(logger);
    }
 
   ngOnInit() {
     super.ngOnInit();
-    console.log('record.component');
+    this.log.debug('record.component');
 
     this.route.params.forEach((params: Params) => {
 
       this.id = params['id'];
 
-      console.log('edit:' + this.type + ' id:' + this.id);
+      this.log.debug('edit:' + this.type + ' id:' + this.id);
 
       if (this.type) {
         // read metadata of record
 
-        this.contentService.getMetadata(this.type + '/index/metadata.json')
+        this.contentService.getMetadata(this.type)
           .subscribe((data: any[]) => { this.properties = data; },
-          error => console.log('loadMetadata ' + error),
-          () => console.log('loadMetadata OK'));
+          error => this.log.debug('loadMetadata ' + error),
+          () => this.log.debug('loadMetadata OK'));
       }
 
       if (this.id && this.id !== 'new') {
@@ -109,20 +112,20 @@ export class UserRecordComponent extends StandardComponent implements OnInit {
           },
           error => console.error('get' + error),
           () => {
-            console.log('get complete' + JSON.stringify(this.current));
+            this.log.debug('get complete' + JSON.stringify(this.current));
           });
       } else {
-        console.log('editcalendar-form empty id');
+        this.log.debug('editcalendar-form empty id');
 
         this.newrecord = true;
 
-        this.contentService.getNewRecord(this.type + '/index/new.json')
+        this.contentService.getNewRecord(this.type)
           .subscribe((data: any) => {
             this.current = data;
 
           },
-          error => console.log('getNewRecord ' + error),
-          () => console.log('getNewRecord OK'));
+          error => this.log.debug('getNewRecord ' + error),
+          () => this.log.debug('getNewRecord OK'));
       }
 
 
@@ -134,7 +137,7 @@ export class UserRecordComponent extends StandardComponent implements OnInit {
 
 
     save() {
-
+      const timestamp = new Date().getTime();
       this.responsemessage = {};
 
       if (this.newrecord) {
@@ -148,7 +151,7 @@ export class UserRecordComponent extends StandardComponent implements OnInit {
       },
         () => {
           // calculate diff from PHP time https://stackoverflow.com/questions/13022524/javascript-time-to-php-time
-          const timestamp = Number.parseInt(this.response.timestamp) * 1000;
+          // const timestamp = Number.parseInt(this.response.timestamp) * 1000;
 
           // savedate
           const savedate = new Date();
@@ -170,11 +173,10 @@ export class UserRecordComponent extends StandardComponent implements OnInit {
           }
 
 
-          console.log('post complete');
+          this.log.debug('post complete');
         });
 
       } else {
-
               this.contentService.updateUser(this.type, this.current)
                 .subscribe((data: any) => {
                   this.response = data;
@@ -185,7 +187,7 @@ export class UserRecordComponent extends StandardComponent implements OnInit {
               },
                 () => {
                   // calculate diff from PHP time https://stackoverflow.com/questions/13022524/javascript-time-to-php-time
-                  const timestamp = Number.parseInt(this.response.timestamp) * 1000;
+                  // const timestamp = Number.parseInt(this.response.timestamp) * 1000;
 
                   // savedate
                   const savedate = new Date();
@@ -206,7 +208,7 @@ export class UserRecordComponent extends StandardComponent implements OnInit {
                   }
 
 
-                  console.log('post complete');
+                  this.log.debug('post complete');
                 });
 
       }
@@ -229,7 +231,7 @@ export class UserRecordComponent extends StandardComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-  console.log(`Dialog result: ${result}`);
+  this.log.debug(`Dialog result: ${result}`);
 
   if (result) {
     this.delete();
@@ -253,7 +255,7 @@ export class UserRecordComponent extends StandardComponent implements OnInit {
           this.router.navigate(['/userlist']);
 
 
-          console.log('delete complete');
+          this.log.debug('delete complete');
         });
 
     }
@@ -262,10 +264,18 @@ export class UserRecordComponent extends StandardComponent implements OnInit {
     * help
     */
     openHelpDialog() {
-      console.log('openHelpDialog');
+      this.log.debug('openHelpDialog');
     }
 
     isAdminRole() {
       return this.hasAdminRole;
+    }
+
+    rebuildIndex() {
+      this.contentService.rebuildIndex(this.type)
+        .subscribe((data: any) => this.response = JSON.stringify(data),
+        error => console.error('post' + error),
+        () => { this.log.debug('post complete'); });
+
     }
 }

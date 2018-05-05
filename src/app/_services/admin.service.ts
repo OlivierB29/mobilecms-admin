@@ -1,7 +1,7 @@
 ﻿import { Injectable } from '@angular/core';
 
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
+import { Observable, of } from 'rxjs';
+
 import { User } from 'app/_models/index';
 
 import { HashUtils } from 'app/_helpers';
@@ -10,6 +10,7 @@ import { environment } from 'environments/environment';
 import { CommonClientService } from 'app/shared';
 
 import { HttpClient } from '@angular/common/http';
+import { Log } from '../shared';
 /*
 * Credits :
 * based on http://jasonwatmore.com/post/2016/09/29/angular-2-user-registration-and-login-example-tutorial
@@ -17,7 +18,7 @@ import { HttpClient } from '@angular/common/http';
 @Injectable()
 export class AdminService extends CommonClientService {
 
-  constructor(private http: HttpClient) {
+  constructor(private log: Log, private http: HttpClient) {
     super();
     this.init(environment.server, environment.adminapi);
   }
@@ -26,7 +27,7 @@ export class AdminService extends CommonClientService {
   public getIndex = (type: string): Observable<any[]> => {
 
     const url: string = this.getUrl('/index/' + type);
-    console.log('admin getIndex ' + url);
+    this.log.debug('admin getIndex ' + url);
 
     return this.http.get<any[]>(url, {headers: this.jwt()});
   }
@@ -39,7 +40,7 @@ export class AdminService extends CommonClientService {
 
     // eg : /index/calendar
     const url: string = this.getUrl('/index/' + type);
-    console.log('admin rebuildIndex ' + url);
+    this.log.debug('admin rebuildIndex ' + url);
 
     const postData = 'requestbody={}';
 
@@ -51,27 +52,29 @@ export class AdminService extends CommonClientService {
 
 
 
-
   /**
    * Table metadata for record modification
    */
-  public getMetadata = (file: string): Observable<Metadata[]> => {
-    let userMetadata: Metadata[] = null;
-    if (file === 'users/index/metadata.json') {
+  public getMetadata = (type: string): Observable<Metadata[]> => {
 
-      userMetadata = JSON.parse('\
-      [\
-  	{"name" : "email" , "primary" : "true", "type" : "string",  "editor":"line"},\
-    {"name" : "name" , "primary" : "false", "type" : "string",  "editor":"line"},\
-    {"name" : "role" , "primary" : "false", "type" : "text",  "editor":"choice", "choices" : ["guest", "editor", "admin"]},\
-    {"name" : "password" , "primary" : "true", "type" : "password",  "editor":"line"},\
-    {"name" : "status" , "primary" : "false", "type" : "text",  "editor":"choice", "choices" : ["active", "inactive", "changepassword"]}\
-      ]\
-      ');
-
+    if (type === 'users/index/metadata.json') {
+      let userMetadata: Metadata[] = null;
+        userMetadata = JSON.parse('\
+        [\
+    	{"name" : "email" , "primary" : "true", "type" : "string",  "editor":"line"},\
+      {"name" : "name" , "primary" : "false", "type" : "string",  "editor":"line"},\
+      {"name" : "role" , "primary" : "false", "type" : "text",  "editor":"choice", "choices" : ["guest", "editor", "admin"]},\
+      {"name" : "password" , "primary" : "true", "type" : "password",  "editor":"line"},\
+      {"name" : "status" , "primary" : "false", "type" : "text",  "editor":"choice", "choices" : ["active", "inactive", "changepassword"]}\
+        ]\
+        ');
+      return of(userMetadata);
+    } else {
+      const url: string = this.getUrl('/metadata/' + type);
+      return this.http.get<Metadata[]>(url, {headers: this.jwt()});
     }
 
-    return Observable.of(userMetadata);
+
 
   }
 
@@ -186,7 +189,7 @@ export class AdminService extends CommonClientService {
        */
       public getRecord = (type: string, id: string): Observable<any> => {
           const url: string = this.getUrl('/content/' + type + '/' + id);
-          console.log(url);
+          this.log.debug(url);
 
 
           return this.http.get<any>(url, {headers: this.jwt()});
@@ -197,7 +200,7 @@ export class AdminService extends CommonClientService {
        */
       public getNewRecord = (file: string): Observable<any[]> => {
         let userMetadata: Metadata[] = null;
-        if (file === 'users/index/new.json') {
+        if (file === 'users') {
 
           userMetadata = JSON.parse('\
           {\
@@ -210,7 +213,7 @@ export class AdminService extends CommonClientService {
 
         }
 
-        return Observable.of(userMetadata);
+        return of(userMetadata);
       }
 
 
@@ -238,7 +241,7 @@ export class AdminService extends CommonClientService {
 
       // eg : /content/calendar
       const url: string = this.getUrl('/content/' + type + '/' + id);
-      console.log('delete' + url);
+      this.log.debug('delete' + url);
 
 
       return this.http.delete(url,

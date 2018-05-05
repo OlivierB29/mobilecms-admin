@@ -20,22 +20,22 @@
         <div *ngFor="let property of properties">
 
         <div *ngIf="property.name === 'email'">
-          <mat-input-container class="full-width-input" *ngIf="property.editor === 'line'">
+          <mat-form-field class="full-width-input" *ngIf="property.editor === 'line'">
             <input matInput placeholder="{{'field.label.' + property.name | translate }}" [(ngModel)]="current[property.name]" name="{{property.name}}" type="text">
-          </mat-input-container>
+          </mat-form-field>
         </div>
 
 
         <div *ngIf="property.name === 'name'">
-          <mat-input-container class="full-width-input" *ngIf="property.editor === 'line'">
+          <mat-form-field class="full-width-input" *ngIf="property.editor === 'line'">
             <input matInput placeholder="{{'field.label.' + property.name | translate }}" [(ngModel)]="current[property.name]" name="{{property.name}}" type="text">
-          </mat-input-container>
+          </mat-form-field>
         </div>
 
         <div *ngIf="property.name === 'password'">
-          <mat-input-container>
+          <mat-form-field>
             <input matInput placeholder="{{'field.label.' + property.name | translate }}" [(ngModel)]="current[property.name]" name="{{property.name}}" type="text">
-          </mat-input-container>
+          </mat-form-field>
         </div>
       </div>
       </div>
@@ -45,16 +45,16 @@
         <div *ngFor="let property of properties">
 
           <div *ngIf="property.name === 'email'">
-            <mat-input-container class="full-width-input" *ngIf="property.editor === 'line'">
+            <mat-form-field class="full-width-input" *ngIf="property.editor === 'line'">
               <input matInput readonly placeholder="{{'field.label.' + property.name | translate }}" [(ngModel)]="current[property.name]" name="{{property.name}}" type="text">
-            </mat-input-container>
+            </mat-form-field>
           </div>
 
 
           <div *ngIf="property.name === 'name'">
-            <mat-input-container class="full-width-input" *ngIf="property.editor === 'line'">
+            <mat-form-field class="full-width-input" *ngIf="property.editor === 'line'">
               <input matInput placeholder="{{'field.label.' + property.name | translate }}" [(ngModel)]="current[property.name]" name="{{property.name}}" type="text">
-            </mat-input-container>
+            </mat-form-field>
           </div>
 
 
@@ -69,9 +69,9 @@
 
 
           <div *ngIf="property.name === 'password'">
-            <mat-input-container>
+            <mat-form-field>
               <input matInput placeholder="{{'field.label.' + property.name | translate }}" [(ngModel)]="current[property.name]" name="{{property.name}}" type="text">
-            </mat-input-container>
+            </mat-form-field>
           </div>
 
         </div>
