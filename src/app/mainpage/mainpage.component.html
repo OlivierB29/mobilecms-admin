@@ -1,10 +1,25 @@
+<div class="my-global-container">
+      <mat-toolbar color='primary' class='topmenucontent'>
+        <button mat-button *ngIf='menuMode === "over" && isAuthenticated()' (click)='sidenav.toggle()'>
+          <mat-icon>menu</mat-icon>
+        </button>
+    
+        <button [routerLink]='["/home"]' mat-button class='top-menu-title'>Admin</button>
+        <span class='fill-remaining-space'></span>
+        <button *ngIf='isAuthenticated() || isUserExists()' mat-button (click)='disconnect()' class='top-menu-icon'>
+          <mat-icon alt='disconnect'>cancel</mat-icon>
+        </button>
+    
+    
+    
+      </mat-toolbar>
+    
 
-
-  <mat-sidenav-container class='my-mat-sidenav-container'>
+  <mat-drawer-container class="my-mat-container">
 
     <!-- slide menu -->
 
-    <mat-sidenav #sidenav [mode]='menuMode' [opened]='false' class='slidemenu'>
+    <mat-drawer #sidenav [mode]='menuMode' [opened]='false' class='slidemenu'>
 
 
       <nav>
@@ -35,28 +50,13 @@
         </div>
 
       </nav>
-    </mat-sidenav>
+    </mat-drawer>
 
 
     <!-- container -->
 
-    <mat-sidenav-content>
+    <mat-drawer-content>
 
-      <mat-toolbar color='primary' class='topmenucontent'>
-        <button mat-button *ngIf='menuMode === "over" && isAuthenticated()' (click)='sidenav.toggle()'>
-          <mat-icon>menu</mat-icon>
-        </button>
-    
-        <button [routerLink]='["/home"]' mat-button class='top-menu-title'>Admin</button>
-        <span class='fill-remaining-space'></span>
-        <button *ngIf='isAuthenticated() || isUserExists()' mat-button (click)='disconnect()' class='top-menu-icon'>
-          <mat-icon alt='disconnect'>cancel</mat-icon>
-        </button>
-    
-    
-    
-      </mat-toolbar>
-    
 
 
       <div [ngClass]="{ 'my-content': isConnected(), 'my-content-default': !isConnected() }">
@@ -164,6 +164,7 @@
           <!-- login container -->
         </div>
       </div>
-    </mat-sidenav-content>
-  </mat-sidenav-container>
+    </mat-drawer-content>
+  </mat-drawer-container>
 
+</div>
