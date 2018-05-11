@@ -58,6 +58,9 @@ const providers: any[] = [
   ContentService,
   UploadService,
   HttpClient
+
+  // TODO uncomment to enable demo
+
   // ,
   // {
   //     provide: HTTP_INTERCEPTORS,
@@ -69,7 +72,7 @@ const providers: any[] = [
 
 // broken since angular 6
 // if (environment.usemockbackend === true) {
-//     console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!! usemockbackend');
+//     console.log('usemockbackend !!!');
 //     providers.push({
 //         provide: HTTP_INTERCEPTORS,
 //         useClass: MockHttpInterceptor,
