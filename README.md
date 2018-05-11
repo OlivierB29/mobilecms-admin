@@ -33,7 +33,8 @@ Use any user-password combination on this version. API calls use a mocked API.
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-Run `npm run demo` | `ng serve --env=demo` for a live version without backend API.
+Run `npm run demo` | `ng serve --c=demo` for a live version without backend API.
+
 
 ## Build
 
