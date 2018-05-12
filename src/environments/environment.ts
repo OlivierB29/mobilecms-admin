@@ -10,8 +10,8 @@ export const environment = {
   website: 'http://localhost/#',
   defaultlocale: 'en',
   usemockbackend: false,
-  api: '/cmsapi/v1',
-  adminapi: '/adminapi/v1',
-  fileapi: '/fileapi/v1',
-  authapi: '/authapi/v1'
+  api: '/api/v1/cmsapi',
+  adminapi: '/api/v1/adminapi',
+  fileapi: '/api/v1/fileapi',
+  authapi: '/api/v1/authapi'
 };
