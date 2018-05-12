@@ -13,7 +13,7 @@ import { Log } from '../shared';
 @Injectable()
 export class ContentService extends CommonClientService {
 
- 
+
     constructor(private log: Log, private http: HttpClient) {
       super();
       this.init( environment.server, environment.api);
@@ -159,9 +159,9 @@ export class ContentService extends CommonClientService {
     /**
      * Table metadata for record modification
      */
-    public getNewRecord = (file: string): Observable<any[]> => {
+    public getNewRecord = (type: string): Observable<any[]> => {
 
-        const url: string = this.getUrl('/metadata/' + file);
+        const url: string = this.getUrl('/template/' + type);
         return this.http.get<Metadata[]>(url, {headers: this.jwt()});
     }
 
