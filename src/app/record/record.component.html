@@ -9,22 +9,16 @@
   </span>
   <span class='fill-remaining-space'></span>
 
-  <span *ngIf='getLayout() === "mobile"'>
-  <button mat-raised-button color='primary' [matMenuTriggerFor]='menu'><mat-icon>more_horiz</mat-icon></button>
+  <button mat-raised-button color='primary' [matMenuTriggerFor]='menu'><mat-icon>more_vert</mat-icon></button>
   <mat-menu #menu="matMenu">
     <button mat-menu-item *ngIf="f.form.valid && !loading" (click)="save()" matTooltip="{{'record.edit.save' | translate }}"><mat-icon>save</mat-icon> {{'record.edit.save' | translate }}</button>
     <button mat-menu-item  *ngIf="!newrecord" (click)="preview()" matTooltip="{{'record.edit.preview' | translate }}"> <mat-icon>open_in_new</mat-icon> {{'record.edit.preview' | translate }}</button>
     <button mat-menu-item  *ngIf="!newrecord" (click)="openConfirmDialog()" matTooltip="{{'record.edit.delete' | translate }}"> <mat-icon>delete</mat-icon> {{'record.edit.delete' | translate }}</button>
     <button mat-menu-item  (click)='openHelpDialog()' matTooltip="{{'help.label' | translate }}"><mat-icon alt='help'>help_outline</mat-icon> {{'help.label' | translate }}</button>
   </mat-menu>
-  </span>
 
-  <span *ngIf='getLayout() === "desktop"'>
-    <button  mat-raised-button color='primary'  *ngIf="f.form.valid && !loading" (click)="save()" matTooltip="{{'record.edit.save' | translate }}"><mat-icon>save</mat-icon></button>
-    <button   mat-raised-button color='primary'  *ngIf="!newrecord" (click)="preview()" matTooltip="{{'record.edit.preview' | translate }}"> <mat-icon>open_in_new</mat-icon></button>
-    <button   mat-raised-button color='primary'  *ngIf="!newrecord" (click)="openConfirmDialog()" matTooltip="{{'record.edit.delete' | translate }}"> <mat-icon>delete</mat-icon></button>
-    <button   mat-raised-button color='primary'  (click)='openHelpDialog()' matTooltip="{{'help.label' | translate }}"><mat-icon alt='help'>help_outline</mat-icon></button>
-  </span>
+
+
 
 
 </mat-toolbar>

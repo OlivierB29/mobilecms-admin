@@ -1,3 +1,4 @@
+
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { MatDialog } from '@angular/material';
@@ -43,7 +44,7 @@ export class RecordListComponent extends StandardComponent implements OnInit {
    */
   response: any = null;
 
-
+  displayedColumns = [];
 
   constructor(
     private logger: Log,
@@ -83,10 +84,9 @@ export class RecordListComponent extends StandardComponent implements OnInit {
           () => {
             this.log.debug('getItems complete ' + this.type + ' ' + this.items.length);
 
-            // TODO generic sort by metadata
-            if (this.items.length > 0 && this.items[0].date) {
-              this.orderby.transform(this.items, 'date', 'desc');
-            }
+            this.sort();
+
+            this.initColumns();
 
 
           });
@@ -97,6 +97,28 @@ export class RecordListComponent extends StandardComponent implements OnInit {
 
 
 
+
+  }
+
+  initColumns() {
+    if (this.items.length > 0) {
+      this.displayedColumns = [];
+      if (this.items[0].date) {
+        this.displayedColumns.push('date');
+      }
+      if (this.items[0].title) {
+        this.displayedColumns.push('title');
+      } else if (this.items[0].id)  {
+        this.displayedColumns.push('id');
+      }
+    }
+  }
+
+  sort() {
+    // TODO generic sort by metadata
+    if (this.items.length > 0 && this.items[0].date) {
+      this.orderby.transform(this.items, 'date', 'desc');
+    }
 
   }
 

@@ -1,0 +1,158 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav
+    #drawer
+    class="sidenav"
+    fixedInViewport="true"
+    [attr.role]="isHandset ? 'dialog' : 'navigation'"
+    [mode]="(isHandset | async)!.matches ? 'over' : 'side'"
+    [opened]="!(isHandset | async)!.matches">
+    <mat-toolbar color="primary">Menu</mat-toolbar>
+    <mat-nav-list>
+        <!-- if condition is only at this level. The test on sidenav causes an issue, since the object may not exists -->
+        <div *ngIf='menuItems && isConnected()'>
+          <div *ngFor='let menu of menuItems'>
+            <app-menubutton *ngIf='drawer.mode !== "over"' [item]='menu'></app-menubutton>
+            <app-menubutton *ngIf='drawer.mode === "over"' [item]='menu' (click)='drawer.close()'></app-menubutton>
+
+          </div>
+
+          <div *ngIf='isAdminRole() && adminMenuItems'>
+            <div *ngFor='let menu of adminMenuItems'>
+              <app-menubutton *ngIf='drawer.mode !== "over"' [item]='menu'></app-menubutton>
+              <app-menubutton *ngIf='drawer.mode === "over"' [item]='menu' (click)='drawer.close()'></app-menubutton>
+            </div>
+          </div>
+
+
+        </div>
+
+        <div>
+          <app-menubutton [item]='home'></app-menubutton>
+        </div>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="(isHandset | async)!.matches">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+        <button [routerLink]='["/home"]' mat-button class='top-menu-title'>Admin</button>
+      <span class='fill-remaining-space'></span>
+      <button *ngIf='isAuthenticated() || isUserExists()' mat-button (click)='disconnect()' class='top-menu-icon'>
+        <mat-icon alt='disconnect'>cancel</mat-icon>
+      </button>
+  
+    </mat-toolbar>
+
+
+
+
+    <div>
+
+
+      <app-alert-message></app-alert-message>
+
+      <!-- content -->
+      <router-outlet *ngIf='isConnected()'></router-outlet>
+      <!-- login -->
+
+      <div *ngIf='!isConnected()'>
+        <mat-card class='logincontainer'>
+
+
+          <div *ngIf='!isAuthenticated() && isUserExists()' class='loginform'>
+
+            <form name='form' (ngSubmit)='f.form.valid && login()' #f='ngForm' novalidate>
+
+              <mat-form-field class='loginform-input'>
+                <input type='password' matInput placeholder='{{"login.password" | translate}}' name='password' [(ngModel)]='model.password'
+                  #password='ngModel' required />
+              </mat-form-field>
+
+              <mat-toolbar class='loginform-input'>
+                <span class='fill-remaining-space'></span>
+                <button mat-raised-button color='primary' [disabled]='loading' class='login-button'>
+                  <mat-icon>check_circle</mat-icon>
+                </button>
+              </mat-toolbar>
+              <mat-toolbar class='loginform-input'>
+                <form name='form3' (ngSubmit)='f3.form.valid && openSendPassword()' #f3='ngForm' novalidate>
+                  <button mat-button [disabled]='loading'>{{'sendpassworddialog.warning' | translate}}
+                    <mat-icon>settings_backup_restore</mat-icon>
+                  </button>
+                </form>
+              </mat-toolbar>
+
+            </form>
+          </div>
+
+          <!-- username / email -->
+          <div *ngIf='!isAuthenticated() && !isUserExists()' class='loginform'>
+            <form name='form2' (ngSubmit)='f2.form.valid && validateuser()' #f2='ngForm' novalidate>
+              <div [ngClass]='{ "has-error": f2.submitted && !username.valid }'>
+                <mat-form-field class='loginform-input'>
+                  <input type='text' matInput placeholder='{{"login.user" | translate}}' name='username' [(ngModel)]='model.username' #username='ngModel'
+                    required />
+                </mat-form-field>
+
+              </div>
+
+
+              <mat-toolbar class='loginform-input'>
+                <span class='fill-remaining-space'></span>
+                <button mat-raised-button color='primary' [disabled]='loading' class='login-button'>{{ 'next.label' | translate | uppercase }}</button>
+              </mat-toolbar>
+
+
+            </form>
+
+          </div>
+
+          <!-- new password -->
+          <div *ngIf='isAuthenticated() && isNewPasswordRequired()' class='loginform'>
+            <form *ngIf='!success' name='form' (ngSubmit)="f.form.valid && modifypassword() " #f='ngForm' novalidate class='loginform'>
+
+
+              <div [ngClass]="{ 'has-error': f.submitted  && !newpassword.valid && isSecurePassword() }">
+                <mat-form-field class='loginform-input'>
+                  <input type='password' matInput placeholder='newpassword' name='newpassword' [(ngModel)]="model.newpassword" #newpassword='ngModel'
+                    required />
+                </mat-form-field>
+                <mat-icon *ngIf='isSecurePassword()' class='success-label'>security</mat-icon>
+                <mat-icon *ngIf='!isSecurePassword()' class='error-label'>security</mat-icon>
+              </div>
+
+              <div [ngClass]="{ 'has-error': f.submitted }">
+                <mat-form-field class='loginform-input'>
+                  <input type='password' matInput placeholder='newpassword2' name='newpassword2' [(ngModel)]="model.newpassword2" #newpassword='ngModel'
+                    required />
+                </mat-form-field>
+                <mat-icon *ngIf='model.newpassword2 && model.newpassword !== model.newpassword2' class='error-label-message'>block</mat-icon>
+              </div>
+
+
+              <mat-toolbar class='loginform-input'>
+                <span class='fill-remaining-space'></span>
+                <button *ngIf='canSubmit()' mat-raised-button color='primary' [disabled]='loading' class='login-button'>
+                  <mat-icon>check_circle</mat-icon>
+                </button>
+              </mat-toolbar>
+
+            </form>
+          </div>
+
+          <div class='loginform'>
+            <mat-spinner *ngIf='loading' mode='indeterminate'></mat-spinner>
+          </div>
+        </mat-card>
+        <!-- login container -->
+      </div>
+    </div>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>

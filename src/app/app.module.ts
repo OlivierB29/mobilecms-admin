@@ -52,6 +52,7 @@ import { MockHttpInterceptor } from 'app/_helpers/mock-http.interceptor';
 import { environment } from 'environments/environment';
 import { AdminCmsSharedModule } from 'app/shared/shared.module';
 
+import { AdminMainpageComponent } from 'app/admin-mainpage/admin-mainpage.component';
 
 const providers: any[] = [
   AdminService,
@@ -60,13 +61,14 @@ const providers: any[] = [
   HttpClient
 
   // TODO uncomment to enable demo
-
-  // ,
-  // {
-  //     provide: HTTP_INTERCEPTORS,
-  //     useClass: MockHttpInterceptor,
-  //     multi: true
-  // }
+/*
+  ,
+  {
+      provide: HTTP_INTERCEPTORS,
+      useClass: MockHttpInterceptor,
+      multi: true
+  }
+  */
 ];
 
 
@@ -99,7 +101,7 @@ const providers: any[] = [
   AdminCmsSharedModule
   ],
   declarations: [
-
+    AdminMainpageComponent,
     MainPageComponent,
     SendPasswordDialogComponent,
     MenubuttonComponent,
@@ -122,7 +124,6 @@ const providers: any[] = [
     EditLinksComponent,
     EditMediaComponent,
     ErrorDialogComponent,
-
     MenubuttonComponent,
   ],
   entryComponents: [

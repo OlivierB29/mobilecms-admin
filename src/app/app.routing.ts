@@ -10,8 +10,8 @@ import { MainPageComponent } from 'app/mainpage/mainpage.component';
 import { UserListComponent, UserRecordComponent } from 'app/users';
 import { UserRouteAccessService } from 'app/shared';
 
-const appRoutes: Routes = [
 
+const appRoutes: Routes = [
     { path: 'home', component: HomeComponent, canActivate: [UserRouteAccessService] },
     { path: '', component: HomeComponent, canActivate: [UserRouteAccessService]  },
     { path: 'login', component: HomeComponent },

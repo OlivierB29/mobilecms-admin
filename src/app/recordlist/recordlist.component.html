@@ -2,8 +2,7 @@
   <mat-toolbar class='secondary-button-bar'>
 <span class='fill-remaining-space'></span>
 
-  <span *ngIf='getLayout() === "mobile"'>
-  <button mat-raised-button color='primary' [matMenuTriggerFor]='menu'><mat-icon>more_horiz</mat-icon></button>
+  <button mat-raised-button color='primary' [matMenuTriggerFor]='menu'><mat-icon>more_vert</mat-icon></button>
   <mat-menu #menu="matMenu">
 
     <button mat-menu-item color='primary' [routerLink]='["/record", type ,  "new"]' ><mat-icon>add</mat-icon>{{ "record.list.create" | translate }} </button>
@@ -15,19 +14,9 @@
 
 
   </mat-menu>
-  </span>
 
-  <span *ngIf='getLayout() === "desktop"'>
 
-    <span matTooltip='{{ "record.list.create" | translate }}'>
-      <a  mat-raised-button color='primary' [routerLink]='["/record", type ,  "new"]'><mat-icon>add</mat-icon> </a>
-    </span>
-    <span class='toolbar-spacer'></span>
-  <button mat-raised-button color='primary' (click)='rebuildIndex()'matTooltip='{{"record.list.refresh" | translate }}' ><mat-icon>refresh</mat-icon></button>
-  <span class='toolbar-spacer'></span>
-  <button mat-raised-button color='primary' (click)='openHelpDialog()' matTooltip='{{"help.label" | translate }}'><mat-icon alt='help'>help_outline</mat-icon></button>
 
-  </span>
 
 </mat-toolbar>
 
@@ -35,8 +24,14 @@
 
   <div *ngIf='items'>
     <div *ngFor='let item of items'>
-      <button *ngIf='item.title' mat-button [routerLink]='["/record", type ,  item.id]' class='item-title'>{{item.title}}</button>
-      <button *ngIf='!item.title' mat-button [routerLink]='["/record", type ,  item.id]' class='item-title'>{{item.id}}</button>
+
+      <button mat-button [routerLink]='["/record", type ,  item.id]' class='item-title'>
+        <span *ngFor='let col of displayedColumns'>
+            {{item[col]}}
+        </span>
+
+      </button>
+
     </div>
   </div>
 

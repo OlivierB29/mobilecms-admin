@@ -33,11 +33,12 @@ export class ContentService extends CommonClientService {
      * Response [{"type":"calendar"},{"type":"news"}]
      */
     public getTables = (): Observable<any[]> => {
+
         const url: string = this.getUrl('/content');
 
         this.log.debug('getTables ' + url);
 
-
+        
         return this.http.get<any[]>(url, {headers: this.jwt()});
     }
 
