@@ -10,17 +10,36 @@ import { MainPageComponent } from 'app/mainpage/mainpage.component';
 import { UserListComponent, UserRecordComponent } from 'app/users';
 import { UserRouteAccessService } from 'app/shared';
 
+import { LoginComponent, ModifyPasswordComponent , SendPasswordDialogComponent } from 'app/login';
+
+
+import { LoginLayoutComponent } from 'app/layouts/login-layout.component';
+
+import { AdminMainpageComponent } from 'app/admin-mainpage/admin-mainpage.component';
+
 
 const appRoutes: Routes = [
-    { path: 'home', component: HomeComponent, canActivate: [UserRouteAccessService] },
-    { path: '', component: HomeComponent, canActivate: [UserRouteAccessService]  },
-    { path: 'login', component: HomeComponent },
-    { path: 'login/:algo', component: HomeComponent },
-    { path: 'recordlist/:type',  component: RecordListComponent, canActivate: [UserRouteAccessService] },
-    { path: 'record/:type/:id',  component: RecordComponent, canActivate: [UserRouteAccessService] },
-    { path: 'userlist',  component: UserListComponent, canActivate: [UserRouteAccessService] },
-    { path: 'userrecord/:id',  component: UserRecordComponent, canActivate: [UserRouteAccessService] },
-    { path: 'register', component: RegisterComponent, canActivate: [UserRouteAccessService] },
+  {
+    path: '',
+    component: AdminMainpageComponent,
+    canActivate: [UserRouteAccessService],
+    children: [
+      { path: '', component: HomeComponent },
+      { path: 'home', component: HomeComponent },
+      { path: 'recordlist/:type',  component: RecordListComponent },
+      { path: 'record/:type/:id',  component: RecordComponent },
+      { path: 'userlist',  component: UserListComponent },
+      { path: 'userrecord/:id',  component: UserRecordComponent }
+    ]
+  },
+  {
+    path: '',
+    component: LoginLayoutComponent,
+    children: [
+      { path: 'login', component: LoginComponent }
+    ]
+  },
+
     { path: '**', redirectTo: '' }
 ];
 

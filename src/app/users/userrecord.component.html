@@ -60,10 +60,12 @@
 
           <!-- choice list -->
           <div *ngIf="property.editor === 'choice'">
+              <mat-form-field>
             <mat-select placeholder="{{'field.label.' + property.name | translate }}" [(ngModel)]="current[property.name]" name="{{property.name}}">
               <!-- list of choices from metadata -->
               <mat-option *ngFor="let choice of property.choices" [value]="choice">{{ choice }}</mat-option>
             </mat-select>
+          </mat-form-field>
             <br/>
           </div>
 

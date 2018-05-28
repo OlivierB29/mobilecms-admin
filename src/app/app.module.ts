@@ -38,7 +38,7 @@ LinkComponent,
   EditMediaComponent,
   ErrorDialogComponent, DeleteDialogComponent, RecordHelpDialogComponent } from 'app/record';
 
-import { ModifyPasswordComponent , SendPasswordDialogComponent } from 'app/login';
+import { LoginComponent, ModifyPasswordComponent , SendPasswordDialogComponent } from 'app/login';
 
 import { MainPageComponent, MenubuttonComponent } from 'app/mainpage';
 
@@ -53,6 +53,11 @@ import { environment } from 'environments/environment';
 import { AdminCmsSharedModule } from 'app/shared/shared.module';
 
 import { AdminMainpageComponent } from 'app/admin-mainpage/admin-mainpage.component';
+
+
+import { LoginLayoutComponent } from 'app/layouts/login-layout.component';
+
+
 
 const providers: any[] = [
   AdminService,
@@ -101,6 +106,7 @@ const providers: any[] = [
   AdminCmsSharedModule
   ],
   declarations: [
+    LoginLayoutComponent,
     AdminMainpageComponent,
     MainPageComponent,
     SendPasswordDialogComponent,
@@ -108,6 +114,7 @@ const providers: any[] = [
     AppComponent,
     AlertComponent,
     HomeComponent,
+    LoginComponent,
     HomeHelpDialogComponent,
     ModifyPasswordComponent,
     RegisterComponent,

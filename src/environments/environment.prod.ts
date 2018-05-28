@@ -5,8 +5,8 @@ export const environment = {
   website: '/#',
   defaultlocale: 'fr',
   usemockbackend: false,
-  api: '/api/v1/cmsapi',
-  adminapi: '/api/v1/adminapi',
-  fileapi: '/api/v1/fileapi',
-  authapi: '/api/v1/authapi'
+  api: '/mobilecmsapi/v1/cmsapi',
+  adminapi: '/mobilecmsapi/v1/adminapi',
+  fileapi: '/mobilecmsapi/v1/fileapi',
+  authapi: '/mobilecmsapi/v1/authapi'
 };
