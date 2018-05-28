@@ -16,29 +16,13 @@ Use any user-password combination on this version. API calls use a mocked API.
 - visit the [demo](https://olivierb29.github.io/mobilecms-demo).
 - [source code](https://github.com/OlivierB29/mobilecms)
 
-# Server requirements
+# Backend requirements
 - Hosted on a cheap server, with no database available
-
-## Dependencies
-- Angular 5 + [Material](https://material.angular.io/)
-- [@ngx-translate](http://www.ngx-translate.com/)
 - A running API [mobilecms-api](https://github.com/OlivierB29/mobilecms-api)
 
-## Dev dependencies
+## Dependencies
+- Angular 6 + [Material](https://material.angular.io/) 6
+- [@ngx-translate](http://www.ngx-translate.com/)
 
-- NodeJS
-- [Angular CLI](https://cli.angular.io/)
-
-## Development server
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-Run `npm run demo` | `ng serve --c=demo` for a live version without backend API.
-
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
-
-Build with specified web context : `npm run dist`
-Demo build for github pages : `npm run demobuild`
+## Development
+- [development guide](development.md)
