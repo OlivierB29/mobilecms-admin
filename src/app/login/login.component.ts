@@ -12,7 +12,7 @@ import { MatDialog, MatSidenav } from '@angular/material';
 import { SendPasswordDialogComponent } from './sendpassworddialog.component';
 import { LoginService, LocaleService, AlertService, WindowService, Log } from 'app/shared';
 import { environment } from 'environments/environment';
-import { SecurityService } from '../shared';
+import { SecurityService } from 'app/shared';
 
 
 

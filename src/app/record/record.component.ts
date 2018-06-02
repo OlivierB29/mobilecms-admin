@@ -15,7 +15,7 @@ import { DeleteDialogComponent } from './deletedialog.component';
 import { RecordHelpDialogComponent } from './recordhelpdialog.component';
 import { Observable } from 'rxjs';
 import { Subscription } from 'rxjs';
-import { Log } from '../shared';
+import { Log } from 'app/shared';
 
 @Component({
   moduleId: module.id,

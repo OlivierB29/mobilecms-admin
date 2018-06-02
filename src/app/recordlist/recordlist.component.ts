@@ -12,7 +12,7 @@ import { User } from 'app/_models/index';
 import { OrderbyPipe } from 'app/shared/filters';
 
 import { StandardComponent } from 'app/home';
-import { Log } from '../shared';
+import { Log } from 'app/shared';
 
 @Component({
   moduleId: module.id,

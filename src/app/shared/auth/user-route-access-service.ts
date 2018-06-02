@@ -22,7 +22,7 @@ export class UserRouteAccessService implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean {
 
-    console.log('canActivate ...');
+    console.log('canActivate');
     if (this.service.getUser()) {
         return this.service.verifyAuthenticated();
     } else {
