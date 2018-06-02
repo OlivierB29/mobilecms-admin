@@ -6,7 +6,7 @@ import { OrderbyPipe } from './filters/orderby.pipe';
 import { AdminCmsSharedLibsModule } from './shared-libs.module';
 import { UserRouteAccessService } from './auth/user-route-access-service';
 import { CommonClientService, JwtClientService, AlertService,
-   LocaleService, StringUtils, WindowService, Log  } from './services';
+   LocaleService, StringUtils, WindowService, Log, SecurityService  } from './services';
 
 @NgModule({
     imports: [
@@ -25,6 +25,7 @@ import { CommonClientService, JwtClientService, AlertService,
         StringUtils,
         WindowService,
         LoginService,
+        SecurityService,
         Log
     ],
     entryComponents: [

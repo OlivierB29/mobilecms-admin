@@ -8,18 +8,17 @@ import { JwtClientService } from './jwtclient.service';
 
 
 
-
 export class CommonClientService extends JwtClientService {
 
+  constructor() {
+    super();
+  }
 
   protected postFormData = false;
 
   private serverUrl = '';
   private api = '';
 
-  constructor() {
-    super();
-  }
 
   public init(server: string, api: string) {
     this.serverUrl = server;
@@ -28,8 +27,8 @@ export class CommonClientService extends JwtClientService {
 
   /**
   * get API url
-  * @arg path  eg : '/content'
-  * @returns http://server//adminapp/api.php?path=/content
+  * @arg path  eg : '/foobar'
+  * @returns http://server/adminapp/apiname/foobar
   */
   public getUrl(path: string): string {
     return this.serverUrl + this.api + path;

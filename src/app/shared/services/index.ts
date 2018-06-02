@@ -5,3 +5,7 @@ export * from './locale.service';
 export * from './stringutils.service';
 export * from './window.service';
 export * from './log.service';
+export * from './admin.service';
+export * from './content.service';
+export * from './upload.service';
+export * from './security.service';

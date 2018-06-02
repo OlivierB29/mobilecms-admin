@@ -25,7 +25,7 @@ import { AppComponent } from 'app/app.component';
 
 import { AlertComponent } from 'app/_directives/index';
 // import { AuthGuard } from 'app/_guards/index';
-import { AdminService, ContentService, UploadService} from 'app/_services/index';
+import { AdminService, ContentService, UploadService} from 'app/shared/services';
 import { HomeComponent, HomeHelpDialogComponent } from './home';
 
 import { RegisterComponent } from 'app/register/index';
@@ -40,7 +40,7 @@ LinkComponent,
 
 import { LoginComponent, ModifyPasswordComponent , SendPasswordDialogComponent } from 'app/login';
 
-import { MainPageComponent, MenubuttonComponent } from 'app/mainpage';
+import { MenubuttonComponent } from 'app/mainpage';
 
 import { OrderbyPipe } from 'app/shared/filters';
 
@@ -108,7 +108,6 @@ const providers: any[] = [
   declarations: [
     LoginLayoutComponent,
     AdminMainpageComponent,
-    MainPageComponent,
     SendPasswordDialogComponent,
     MenubuttonComponent,
     AppComponent,

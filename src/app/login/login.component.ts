@@ -8,11 +8,11 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MatDialog, MatSidenav } from '@angular/material';
 
 
-import { ContentService } from 'app/_services';
 
 import { SendPasswordDialogComponent } from './sendpassworddialog.component';
 import { LoginService, LocaleService, AlertService, WindowService, Log } from 'app/shared';
 import { environment } from 'environments/environment';
+import { SecurityService } from '../shared';
 
 
 
@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
 
 
     constructor(
-      protected contentService: ContentService,
+      protected securityService: SecurityService,
       private authenticationService: LoginService,
       private log: Log,
       private locale: LocaleService, private alertService: AlertService,
@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
         this.lang = this.locale.getLang();
 
         this.initCurrentUser();
-        if (this.isConnected()) {
+        if (this.securityService.isConnected()) {
 
           this.log.debug('already connected ...');
 
@@ -85,8 +85,6 @@ export class LoginComponent implements OnInit {
 
           this.log.debug('currentUser ...' + currentUser.role);
 
-          this.log.debug('isConnected' + this.isConnected());
-          this.log.debug('isAuthenticated' + this.authenticationService.isAuthenticated());
           this.log.debug('isUserExists' + this.isUserExists());
 
         } else {
@@ -116,29 +114,20 @@ export class LoginComponent implements OnInit {
 
         this.log.debug('loadMenu ...');
 
-        if (this.authenticationService.isAuthenticated() && this.hasRole) {
-
-          this.log.debug('isConnected' + this.isConnected());
-
-        } else {
-
-          this.log.debug('guest ');
-
-        }
-
-
-
       }
 
 
 
-      public isAuthenticated(): boolean {
-        return this.authenticationService.isAuthenticated();
+  
+
+      public isAuthenticated(): Observable<boolean> | boolean {
+        return this.securityService.isAuthenticated();
       }
 
-      public isConnected(): boolean {
-        return this.authenticationService.isAuthenticated() && this.hasRole && !this.isNewPasswordRequired();
+      public isConnected(): Observable<boolean> | boolean {
+        return this.securityService.isConnected();
       }
+
 
       public isUserExists(): boolean {
         return this.userinfo && this.userinfo.name != null;
@@ -177,7 +166,7 @@ export class LoginComponent implements OnInit {
 
               this.log.debug('success');
               this.initCurrentUser();
-              if (this.authenticationService.isAuthenticated()) {
+              if (this.securityService.isAuthenticated()) {
                 this.alertService.success('authenticated');
                 this.loadMenu();
                 this.router.navigate(['']);
@@ -251,8 +240,8 @@ export class LoginComponent implements OnInit {
 
                 this.log.debug('validateuser success' + JSON.stringify(this.userinfo))
 
-                this.log.debug('isConnected' + this.isConnected());
-                this.log.debug('isAuthenticated' + this.authenticationService.isAuthenticated());
+
+                this.log.debug('isAuthenticated' + this.securityService.isAuthenticated());
                 this.log.debug('isUserExists' + this.isUserExists());
 
             },
@@ -348,12 +337,10 @@ export class LoginComponent implements OnInit {
        * About roles : this just a frontend feature. Role must be tested in the API.
        */
       isAdminRole(): boolean {
-        const currentUser = this.getCurrentUser();
-        return currentUser && currentUser.role === 'admin';;
+        return this.securityService.isAdminRole();
       }
 
       hasRole(): boolean {
-        const currentUser = this.getCurrentUser();
-        return currentUser && (currentUser.role === 'editor' || currentUser.role === 'admin');
+        return this.securityService.hasRole();
       }
 }

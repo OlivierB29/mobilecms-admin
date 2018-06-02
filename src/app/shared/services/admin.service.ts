@@ -7,10 +7,10 @@ import { User } from 'app/_models/index';
 import { HashUtils } from 'app/_helpers';
 import { Metadata } from 'app/_models';
 import { environment } from 'environments/environment';
-import { CommonClientService } from 'app/shared';
+import { CommonClientService } from './commonclient.service';
 
 import { HttpClient } from '@angular/common/http';
-import { Log } from '../shared';
+import { Log } from './log.service';
 /*
 * Credits :
 * based on http://jasonwatmore.com/post/2016/09/29/angular-2-user-registration-and-login-example-tutorial

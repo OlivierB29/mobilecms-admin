@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+
 import { User } from 'app/_models/index';
 import { Metadata } from 'app/_models';
 
 import { environment } from 'environments/environment';
-import { CommonClientService } from 'app/shared';
-import { Log } from '../shared';
+import { CommonClientService } from './commonclient.service';
+
+import { Observable, of } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+import { Log } from './log.service';
 
 
 
@@ -20,6 +24,7 @@ export class ContentService extends CommonClientService {
      }
 
     public options = (): Observable<any> => {
+
         const url: string = this.getUrl('/content');
         const h = new HttpHeaders();
         return this.http.get<any>(url, {headers: this.jwt()});
@@ -38,7 +43,6 @@ export class ContentService extends CommonClientService {
 
         this.log.debug('getTables ' + url);
 
-        
         return this.http.get<any[]>(url, {headers: this.jwt()});
     }
 
@@ -165,8 +169,6 @@ export class ContentService extends CommonClientService {
         const url: string = this.getUrl('/template/' + type);
         return this.http.get<Metadata[]>(url, {headers: this.jwt()});
     }
-
-
 
 
 

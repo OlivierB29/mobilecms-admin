@@ -27,12 +27,7 @@ export class JwtClientService {
       if (currentUser && currentUser.token) {
         return new HttpHeaders ({ 'Authorization': 'Bearer ' + currentUser.token });
       }
-      //  else {
-      //   throw new Error('invalid token');
-      // }
-    } else {
-      throw new Error('empty user');
-    }
+    } 
 
   }
 

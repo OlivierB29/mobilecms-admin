@@ -6,12 +6,13 @@ import { TranslatePipe } from '@ngx-translate/core';
 
 import { User, Label, RecordType, Metadata } from 'app/_models';
 
-import { AdminService, UploadService } from 'app/_services';
+import { AdminService, UploadService } from 'app/shared/services';
 import { LocaleService, StringUtils, Log } from 'app/shared';
 import { StandardComponent } from 'app/home';
 
 
 import { DeleteUserDialogComponent } from './deleteuserdialog.component';
+import { SecurityService } from '../shared';
 
 
 @Component({
@@ -20,7 +21,7 @@ import { DeleteUserDialogComponent } from './deleteuserdialog.component';
   styleUrls: ['userrecord.component.css']
 })
 
-export class UserRecordComponent extends StandardComponent implements OnInit {
+export class UserRecordComponent implements OnInit {
 
   i18n = {};
 
@@ -71,17 +72,16 @@ export class UserRecordComponent extends StandardComponent implements OnInit {
 
 
   constructor(
-    protected logger: Log,
+    protected log: Log,
     private contentService: AdminService,
+    private securityService: SecurityService,
 
       locale: LocaleService,
       private route: ActivatedRoute, private router: Router, public dialog: MatDialog,
     private uploadService: UploadService, private stringUtils: StringUtils) {
-    super(logger);
    }
 
   ngOnInit() {
-    super.ngOnInit();
     this.log.debug('record.component');
 
     this.route.params.forEach((params: Params) => {
@@ -267,9 +267,14 @@ export class UserRecordComponent extends StandardComponent implements OnInit {
       this.log.debug('openHelpDialog');
     }
 
-    isAdminRole() {
-      return this.hasAdminRole;
-    }
+
+  /**
+   * About roles : this just a frontend feature. Role must be tested in the API.
+   */
+  isAdminRole(): boolean {
+
+    return this.securityService.isAdminRole();
+  }
 
     rebuildIndex() {
       this.contentService.rebuildIndex(this.type)

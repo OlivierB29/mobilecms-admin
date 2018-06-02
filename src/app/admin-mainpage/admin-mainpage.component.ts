@@ -8,11 +8,12 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MatDialog, MatSidenav } from '@angular/material';
 
 
-import { ContentService } from 'app/_services';
+
 import { MenuItem } from './menuitem';
 import { SendPasswordDialogComponent } from 'app/login';
-import { LoginService, LocaleService, AlertService, WindowService, Log } from 'app/shared';
+import { LoginService, LocaleService, AlertService, WindowService, Log, ContentService } from 'app/shared';
 import { environment } from 'environments/environment';
+import { SecurityService } from 'app/shared';
 
 
 
@@ -43,6 +44,7 @@ export class AdminMainpageComponent  implements OnInit, AfterViewInit {
 
   constructor(private breakpointObserver: BreakpointObserver,
     protected contentService: ContentService,
+    protected securityService: SecurityService,
     private authenticationService: LoginService,
     private log: Log,
     private locale: LocaleService, private alertService: AlertService,
@@ -56,65 +58,18 @@ export class AdminMainpageComponent  implements OnInit, AfterViewInit {
     this.log.debug('ngOnInit ...');
     this.lang = this.locale.getLang();
 
-    this.initCurrentUser();
-    if (this.isConnected()) {
-
-      this.log.debug('already connected ...');
-
-      this.loadMenu();
-    } else {
-
-      this.log.debug('logout');
-
-      this.authenticationService.logout();
-    }
-
     this.home = new MenuItem();
     this.home.url = environment.website;
     this.home.label = 'site.label';
+    this.loadMenu();
   }
 
   ngAfterViewInit() {
-
+    
   }
 
 
-
-
-
-
-  private initCurrentUser() {
-
-    const currentUser = this.getCurrentUser();
-    if (currentUser) {
-
-      this.log.debug('local storage');
-
-
-      currentUser.token = '';
-
-
-      this.log.debug('currentUser ...' + currentUser.role);
-
-      this.log.debug('isConnected' + this.isConnected());
-      this.log.debug('isAuthenticated' + this.authenticationService.isAuthenticated());
-
-    } else {
-
-      this.log.debug('no local storage');
-
-    }
-  }
-
-  private getCurrentUser(): any {
-    let currentUser : any;
-    const currentUserLocalStorage = localStorage.getItem('currentUser');
-    if (currentUserLocalStorage) {
-      currentUser = JSON.parse(currentUserLocalStorage);
-    }
-    return currentUser;
-  }
-
+ 
 
   private loadMenu() {
 
@@ -127,9 +82,7 @@ export class AdminMainpageComponent  implements OnInit, AfterViewInit {
     // About roles : this just a frontend feature. Roles must be tested in the API.
     //
 
-    this.log.debug('loadMenu ...');
 
-    if (this.authenticationService.isAuthenticated() && this.hasRole) {
 
       let recordTypes: RecordType[] = null;
 
@@ -138,7 +91,7 @@ export class AdminMainpageComponent  implements OnInit, AfterViewInit {
 
         // iterate each type
         if (recordTypes) {
-
+          this.log.debug('loadMenu recordTypes ...');
           // record type
           recordTypes.forEach((record: RecordType) => {
             record.labels.map((label: Label) => {
@@ -153,7 +106,6 @@ export class AdminMainpageComponent  implements OnInit, AfterViewInit {
             menuItem.routerLink = ['/recordlist', record.type];
             menuItem.title = record.label;
             this.menuItems.push(menuItem);
-
           });
         }
 
@@ -178,11 +130,7 @@ export class AdminMainpageComponent  implements OnInit, AfterViewInit {
         () => this.log.debug('loadMenu success'));
 
 
-    } else {
-
-      this.log.debug('guest ');
-
-    }
+  
 
 
 
@@ -190,12 +138,12 @@ export class AdminMainpageComponent  implements OnInit, AfterViewInit {
 
 
 
-  public isAuthenticated(): boolean {
-    return this.authenticationService.isAuthenticated();
+  public isAuthenticated(): Observable<boolean> | boolean {
+    return this.securityService.isAuthenticated();
   }
 
-  public isConnected(): boolean {
-    return this.authenticationService.isAuthenticated();
+  public isConnected(): Observable<boolean> | boolean {
+    return this.securityService.isConnected();
   }
 
 
@@ -218,12 +166,11 @@ export class AdminMainpageComponent  implements OnInit, AfterViewInit {
    * About roles : this just a frontend feature. Role must be tested in the API.
    */
   isAdminRole(): boolean {
-    const currentUser = this.getCurrentUser();
-    return currentUser && currentUser.role === 'admin';
+
+    return this.securityService.isAdminRole();
   }
 
   hasRole(): boolean {
-    const currentUser = this.getCurrentUser();
-    return currentUser && (currentUser.role === 'editor' || currentUser.role === 'admin');
+    return this.securityService.hasRole();
   }
 }

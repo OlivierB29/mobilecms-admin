@@ -7,9 +7,9 @@
     [mode]="(isHandset | async)!.matches ? 'over' : 'side'"
     [opened]="!(isHandset | async)!.matches">
     <mat-toolbar color="primary">Menu</mat-toolbar>
-    <mat-nav-list>
+    <mat-nav-list >
         <!-- if condition is only at this level. The test on sidenav causes an issue, since the object may not exists -->
-        <div *ngIf='menuItems && isConnected()'>
+        <div *ngIf='menuItems'>
           <div *ngFor='let menu of menuItems'>
             <app-menubutton *ngIf='drawer.mode !== "over"' [item]='menu'></app-menubutton>
             <app-menubutton *ngIf='drawer.mode === "over"' [item]='menu' (click)='drawer.close()'></app-menubutton>

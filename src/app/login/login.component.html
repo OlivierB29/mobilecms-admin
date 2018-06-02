@@ -3,8 +3,8 @@
       <div *ngIf='!isConnected()'>
         <mat-card class='logincontainer'>
 
-
-          <div *ngIf='!isAuthenticated() && isUserExists()' class='loginform'>
+          <div *ngIf='!isAuthenticated()'>
+          <div *ngIf='isUserExists()' class='loginform'>
 
             <form name='form' (ngSubmit)='f.form.valid && login()' #f='ngForm' novalidate>
 
@@ -31,7 +31,8 @@
           </div>
 
           <!-- username / email -->
-          <div *ngIf='!isAuthenticated() && !isUserExists()' class='loginform'>
+
+          <div *ngIf='!isUserExists()' class='loginform'>
             <form name='form2' (ngSubmit)='f2.form.valid && validateuser()' #f2='ngForm' novalidate>
               <div [ngClass]='{ "has-error": f2.submitted && !username.valid }'>
                 <mat-form-field class='loginform-input'>
@@ -50,6 +51,7 @@
 
             </form>
 
+          </div>
           </div>
 
           <!-- new password -->

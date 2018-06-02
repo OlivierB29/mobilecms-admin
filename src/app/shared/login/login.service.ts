@@ -10,7 +10,7 @@ import { User } from 'app/_models/index';
 import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { environment } from 'environments/environment';
-import { Log } from '../services';
+import { Log } from '../services/log.service';
 
 
 /*
@@ -158,18 +158,7 @@ export class LoginService {
     return currentUser;
   }
 
-  /**
-  * lightweight client control : authencation is ensured by the API
-  */
-  public isAuthenticated(): boolean {
-    let result = false;
-    const currentUserLocalStorage = localStorage.getItem('currentUser');
-    if (currentUserLocalStorage) {
-      const currentUser = JSON.parse(currentUserLocalStorage);
-      if (currentUser.token != null && currentUser.token !== '') {
-        result = true;
-      }
-    }
-    return result;
-  }
+
+  
+
 }

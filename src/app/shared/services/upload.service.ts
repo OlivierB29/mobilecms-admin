@@ -5,11 +5,11 @@ import { Injectable } from '@angular/core';
 import { User } from 'app/_models/index';
 
 import { environment } from 'environments/environment';
-import { CommonClientService } from 'app/shared';
+import { CommonClientService } from './commonclient.service';
 
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Log } from '../shared';
+import { Log } from './log.service';
 
 
 @Injectable()

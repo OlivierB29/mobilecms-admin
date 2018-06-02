@@ -3,7 +3,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { MatDialog } from '@angular/material';
 
 
-import { AdminService } from 'app/_services/index';
+import { AdminService } from 'app/shared/services';
 import { LocaleService, Log } from 'app/shared';
 import { User } from 'app/_models/index';
 

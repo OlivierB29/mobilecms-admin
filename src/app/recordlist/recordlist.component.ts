@@ -5,7 +5,7 @@ import { MatDialog } from '@angular/material';
 
 import { RecordListHelpDialogComponent } from './recordlisthelpdialog.component';
 
-import { ContentService } from 'app/_services';
+import { ContentService } from 'app/shared/services';
 import { AlertService, LocaleService, WindowService } from 'app/shared';
 import { User } from 'app/_models/index';
 
