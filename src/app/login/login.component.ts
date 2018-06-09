@@ -167,9 +167,15 @@ export class LoginComponent implements OnInit {
               this.log.debug('success');
               this.initCurrentUser();
               if (this.securityService.isAuthenticated()) {
-                this.alertService.success('authenticated');
-                this.loadMenu();
-                this.router.navigate(['']);
+                if (this.userinfo.newpasswordrequired === 'true') {
+                  this.log.debug('reset password');
+                } else {
+                  this.log.debug('connecting');
+                  this.alertService.success('authenticated');
+                  this.loadMenu();
+                  this.router.navigate(['']);
+                }
+
               } else {
                 this.alertService.error('empty user');
               }
