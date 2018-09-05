@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { LoginService, AlertService } from 'app/shared';
 
 @Component({
-    moduleId: module.id,
+    
     templateUrl: 'register.component.html',
     styleUrls: ['register.component.css']
 })

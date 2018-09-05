@@ -5,7 +5,7 @@ import { Log } from 'app/shared';
 
 
 @Component({
-    moduleId: module.id,
+    
     selector: 'app-homeadmin',
     templateUrl: 'home.component.html',
     styleUrls: ['home.component.css']

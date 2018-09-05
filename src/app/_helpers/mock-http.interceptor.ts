@@ -115,11 +115,18 @@ export class MockHttpInterceptor implements HttpInterceptor {
 
 
 
+    if (url.endsWith('/status') && method === 'GET') {
+
+      const body = JSON.parse('{}');
+      return new Observable(resp => { resp.next(new HttpResponse({ status: 200, body: body })); resp.complete(); });
+    }
+
     if (url.endsWith('/content') && method === 'GET') {
 
       const body = cmsApi.getTypes();
       return new Observable(resp => { resp.next(new HttpResponse({ status: 200, body: body })); resp.complete(); });
     }
+
 
 
     //

@@ -5,7 +5,7 @@ import { User, Label, RecordType } from 'app/_models/index';
 import { LoginService, AlertService } from 'app/shared';
 
 @Component({
-  moduleId: module.id,
+  
   selector: 'app-modifypassword',
   templateUrl: 'modifypassword.component.html',
     styleUrls: ['login.component.css']

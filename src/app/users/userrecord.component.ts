@@ -16,7 +16,7 @@ import { SecurityService } from '../shared';
 
 
 @Component({
-  moduleId: module.id,
+  
   templateUrl: 'userrecord.component.html',
   styleUrls: ['userrecord.component.css']
 })

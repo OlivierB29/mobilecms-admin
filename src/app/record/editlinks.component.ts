@@ -5,7 +5,7 @@ import { UploadService } from 'app/shared/services';
 import { Log } from 'app/shared';
 
 @Component({
-  moduleId: module.id,
+  
   selector: 'app-editlinks',
   templateUrl: 'editlinks.component.html',
   styleUrls: ['editlinks.component.css']

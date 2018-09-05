@@ -18,7 +18,7 @@ import { Subscription } from 'rxjs';
 import { Log } from 'app/shared';
 
 @Component({
-  moduleId: module.id,
+  
   templateUrl: 'record.component.html',
   styleUrls: ['record.component.css']
 })

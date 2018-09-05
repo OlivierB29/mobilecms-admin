@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { LinkComponent } from './link.component'
 
 @Component({
-  moduleId: module.id,
+  
   selector: 'app-media',
   templateUrl: 'media.component.html',
   styleUrls: ['link.component.css', 'media.component.css']

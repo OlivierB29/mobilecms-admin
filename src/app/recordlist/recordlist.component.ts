@@ -15,7 +15,7 @@ import { StandardComponent } from 'app/home';
 import { Log } from 'app/shared';
 
 @Component({
-  moduleId: module.id,
+  
   selector: 'app-recordlist',
   templateUrl: 'recordlist.component.html',
   styleUrls: ['recordlist.component.css']

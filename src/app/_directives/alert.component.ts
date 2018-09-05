@@ -4,7 +4,7 @@ import { AlertService } from 'app/shared';
 
 
 @Component({
-    moduleId: module.id,
+    
     selector: 'app-alert-message',
     templateUrl: 'alert.component.html',
     styleUrls: ['alert.component.css']

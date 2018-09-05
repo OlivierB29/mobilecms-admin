@@ -18,7 +18,7 @@ import { SecurityService } from 'app/shared';
 
 
 @Component({
-  moduleId: module.id,
+  
   selector: 'admin-mainpage',
   templateUrl: 'admin-mainpage.component.html',
   styleUrls: ['admin-mainpage.component.css']

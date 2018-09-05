@@ -5,7 +5,7 @@ import { UploadService } from 'app/shared/services';
 import { Log } from 'app/shared';
 
 @Component({
-  moduleId: module.id,
+  
   selector: 'app-link',
   templateUrl: 'link.component.html',
   styleUrls: ['link.component.css']

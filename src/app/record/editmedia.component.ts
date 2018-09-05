@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { EditLinksComponent } from './editlinks.component'
 
 @Component({
-  moduleId: module.id,
+  
   selector: 'app-editmedia',
   templateUrl: 'editmedia.component.html',
   styleUrls: ['editlinks.component.css', 'editmedia.component.css']

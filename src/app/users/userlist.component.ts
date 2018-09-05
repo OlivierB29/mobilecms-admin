@@ -13,7 +13,7 @@ import { StandardComponent } from 'app/home';
 
 
 @Component({
-  moduleId: module.id,
+  
   selector: 'app-userlist',
   templateUrl: 'userlist.component.html',
   styleUrls: ['userlist.component.css']
