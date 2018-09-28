@@ -44,6 +44,8 @@
             </mat-form-field>
           </div>
           <div *ngIf="property.name === 'title'">
+
+
             <mat-form-field class="full-width-input" *ngIf="property.editor === 'line'">
               <input (blur)='autosave()' (keypress)="generateId()" (change)="generateId()" matInput placeholder="{{'field.label.' + property.name | translate }}" [(ngModel)]="current[property.name]" name="{{property.name}}" type="text" required>
             </mat-form-field>
@@ -57,7 +59,11 @@
 
           <div *ngSwitchCase='"date"' >
             <mat-form-field *ngIf="property.editor === 'date'">
-              <input (blur)='autosave()' matInput placeholder="{{'field.label.' + property.name | translate }}" [(ngModel)]="current[property.name]" name="{{property.name}}" type="date" required>
+
+
+
+              <input (change)='copyToEmptyDatesFields(property)' (blur)='autosave()' matInput placeholder="{{'field.label.' + property.name | translate }}" [(ngModel)]="current[property.name]" name="{{property.name}}" type="date" required>
+              <mat-icon (click)="overwriteDates(property)" matSuffix>swap_vert</mat-icon>
             </mat-form-field>
           </div>
 

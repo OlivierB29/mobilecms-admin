@@ -435,6 +435,52 @@ export class RecordComponent extends StandardComponent implements OnInit, OnDest
     return this.previous !== null && JSON.stringify(this.previous) !== JSON.stringify(this.current);
   }
 
+  /**
+   * When the first date is modified, initialize all dates with the same initial value.
+   * 
+   * Example : on a calendar event, the default end date is the same as the start date.
+   * 
+   * @param property modified property
+   */
+  copyToEmptyDatesFields(property: any) {
+    if (this.newrecord) {
+      // get all date fields
+      const dateFields = this.properties.filter(u => { return u.editor === 'date'; });
+      // several dates on the record
+      if (dateFields.length > 1) {
+        dateFields.forEach(item => { 
+          if (item.name !== property.name && !this.current[item.name] ) {
+            this.current[item.name] = this.current[property.name] ;
+          }
+        });
 
+      }
+      
+    }
+    
+  }
+
+  /**
+   * Overwrite other dates with the current date
+   * @param property  modified property
+   */
+  overwriteDates(property: any) {
+      // get all date fields
+      const dateFields = this.properties.filter(u => { return u.editor === 'date'; });
+      // several dates on the record
+      if (dateFields.length > 1) {
+        dateFields.forEach(item => { 
+          if (item.name !== property.name) {
+            this.current[item.name] = this.current[property.name] ;
+          }
+        });
+
+      }
+      
+    
+    
+  }
+
+  
 
 }
