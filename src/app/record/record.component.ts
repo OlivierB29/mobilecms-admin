@@ -481,6 +481,16 @@ export class RecordComponent extends StandardComponent implements OnInit, OnDest
     
   }
 
+  clone() {
+    this.current.id = null;
+    this.newrecord = true;
+
+    if (!this.current.media) {
+      this.current.media = [];
+    }
+
+  }
+
   
 
 }

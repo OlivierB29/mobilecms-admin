@@ -21,6 +21,8 @@
     "record.edit.attachments":"HTTP Links",
     "record.edit.media":"Files",
     "record.edit.media.subtitle":"Stored on server",
+    "record.edit.copyfield": "Copy field",
+    "record.edit.clone": "Clone record",
     "record.help.images":"Add images links",
     "record.help.attachments":"Add document link",
     "record.edit.attachments.subtitle":"External links (drive, ...)",

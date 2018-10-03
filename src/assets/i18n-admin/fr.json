@@ -24,6 +24,8 @@
     "record.edit.attachments.subtitle":"Liens externes (drive, ...)",
     "record.edit.media":"Fichiers joints",
     "record.edit.media.subtitle":"Stockage sur le serveur",
+    "record.edit.copyfield": "Recopie la valeur",
+    "record.edit.clone": "Créer une nouvelle copie",
     "record.help.images":"Liens externes vers des images",
     "record.help.attachments":"Liens externes vers des documents",
     "record.help.media":"Envoyer des documents ou des images sur le serveur",

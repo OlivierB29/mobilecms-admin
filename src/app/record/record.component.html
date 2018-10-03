@@ -14,6 +14,8 @@
     <button mat-menu-item *ngIf="f.form.valid && !loading" (click)="save()" matTooltip="{{'record.edit.save' | translate }}"><mat-icon>save</mat-icon> {{'record.edit.save' | translate }}</button>
     <button mat-menu-item  *ngIf="!newrecord" (click)="preview()" matTooltip="{{'record.edit.preview' | translate }}"> <mat-icon>open_in_new</mat-icon> {{'record.edit.preview' | translate }}</button>
     <button mat-menu-item  *ngIf="!newrecord" (click)="openConfirmDialog()" matTooltip="{{'record.edit.delete' | translate }}"> <mat-icon>delete</mat-icon> {{'record.edit.delete' | translate }}</button>
+    <button mat-menu-item [routerLink]='["/record", type ,  "new"]' ><mat-icon>add</mat-icon>{{ "record.list.create" | translate }} </button>
+    <button mat-menu-item  *ngIf="!newrecord" (click)="clone()" ><mat-icon>file_copy</mat-icon>{{ "record.edit.clone" | translate }} </button>
     <button mat-menu-item  (click)='openHelpDialog()' matTooltip="{{'help.label' | translate }}"><mat-icon alt='help'>help_outline</mat-icon> {{'help.label' | translate }}</button>
   </mat-menu>
 
