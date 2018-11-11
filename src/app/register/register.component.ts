@@ -2,7 +2,7 @@
 import { Router } from '@angular/router';
 
 
-import { LoginService, AlertService } from 'app/shared';
+import { LoginService, AlertService } from 'src/app/shared';
 
 @Component({
     

@@ -24,6 +24,7 @@
 
 
 </mat-toolbar>
+
 <form name='form' (ngSubmit)='f.form.valid' #f='ngForm' novalidate>
   <div class="container">
     <div>
@@ -122,4 +123,24 @@
 
     </div>
   </div>
+
+
+<div *ngIf='!newrecord'>
+  <mat-progress-bar *ngIf='isLoading()' mode="indeterminate"></mat-progress-bar>
+  <mat-action-row>
+    <input type='file' #file (change)='upload(file.files)' multiple='multiple' />
+  </mat-action-row>
+  <mat-action-row>
+    <button  mat-raised-button color='primary' (click)='refresh()' ><mat-icon>autorenew</mat-icon></button>
+    <button  mat-raised-button color='primary' (click)='createThumbnails()' ><mat-icon>photo_size_select_small</mat-icon></button>
+
+    <div *ngIf='getResponseMessage() && getResponseMessage().error' class='error-label-message'>
+      <mat-icon>cloud_off</mat-icon>  {{getResponseMessage().error}}
+    </div>
+    <div *ngIf='getResponseMessage() && !getResponseMessage().error' class='success-label-message'>
+      <mat-icon>cloud_done</mat-icon>
+    </div>
+  </mat-action-row>
+</div>
+
 </form>

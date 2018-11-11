@@ -1,21 +1,21 @@
 ﻿import { Routes, RouterModule } from '@angular/router';
 
-import { HomeComponent } from 'app/home/index';
+import { HomeComponent } from 'src/app/home/index';
 
-import { RegisterComponent } from 'app/register/index';
-import { RecordListComponent } from 'app/recordlist/recordlist.component';
-import { RecordComponent } from 'app/record/record.component';
-
-
-import { UserListComponent, UserRecordComponent } from 'app/users';
-import { UserRouteAccessService } from 'app/shared';
-
-import { LoginComponent, ModifyPasswordComponent , SendPasswordDialogComponent } from 'app/login';
+import { RegisterComponent } from 'src/app/register/index';
+import { RecordListComponent } from 'src/app/recordlist/recordlist.component';
+import { RecordComponent } from 'src/app/record/record.component';
 
 
-import { LoginLayoutComponent } from 'app/layouts/login-layout.component';
+import { UserListComponent, UserRecordComponent } from 'src/app/users';
+import { UserRouteAccessService } from 'src/app/shared';
 
-import { AdminMainpageComponent } from 'app/admin-mainpage/admin-mainpage.component';
+import { LoginComponent, ModifyPasswordComponent , SendPasswordDialogComponent } from 'src/app/login';
+
+
+import { LoginLayoutComponent } from 'src/app/layouts/login-layout.component';
+
+import { AdminMainpageComponent } from 'src/app/admin-mainpage/admin-mainpage.component';
 
 
 const appRoutes: Routes = [

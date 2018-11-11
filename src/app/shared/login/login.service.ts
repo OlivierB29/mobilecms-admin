@@ -4,12 +4,12 @@ import { Observable } from 'rxjs';
 
 
 
-import { HashUtils } from 'app/_helpers';
+import { HashUtils } from 'src/app/_helpers';
 
-import { User } from 'app/_models/index';
+import { User } from 'src/app/_models/index';
 import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
-import { environment } from 'environments/environment';
+import { environment } from 'src/environments/environment';
 import { Log } from '../services/log.service';
 
 

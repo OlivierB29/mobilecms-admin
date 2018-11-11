@@ -2,11 +2,11 @@
 
 import { Observable, of } from 'rxjs';
 
-import { User } from 'app/_models/index';
+import { User } from 'src/app/_models/index';
 
-import { HashUtils } from 'app/_helpers';
-import { Metadata } from 'app/_models';
-import { environment } from 'environments/environment';
+import { HashUtils } from 'src/app/_helpers';
+import { Metadata } from 'src/app/_models';
+import { environment } from 'src/environments/environment';
 import { CommonClientService } from './commonclient.service';
 
 import { HttpClient } from '@angular/common/http';

@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { ErrorDialogComponent } from './errordialog.component';
-import { UploadService } from 'app/shared/services';
-import { Log } from 'app/shared';
+import { UploadService } from 'src/app/shared/services';
+import { Log } from 'src/app/shared';
 
 @Component({
   

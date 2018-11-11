@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 
 
 
-import { User } from 'app/_models/index';
+import { User } from 'src/app/_models/index';
 
-import { environment } from 'environments/environment';
+import { environment } from 'src/environments/environment';
 import { CommonClientService } from './commonclient.service';
 
 import { HttpClient } from '@angular/common/http';

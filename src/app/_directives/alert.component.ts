@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { AlertService } from 'app/shared';
+import { AlertService } from 'src/app/shared';
 
 
 

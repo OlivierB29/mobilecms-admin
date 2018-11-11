@@ -17,45 +17,45 @@ export function HttpLoaderFactory(http: HttpClient) {
 // Material
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import 'hammerjs';
-import { MyMaterialModule } from 'app/mymaterial.module';
+import { MyMaterialModule } from 'src/app/mymaterial.module';
 
 // project imports
 import { routing } from './app.routing';
-import { AppComponent } from 'app/app.component';
+import { AppComponent } from 'src/app/app.component';
 
-import { AlertComponent } from 'app/_directives/index';
-// import { AuthGuard } from 'app/_guards/index';
-import { AdminService, ContentService, UploadService} from 'app/shared/services';
+import { AlertComponent } from 'src/app/_directives/index';
+// import { AuthGuard } from 'src/app/_guards/index';
+import { AdminService, ContentService, UploadService} from 'src/app/shared/services';
 import { HomeComponent, HomeHelpDialogComponent } from './home';
 
-import { RegisterComponent } from 'app/register/index';
-import { RecordListComponent, RecordListHelpDialogComponent } from 'app/recordlist/index';
-import { UserListComponent, DeleteUserDialogComponent, UserRecordComponent } from 'app/users';
+import { RegisterComponent } from 'src/app/register/index';
+import { RecordListComponent, RecordListHelpDialogComponent } from 'src/app/recordlist/index';
+import { UserListComponent, DeleteUserDialogComponent, UserRecordComponent } from 'src/app/users';
 import { RecordComponent,
 LinkComponent,
   MediaComponent,
   EditLinksComponent,
   EditMediaComponent,
-  ErrorDialogComponent, DeleteDialogComponent, RecordHelpDialogComponent } from 'app/record';
+  ErrorDialogComponent, DeleteDialogComponent, RecordHelpDialogComponent } from 'src/app/record';
 
-import { LoginComponent, ModifyPasswordComponent , SendPasswordDialogComponent } from 'app/login';
+import { LoginComponent, ModifyPasswordComponent , SendPasswordDialogComponent } from 'src/app/login';
 
-import { MenubuttonComponent } from 'app/mainpage';
+import { MenubuttonComponent } from 'src/app/mainpage';
 
-import { OrderbyPipe } from 'app/shared/filters';
+import { OrderbyPipe } from 'src/app/shared/filters';
 
 
 
 // @angular/common/http
-import { MockHttpInterceptor } from 'app/_helpers/mock-http.interceptor';
+import { MockHttpInterceptor } from 'src/app/_helpers/mock-http.interceptor';
 
-import { environment } from 'environments/environment';
-import { AdminCmsSharedModule } from 'app/shared/shared.module';
+import { environment } from 'src/environments/environment';
+import { AdminCmsSharedModule } from 'src/app/shared/shared.module';
 
-import { AdminMainpageComponent } from 'app/admin-mainpage/admin-mainpage.component';
+import { AdminMainpageComponent } from 'src/app/admin-mainpage/admin-mainpage.component';
 
 
-import { LoginLayoutComponent } from 'app/layouts/login-layout.component';
+import { LoginLayoutComponent } from 'src/app/layouts/login-layout.component';
 
 
 
@@ -66,14 +66,14 @@ const providers: any[] = [
   HttpClient
 
   // TODO uncomment to enable demo
-/*
+
   ,
   {
       provide: HTTP_INTERCEPTORS,
       useClass: MockHttpInterceptor,
       multi: true
   }
-  */
+  
 ];
 
 

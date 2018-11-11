@@ -29,6 +29,7 @@
       </div>
     </mat-action-row>
 
+    
   <div *ngFor='let item of getAttachments(); let i=index' class='input-group'>
 
     <app-media [type]='type' [current]='current' [attachments]='getAttachments()' [index]='i'></app-media>

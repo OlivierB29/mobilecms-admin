@@ -3,13 +3,13 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { MatDialog } from '@angular/material';
 
 
-import { AdminService } from 'app/shared/services';
-import { LocaleService, Log } from 'app/shared';
-import { User } from 'app/_models/index';
+import { AdminService } from 'src/app/shared/services';
+import { LocaleService, Log } from 'src/app/shared';
+import { User } from 'src/app/_models/index';
 
-import { OrderbyPipe } from 'app/shared/filters';
+import { OrderbyPipe } from 'src/app/shared/filters';
 
-import { StandardComponent } from 'app/home';
+import { StandardComponent } from 'src/app/home';
 
 
 @Component({

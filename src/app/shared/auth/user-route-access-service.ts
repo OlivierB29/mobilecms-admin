@@ -5,7 +5,7 @@ import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
 
-import { environment } from 'environments/environment';
+import { environment } from 'src/environments/environment';
 
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { SecurityService } from '../services/security.service';

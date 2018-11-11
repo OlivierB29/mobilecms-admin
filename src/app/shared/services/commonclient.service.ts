@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
-import { User } from 'app/_models/index';
-import { Metadata } from 'app/_models';
+import { User } from 'src/app/_models/index';
+import { Metadata } from 'src/app/_models';
 import { HttpHeaders } from '@angular/common/http';
 
 import { JwtClientService } from './jwtclient.service';

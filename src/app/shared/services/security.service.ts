@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 
-import { User } from 'app/_models/index';
-import { Metadata } from 'app/_models';
+import { User } from 'src/app/_models/index';
+import { Metadata } from 'src/app/_models';
 
-import { environment } from 'environments/environment';
+import { environment } from 'src/environments/environment';
 import { CommonClientService } from './commonclient.service';
 
 import { Observable, of } from 'rxjs';

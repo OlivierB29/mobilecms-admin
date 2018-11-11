@@ -1,7 +1,7 @@
 ﻿import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { HomeHelpDialogComponent } from './homehelpdialog.component';
-import { Log } from 'app/shared';
+import { Log } from 'src/app/shared';
 
 
 @Component({

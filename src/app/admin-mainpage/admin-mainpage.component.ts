@@ -3,17 +3,17 @@ import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/l
 import { Observable } from 'rxjs';
 
 import { OnInit, AfterViewInit, ViewChild, ChangeDetectorRef } from '@angular/core';
-import { User, Label, RecordType } from 'app/_models/index';
+import { User, Label, RecordType } from 'src/app/_models/index';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MatDialog, MatSidenav } from '@angular/material';
 
 
 
 import { MenuItem } from './menuitem';
-import { SendPasswordDialogComponent } from 'app/login';
-import { LoginService, LocaleService, AlertService, WindowService, Log, ContentService } from 'app/shared';
-import { environment } from 'environments/environment';
-import { SecurityService } from 'app/shared';
+import { SendPasswordDialogComponent } from 'src/app/login';
+import { LoginService, LocaleService, AlertService, WindowService, Log, ContentService } from 'src/app/shared';
+import { environment } from 'src/environments/environment';
+import { SecurityService } from 'src/app/shared';
 
 
 

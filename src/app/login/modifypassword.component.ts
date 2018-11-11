@@ -1,8 +1,8 @@
 ﻿import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { User, Label, RecordType } from 'app/_models/index';
-import { LoginService, AlertService } from 'app/shared';
+import { User, Label, RecordType } from 'src/app/_models/index';
+import { LoginService, AlertService } from 'src/app/shared';
 
 @Component({
   

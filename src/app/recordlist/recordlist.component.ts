@@ -5,14 +5,14 @@ import { MatDialog } from '@angular/material';
 
 import { RecordListHelpDialogComponent } from './recordlisthelpdialog.component';
 
-import { ContentService } from 'app/shared/services';
-import { AlertService, LocaleService, WindowService } from 'app/shared';
-import { User } from 'app/_models/index';
+import { ContentService } from 'src/app/shared/services';
+import { AlertService, LocaleService, WindowService } from 'src/app/shared';
+import { User } from 'src/app/_models/index';
 
-import { OrderbyPipe } from 'app/shared/filters';
+import { OrderbyPipe } from 'src/app/shared/filters';
 
-import { StandardComponent } from 'app/home';
-import { Log } from 'app/shared';
+import { StandardComponent } from 'src/app/home';
+import { Log } from 'src/app/shared';
 
 @Component({
   

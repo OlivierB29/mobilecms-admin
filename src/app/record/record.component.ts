@@ -4,18 +4,19 @@ import { MatDialog } from '@angular/material';
 
 import { TranslatePipe } from '@ngx-translate/core';
 
-import { User, Label, RecordType, Metadata } from 'app/_models';
+import { User, Label, RecordType, Metadata } from 'src/app/_models';
 
-import { ContentService, UploadService } from 'app/shared/services';
-import { StringUtils, LocaleService, WindowService } from 'app/shared';
-import { StandardComponent } from 'app/home';
+import { ContentService, UploadService } from 'src/app/shared/services';
+import { StringUtils, LocaleService, WindowService } from 'src/app/shared';
+import { StandardComponent } from 'src/app/home';
 
-import { environment } from 'environments/environment';
+import { environment } from 'src/environments/environment';
 import { DeleteDialogComponent } from './deletedialog.component';
 import { RecordHelpDialogComponent } from './recordhelpdialog.component';
 import { Observable } from 'rxjs';
 import { Subscription } from 'rxjs';
-import { Log } from 'app/shared';
+import { Log } from 'src/app/shared';
+import { ErrorDialogComponent } from './errordialog.component';
 
 @Component({
   
@@ -127,7 +128,7 @@ export class RecordComponent extends StandardComponent implements OnInit, OnDest
 
 
   ngOnDestroy() {
-    this.log.debug('Destroy timer');
+    this.logger.debug('Destroy timer');
     // unsubscribe here
     if (this.timerSub) {
       this.timerSub.unsubscribe();
@@ -491,6 +492,123 @@ export class RecordComponent extends StandardComponent implements OnInit, OnDest
 
   }
 
-  
+  isLoading(): boolean {
+    return this.loading;
+  }
+
+
+  upload(files: any) {
+
+    this.responsemessage = {};
+    if (files) {
+      this.logger.debug('files ' + files.length);
+      this.logger.debug(files);
+
+
+
+      for (let i = 0; i < files.length; i++) {
+          this.logger.debug('uploading  ' + JSON.stringify(files[i]));
+          this.loading = true;
+          this.uploadService.uploadFile(files[i], this.type, this.current.id)
+            .then((mediadata: any) => {
+              if (mediadata.error) {
+                  this.openDialog('Upload failed : ' + mediadata.error);
+              } else {
+                this.logger.debug('upload result ' + JSON.stringify(mediadata));
+                mediadata.forEach((f: any) => {
+                  this.logger.debug('--- current  ' + f.url);
+                  if (!this.exists(this.current.media, 'url', f.url)) {
+                    this.logger.debug('adding ' + f.title);
+                    this.current.media.push(f);
+                  }
+
+                });
+                this.thumbnails(this.current.media.length - 1);
+              }
+              this.loading = false;
+
+            },
+            error => {
+              this.loading = false;
+              this.responsemessage.error = error;
+              this.openDialog('Upload error : ' + error);
+            }
+          );
+/*
+,
+error => {
+this.loading = false;
+this.responsemessage.error = error;
+this.openDialog('Upload error : ' + error);
+},
+() => {
+this.loading = false;
+}
+*/
+
+      }
+    } else {
+      this.loading = false;
+      this.openDialog('No file selected');
+    }
+
+  }
+
+
+  openDialog(msg: string) {
+    this.dialog.open(ErrorDialogComponent, {
+       data: msg,
+    });
+  }
+
+  private exists(array: any[], key: any, value: any): boolean {
+    let result = false;
+    if (array) {
+      const filter = array.filter(e => {
+          return e[key] === value;
+      });
+      result = filter.length > 0;
+    }
+
+    return result;
+}
+
+
+thumbnails(index: number) {
+  this.responsemessage = {};
+  const files  = [];
+  // const file = JSON.parse('{"url":""}');
+  const file: any = {};
+  file.url = this.current.media[index].url;
+  files.push(file);
+
+  this.loading = true;
+  this.uploadService.thumbnails(this.type, this.current.id, files)
+    .subscribe((mediadata: any) => {
+
+
+      mediadata.forEach((fileAndThumbnails: any) => {
+        this.current.media[index].thumbnails = fileAndThumbnails.thumbnails;
+        this.logger.debug('thumbnails ' + JSON.stringify(this.current.media[index]));
+      });
+    },
+    error => {
+      this.responsemessage.error = error;
+      console.error('thumbnails ' + error);
+      this.loading = false;
+  },
+    () => {
+      this.logger.debug('thumbnails complete');
+      this.loading = false;
+    });
+
+}
+
+getResponseMessage(): string {
+  return this.responsemessage;
+}
+
+
+
 
 }

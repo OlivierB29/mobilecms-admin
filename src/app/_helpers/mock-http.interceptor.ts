@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpRequest, HttpResponse, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-import { Log } from 'app/shared';
+import { Log } from 'src/app/shared';
 import { CmsApi } from './cmsapi';
 
 

@@ -4,11 +4,11 @@ import { MatDialog } from '@angular/material';
 
 import { TranslatePipe } from '@ngx-translate/core';
 
-import { User, Label, RecordType, Metadata } from 'app/_models';
+import { User, Label, RecordType, Metadata } from 'src/app/_models';
 
-import { AdminService, UploadService } from 'app/shared/services';
-import { LocaleService, StringUtils, Log } from 'app/shared';
-import { StandardComponent } from 'app/home';
+import { AdminService, UploadService } from 'src/app/shared/services';
+import { LocaleService, StringUtils, Log } from 'src/app/shared';
+import { StandardComponent } from 'src/app/home';
 
 
 import { DeleteUserDialogComponent } from './deleteuserdialog.component';
