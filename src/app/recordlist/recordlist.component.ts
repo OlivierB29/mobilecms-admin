@@ -46,6 +46,12 @@ export class RecordListComponent extends StandardComponent implements OnInit {
 
   displayedColumns = [];
 
+
+  /**
+   * record data
+   */
+  deletelist: any[] = [];
+
   constructor(
     private logger: Log,
     private contentService: ContentService,
@@ -122,6 +128,29 @@ export class RecordListComponent extends StandardComponent implements OnInit {
 
   }
 
+  addToDeleteList(item : any) {
+
+    this.deletelist.push(item);
+    let index = this.items.indexOf(item);
+    if (index > -1) {
+      this.items.splice(index, 1);
+    }
+  }
+
+  deleteRecordList() {
+    let ids = [];
+    this.deletelist.forEach((item: any) => {
+      ids.push(item.id);
+    });
+    this.contentService.deleteRecordList(this.type, ids)
+    .subscribe((data: any) => this.response = JSON.stringify(data),
+    error => console.error('post' + error),
+    () => { 
+      this.deletelist = [];
+      this.log.debug('post complete'); });
+
+  }
+
 
   rebuildIndex() {
     this.contentService.rebuildIndex(this.type)
@@ -140,5 +169,6 @@ export class RecordListComponent extends StandardComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => { this.log.debug('Dialog result'); });
   }
+
 
 }

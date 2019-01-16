@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import {
   MatSidenavModule, MatButtonModule, MatDialogModule, MatListModule,
   MatInputModule, MatSelectModule, MatIconModule, MatProgressSpinnerModule, MatProgressBarModule, MatCardModule,
-  MatTooltipModule, MatToolbarModule, MatExpansionModule, MatMenuModule, MatFormFieldModule
+  MatTooltipModule, MatToolbarModule, MatExpansionModule, MatMenuModule, MatFormFieldModule, MatCheckboxModule
 } from '@angular/material';
 import { MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
@@ -13,11 +13,15 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     MatInputModule, MatSelectModule, MatIconModule, MatProgressSpinnerModule, MatProgressBarModule, MatCardModule,
     MatTooltipModule, MatToolbarModule, MatExpansionModule, MatMenuModule,
     MatButtonToggleModule, MatFormFieldModule,
-    MatTableModule, MatPaginatorModule, MatSortModule],
+    MatTableModule, MatPaginatorModule, MatSortModule,
+    MatCheckboxModule
+],
   exports: [MatSidenavModule, MatButtonModule, MatDialogModule, MatListModule,
     MatInputModule, MatSelectModule, MatIconModule, MatProgressSpinnerModule, MatProgressBarModule, MatCardModule,
     MatTooltipModule, MatToolbarModule, MatExpansionModule, MatMenuModule,
     MatButtonToggleModule, MatFormFieldModule,
-    MatTableModule, MatPaginatorModule, MatSortModule],
+    MatTableModule, MatPaginatorModule, MatSortModule,
+    MatCheckboxModule
+  ],
 })
 export class MyMaterialModule { }

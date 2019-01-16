@@ -164,6 +164,19 @@ export class MockHttpInterceptor implements HttpInterceptor {
       return new Observable(resp => { resp.next(new HttpResponse({ status: 200, body: {} })); resp.complete(); });
     }
 
+    if (url.match(/deletelist\/[-a-zA-Z0-9_]*/) && method === 'POST') {
+
+      // find item by id in array
+      request.body.forEach(element => {
+        console.log('delete ' + element);
+        cmsApi.deleteItem(this.getLast(url), element);
+      });
+      
+      // respond 200 OK
+
+      return new Observable(resp => { resp.next(new HttpResponse({ status: 200, body: {} })); resp.complete(); });
+    }
+
     return null;
   }
 

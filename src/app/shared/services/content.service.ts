@@ -151,6 +151,23 @@ export class ContentService extends CommonClientService {
 
     }
 
+        /**
+     * save a record
+     */
+    public deleteRecordList = (type: string, obj: any): Observable<any> => {
+
+        // eg : /index/calendar
+        const url: string = this.getUrl('/deletelist/' + type);
+        this.log.debug(url);
+
+        const postData = obj;
+
+        return this.http.post<any>(url,
+            postData,
+            {headers: this.jwtPost()});
+
+    }
+
     /**
      * Table metadata for record modification
      */
