@@ -2,11 +2,11 @@
   <mat-toolbar class='secondary-button-bar'>
 <span class='fill-remaining-space'></span>
 
-  <button *ngIf="deletelist.length > 0" mat-menu-item color='primary' (click)='deleteRecordList()' matTooltip='{{"record.list.delete" | translate }}'><mat-icon>delete_forever</mat-icon> {{'record.list.delete' | translate }} {{deletelist.length}}</button>
+  <button *ngIf="deletelist.length > 0" mat-menu-item color='primary' (click)='deleteRecordList()' matTooltip='{{"record.list.deleteall.tooltip" | translate }}'><mat-icon>delete_forever</mat-icon> {{deletelist.length}}</button>
 
 
 
-  <button mat-raised-button color='primary' [matMenuTriggerFor]='menu'><mat-icon>more_vert</mat-icon></button>
+  <button mat-raised-button color='primary' [matMenuTriggerFor]='menu' ><mat-icon>more_vert</mat-icon></button>
   <mat-menu #menu="matMenu">
 
     <button mat-menu-item color='primary' [routerLink]='["/record", type ,  "new"]' ><mat-icon>add</mat-icon>{{ "record.list.create" | translate }} </button>
@@ -29,16 +29,18 @@
 
   <div *ngIf='items'>
     <div *ngFor='let item of items' class='item-title'>
-      <button mat-button   (click)='addToDeleteList(item)'  >
-        delete
-      </button>
+      <mat-toolbar>
       <button mat-button [routerLink]='["/record", type ,  item.id]' >
         <span *ngFor='let col of displayedColumns'>
             {{item[col]}}
         </span>
 
       </button>
-
+      <span class='fill-remaining-space'></span>
+      <button mat-button   (click)='addToDeleteList(item)'  matTooltip='{{"record.list.delete.tooltip" | translate }}'  >
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-toolbar>
     </div>
   </div>
 
