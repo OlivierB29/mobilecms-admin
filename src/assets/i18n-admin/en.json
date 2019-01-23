@@ -1,6 +1,7 @@
 {
     "login.user":"Email - User account",
     "login.password":"Password",
+    "login.disconnect":"Disconnect",
     "home.help.title":"Administration mini guide",
     "home.help.menu":"Open categories",
     "home.help.disconnect":"Disconnect",
@@ -27,6 +28,8 @@
     "record.edit.media.subtitle":"Stored on server",
     "record.edit.copyfield": "Copy field",
     "record.edit.clone": "Clone record",
+    "record.media.refresh": "Reload images from directory, after using a manual transfer (FTP, ...)",
+    "record.media.createthumbnails": "Re-create thumbnails of images",
     "record.help.images":"Add images links",
     "record.help.attachments":"Add document link",
     "record.edit.attachments.subtitle":"External links (drive, ...)",

@@ -43,7 +43,7 @@
       </button>
         <button [routerLink]='["/home"]' mat-button class='top-menu-title'>Admin</button>
       <span class='fill-remaining-space'></span>
-      <button *ngIf='isAuthenticated()' mat-button (click)='disconnect()' class='top-menu-icon'>
+      <button *ngIf='isAuthenticated()' mat-button (click)='disconnect()' class='top-menu-icon' matTooltip="{{'login.disconnect' | translate }}">
         <mat-icon alt='disconnect'>cancel</mat-icon>
       </button>
 

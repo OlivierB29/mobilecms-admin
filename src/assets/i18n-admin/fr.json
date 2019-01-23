@@ -1,6 +1,7 @@
 {
     "login.user":"Adresse email",
     "login.password":"Mot de passe",
+    "login.disconnect":"Se déconnecter",
     "home.help.title":"Gestion du contenu",
     "home.help.menu":"Cet icone permet d'accéder aux catégories modifiables",
     "home.help.disconnect":"Fermer la session",
@@ -30,6 +31,8 @@
     "record.edit.media.subtitle":"Stockage sur le serveur",
     "record.edit.copyfield": "Recopie la valeur",
     "record.edit.clone": "Créer une nouvelle copie",
+    "record.media.refresh": "Rafraichir la liste des images du répertoire, après un transfert manuel (FTP)",
+    "record.media.createthumbnails": "Re-crée les miniatures des images",
     "record.help.images":"Liens externes vers des images",
     "record.help.attachments":"Liens externes vers des documents",
     "record.help.media":"Envoyer des documents ou des images sur le serveur",

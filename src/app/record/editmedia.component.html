@@ -18,8 +18,8 @@
       <input type='file' #file (change)='upload(file.files)' multiple='multiple' />
     </mat-action-row>
     <mat-action-row>
-      <button  mat-raised-button color='primary' (click)='refresh()' ><mat-icon>autorenew</mat-icon></button>
-      <button  mat-raised-button color='primary' (click)='createThumbnails()' ><mat-icon>photo_size_select_small</mat-icon></button>
+      <button  mat-raised-button color='primary' (click)='refresh()' matTooltip="{{'record.media.refresh' | translate }}"><mat-icon>autorenew</mat-icon></button>
+      <button  mat-raised-button color='primary' (click)='createThumbnails()' matTooltip="{{'record.media.createthumbnails' | translate }}"><mat-icon>photo_size_select_small</mat-icon></button>
 
       <div *ngIf='getResponseMessage() && getResponseMessage().error' class='error-label-message'>
         <mat-icon>cloud_off</mat-icon>  {{getResponseMessage().error}}
