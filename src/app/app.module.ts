@@ -65,27 +65,19 @@ const providers: any[] = [
   UploadService,
   HttpClient
 
-  // TODO uncomment to enable demo
 
-  ,
-  {
-      provide: HTTP_INTERCEPTORS,
-      useClass: MockHttpInterceptor,
-      multi: true
-  }
-  
 ];
 
 
-// broken since angular 6
-// if (environment.usemockbackend === true) {
-//     console.log('usemockbackend !!!');
-//     providers.push({
-//         provide: HTTP_INTERCEPTORS,
-//         useClass: MockHttpInterceptor,
-//         multi: true
-//     });
-// }
+// Broken with angular 6. angular 7 seems fine
+if (environment.usemockbackend === true) {
+    console.log('usemockbackend !!!');
+    providers.push({
+        provide: HTTP_INTERCEPTORS,
+        useClass: MockHttpInterceptor,
+        multi: true
+    });
+}
 
 
 @NgModule({
