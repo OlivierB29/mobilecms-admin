@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 
-import { OnInit, AfterViewInit, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { OnInit, AfterViewInit,  ChangeDetectorRef } from '@angular/core';
 import { User, Label, RecordType } from 'src/app/_models/index';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { MatDialog, MatSidenav } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSidenav } from '@angular/material/sidenav';
 
 
 
