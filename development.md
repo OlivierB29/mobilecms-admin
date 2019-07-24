@@ -9,7 +9,7 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 ###  Demo with a fake API
 - Open app.module.ts and uncomment annoted code near "uncomment to enable demo".
 - Run `npm run demo`
-- issues : File upload doesn't work.
+- issues : File upload doesn't work
 
 ## Build
 - Prod build with specified web context : `npm run dist`

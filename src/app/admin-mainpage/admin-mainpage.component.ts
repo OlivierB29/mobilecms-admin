@@ -25,9 +25,9 @@ import { SecurityService } from 'src/app/shared';
   styleUrls: ['admin-mainpage.component.css']
 })
 export class AdminMainpageComponent  implements OnInit, AfterViewInit {
-  isHandset: Observable<BreakpointState> = this.breakpointObserver.observe(Breakpoints.Handset);
+  isHandsetObserver: Observable<BreakpointState> = null;
 
-
+  isHandset = true;
 
 
   menuItems: any[] = null;
@@ -50,7 +50,13 @@ export class AdminMainpageComponent  implements OnInit, AfterViewInit {
     private log: Log,
     private locale: LocaleService, private alertService: AlertService,
     private windowService: WindowService, public dialog: MatDialog,
-    private router: Router, private route: ActivatedRoute) {}
+    private router: Router, private route: ActivatedRoute) {
+    this.isHandsetObserver = this.breakpointObserver.observe(Breakpoints.Handset);
+    this.isHandsetObserver.subscribe(result => {
+      this.log.debug('isHandset ' + result.matches);
+      this.isHandset = result.matches;
+    });
+    }
 
 
 

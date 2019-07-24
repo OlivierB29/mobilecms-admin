@@ -59,25 +59,6 @@ import { LoginLayoutComponent } from 'src/app/layouts/login-layout.component';
 
 
 
-const providers: any[] = [
-  AdminService,
-  ContentService,
-  UploadService,
-  HttpClient
-
-
-];
-
-
-// Broken with angular 6. angular 7 seems fine
-if (environment.usemockbackend === true) {
-    console.log('usemockbackend !!!');
-    providers.push({
-        provide: HTTP_INTERCEPTORS,
-        useClass: MockHttpInterceptor,
-        multi: true
-    });
-}
 
 
 @NgModule({
@@ -134,7 +115,18 @@ if (environment.usemockbackend === true) {
     ErrorDialogComponent
   ],
 
-  providers: providers,
+  providers: [
+    AdminService,
+    ContentService,
+    UploadService,
+    HttpClient,
+    // uncomment to enable demo : mock of HTTP requests
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: MockHttpInterceptor,
+    //   multi: true
+    // }
+  ],
   bootstrap: [AppComponent]
 })
 

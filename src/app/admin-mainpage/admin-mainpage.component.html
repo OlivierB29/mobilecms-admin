@@ -4,8 +4,8 @@
     class="sidenav"
     fixedInViewport="true"
     [attr.role]="isHandset ? 'dialog' : 'navigation'"
-    [mode]="(isHandset | async)!.matches ? 'over' : 'side'"
-    [opened]="!(isHandset | async)!.matches">
+    [mode]="isHandset ? 'over' : 'side'"
+    [opened]="!isHandset">
     <mat-toolbar color="primary">Menu</mat-toolbar>
     <mat-nav-list >
         <!-- if condition is only at this level. The test on sidenav causes an issue, since the object may not exists -->
@@ -38,7 +38,7 @@
         aria-label="Toggle sidenav"
         mat-icon-button
         (click)="drawer.toggle()"
-        *ngIf="(isHandset | async)!.matches">
+        *ngIf="isHandset">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
         <button [routerLink]='["/home"]' mat-button class='top-menu-title'>Admin</button>
