@@ -21,7 +21,7 @@ Use any user-password combination on this version. API calls use a mocked API.
 - A running API [mobilecms-api](https://github.com/OlivierB29/mobilecms-api)
 
 ## Dependencies
-- Angular 6 + [Material](https://material.angular.io/) 6
+- Angular 8 + [Material](https://material.angular.io/) 8
 - [@ngx-translate](http://www.ngx-translate.com/)
 
 ## Development
