@@ -71,7 +71,12 @@ export class SecurityService extends CommonClientService {
     }
 
     public getUser(): any {
-        return localStorage.getItem('currentUser');
+      let currentUser : any;
+      const currentUserLocalStorage = localStorage.getItem('currentUser');
+      if (currentUserLocalStorage) {
+        currentUser = JSON.parse(currentUserLocalStorage);
+      }
+      return currentUser;
     }
 
     public isConnected(): Observable<boolean> | boolean {
