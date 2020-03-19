@@ -65,6 +65,7 @@ export class SecurityService extends CommonClientService {
              catchError(err => {
                console.error('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ' + err.status);
                this.router.navigate(['/login']);
+               localStorage.removeItem('currentUser');
                return of(false);
              })
            );
