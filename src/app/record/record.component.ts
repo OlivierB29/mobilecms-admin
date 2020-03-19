@@ -388,6 +388,21 @@ export class RecordComponent extends StandardComponent implements OnInit, OnDest
 
   }
 
+  newbbcodeurl() {
+    this.current.description += '[url site="https://test.org"]test[/url]';
+  }
+
+  newbbcodebold() {
+    this.current.description += '[b]test[/b]';
+  }
+
+  newbbcodeitalic() {
+    this.current.description += '[i]test[/i]';
+  }
+
+  newbbcodeunderline() {
+    this.current.description += '[u]test[/u]';
+  }
 
   /**
   * must click on dialog first
