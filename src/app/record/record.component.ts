@@ -388,20 +388,33 @@ export class RecordComponent extends StandardComponent implements OnInit, OnDest
 
   }
 
-  newbbcodeurl() {
-    this.current.description += '[url site="https://test.org"]test[/url]';
+  newbbcodeurl(descriptiontext: any) {
+    this.addBBCode(descriptiontext, '[url site="https://test.org"]', '[/url]');
   }
 
-  newbbcodebold() {
-    this.current.description += '[b]test[/b]';
+  newbbcodebold(descriptiontext: any) {
+    this.addBBCode(descriptiontext, '[b]', '[/b]');
   }
 
-  newbbcodeitalic() {
-    this.current.description += '[i]test[/i]';
+  newbbcodeitalic(descriptiontext: any) {
+    this.addBBCode(descriptiontext, '[i]', '[/i]');
   }
 
-  newbbcodeunderline() {
-    this.current.description += '[u]test[/u]';
+  newbbcodeunderline(descriptiontext: any) {
+    this.addBBCode(descriptiontext, '[u]', '[/u]');
+  }
+
+  private addBBCode(descriptiontext: any, bbtag1 : string, bbtag2 : string){
+
+    if (descriptiontext.selectionStart === descriptiontext.selectionEnd) {
+      this.current.description = this.current.description.substring(0, descriptiontext.selectionStart) + bbtag1 + bbtag2 + this.current.description.substring(descriptiontext.selectionStart, this.current.description.length-1);
+    } else {
+      this.current.description = this.current.description.substring(0, descriptiontext.selectionStart) 
+      + bbtag1
+      + this.current.description.substring(descriptiontext.selectionStart, descriptiontext.selectionEnd) 
+      + bbtag2
+      + this.current.description.substring(descriptiontext.selectionEnd, this.current.description.length-1);
+    }
   }
 
   /**

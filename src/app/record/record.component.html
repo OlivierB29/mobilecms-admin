@@ -98,21 +98,26 @@
           </div>
           <!-- attachments -->
 
+          <!-- description -->
           <div *ngSwitchCase='"text"' class='my-mat-form-field'>
+            <div  *ngIf="property.name === 'description'">
             <!-- issue with mat-form-field : throw an ExpressionChangedAfterItHasBeenCheckedError -->
             <span class='my-mat-input-placeholder'>{{'field.label.' + property.name | translate }}</span>
 
             <button mat-raised-button color='primary' [matMenuTriggerFor]='bbcodemenu'>BBcode</button>
             <mat-menu #bbcodemenu="matMenu">
-              <button mat-menu-item (click)="newbbcodeurl()" matTooltip="URL"> <mat-icon>link</mat-icon></button>
+              <button mat-menu-item (click)="newbbcodeurl(descriptiontext)" matTooltip="URL"> <mat-icon>link</mat-icon></button>
               <button mat-menu-item (click)="newbbcodebold()" matTooltip="Bold"> <mat-icon>format_bold</mat-icon></button>
               <button mat-menu-item (click)="newbbcodeitalic()" matTooltip="Italic"> <mat-icon>format_italic</mat-icon></button>
               <button mat-menu-item (click)="newbbcodeunderline()" matTooltip="Underline"> <mat-icon>format_underline</mat-icon></button>
             </mat-menu>
 
             <div >
-            <textarea  matInput rows="10" cols="" [(ngModel)]="current[property.name]" name="{{property.name}}" class='my-mat-input'>{{current[property.name]}}</textarea>
+            <textarea #descriptiontext matInput rows="10" cols="" [(ngModel)]="current[property.name]" name="{{property.name}}" class='my-mat-input'>{{current[property.name]}}</textarea>
             </div>
+
+            </div>
+
 
           </div>
 
