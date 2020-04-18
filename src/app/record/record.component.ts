@@ -19,7 +19,7 @@ import { Log } from 'src/app/shared';
 import { ErrorDialogComponent } from './errordialog.component';
 
 @Component({
-  
+
   templateUrl: 'record.component.html',
   styleUrls: ['record.component.css']
 })
@@ -389,7 +389,7 @@ export class RecordComponent extends StandardComponent implements OnInit, OnDest
   }
 
   newbbcodeurl(descriptiontext: any) {
-    this.addBBCode(descriptiontext, '[url site="https://test.org"]', '[/url]');
+    this.addBBCode(descriptiontext, '[url="https://test.org"]', '[/url]');
   }
 
   newbbcodebold(descriptiontext: any) {
@@ -409,9 +409,9 @@ export class RecordComponent extends StandardComponent implements OnInit, OnDest
     if (descriptiontext.selectionStart === descriptiontext.selectionEnd) {
       this.current.description = this.current.description.substring(0, descriptiontext.selectionStart) + bbtag1 + bbtag2 + this.current.description.substring(descriptiontext.selectionStart, this.current.description.length-1);
     } else {
-      this.current.description = this.current.description.substring(0, descriptiontext.selectionStart) 
+      this.current.description = this.current.description.substring(0, descriptiontext.selectionStart)
       + bbtag1
-      + this.current.description.substring(descriptiontext.selectionStart, descriptiontext.selectionEnd) 
+      + this.current.description.substring(descriptiontext.selectionStart, descriptiontext.selectionEnd)
       + bbtag2
       + this.current.description.substring(descriptiontext.selectionEnd, this.current.description.length-1);
     }
@@ -466,9 +466,9 @@ export class RecordComponent extends StandardComponent implements OnInit, OnDest
 
   /**
    * When the first date is modified, initialize all dates with the same initial value.
-   * 
+   *
    * Example : on a calendar event, the default end date is the same as the start date.
-   * 
+   *
    * @param property modified property
    */
   copyToEmptyDatesFields(property: any) {
@@ -477,16 +477,16 @@ export class RecordComponent extends StandardComponent implements OnInit, OnDest
       const dateFields = this.properties.filter(u => { return u.editor === 'date'; });
       // several dates on the record
       if (dateFields.length > 1) {
-        dateFields.forEach(item => { 
+        dateFields.forEach(item => {
           if (item.name !== property.name && !this.current[item.name] ) {
             this.current[item.name] = this.current[property.name] ;
           }
         });
 
       }
-      
+
     }
-    
+
   }
 
   /**
@@ -498,16 +498,16 @@ export class RecordComponent extends StandardComponent implements OnInit, OnDest
       const dateFields = this.properties.filter(u => { return u.editor === 'date'; });
       // several dates on the record
       if (dateFields.length > 1) {
-        dateFields.forEach(item => { 
+        dateFields.forEach(item => {
           if (item.name !== property.name) {
             this.current[item.name] = this.current[property.name] ;
           }
         });
 
       }
-      
-    
-    
+
+
+
   }
 
   clone() {
