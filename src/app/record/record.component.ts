@@ -389,7 +389,7 @@ export class RecordComponent extends StandardComponent implements OnInit, OnDest
   }
 
   newbbcodeurl(descriptiontext: any) {
-    this.addBBCode(descriptiontext, '[url="https://test.org"]', '[/url]');
+    this.addBBCode(descriptiontext, '[url site="https://test.org"]', '[/url]');
   }
 
   newbbcodebold(descriptiontext: any) {
@@ -406,15 +406,23 @@ export class RecordComponent extends StandardComponent implements OnInit, OnDest
 
   private addBBCode(descriptiontext: any, bbtag1 : string, bbtag2 : string){
 
-    if (descriptiontext.selectionStart === descriptiontext.selectionEnd) {
-      this.current.description = this.current.description.substring(0, descriptiontext.selectionStart) + bbtag1 + bbtag2 + this.current.description.substring(descriptiontext.selectionStart, this.current.description.length-1);
+    // test if not null
+    if (descriptiontext && descriptiontext.selectionStart && descriptiontext.selectionEnd) {
+      // selected text
+      if (descriptiontext.selectionStart === descriptiontext.selectionEnd) {
+        this.current.description = this.current.description.substring(0, descriptiontext.selectionStart) + bbtag1 + bbtag2 + this.current.description.substring(descriptiontext.selectionStart, this.current.description.length);
+      } else {
+        this.current.description = this.current.description.substring(0, descriptiontext.selectionStart)
+        + bbtag1
+        + this.current.description.substring(descriptiontext.selectionStart, descriptiontext.selectionEnd)
+        + bbtag2
+        + this.current.description.substring(descriptiontext.selectionEnd, this.current.description.length);
+      }
     } else {
-      this.current.description = this.current.description.substring(0, descriptiontext.selectionStart)
-      + bbtag1
-      + this.current.description.substring(descriptiontext.selectionStart, descriptiontext.selectionEnd)
-      + bbtag2
-      + this.current.description.substring(descriptiontext.selectionEnd, this.current.description.length-1);
+      // default behavior : end of text
+      this.current.description += bbtag1 + bbtag2;
     }
+
   }
 
   /**
