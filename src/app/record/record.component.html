@@ -106,7 +106,8 @@
 
             <button mat-raised-button color='primary' [matMenuTriggerFor]='bbcodemenu'>BBcode</button>
             <mat-menu #bbcodemenu="matMenu">
-              <button mat-menu-item (click)="newbbcodeurl(descriptiontext)" matTooltip="URL"> <mat-icon>link</mat-icon></button>
+
+              <button mat-menu-item (click)="newbbcodeurl2(descriptiontext)" matTooltip="URL"> <mat-icon>link</mat-icon></button>
               <button mat-menu-item (click)="newbbcodebold(descriptiontext)" matTooltip="Bold"> <mat-icon>format_bold</mat-icon></button>
               <button mat-menu-item (click)="newbbcodeitalic(descriptiontext)" matTooltip="Italic"> <mat-icon>format_italic</mat-icon></button>
               <button mat-menu-item (click)="newbbcodeunderline(descriptiontext)" matTooltip="Underline"> <mat-icon>format_underline</mat-icon></button>

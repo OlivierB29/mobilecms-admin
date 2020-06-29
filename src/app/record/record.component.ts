@@ -17,6 +17,7 @@ import { Observable } from 'rxjs';
 import { Subscription } from 'rxjs';
 import { Log } from 'src/app/shared';
 import { ErrorDialogComponent } from './errordialog.component';
+import { BBCodeURLDialogComponent } from './bbcodeurldialog.component';
 
 @Component({
 
@@ -63,7 +64,10 @@ export class RecordComponent extends StandardComponent implements OnInit, OnDest
   */
   newrecord = false;
 
-
+  /**
+   * bbcode url result
+   */
+  dialogresult = {};
 
   /**
   * properties :
@@ -389,7 +393,11 @@ export class RecordComponent extends StandardComponent implements OnInit, OnDest
   }
 
   newbbcodeurl(descriptiontext: any) {
-    this.addBBCode(descriptiontext, '[url site="https://test.org"]', '[/url]');
+    this.addBBCode(descriptiontext, '[url="https://test.org"]', '[/url]');
+  }
+
+  newbbcodeurl2(descriptiontext: any) {
+    this.openBBCodeDialog(descriptiontext);
   }
 
   newbbcodebold(descriptiontext: any) {
@@ -422,6 +430,27 @@ export class RecordComponent extends StandardComponent implements OnInit, OnDest
       // default behavior : end of text
       this.current.description += bbtag1 + bbtag2;
     }
+
+  }
+
+  private appendBBCodeWithTitle(descriptiontext: any, bbtag1 : string, bbtag2 : string, title: string){
+   // test if not null
+   if (descriptiontext && descriptiontext.selectionStart && descriptiontext.selectionEnd) {
+    // selected text
+    if (descriptiontext.selectionStart === descriptiontext.selectionEnd) {
+      this.current.description = this.current.description.substring(0, descriptiontext.selectionStart) + bbtag1 + title + bbtag2 + this.current.description.substring(descriptiontext.selectionStart, this.current.description.length);
+    } else {
+      this.current.description = this.current.description.substring(0, descriptiontext.selectionStart)
+      + bbtag1
+      + title
+      + bbtag2
+      + this.current.description.substring(descriptiontext.selectionEnd, this.current.description.length);
+    }
+  } else {
+    // default behavior : end of text
+    this.current.description += bbtag1 + title + bbtag2;
+  }
+
 
   }
 
@@ -645,6 +674,25 @@ getResponseMessage(): string {
 }
 
 
+  /**
+  * delete
+  */
+ openBBCodeDialog(descriptiontext: any) {
 
+   this.dialogresult = { bbcodeurl : 'https://test.org', bbcodetitle: 'test', usebbcodetitle: true };
+
+  const dialogRef = this.dialog.open(BBCodeURLDialogComponent, {
+    data: this.dialogresult,
+  });
+
+  dialogRef.afterClosed().subscribe(result => {
+    // get popup result
+    this.log.debug(`Dialog result: ${result.bbcodeurl} ${result.bbcodetitle}`);
+
+    // alter text
+    this.appendBBCodeWithTitle(descriptiontext, '[url=\"'+result.bbcodeurl+'\"]', '[/url]', result.bbcodetitle);
+  });
+
+}
 
 }

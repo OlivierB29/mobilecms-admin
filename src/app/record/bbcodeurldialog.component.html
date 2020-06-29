@@ -1,0 +1,20 @@
+<div mat-dialog-content>
+  <p>New URL</p>
+  <mat-form-field>
+    <mat-label>Title</mat-label>
+    <input *ngIf="data.usebbcodetitle" matInput [(ngModel)]="data.bbcodetitle">
+
+  </mat-form-field>
+
+  <br>
+
+  <mat-form-field>
+
+    <mat-label>URL</mat-label>
+    <input matInput [(ngModel)]="data.bbcodeurl">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
+</div>
