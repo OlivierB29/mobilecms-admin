@@ -16,7 +16,6 @@ export function HttpLoaderFactory(http: HttpClient) {
 
 // Material
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import 'hammerjs';
 import { MyMaterialModule } from 'src/app/mymaterial.module';
 
 // project imports
@@ -56,6 +55,7 @@ import { AdminMainpageComponent } from 'src/app/admin-mainpage/admin-mainpage.co
 
 
 import { LoginLayoutComponent } from 'src/app/layouts/login-layout.component';
+import { BBCodeURLDialogComponent } from './record/bbcodeurldialog.component';
 
 
 
@@ -97,6 +97,7 @@ import { LoginLayoutComponent } from 'src/app/layouts/login-layout.component';
     UserRecordComponent,
     RecordHelpDialogComponent,
     DeleteDialogComponent,
+    BBCodeURLDialogComponent,
     DeleteUserDialogComponent,
     LinkComponent,
     MediaComponent,
@@ -111,6 +112,7 @@ import { LoginLayoutComponent } from 'src/app/layouts/login-layout.component';
     RecordHelpDialogComponent,
     RecordListHelpDialogComponent,
     DeleteDialogComponent,
+    BBCodeURLDialogComponent,
     DeleteUserDialogComponent,
     ErrorDialogComponent
   ],
@@ -121,11 +123,11 @@ import { LoginLayoutComponent } from 'src/app/layouts/login-layout.component';
     UploadService,
     HttpClient,
     // uncomment to enable demo : mock of HTTP requests
-    // {
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: MockHttpInterceptor,
-    //   multi: true
-    // }
+     {
+      provide: HTTP_INTERCEPTORS,
+       useClass: MockHttpInterceptor,
+       multi: true
+     }
   ],
   bootstrap: [AppComponent]
 })

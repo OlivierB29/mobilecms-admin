@@ -8,7 +8,7 @@ import { User, Label, RecordType, Metadata } from 'src/app/_models';
 
 import { AdminService, UploadService } from 'src/app/shared/services';
 import { LocaleService, StringUtils, Log } from 'src/app/shared';
-import { StandardComponent } from 'src/app/home';
+
 
 
 import { DeleteUserDialogComponent } from './deleteuserdialog.component';
@@ -16,7 +16,7 @@ import { SecurityService } from '../shared';
 
 
 @Component({
-  
+
   templateUrl: 'userrecord.component.html',
   styleUrls: ['userrecord.component.css']
 })

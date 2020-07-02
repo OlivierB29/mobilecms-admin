@@ -9,11 +9,11 @@ import { User } from 'src/app/_models/index';
 
 import { OrderbyPipe } from 'src/app/shared/filters';
 
-import { StandardComponent } from 'src/app/home';
+
 
 
 @Component({
-  
+
   selector: 'app-userlist',
   templateUrl: 'userlist.component.html',
   styleUrls: ['userlist.component.css']

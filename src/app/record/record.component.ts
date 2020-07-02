@@ -8,7 +8,7 @@ import { User, Label, RecordType, Metadata } from 'src/app/_models';
 
 import { ContentService, UploadService } from 'src/app/shared/services';
 import { StringUtils, LocaleService, WindowService } from 'src/app/shared';
-import { StandardComponent } from 'src/app/home';
+
 
 import { environment } from 'src/environments/environment';
 import { DeleteDialogComponent } from './deletedialog.component';
@@ -25,7 +25,7 @@ import { BBCodeURLDialogComponent } from './bbcodeurldialog.component';
   styleUrls: ['record.component.css']
 })
 
-export class RecordComponent extends StandardComponent implements OnInit, OnDestroy {
+export class RecordComponent  implements OnInit, OnDestroy {
 
   i18n = {};
 
@@ -119,7 +119,7 @@ export class RecordComponent extends StandardComponent implements OnInit, OnDest
   */
   private autosaveDelay = 15000;
 
-  constructor(private logger: Log,
+  constructor(private log: Log,
     protected contentService: ContentService,
 
     locale: LocaleService,
@@ -127,12 +127,12 @@ export class RecordComponent extends StandardComponent implements OnInit, OnDest
     private windowService: WindowService, public dialog: MatDialog,
     private uploadService: UploadService,
      private stringUtils: StringUtils) {
-    super(logger);
+
   }
 
 
   ngOnDestroy() {
-    this.logger.debug('Destroy timer');
+    this.log.debug('Destroy timer');
     // unsubscribe here
     if (this.timerSub) {
       this.timerSub.unsubscribe();
@@ -147,7 +147,7 @@ export class RecordComponent extends StandardComponent implements OnInit, OnDest
 
   ngOnInit() {
     this.loading = true;
-    super.ngOnInit();
+
     this.log.debug('record.component');
 
     this.route.params.forEach((params: Params) => {
@@ -566,24 +566,24 @@ export class RecordComponent extends StandardComponent implements OnInit, OnDest
 
     this.responsemessage = {};
     if (files) {
-      this.logger.debug('files ' + files.length);
-      this.logger.debug(files);
+      this.log.debug('files ' + files.length);
+      this.log.debug(files);
 
 
 
       for (let i = 0; i < files.length; i++) {
-          this.logger.debug('uploading  ' + JSON.stringify(files[i]));
+          this.log.debug('uploading  ' + JSON.stringify(files[i]));
           this.loading = true;
           this.uploadService.uploadFile(files[i], this.type, this.current.id)
             .then((mediadata: any) => {
               if (mediadata.error) {
                   this.openDialog('Upload failed : ' + mediadata.error);
               } else {
-                this.logger.debug('upload result ' + JSON.stringify(mediadata));
+                this.log.debug('upload result ' + JSON.stringify(mediadata));
                 mediadata.forEach((f: any) => {
-                  this.logger.debug('--- current  ' + f.url);
+                  this.log.debug('--- current  ' + f.url);
                   if (!this.exists(this.current.media, 'url', f.url)) {
-                    this.logger.debug('adding ' + f.title);
+                    this.log.debug('adding ' + f.title);
                     this.current.media.push(f);
                   }
 
@@ -654,7 +654,7 @@ thumbnails(index: number) {
 
       mediadata.forEach((fileAndThumbnails: any) => {
         this.current.media[index].thumbnails = fileAndThumbnails.thumbnails;
-        this.logger.debug('thumbnails ' + JSON.stringify(this.current.media[index]));
+        this.log.debug('thumbnails ' + JSON.stringify(this.current.media[index]));
       });
     },
     error => {
@@ -663,7 +663,7 @@ thumbnails(index: number) {
       this.loading = false;
   },
     () => {
-      this.logger.debug('thumbnails complete');
+      this.log.debug('thumbnails complete');
       this.loading = false;
     });
 

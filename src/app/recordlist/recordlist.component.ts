@@ -11,17 +11,17 @@ import { User } from 'src/app/_models/index';
 
 import { OrderbyPipe } from 'src/app/shared/filters';
 
-import { StandardComponent } from 'src/app/home';
+
 import { Log } from 'src/app/shared';
 
 @Component({
-  
+
   selector: 'app-recordlist',
   templateUrl: 'recordlist.component.html',
   styleUrls: ['recordlist.component.css']
 })
 
-export class RecordListComponent extends StandardComponent implements OnInit {
+export class RecordListComponent  implements OnInit {
 
 
 
@@ -53,12 +53,12 @@ export class RecordListComponent extends StandardComponent implements OnInit {
   deletelist: any[] = [];
 
   constructor(
-    private logger: Log,
+    private log: Log,
     private contentService: ContentService,
       locale: LocaleService, private route: ActivatedRoute,
       private windowService: WindowService, private orderby: OrderbyPipe,
        public dialog: MatDialog) {
-   super(logger);
+
    this.log.debug("RecordListComponent")
  }
 
@@ -67,7 +67,7 @@ export class RecordListComponent extends StandardComponent implements OnInit {
  }
 
   ngOnInit() {
-    super.ngOnInit();
+
     this.log.debug('RecordListComponent ');
 
 
@@ -145,7 +145,7 @@ export class RecordListComponent extends StandardComponent implements OnInit {
     this.contentService.deleteRecordList(this.type, ids)
     .subscribe((data: any) => this.response = JSON.stringify(data),
     error => console.error('post' + error),
-    () => { 
+    () => {
       this.deletelist = [];
       this.log.debug('post complete'); });
 
