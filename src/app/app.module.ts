@@ -123,11 +123,7 @@ import { BBCodeURLDialogComponent } from './record/bbcodeurldialog.component';
     UploadService,
     HttpClient,
     // uncomment to enable demo : mock of HTTP requests
-    // {
-    //  provide: HTTP_INTERCEPTORS,
-    //   useClass: MockHttpInterceptor,
-    //   multi: true
-    // }
+    // { provide: HTTP_INTERCEPTORS, useClass: MockHttpInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })
