@@ -1,5 +1,5 @@
 import { Log } from 'src/app/shared/services';
-import { Inject } from "@angular/core";
+
 
 export class CmsApi {
 

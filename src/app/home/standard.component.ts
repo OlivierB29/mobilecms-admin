@@ -1,8 +1,0 @@
-
-/**
- * @deprecated
- */
-export class StandardComponent {
-
-
-}
