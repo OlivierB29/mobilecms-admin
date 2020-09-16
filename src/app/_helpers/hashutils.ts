@@ -1,7 +1,6 @@
 
 import hash, { Hash, HMAC } from 'fast-sha256';
 
-import * as textencoding from 'text-encoding';
 
 import { Base64 } from './base64';
 
