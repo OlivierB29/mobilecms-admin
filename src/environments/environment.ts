@@ -6,7 +6,7 @@
 export const environment = {
   production: false,
   log: 'debug',
-  server: 'http://localhost',
+  server: 'http://localhost:80',
   website: 'http://localhost/#',
   defaultlocale: 'en',
   usemockbackend: false,
