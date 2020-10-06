@@ -63,11 +63,16 @@ export class ContentService extends CommonClientService {
      * Response :
      */
     public getIndex = (type: string): Observable<any> => {
-      const url: string = this.getUrl('/index/' + type);
+      const url: string = this.getUrl('/index/' + type) + this.getTimestampReques();
         this.log.debug('getIndex ' + url);
 
 
         return this.http.get(url, {headers: this.jwt()});
+    }
+
+    public getTimestampReques(): string {
+
+        return '?timestamp=' + Date.now().toString();
     }
 
     /**
@@ -77,7 +82,7 @@ export class ContentService extends CommonClientService {
      * @returns Observable of a JSON record
      */
     public getRecord = (type: string, id: string): Observable<any> => {
-        const url: string = this.getUrl('/content/' + type + '/' + id);
+        const url: string = this.getUrl('/content/' + type + '/' + id ) + this.getTimestampReques();
         this.log.debug(url);
 
         return this.http.get<any>(url, {headers: this.jwt()});
