@@ -5,16 +5,13 @@ import { Metadata } from 'src/app/_models';
 import { HttpHeaders } from '@angular/common/http';
 
 import { JwtClientService } from './jwtclient.service';
-
+import { environment } from 'src/environments/environment';
 
 
 export class CommonClientService extends JwtClientService {
 
-  constructor() {
-    super();
-  }
 
-  protected postFormData = false;
+  protected postFormData = environment.postformdata;
 
   private serverUrl = '';
   private api = '';
@@ -44,10 +41,16 @@ export class CommonClientService extends JwtClientService {
   protected getRequestBody(obj: any) {
     let data = null;
     if (this.postFormData) {
-      data = this.getRequestBody(obj)
+      data = this.createRequestBody(obj)
     } else {
       data = obj;
     }
+    return obj;
+  }
+
+  protected createRequestBody(obj: any) {
+    let data = [];
+    data['requestbody'] = obj;
     return obj;
   }
 

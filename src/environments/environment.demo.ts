@@ -1,5 +1,6 @@
 export const environment = {
   production: true,
+  postformdata: false,
   log: 'debug',
   server: '',
   website: 'https://olivierb29.github.io/mobilecms-demo/#',

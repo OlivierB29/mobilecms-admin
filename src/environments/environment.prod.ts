@@ -1,6 +1,7 @@
 export const environment = {
   production: true,
   log: 'debug',
+  postformdata: false,
   server: '',
   website: '/#',
   defaultlocale: 'fr',

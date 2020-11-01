@@ -5,13 +5,14 @@
 
 export const environment = {
   production: false,
+  postformdata: false,
   log: 'debug',
-  server: 'http://localhost:80',
+  server: 'http://localhost:8080',
   website: 'http://localhost/#',
   defaultlocale: 'en',
   usemockbackend: false,
-  api: '/mobilecmsapi/v1/cmsapi',
-  adminapi: '/mobilecmsapi/v1/adminapi',
-  fileapi: '/mobilecmsapi/v1/fileapi',
-  authapi: '/mobilecmsapi/v1/authapi'
+  api: '/mobilecmsapi/v2/cmsapi',
+  adminapi: '/mobilecmsapi/v2/adminapi',
+  fileapi: '/mobilecmsapi/v2/fileapi',
+  authapi: '/mobilecmsapi/v2/authapi'
 };

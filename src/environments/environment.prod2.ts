@@ -1,5 +1,6 @@
 export const environment = {
   production: true,
+  postformdata: false,
   log: 'info',
   server: '',
   website: '/#',

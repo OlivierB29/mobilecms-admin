@@ -4,13 +4,15 @@ import { User } from 'src/app/_models/index';
 import { Metadata } from 'src/app/_models';
 import { HttpHeaders } from '@angular/common/http';
 
+import { environment } from 'src/environments/environment';
+
 
 
 
 export class JwtClientService {
 
 
-  protected postFormData = false;
+  protected postFormData = environment.postformdata;
 
 
 
@@ -27,7 +29,7 @@ export class JwtClientService {
       if (currentUser && currentUser.token) {
         return new HttpHeaders ({ 'Authorization': 'Bearer ' + currentUser.token });
       }
-    } 
+    }
 
   }
 

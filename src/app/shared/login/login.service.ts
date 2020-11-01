@@ -22,7 +22,7 @@ export class LoginService {
 
   private serverUrl = environment.server;
 
-  private postFormData = false;
+  private postFormData = environment.postformdata;
 
   /**
   * API endpoint
@@ -32,9 +32,27 @@ export class LoginService {
 
   constructor(private log: Log, private http: HttpClient) { }
 
-  private getHeaders() {
-    return new HttpHeaders ({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
+  private getHeadersOld() {
+    return new HttpHeaders ({ 'Content-Type': 'application/json' });
   }
+
+
+  public getHeaders(): HttpHeaders {
+      let headers = new HttpHeaders();
+
+      // for POST
+      // https://stackoverflow.com/questions/45286764/angular-4-3-httpclient-doesnt-send-header
+      if (this.postFormData) {
+        headers = headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+      } else {
+        headers = headers.append('Content-Type', 'application/json');
+      }
+
+
+      return headers;
+
+  }
+
 
   login(user: string, password: string, mode: string) {
     this.log.debug('login...');
@@ -112,14 +130,21 @@ export class LoginService {
     return this.http.post<any>(url, data, { headers: this.getHeaders() });
   }
 
-  private getRequestBody(obj: any) {
+  protected getRequestBody(obj: any) {
     let data = null;
     if (this.postFormData) {
-      data = this.getRequestBody(obj)
+      data = this.createRequestBody(obj)
     } else {
       data = obj;
     }
     return obj;
+  }
+
+  protected createRequestBody(obj: any) {
+    let data = [];
+    data['requestbody'] = obj;
+    return data;
+   // return 'requestbody=' + encodeURIComponent(JSON.stringify(JSON.parse(JSON.stringify(data))));
   }
 
   /**
@@ -159,6 +184,6 @@ export class LoginService {
   }
 
 
-  
+
 
 }
