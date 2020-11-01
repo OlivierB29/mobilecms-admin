@@ -25,7 +25,7 @@
 
 </mat-toolbar>
 
-<form name='form' (ngSubmit)='f.form.valid' #f='ngForm' novalidate>
+<form name='form' (ngSubmit)='f.form.valid' #f='ngForm'  novalidate>
   <div class="container">
     <div>
 
@@ -142,9 +142,7 @@
 
 <div *ngIf='!newrecord'>
   <mat-progress-bar *ngIf='isLoading()' mode="indeterminate"></mat-progress-bar>
-  <mat-action-row>
-    <input type='file' #file (change)='upload(file.files)' multiple='multiple' />
-  </mat-action-row>
+
   <mat-action-row>
     <button  mat-raised-button color='primary' (click)='refresh()'  matTooltip="{{'record.media.refresh' | translate }}"><mat-icon>autorenew</mat-icon></button>
     <button  mat-raised-button color='primary' (click)='createThumbnails()' matTooltip="{{'record.media.createthumbnails' | translate }}"><mat-icon>photo_size_select_small</mat-icon></button>
@@ -158,4 +156,12 @@
   </mat-action-row>
 </div>
 
+</form>
+
+<form name='form2' enctype="multipart/form-data" >
+  <div *ngIf='!newrecord'>
+    <mat-action-row>
+      <input type='file' #file2 (change)='upload(file2.files)' multiple='multiple' name='uploadrecord' />
+    </mat-action-row>
+  </div>
 </form>

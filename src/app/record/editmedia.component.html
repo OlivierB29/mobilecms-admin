@@ -15,7 +15,7 @@
   <div *ngIf='!newrecord'>
     <mat-progress-bar *ngIf='isLoading()' mode="indeterminate"></mat-progress-bar>
     <mat-action-row>
-      <input type='file' #file (change)='upload(file.files)' multiple='multiple' />
+      <input type='file' #file (change)='upload(file.files)' multiple='multiple' name='uploadmedia' />
     </mat-action-row>
     <mat-action-row>
       <button  mat-raised-button color='primary' (click)='refresh()' matTooltip="{{'record.media.refresh' | translate }}"><mat-icon>autorenew</mat-icon></button>
@@ -29,7 +29,7 @@
       </div>
     </mat-action-row>
 
-    
+
   <div *ngFor='let item of getAttachments(); let i=index' class='input-group'>
 
     <app-media [type]='type' [current]='current' [attachments]='getAttachments()' [index]='i'></app-media>
