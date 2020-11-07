@@ -5,7 +5,7 @@ import { UploadService } from 'src/app/shared/services';
 import { Log } from 'src/app/shared';
 
 @Component({
-  
+
   selector: 'app-link',
   templateUrl: 'link.component.html',
   styleUrls: ['link.component.css']
@@ -74,7 +74,6 @@ export class LinkComponent implements OnInit {
   // moveAttachmentDown
   // deleteAttachment
   //
-  // download
   //
   // -->
 
@@ -144,32 +143,6 @@ moveAttachmentDown(index: number) {
   }
 
 
-    download(index: number) {
-      this.responsemessage = {};
-      const files  = [];
-
-      files.push(this.attachments[index]);
-      this.log.debug('files '  + files);
-      this.loading = true;
-      this.uploadService.sync(this.type, this.current.id, files)
-        .subscribe((mediadata: any) => {
-          this.log.debug('result '  + JSON.stringify(mediadata));
-          mediadata.forEach((f: any) => {
-            this.log.debug('adding ' + f.title);
-            this.current.media.push(f);
-          });
-        },
-        error => {
-          this.responsemessage.error = error;
-          console.error('post' + error);
-          this.loading = false;
-      },
-        () => {
-          this.log.debug('sync complete');
-          this.loading = false;
-        });
-
-    }
 
 
 

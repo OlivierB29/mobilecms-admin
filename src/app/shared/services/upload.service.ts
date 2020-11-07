@@ -68,27 +68,7 @@ export class UploadService extends CommonClientService {
     });
   }
 
-  public sync(type: string, id: string, obj: any): Observable<any> {
 
-    // eg : /content/calendar
-    const url = this.getUrl('/download/' + type + '/' + id);
-
-    this.log.debug(url);
-
-
-    let postData = '';
-    if (this.postFormData) {
-      // escape issue, with some characters like &
-      postData = 'requestbody=' + encodeURIComponent(JSON.stringify(JSON.parse(JSON.stringify(obj))));
-    } else {
-      postData = obj;
-    }
-
-    return this.http.post<any>(url,
-      postData,
-      { headers: this.jwtPost() });
-
-  }
 
   public thumbnails(type: string, id: string, obj: any): Observable<any> {
 
