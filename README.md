@@ -9,11 +9,16 @@ Like any CMS, it is intended to post articles and attach files (images or docume
 
 The responsive design with [Material](https://material.angular.io/) can be used with a mobile phone.
 
-Visit the [admin demo](https://olivierb29.github.io/mobilecms-demo/admin) on github pages.
+
 Use any user-password combination on this version. API calls use a mocked API.
 
+# Quick demo
+Open app.module.ts and enable HTTP_INTERCEPTORS
+`npm i`
+`npm run demo`
+use any login/password
+
 # Web site frontend
-- visit the [demo](https://olivierb29.github.io/mobilecms-demo).
 - [source code](https://github.com/OlivierB29/mobilecms)
 
 # Backend requirements
@@ -21,7 +26,7 @@ Use any user-password combination on this version. API calls use a mocked API.
 - A running API [mobilecms-api](https://github.com/OlivierB29/mobilecms-api)
 
 ## Dependencies
-- Angular 8 + [Material](https://material.angular.io/) 8
+- Angular 11 + [Material](https://material.angular.io/) 11
 - [@ngx-translate](http://www.ngx-translate.com/)
 
 ## Development
