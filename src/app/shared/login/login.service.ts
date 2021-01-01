@@ -24,6 +24,8 @@ export class LoginService {
 
   private postFormData = environment.postformdata;
 
+  private postPublicInfo = true;
+
   /**
   * API endpoint
   */
@@ -104,16 +106,18 @@ export class LoginService {
 
   publicinfo(user: string) {
 
-    const url: string = this.getUrl('/publicinfo/' + user);
+    if (this.postPublicInfo) {
+      const url: string = this.getUrl('/publicinfo');
+      const data = this.getRequestBody({user: user});
+      return this.http.post<any>(url, data, { headers: this.getHeaders() });
+    } else {
+      const url: string = this.getUrl('/publicinfo/' + user);
       return this.http.get<any>(url);
+    }
+
 
   }
 
-  publicinfoUrl(user: string) {
-
-    return this.getUrl('/publicinfo/' + user);
-
-  }
 
 
 

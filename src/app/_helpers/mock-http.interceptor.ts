@@ -48,6 +48,12 @@ export class MockHttpInterceptor implements HttpInterceptor {
       return new Observable(resp => { resp.next(new HttpResponse({ status: 200, body: body })); resp.complete(); });
     }
 
+    if (url.indexOf('/publicinfo') !== -1 && method === 'POST') {
+
+      const body = JSON.parse('{"name":"Foobar","clientalgorithm":"hashmacbase64","newpasswordrequired":"false"}');
+      return new Observable(resp => { resp.next(new HttpResponse({ status: 200, body: body })); resp.complete(); });
+    }
+
     if (url.indexOf('authapi') !== -1 && request.headers.get('Authorization') !== 'Bearer fake-jwt-token') {
       // return 401 not authorised if token is null or invalid
 

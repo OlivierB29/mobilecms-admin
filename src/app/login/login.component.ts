@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
-import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
+
 import { Observable } from 'rxjs';
 
-import { OnInit, AfterViewInit,  ChangeDetectorRef } from '@angular/core';
-import { User, Label, RecordType } from 'src/app/_models/index';
+import { OnInit } from '@angular/core';
+
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSidenav } from '@angular/material/sidenav';
 
 
 
@@ -224,19 +223,6 @@ export class LoginComponent implements OnInit {
           this.log.debug('validateuser')
 
         this.loading = true;
-        /*
-                this.http.get<any>(this.authenticationService.publicinfoUrl(this.model.username))
-                .subscribe(
-                (data: any) => {
-                  this.userinfo = data;
-                  this.alertService.success('success', true);
-                  this.loading = false;
-
-                },
-                error => {
-                  this.alertService.error(error);
-                  this.loading = false;
-                });*/
 
         this.authenticationService.publicinfo(this.model.username)
           .subscribe(
