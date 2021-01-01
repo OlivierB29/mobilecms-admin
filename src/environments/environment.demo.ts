@@ -1,5 +1,5 @@
 export const environment = {
-  production: true,
+  production: false,
   postformdata: false,
   log: 'debug',
   server: '',
