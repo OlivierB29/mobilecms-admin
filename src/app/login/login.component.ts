@@ -138,7 +138,7 @@ export class LoginComponent implements OnInit {
       }
 
       public isCaptchaRequired(): boolean {
-        return this.captcha != null;
+        return this.captcha != null && this.captcha != '';
       }
 
 
@@ -150,6 +150,7 @@ export class LoginComponent implements OnInit {
 
       login() {
         this.loading = true;
+        this.captcha = null;
         this.authenticationService.login(this.model.username, this.model.password, this.userinfo.clientalgorithm, this.model.captchaanswer)
           .subscribe(
             userObject => {
@@ -193,7 +194,7 @@ export class LoginComponent implements OnInit {
             },
             error => {
 
-              if (error.error && error.error.captcha) {
+              if (error.error) {
                 this.captcha = error.error.captcha;
               }
               console.log('validateuser error [[[' + JSON.stringify(error.error) + ']]]');
@@ -232,7 +233,7 @@ export class LoginComponent implements OnInit {
           this.log.debug('validateuser')
 
         this.loading = true;
-
+        this.captcha = null;
         this.authenticationService.publicinfo(this.model.username)
           .subscribe(
             (data: any) => {
@@ -242,9 +243,9 @@ export class LoginComponent implements OnInit {
 
                 this.log.debug('validateuser success' + JSON.stringify(this.userinfo))
 
-                if (this.userinfo.captcha) {
-                  this.captcha = this.userinfo.captcha;
-                }
+
+                this.captcha = this.userinfo.captcha;
+
 
 
                 this.log.debug('isAuthenticated' + this.securityService.isAuthenticated());
@@ -303,7 +304,7 @@ export class LoginComponent implements OnInit {
         if (this.model.newpassword === this.model.newpassword2) {
           this.loading = true;
 
-          this.authenticationService.changepassword(this.model.username, this.model.password, this.model.newpassword, 'none')
+          this.authenticationService.changepassword(this.model.username, this.model.password, this.model.newpassword, 'none', this.model.captchaanswer)
             .subscribe(
               data => {
                 this.alertService.success('success', true);

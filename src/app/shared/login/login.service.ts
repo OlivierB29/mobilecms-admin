@@ -121,14 +121,15 @@ export class LoginService {
 
 
 
-  changepassword(user: string, oldPassword: string, newPassword: string, oldPasswordMode: string) {
+  changepassword(user: string, oldPassword: string, newPassword: string, oldPasswordMode: string, captchaanswer: string) {
     const hashUtils = new HashUtils();
     const url: string = this.getUrl('/changepassword');
 
     const newPasswordMode = 'hashmacbase64';
     const data = this.getRequestBody({ user: user,
         newpassword: this.getPassword(newPassword, newPasswordMode),
-        password: this.getPassword(oldPassword, oldPasswordMode)
+        password: this.getPassword(oldPassword, oldPasswordMode),
+        captchaanswer : captchaanswer
          });
 
     return this.http.post<any>(url, data, { headers: this.getHeaders() });

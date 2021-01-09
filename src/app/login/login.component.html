@@ -11,7 +11,7 @@
 
 
                 <mat-form-field *ngIf='isCaptchaRequired()'  class='loginform-input'>
-                  <input type='text' matInput placeholder='{{"login.captcha" | translate}} {{captcha}}' name='captchaanswer' [(ngModel)]='model.captchaanswer' #captchaanswer='ngModel'
+                  <input type='text' matInput placeholder='{{"login.captcha" | translate}} : {{captcha}}' name='captchaanswer' [(ngModel)]='model.captchaanswer' #captchaanswer='ngModel'
                     required />
                 </mat-form-field>
 
@@ -70,6 +70,11 @@
           <div *ngIf='isAuthenticated() && isNewPasswordRequired()' class='loginform'>
             <form *ngIf='!success' name='form' (ngSubmit)="f.form.valid && modifypassword() " #f='ngForm' novalidate class='loginform'>
 
+
+              <mat-form-field *ngIf='isCaptchaRequired()'  class='loginform-input'>
+                <input type='text' matInput placeholder='{{"login.captcha" | translate}} | {{captcha}}' name='captchaanswer' [(ngModel)]='model.captchaanswer' #captchaanswer='ngModel'
+                  required />
+              </mat-form-field>
 
               <div [ngClass]="{ 'has-error': f.submitted  && !newpassword.valid && isSecurePassword() }">
                 <mat-form-field class='loginform-input'>

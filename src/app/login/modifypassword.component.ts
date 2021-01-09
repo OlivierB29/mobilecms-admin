@@ -5,7 +5,7 @@ import { User, Label, RecordType } from 'src/app/_models/index';
 import { LoginService, AlertService } from 'src/app/shared';
 
 @Component({
-  
+
   selector: 'app-modifypassword',
   templateUrl: 'modifypassword.component.html',
     styleUrls: ['login.component.css']
@@ -41,7 +41,7 @@ export class ModifyPasswordComponent implements OnInit {
     if (this.model.newpassword === this.model.newpassword2) {
       this.loading = true;
 
-      this.authenticationService.changepassword(this.model.username, this.model.password, this.model.newpassword, 'none')
+      this.authenticationService.changepassword(this.model.username, this.model.password, this.model.newpassword, 'none', 'foobar')
         .subscribe(
         data => {
           this.alertService.success('success', true);
