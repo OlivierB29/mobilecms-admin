@@ -7,7 +7,7 @@ export const environment = {
   production: false,
   postformdata: false,
   log: 'debug',
-  server: 'http://localhost:8080',
+  server: 'http://localhost:8888',
   website: 'http://localhost/#',
   defaultlocale: 'en',
   usemockbackend: false,

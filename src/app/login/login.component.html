@@ -8,6 +8,15 @@
 
             <form name='form' (ngSubmit)='f.form.valid && login()' #f='ngForm' novalidate>
 
+
+
+                <mat-form-field *ngIf='isCaptchaRequired()'  class='loginform-input'>
+                  <input type='text' matInput placeholder='{{"login.captcha" | translate}} {{captcha}}' name='captchaanswer' [(ngModel)]='model.captchaanswer' #captchaanswer='ngModel'
+                    required />
+                </mat-form-field>
+
+
+
               <mat-form-field class='loginform-input'>
                 <input type='password' matInput placeholder='{{"login.password" | translate}}' name='password' [(ngModel)]='model.password'
                   #password='ngModel' required />
@@ -19,6 +28,9 @@
                   <mat-icon>check_circle</mat-icon>
                 </button>
               </mat-toolbar>
+
+
+
               <mat-toolbar class='loginform-input'>
                 <form name='form3' (ngSubmit)='f3.form.valid && openSendPassword()' #f3='ngForm' novalidate>
                   <button mat-button [disabled]='loading'>{{'sendpassworddialog.warning' | translate}}

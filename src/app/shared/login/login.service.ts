@@ -56,7 +56,7 @@ export class LoginService {
   }
 
 
-  login(user: string, password: string, mode: string) {
+  login(user: string, password: string, mode: string, captchaanswer: string) {
     this.log.debug('login...');
 
     localStorage.removeItem('currentUser');
@@ -66,7 +66,7 @@ export class LoginService {
 
 
 
-    const data = this.getRequestBody({ user: user, password: this.getPassword(password, mode) });
+    const data = this.getRequestBody({ user: user, password: this.getPassword(password, mode), captchaanswer: captchaanswer });
 
       return this.http.post<any>(url, data, { headers: this.getHeaders() });
   }

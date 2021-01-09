@@ -2,6 +2,7 @@
     "login.user":"Adresse email",
     "login.password":"Mot de passe",
     "login.disconnect":"Se déconnecter",
+    "login.captcha":"Captcha",
     "home.help.title":"Gestion du contenu",
     "home.help.menu":"Cet icone permet d'accéder aux catégories modifiables",
     "home.help.disconnect":"Fermer la session",

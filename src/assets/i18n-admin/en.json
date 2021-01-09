@@ -2,6 +2,7 @@
     "login.user":"Email - User account",
     "login.password":"Password",
     "login.disconnect":"Disconnect",
+    "login.captcha":"Captcha",
     "home.help.title":"Administration mini guide",
     "home.help.menu":"Open categories",
     "home.help.disconnect":"Disconnect",

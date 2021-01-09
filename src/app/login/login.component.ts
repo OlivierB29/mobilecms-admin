@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
 
     success = false;
 
-
+    captcha: string;
 
 
 
@@ -118,7 +118,7 @@ export class LoginComponent implements OnInit {
 
 
 
-  
+
 
       public isAuthenticated(): Observable<boolean> | boolean {
         return this.securityService.isAuthenticated();
@@ -137,6 +137,9 @@ export class LoginComponent implements OnInit {
         return this.userinfo && this.userinfo.newpasswordrequired === 'true';
       }
 
+      public isCaptchaRequired(): boolean {
+        return this.captcha != null;
+      }
 
 
       private updatePublicInfoFromLocalStorage(from: any, to: any) {
@@ -147,7 +150,7 @@ export class LoginComponent implements OnInit {
 
       login() {
         this.loading = true;
-        this.authenticationService.login(this.model.username, this.model.password, this.userinfo.clientalgorithm)
+        this.authenticationService.login(this.model.username, this.model.password, this.userinfo.clientalgorithm, this.model.captchaanswer)
           .subscribe(
             userObject => {
               if (userObject && userObject.token) {
@@ -189,7 +192,13 @@ export class LoginComponent implements OnInit {
 
             },
             error => {
-              this.log.debug('error' + JSON.stringify(error));
+
+              if (error.error && error.error.captcha) {
+                this.captcha = error.error.captcha;
+              }
+              console.log('validateuser error [[[' + JSON.stringify(error.error) + ']]]');
+              console.log('captcha  [[[' + this.captcha + ']]]');
+
               this.alertService.error('not connected');
               this.loading = false;
             });
@@ -233,16 +242,22 @@ export class LoginComponent implements OnInit {
 
                 this.log.debug('validateuser success' + JSON.stringify(this.userinfo))
 
+                if (this.userinfo.captcha) {
+                  this.captcha = this.userinfo.captcha;
+                }
+
 
                 this.log.debug('isAuthenticated' + this.securityService.isAuthenticated());
                 this.log.debug('isUserExists' + this.isUserExists());
 
             },
             error => {
+
+
+
+
               this.alertService.error(error);
               this.loading = false;
-
-                this.log.debug('validateuser error')
 
             });
       }
