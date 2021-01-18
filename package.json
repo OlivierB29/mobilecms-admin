@@ -11,6 +11,7 @@
     "e2e": "ng e2e",
     "dist": "ng build --prod --base-href /admin/",
     "dist2": "ng build --configuration=production2 --base-href /admin2/",
+    "dist3": "ng build --configuration=production3 --base-href /admin3/",
     "dev": "ng serve",
     "demo": "ng serve -c=demo",
     "demobuild": "ng build -c=demo --base-href /mobilecms-demo/admin/"
