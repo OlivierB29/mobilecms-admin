@@ -7,13 +7,14 @@ import { AdminCmsSharedLibsModule } from './shared-libs.module';
 import { UserRouteAccessService } from './auth/user-route-access-service';
 import { CommonClientService, JwtClientService, AlertService,
    LocaleService, StringUtils, WindowService, Log, SecurityService  } from './services';
-
+   import {   LocaleDatePipe } from './pipes';
 @NgModule({
     imports: [
       AdminCmsSharedLibsModule,
     ],
     declarations: [
       OrderbyPipe,
+      LocaleDatePipe,
     ],
     providers: [
         OrderbyPipe,
@@ -32,6 +33,7 @@ import { CommonClientService, JwtClientService, AlertService,
     ],
     exports: [
       OrderbyPipe,
+      LocaleDatePipe,
       AdminCmsSharedLibsModule,
     ],
 

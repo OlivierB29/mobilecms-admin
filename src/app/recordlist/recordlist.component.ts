@@ -128,6 +128,11 @@ export class RecordListComponent  implements OnInit {
 
   }
 
+  isDateField(name: string) {
+
+    return name.indexOf('date') !== -1;
+  }
+
   addToDeleteList(item : any) {
 
     this.deletelist.push(item);

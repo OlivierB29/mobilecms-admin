@@ -32,7 +32,9 @@
       <mat-toolbar>
       <button mat-button [routerLink]='["/record", type ,  item.id]' >
         <span *ngFor='let col of displayedColumns'>
-            {{item[col]}}
+
+        <span *ngIf='isDateField(col)'> {{item[col] | localedate}} &nbsp;</span>
+        <span *ngIf='!isDateField(col)'>{{item[col]}}</span>
         </span>
 
       </button>

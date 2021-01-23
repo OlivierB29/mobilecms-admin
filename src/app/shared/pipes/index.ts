@@ -1,0 +1,2 @@
+
+export * from './localedate.pipe';

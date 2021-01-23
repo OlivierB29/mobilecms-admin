@@ -1,4 +1,5 @@
 export const environment = {
+  locale: 'fr-FR',
   production: true,
   log: 'debug',
   postformdata: false,
