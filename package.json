@@ -34,7 +34,6 @@
     "@ngx-translate/core": "^13.0.0",
     "@ngx-translate/http-loader": "^6.0.0",
     "@types/text-encoding": "^0.0.34",
-    "core-js": "^2.5.4",
     "fast-sha256": "^1.1.0",
     "text-encoding": "^0.7.0"
   },
