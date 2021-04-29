@@ -23,12 +23,20 @@ export class MockHttpInterceptor implements HttpInterceptor {
     return this.commonHttpFakeBackend(url, method, request) || next.handle(request); // fallback in case url isn't caught
   }
 
+  removeUrlParameter(inputUrl: string) {
+    let url = inputUrl;
+    if (inputUrl.indexOf('?') > 0) {
+      url = inputUrl.substring(0 , inputUrl.indexOf('?'));
+    }
+    return url;
+  }
 
-  commonHttpFakeBackend(url: string, method: string, request: HttpRequest<any>): Observable<HttpEvent<any>> {
+
+  commonHttpFakeBackend(inputUrl: string, method: string, request: HttpRequest<any>): Observable<HttpEvent<any>> {
     this.log.debug('commonHttpFakeBackend');
 
     const cmsApi = new CmsApi();
-
+    let url = this.removeUrlParameter(inputUrl);
 
 
     // OPTIONS
@@ -177,7 +185,7 @@ export class MockHttpInterceptor implements HttpInterceptor {
         console.log('delete ' + element);
         cmsApi.deleteItem(this.getLast(url), element);
       });
-      
+
       // respond 200 OK
 
       return new Observable(resp => { resp.next(new HttpResponse({ status: 200, body: {} })); resp.complete(); });
