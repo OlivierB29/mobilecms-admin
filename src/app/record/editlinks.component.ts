@@ -21,10 +21,11 @@ export class EditLinksComponent implements OnInit {
    */
   @Input() type: string = null;
 
-  /**
+    /**
    * object data
    */
-  @Input() protected current: any = null;
+  @Input() id: string = null;
+
 
   /**
   * list of attachments
@@ -59,9 +60,7 @@ export class EditLinksComponent implements OnInit {
     if (!this.type) {
       console.error('empty type');
     }
-    if (!this.current) {
-      console.error('empty current');
-    }
+
     if (!this.attachments) {
       console.error('empty attachments');
     }

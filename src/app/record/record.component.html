@@ -83,18 +83,18 @@
 
           <div *ngSwitchCase='"medialist"' class="list-container">
 
-            <app-editmedia  *ngIf="property.name === 'media'" [newrecord]='newrecord' [type]='type' [current]='current' [attachments]='current.media' [title]='"record.edit.media"'></app-editmedia>
+            <app-editmedia  *ngIf="property.name === 'media'" [newrecord]='newrecord' [type]='type'  [id]='id' [attachments]='current.media' [title]='"record.edit.media"'></app-editmedia>
           </div>
           <!-- list-container -->
 
 
 
           <div *ngSwitchCase='"imagelist"' class="list-container">
-            <app-editlinks  *ngIf="property.name === 'images'" [type]='type' [current]='current' [attachments]='current.images' [title]='"record.edit.images"' ></app-editlinks>
+            <app-editlinks  *ngIf="property.name === 'images'" [type]='type'  [id]='id' [attachments]='current.images' [title]='"record.edit.images"' ></app-editlinks>
           </div>
 
           <div *ngSwitchCase='"attachmentlist"'class="list-container">
-            <app-editlinks *ngIf="property.name === 'attachments'"  [type]='type' [current]='current' [attachments]='current.attachments' [title]='"record.edit.attachments"' ></app-editlinks>
+            <app-editlinks *ngIf="property.name === 'attachments'"  [type]='type'  [id]='id' [attachments]='current.attachments' [title]='"record.edit.attachments"' ></app-editlinks>
           </div>
           <!-- attachments -->
 
@@ -144,8 +144,6 @@
   <mat-progress-bar *ngIf='isLoading()' mode="indeterminate"></mat-progress-bar>
 
   <mat-action-row>
-    <button  mat-raised-button color='primary' (click)='refresh()'  matTooltip="{{'record.media.refresh' | translate }}"><mat-icon>autorenew</mat-icon></button>
-    <button  mat-raised-button color='primary' (click)='createThumbnails()' matTooltip="{{'record.media.createthumbnails' | translate }}"><mat-icon>photo_size_select_small</mat-icon></button>
 
     <div *ngIf='getResponseMessage() && getResponseMessage().error' class='error-label-message'>
       <mat-icon>cloud_off</mat-icon>  {{getResponseMessage().error}}

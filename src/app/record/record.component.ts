@@ -669,7 +669,7 @@ thumbnails(index: number) {
 
 }
 
-getResponseMessage(): string {
+getResponseMessage(): any {
   return this.responsemessage;
 }
 

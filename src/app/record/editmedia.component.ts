@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { EditLinksComponent } from './editlinks.component'
 
@@ -9,7 +9,6 @@ import { EditLinksComponent } from './editlinks.component'
   styleUrls: ['editlinks.component.css', 'editmedia.component.css']
 })
 export class EditMediaComponent extends EditLinksComponent implements OnInit {
-
 
 
     upload(files: any) {
@@ -24,7 +23,7 @@ export class EditMediaComponent extends EditLinksComponent implements OnInit {
         for (let i = 0; i < files.length; i++) {
             this.log.debug('uploading  ' + JSON.stringify(files[i]));
             this.loading = true;
-            this.uploadService.uploadFile(files[i], this.type, this.current.id)
+            this.uploadService.uploadFile(files[i], this.type, this.id)
               .then((mediadata: any) => {
                 if (mediadata.error) {
                     this.openDialog('Upload failed : ' + mediadata.error);
@@ -32,13 +31,13 @@ export class EditMediaComponent extends EditLinksComponent implements OnInit {
                   this.log.debug('upload result ' + JSON.stringify(mediadata));
                   mediadata.forEach((f: any) => {
                     this.log.debug('--- current  ' + f.url);
-                    if (!this.exists(this.current.media, 'url', f.url)) {
+                    if (!this.exists(this.attachments, 'url', f.url)) {
                       this.log.debug('adding ' + f.title);
-                      this.current.media.push(f);
+                      this.attachments.push(f);
                     }
 
                   });
-                  this.thumbnails(this.current.media.length - 1);
+                  this.thumbnails(this.attachments.length - 1);
                 }
                 this.loading = false;
 
@@ -90,7 +89,7 @@ error => {
       files.push(file);
 
       this.loading = true;
-      this.uploadService.thumbnails(this.type, this.current.id, files)
+      this.uploadService.thumbnails(this.type, this.id, files)
         .subscribe((mediadata: any) => {
 
 
@@ -123,7 +122,7 @@ error => {
       this.log.debug('createThumbnails ' + JSON.stringify(files));
 
       this.loading = true;
-      this.uploadService.thumbnails(this.type, this.current.id, files)
+      this.uploadService.thumbnails(this.type, this.id, files)
         .subscribe((mediadata: any) => {
 
 
@@ -150,7 +149,7 @@ error => {
     }
 
       refresh() {
-        this.uploadService.getFilesDescriptions(this.type, this.current.id)
+        this.uploadService.getFilesDescriptions(this.type, this.id)
           .subscribe((mediadata: any) => {
             if (mediadata.error) {
                 this.openDialog('refresh failed : ' + mediadata.error);
@@ -158,10 +157,10 @@ error => {
               this.log.debug('upload result ' + JSON.stringify(mediadata));
               mediadata.forEach((f: any) => {
                 this.log.debug('-> ' + f.title);
-                const test = this.current.media.filter((e: any) => e.url === f.url);
+                const test = this.attachments.filter((e: any) => e.url === f.url);
                 if (test.length === 0) {
                   this.log.debug('adding ' + f.title);
-                  this.current.media.push(f);
+                  this.attachments.push(f);
                 }
               });
             }

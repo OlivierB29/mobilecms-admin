@@ -30,7 +30,7 @@ export class JwtClientService {
         return new HttpHeaders ({ 'Authorization': 'Bearer ' + currentUser.token });
       }
     }
-
+    return null;
   }
 
   public jwtPost(): HttpHeaders {
