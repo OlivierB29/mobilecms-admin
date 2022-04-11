@@ -21,10 +21,7 @@ export class LinkComponent implements OnInit {
    */
   @Input() type: string = null;
 
-  /**
-   * object data
-   */
-  @Input() protected current: any = null;
+
 
   /**
   * list of attachments
@@ -53,9 +50,7 @@ export class LinkComponent implements OnInit {
     if (!this.type) {
       console.error('empty type');
     }
-    if (!this.current) {
-      console.error('empty current');
-    }
+
     if (!this.attachments) {
       console.error('empty attachments');
     }

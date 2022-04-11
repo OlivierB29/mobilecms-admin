@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { LinkComponent } from './link.component'
 
@@ -9,6 +9,11 @@ import { LinkComponent } from './link.component'
   styleUrls: ['link.component.css', 'media.component.css']
 })
 export class MediaComponent extends LinkComponent implements OnInit {
+
+  /**
+   * object data
+   */
+   @Input() protected current: any = null;
 
   deleteMedia(index: number) {
     this.log.debug('deleteMedia '  + index + '/' + this.attachments.length);
