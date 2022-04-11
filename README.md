@@ -26,7 +26,7 @@ use any login/password
 - A running API [mobilecms-api](https://github.com/OlivierB29/mobilecms-api)
 
 ## Dependencies
-- Angular 11 + [Material](https://material.angular.io/) 11
+- Angular 12 lts + [Material](https://material.angular.io/)
 - [@ngx-translate](http://www.ngx-translate.com/)
 
 ## Development
