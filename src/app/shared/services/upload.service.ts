@@ -18,7 +18,7 @@ export class UploadService extends CommonClientService {
 
   constructor(private log: Log, private http: HttpClient) {
     super();
-    this.init(environment.server, environment.fileapi);
+    this.init(environment.server, environment.apiuri + '/fileapi');
   }
 
 

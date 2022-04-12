@@ -20,7 +20,7 @@ export class ContentService extends CommonClientService {
 
     constructor(private log: Log, private http: HttpClient) {
       super();
-      this.init( environment.server, environment.api);
+      this.init( environment.server, environment.apiuri + '/cmsapi');
      }
 
     public options = (): Observable<any> => {

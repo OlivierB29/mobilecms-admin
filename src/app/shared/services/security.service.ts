@@ -21,7 +21,7 @@ export class SecurityService extends CommonClientService {
 
     constructor(private log: Log, private http: HttpClient, private router: Router) {
       super();
-      this.init( environment.server, environment.api);
+      this.init( environment.server, environment.apiuri + '/cmsapi');
      }
 
     public isAuthenticated():  Observable<boolean> | boolean  {

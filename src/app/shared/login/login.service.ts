@@ -29,7 +29,7 @@ export class LoginService {
   /**
   * API endpoint
   */
-  private api = environment.authapi;
+  private api = environment.apiuri + '/authapi';
 
 
   constructor(private log: Log, private http: HttpClient) { }
