@@ -1,2 +1,5 @@
+<mat-toolbar class='secondary-button-bar'>
 
-<app-recordlist [recordtype]='"calendar"'></app-recordlist>
+<button mat-menu-item color='primary' [routerLink]='["/record", "news" ,  "new"]' ><mat-icon>add</mat-icon>{{ "record.list.addnewpost" | translate }}</button>
+
+</mat-toolbar>

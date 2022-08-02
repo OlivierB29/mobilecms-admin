@@ -1,30 +1,33 @@
+@use '@angular/material' as mat;
 
-// Plus imports for other components in your app.
+@include mat.core();
 
-// Include the base styles for Angular Material core. We include this here so that you only
-// have to load a single css file for Angular Material in your app.
+// Define a light theme
+$light-primary: mat.define-palette(mat.$indigo-palette);
+$light-accent: mat.define-palette(mat.$pink-palette);
+$light-theme: mat.define-light-theme((
+ color: (
+   primary: $light-primary,
+   accent: $light-accent,
+ )
+));
 
-@import '~@angular/material/theming';
-// Plus imports for other components in your app.
+// Define a dark theme
+$dark-primary: mat.define-palette(mat.$pink-palette);
+$dark-accent: mat.define-palette(mat.$blue-grey-palette);
+$dark-theme: mat.define-dark-theme((
+ color: (
+   primary: $dark-primary,
+   accent: $dark-accent,
+ )
+));
 
-// Include the base styles for Angular Material core. We include this here so that you only
-// have to load a single css file for Angular Material in your app.
-@include mat-core();
+// Apply the dark theme by default
+//@include mat.core-theme($dark-theme);
+//@include mat.button-theme($dark-theme);
 
-// Define the palettes for your theme using the Material Design palettes available in palette.scss
-// (imported above). For each palette, you can optionally specify a default, lighter, and darker
-// hue.
-// Define a theme.
-$primary: mat-palette($mat-indigo, 700, 500, 800);
-$accent:  mat-palette($mat-green, A200, A100, A400);
+// Apply the light theme only when the `.my-light-theme` CSS class is applied
+// to an ancestor element of the components (such as `body`).
 
-// The warn palette is optional (defaults to red).
-$warn:    mat-palette($mat-red);
-
-// Create the theme object (a Sass map containing all of the palettes).
-$theme: mat-light-theme($primary, $accent, $warn);
-
-// Include theme styles for core and each component used in your app.
-// Alternatively, you can import and @include the theme mixins for each component
-// that you are using.
-@include angular-material-theme($theme);
+ @include mat.core-color($light-theme);
+ @include mat.button-color($light-theme);

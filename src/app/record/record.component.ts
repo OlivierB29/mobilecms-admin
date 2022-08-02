@@ -19,6 +19,10 @@ import { Log } from 'src/app/shared';
 import { ErrorDialogComponent } from './errordialog.component';
 import { BBCodeURLDialogComponent } from './bbcodeurldialog.component';
 
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+//import * as Editor from '@ckeditor/ckeditor5-angular';
+
+
 @Component({
 
   templateUrl: 'record.component.html',
@@ -26,6 +30,15 @@ import { BBCodeURLDialogComponent } from './bbcodeurldialog.component';
 })
 
 export class RecordComponent  implements OnInit, OnDestroy {
+
+  /*
+
+    <ckeditor name="data" [(ngModel)]="model.editorData" [editor]="Editor"></ckeditor>
+                  <ckeditor #descriptioneditor name="{{property.name}}" [(ngModel)]="current[property.name]" [editor]="Editor" [config]="{ toolbar: [ 'heading', '|', 'bold', 'italic' ] }" ></ckeditor>
+*/
+//public Editor = Editor;
+  public Editor = ClassicEditor;
+
 
   i18n = {};
 
@@ -119,6 +132,7 @@ export class RecordComponent  implements OnInit, OnDestroy {
   */
   private autosaveDelay = 15000;
 
+
   constructor(private log: Log,
     protected contentService: ContentService,
 
@@ -127,6 +141,8 @@ export class RecordComponent  implements OnInit, OnDestroy {
     private windowService: WindowService, public dialog: MatDialog,
     private uploadService: UploadService,
      private stringUtils: StringUtils) {
+
+
 
   }
 
@@ -146,6 +162,9 @@ export class RecordComponent  implements OnInit, OnDestroy {
 
 
   ngOnInit() {
+
+    console.log(this.Editor.config);
+
     this.loading = true;
 
     this.log.debug('record.component');
@@ -177,6 +196,11 @@ export class RecordComponent  implements OnInit, OnDestroy {
             this.current = data;
 
             if (this.current) {
+
+              if (!this.current.format) {
+                this.current.format = 'html';
+              }
+
               if (!this.current.images) {
                 this.current.images = [];
               }
@@ -282,7 +306,15 @@ export class RecordComponent  implements OnInit, OnDestroy {
     }
   }
 
+  publish() {
+    this.current.status = 'published';
+    this.save();
+  }
+
   save() {
+
+    console.log(this.current.description);
+
     const timestamp = new Date().getTime();
     this.loading = true;
     this.responsemessage = {};

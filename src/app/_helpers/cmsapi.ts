@@ -87,6 +87,8 @@ export class CmsApi {
     const item = JSON.parse('{\
       "id": "foobar",\
       "date": "2017-11-17",\
+      "status": "draft",\
+      "format": "bbcode",\
       "title": "foobar",\
       "description": "Lorem ipsum dolor sit amet, \
       consectetur adipiscing elit, \
@@ -119,6 +121,7 @@ export class CmsApi {
     if ('calendar' === name) {
       result = JSON.parse('[\
       {"name" : "id" , "primary" : "true", "type" : "string",  "editor":"line"},\
+      {"name" : "status" , "primary" : "false", "type" : "text",  "editor":"choice", "choices" : ["draft", "published"]},\
       {"name" : "title" , "primary" : "false", "type" : "string",  "editor":"line"},\
       {"name" : "date" , "primary" : "false", "type" : "string",  "editor":"date"},\
       {"name" : "organization" , "primary" : "false", "type" : "string",  "editor":"line"},\
@@ -132,6 +135,7 @@ export class CmsApi {
     } else if ('news' === name) {
       result = JSON.parse('[\
       {"name" : "id" , "primary" : "true", "type" : "string",  "editor":"line"},\
+      {"name" : "status" , "primary" : "false", "type" : "text",  "editor":"choice", "choices" : ["draft", "published"]},\
       {"name" : "title" , "primary" : "false", "type" : "string",  "editor":"line"},\
       {"name" : "date" , "primary" : "false", "type" : "string",  "editor":"date"},\
       {"name" : "activity" , "primary" : "false", "type" : "text",  "editor":"choice", "choices" : ["tennis", "basketball", "golf"]},\

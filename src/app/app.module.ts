@@ -57,12 +57,13 @@ import { AdminMainpageComponent } from 'src/app/admin-mainpage/admin-mainpage.co
 import { LoginLayoutComponent } from 'src/app/layouts/login-layout.component';
 import { BBCodeURLDialogComponent } from './record/bbcodeurldialog.component';
 
-
-
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 
 @NgModule({
   imports: [
+    CKEditorModule,
+
     FormsModule,
     routing,
     BrowserModule,
@@ -123,7 +124,7 @@ import { BBCodeURLDialogComponent } from './record/bbcodeurldialog.component';
     UploadService,
     HttpClient,
     // uncomment to enable demo : mock of HTTP requests
-  //  { provide: HTTP_INTERCEPTORS, useClass: MockHttpInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: MockHttpInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

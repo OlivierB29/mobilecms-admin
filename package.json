@@ -11,7 +11,7 @@
     "e2e": "ng e2e",
     "dist": "ng build --prod --base-href /admin/",
     "dist2": "ng build  --prod --configuration=production2 --base-href /admin2/",
-    "dist3": "ng build  --configuration=production3 --base-href /admin3/",
+    "dist3": "ng build   --configuration=production3 --base-href /admin3/",
     "dev": "ng serve",
     "demo": "ng serve -c=demo",
     "demobuild": "ng build -c=demo --base-href /mobilecms-demo/admin/"
@@ -28,14 +28,18 @@
     "@angular/platform-browser": "^14.1.0",
     "@angular/platform-browser-dynamic": "^14.1.0",
     "@angular/router": "^14.1.0",
-    "rxjs": "~7.5.0",
-    "tslib": "^2.3.0",
-    "zone.js": "~0.11.4",
+    "@ckeditor/ckeditor5-angular": "^4.0.0",
+    "@ckeditor/ckeditor5-build-classic": "^34.2.0",
+    "@ckeditor/ckeditor5-markdown-gfm": "^34.2.0",
+    "@ckeditor/ckeditor5-theme-lark": "^34.2.0",
     "@ngx-translate/core": "^14.0.0",
     "@ngx-translate/http-loader": "^7.0.0",
     "@types/text-encoding": "^0.0.34",
     "fast-sha256": "^1.1.0",
-    "text-encoding": "^0.7.0"
+    "rxjs": "~7.5.0",
+    "text-encoding": "^0.7.0",
+    "tslib": "^2.3.0",
+    "zone.js": "~0.11.4"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^14.1.0",
@@ -50,5 +54,4 @@
     "karma-jasmine-html-reporter": "~2.0.0",
     "typescript": "~4.7.2"
   }
-
 }
