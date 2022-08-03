@@ -117,6 +117,7 @@ export class RecordListComponent  implements OnInit {
       } else if (this.items[0].id)  {
         this.displayedColumns.push('id');
       }
+      this.displayedColumns.push('status');
     }
   }
 
@@ -131,6 +132,18 @@ export class RecordListComponent  implements OnInit {
   isDateField(name: string) {
 
     return name.indexOf('date') !== -1;
+  }
+
+
+  isStatus(name: string) {
+
+    return 'status' === name  ;
+  }
+
+
+  isDisplayDraft(name: string, item: any) {
+
+    return 'status' === name && 'draft' === item[name] ;
   }
 
   addToDeleteList(item : any) {

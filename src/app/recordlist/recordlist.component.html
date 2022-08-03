@@ -34,7 +34,8 @@
         <span *ngFor='let col of displayedColumns'>
 
         <span *ngIf='isDateField(col)'> {{item[col] | localedate}} &nbsp;</span>
-        <span *ngIf='!isDateField(col)'>{{item[col]}}</span>
+        <span *ngIf='isDisplayDraft(col, item)'> -- {{"field.status.values.draft" | translate }}&nbsp;</span>
+        <span *ngIf='!isDateField(col) && !isStatus(col)'>{{item[col]}}</span>
         </span>
 
       </button>

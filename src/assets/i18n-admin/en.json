@@ -65,6 +65,7 @@
     "field.label.attachment.url":"URL",
     "field.label.attachment.size":"Size",
     "field.label.attachment.description":"optional description",
+    "field.status.values.draft":"Draft",
     "delete.warning.1": "Are you sure you want to delete ? ",
     "delete.warning.2": "This action can’t be undone.",
     "next.label": "Next",
