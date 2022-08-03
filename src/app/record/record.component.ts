@@ -533,6 +533,12 @@ export class RecordComponent  implements OnInit, OnDestroy {
     return this.previous !== null && JSON.stringify(this.previous) !== JSON.stringify(this.current);
   }
 
+
+  isDisplayDraft() {
+
+    return  'draft' === this.current.status;
+  }
+
   /**
    * When the first date is modified, initialize all dates with the same initial value.
    *

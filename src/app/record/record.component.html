@@ -4,10 +4,17 @@
     <mat-icon matTooltip='{{responsemessage.since}} - {{responsemessage.savedate}}'>save</mat-icon>
   </span>
 -->
+
   <span *ngIf='isModified()' class='success-label-message'>
     <mat-icon >warning</mat-icon>{{"record.edit.unsaved" | translate}}
   </span>
+
+  <span *ngIf='isDisplayDraft()' class='fill-remaining-space'></span>
+
+  <span *ngIf='isDisplayDraft()'>-- {{"field.status.values.draft" | translate }} --</span>
+
   <span class='fill-remaining-space'></span>
+
 
   <button mat-raised-button color='primary' [matMenuTriggerFor]='menu'><mat-icon>more_vert</mat-icon></button>
   <mat-menu #menu="matMenu">
@@ -78,7 +85,15 @@
             <div class='my-mat-input-placeholder'>{{'field.label.' + property.name | translate }}</div>
             <mat-select placeholder='{{"field.label." + property.name | translate }}' [(ngModel)]="current[property.name]" name="{{property.name}}" class='my-mat-input half-width-input'>
               <!-- list of choices from metadata -->
-              <mat-option *ngFor="let choice of property.choices" [value]="choice">{{ choice }}</mat-option>
+
+              <mat-option *ngFor="let choice of property.choices" [value]="choice">
+                <!-- not translate-->
+                <span *ngIf="property.translate !== 'true'" >{{ choice }}</span>
+                <!-- translate : edit i18n directory with values
+                   field.status.values.draft=Draft -->
+                <span *ngIf="property.translate === 'true'" >{{"field." + property.name + ".values."  + choice | translate }}</span>
+              
+              </mat-option>
             </mat-select>
 
           </div>

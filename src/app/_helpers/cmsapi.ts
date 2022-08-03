@@ -121,11 +121,11 @@ export class CmsApi {
     if ('calendar' === name) {
       result = JSON.parse('[\
       {"name" : "id" , "primary" : "true", "type" : "string",  "editor":"line"},\
-      {"name" : "status" , "primary" : "false", "type" : "text",  "editor":"choice", "choices" : ["draft", "published"]},\
+      {"name" : "status" , "primary" : "false", "type" : "text",  "editor":"choice", "choices" : ["draft", "published"], "translate" : "true"},\
       {"name" : "title" , "primary" : "false", "type" : "string",  "editor":"line"},\
       {"name" : "date" , "primary" : "false", "type" : "string",  "editor":"date"},\
       {"name" : "organization" , "primary" : "false", "type" : "string",  "editor":"line"},\
-      {"name" : "activity" , "primary" : "false", "type" : "text",  "editor":"choice", "choices" : ["tennis", "basketball", "golf"]},\
+      {"name" : "activity" , "primary" : "false", "type" : "text",  "editor":"choice", "choices" : ["tennis", "basketball", "golf"], "translate" : "false"},\
       {"name" : "description" , "primary" : "false", "type" : "string",  "editor":"text"},\
       {"name" : "location" , "primary" : "false", "type" : "string",  "editor":"line"},\
       {"name" : "media" , "primary" : "false", "type" : "array",  "editor":"medialist"},\
@@ -135,10 +135,10 @@ export class CmsApi {
     } else if ('news' === name) {
       result = JSON.parse('[\
       {"name" : "id" , "primary" : "true", "type" : "string",  "editor":"line"},\
-      {"name" : "status" , "primary" : "false", "type" : "text",  "editor":"choice", "choices" : ["draft", "published"]},\
+      {"name" : "status" , "primary" : "false", "type" : "text",  "editor":"choice", "choices" : ["draft", "published"], "translate" : "true"},\
       {"name" : "title" , "primary" : "false", "type" : "string",  "editor":"line"},\
       {"name" : "date" , "primary" : "false", "type" : "string",  "editor":"date"},\
-      {"name" : "activity" , "primary" : "false", "type" : "text",  "editor":"choice", "choices" : ["tennis", "basketball", "golf"]},\
+      {"name" : "activity" , "primary" : "false", "type" : "text",  "editor":"choice", "choices" : ["tennis", "basketball", "golf"], "translate" : "false"},\
       {"name" : "description" , "primary" : "false", "type" : "string",  "editor":"text"},\
       {"name" : "media" , "primary" : "false", "type" : "array",  "editor":"medialist"},\
       {"name" : "images" , "primary" : "false", "type" : "array",  "editor":"imagelist"},\

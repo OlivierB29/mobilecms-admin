@@ -68,6 +68,7 @@
     "field.label.attachment.size":"Taille",
     "field.label.attachment.description":"Description optionnelle",
     "field.status.values.draft":"Brouillon",
+    "field.status.values.published":"Publié",
     "delete.warning.1": "Etes-vous sûr de supprimer ?",
     "delete.warning.2": "Cette action est définitive.",
     "next.label": "Suivant",
