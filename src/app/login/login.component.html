@@ -10,17 +10,20 @@
 
 
 
-                <mat-form-field *ngIf='isCaptchaRequired()'  class='loginform-input'>
-                  <input type='text' matInput placeholder='{{"login.captcha" | translate}} : {{captcha}}' name='captchaanswer' [(ngModel)]='model.captchaanswer' #captchaanswer='ngModel'
-                    required />
-                </mat-form-field>
-
 
 
               <mat-form-field class='loginform-input'>
                 <input type='password' matInput placeholder='{{"login.password" | translate}}' name='password' [(ngModel)]='model.password'
                   #password='ngModel' required />
               </mat-form-field>
+
+
+              <mat-form-field *ngIf='isCaptchaRequired()'  class='loginform-input'>
+                <input type='text' matInput placeholder='{{"login.captcha" | translate}} : {{captcha}}' name='captchaanswer' [(ngModel)]='model.captchaanswer' #captchaanswer='ngModel'
+                  required />
+              </mat-form-field>
+
+
 
               <mat-toolbar class='loginform-input'>
                 <span class='fill-remaining-space'></span>
