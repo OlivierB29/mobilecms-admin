@@ -9,8 +9,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "dist": "ng build --prod --base-href /admin/",
-    "dist4": "ng build  --prod --configuration=production4 --base-href /admin4/",
+    "dist": "ng build --base-href /admin/",
+    "dist4": "ng build --configuration=production4 --base-href /admin4/",
 
     "dev": "ng serve",
     "demo": "ng serve -c=demo",
