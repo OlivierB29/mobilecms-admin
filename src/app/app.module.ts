@@ -106,8 +106,7 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
     EditMediaComponent,
     ErrorDialogComponent,
     MenubuttonComponent,
-  ],
-  entryComponents: [
+
     HomeHelpDialogComponent,
     SendPasswordDialogComponent,
     RecordHelpDialogComponent,
@@ -124,7 +123,7 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
     UploadService,
     HttpClient,
     // uncomment to enable demo : mock of HTTP requests
-    { provide: HTTP_INTERCEPTORS, useClass: MockHttpInterceptor, multi: true }
+   // { provide: HTTP_INTERCEPTORS, useClass: MockHttpInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })
