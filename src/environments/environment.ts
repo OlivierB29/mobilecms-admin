@@ -12,7 +12,7 @@ export const environment = {
   website: 'http://localhost/#',
   defaultlocale: 'en',
   usemockbackend: false,
-  apiuri: '/mobilecmsapi/v2'
+  apiuri: '/mobilecmsapi/v40'
 
 
 };
