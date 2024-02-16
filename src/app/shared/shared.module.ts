@@ -29,8 +29,7 @@ import { CommonClientService, JwtClientService, AlertService,
         SecurityService,
         Log
     ],
-    entryComponents: [
-    ],
+
     exports: [
       OrderbyPipe,
       LocaleDatePipe,
