@@ -163,7 +163,7 @@ export class RecordComponent  implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    console.log(this.Editor.config);
+    
 
     this.loading = true;
 
@@ -536,7 +536,7 @@ export class RecordComponent  implements OnInit, OnDestroy {
 
   isDisplayDraft() {
 
-    return  'draft' === this.current.status;
+    return  this.current && this.current.status && 'draft' === this.current.status;
   }
 
   /**

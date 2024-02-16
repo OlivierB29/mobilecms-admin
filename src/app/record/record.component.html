@@ -20,7 +20,7 @@
   <mat-menu #menu="matMenu">
 
     <button mat-menu-item *ngIf="f.form.valid && !loading" (click)="save()" matTooltip="{{'record.edit.save' | translate }}"><mat-icon>save</mat-icon> {{'record.edit.save' | translate }}</button>
-    <button mat-menu-item *ngIf="'draft' === current.status && f.form.valid && !loading" (click)="publish()" matTooltip="{{'record.edit.publish' | translate }}"><mat-icon>done_all</mat-icon> {{'record.edit.publish' | translate }}</button>
+    <button mat-menu-item *ngIf="isDisplayDraft() && f.form.valid && !loading" (click)="publish()" matTooltip="{{'record.edit.publish' | translate }}"><mat-icon>done_all</mat-icon> {{'record.edit.publish' | translate }}</button>
     <button mat-menu-item  *ngIf="!newrecord" (click)="preview()" matTooltip="{{'record.edit.preview' | translate }}"> <mat-icon>open_in_new</mat-icon> {{'record.edit.preview' | translate }}</button>
     <button mat-menu-item  *ngIf="!newrecord" (click)="openConfirmDialog()" matTooltip="{{'record.edit.delete' | translate }}"> <mat-icon>delete</mat-icon> {{'record.edit.delete' | translate }}</button>
     <button mat-menu-item [routerLink]='["/record", type ,  "new"]' ><mat-icon>add</mat-icon>{{ "record.list.create" | translate }} </button>
@@ -116,31 +116,15 @@
           <!-- attachments -->
 
 
-          <!-- description -->
-          <div *ngSwitchCase='"text"' class='my-mat-form-field'>
-            <div  *ngIf="property.name === 'description' && current.format === 'bbcode'">
-            <!-- issue with mat-form-field : throw an ExpressionChangedAfterItHasBeenCheckedError -->
-            <span class='my-mat-input-placeholder'>{{'field.label.' + property.name | translate }}</span>
-            <button mat-raised-button color='primary' [matMenuTriggerFor]='bbcodemenu'>BBcode</button>
-            <mat-menu #bbcodemenu="matMenu">
-              <button mat-menu-item (click)="newbbcodeurl2(descriptiontext)" matTooltip="URL"> <mat-icon>link</mat-icon></button>
-              <button mat-menu-item (click)="newbbcodebold(descriptiontext)" matTooltip="Bold"> <mat-icon>format_bold</mat-icon></button>
-              <button mat-menu-item (click)="newbbcodeitalic(descriptiontext)" matTooltip="Italic"> <mat-icon>format_italic</mat-icon></button>
-              <button mat-menu-item (click)="newbbcodeunderline(descriptiontext)" matTooltip="Underline"> <mat-icon>format_underline</mat-icon></button>
-            </mat-menu>
-            <div>
-            <textarea #descriptiontext matInput rows="10" cols="" [(ngModel)]="current[property.name]" name="{{property.name}}" class='my-mat-input'>{{current[property.name]}}</textarea>
-            </div>
-            </div>
-          </div>
+
 
           <!-- description -->
           <div *ngSwitchCase='"text"' class='my-mat-form-field'>
-            <div  *ngIf="property.name === 'description' && current.format !== 'bbcode'">
+            <div  *ngIf="property.name === 'description'">
             <!-- issue with mat-form-field : throw an ExpressionChangedAfterItHasBeenCheckedError -->
             <span class='my-mat-input-placeholder'>{{'field.label.' + property.name | translate }}</span> 
             <!--  [config]="{ toolbar: ['Heading', '|' , 'bold', 'italic','link', '-', 'numberedList', 'bulletedList', 'blockQuote', 'indentList', 'outdentList' ,  'subscript', 'superscript', 'underline', 'undo', 'redo' ] }" -->
-            <ckeditor #descriptioneditor name="{{property.name}}" [(ngModel)]="current[property.name]" [editor]="Editor"  [config]="{ toolbar: ['Heading', '|' , 'bold', 'italic','link', '-', 'numberedList', 'bulletedList', 'blockQuote', 'undo', 'redo' ] }"></ckeditor>          
+            <ckeditor #descriptioneditor name="{{property.name}}" [(ngModel)]="current[property.name]"  [config]="{ toolbar: ['Heading', '|' , 'bold', 'italic','link', '-', 'numberedList', 'bulletedList', 'blockQuote', 'undo', 'redo' ] }"></ckeditor>          
           </div>
         </div>
         </div>

@@ -13,7 +13,8 @@ export class MediaComponent extends LinkComponent implements OnInit {
   /**
    * object data
    */
-   @Input() protected current: any = null;
+   @Input()  id: string = null;
+
 
   deleteMedia(index: number) {
     this.log.debug('deleteMedia '  + index + '/' + this.attachments.length);
@@ -23,7 +24,7 @@ export class MediaComponent extends LinkComponent implements OnInit {
     files.push(this.attachments[index]);
     this.log.debug('deleteMedia '  + JSON.stringify(files));
     this.loading = true;
-    this.uploadService.delete(this.type, this.current.id, files)
+    this.uploadService.delete(this.type, this.id, files)
       .subscribe((mediadata: any) => {
         this.log.debug('result '  + JSON.stringify(mediadata));
         if (index > -1) {
@@ -50,7 +51,7 @@ export class MediaComponent extends LinkComponent implements OnInit {
     files.push(file);
 
     this.loading = true;
-    this.uploadService.thumbnails(this.type, this.current.id, files)
+    this.uploadService.thumbnails(this.type, this.id, files)
       .subscribe((mediadata: any) => {
 
 
@@ -118,7 +119,7 @@ export class MediaComponent extends LinkComponent implements OnInit {
       * TODO usage ?
       */
         refresh() {
-          this.uploadService.getFilesDescriptions(this.type, this.current.id)
+          this.uploadService.getFilesDescriptions(this.type, this.id)
             .subscribe((mediadata: any) => {
               if (mediadata.error) {
                   this.openDialog('refresh failed : ' + mediadata.error);
@@ -126,10 +127,10 @@ export class MediaComponent extends LinkComponent implements OnInit {
                 this.log.debug('upload result ' + JSON.stringify(mediadata));
                 mediadata.forEach((f: any) => {
                   this.log.debug('-> ' + f.title);
-                  const test = this.current.media.filter((e: any) => e.url === f.url);
+                  const test = this.attachments.filter((e: any) => e.url === f.url);
                   if (test.length === 0) {
                     this.log.debug('adding ' + f.title);
-                    this.current.media.push(f);
+                    this.attachments.push(f);
                   }
                 });
               }
