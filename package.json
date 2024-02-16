@@ -1,6 +1,6 @@
 {
   "name": "mobilecms-admin",
-  "version": "1.0.0",
+  "version": "4.0.0",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
@@ -10,8 +10,8 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "dist": "ng build --prod --base-href /admin/",
-    "dist2": "ng build  --prod --configuration=production2 --base-href /admin2/",
-    "dist3": "ng build   --configuration=production3 --base-href /admin3/",
+    "dist4": "ng build  --prod --configuration=production4 --base-href /admin4/",
+
     "dev": "ng serve",
     "demo": "ng serve -c=demo",
     "demobuild": "ng build -c=demo --base-href /mobilecms-demo/admin/"
