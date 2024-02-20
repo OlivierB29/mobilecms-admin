@@ -10,7 +10,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "dist": "ng build --base-href /admin/",
-    "dist4": "ng build --configuration=production4 --base-href /admin4/",
+    "dist4": "ng build --configuration=production4 --base-href /admin40/",
 
     "dev": "ng serve",
     "demo": "ng serve -c=demo",

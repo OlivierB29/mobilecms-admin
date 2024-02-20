@@ -19,7 +19,7 @@ import { Log } from 'src/app/shared';
 import { ErrorDialogComponent } from './errordialog.component';
 import { BBCodeURLDialogComponent } from './bbcodeurldialog.component';
 
-import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 //import * as Editor from '@ckeditor/ckeditor5-angular';
 
 
@@ -31,12 +31,7 @@ import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 export class RecordComponent  implements OnInit, OnDestroy {
 
-  /*
 
-    <ckeditor name="data" [(ngModel)]="model.editorData" [editor]="Editor"></ckeditor>
-                  <ckeditor #descriptioneditor name="{{property.name}}" [(ngModel)]="current[property.name]" [editor]="Editor" [config]="{ toolbar: [ 'heading', '|', 'bold', 'italic' ] }" ></ckeditor>
-*/
-//public Editor = Editor;
   public Editor = ClassicEditor;
 
 
