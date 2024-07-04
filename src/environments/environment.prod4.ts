@@ -7,6 +7,6 @@ export const environment = {
   website: '/#',
   defaultlocale: 'fr',
   usemockbackend: false,
-  apiuri: '/mobilecmsapi/v40'
+  apiuri: '/mobilecmsapi/v42'
 
 };
