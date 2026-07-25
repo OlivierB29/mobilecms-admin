@@ -138,7 +138,7 @@ export class LoginComponent implements OnInit {
       }
 
       public isCaptchaRequired(): boolean {
-        return this.captcha != null && this.captcha != '';
+        return false;
       }
 
 
