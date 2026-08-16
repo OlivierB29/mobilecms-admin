@@ -1,3 +1,7 @@
+# Discontinued
+New project :
+https://github.com/OlivierB29/mobilecms-admin-vue
+
 # MobilecmsAdmin
 
 ### This project is the admin tool of [mobilecms](https://github.com/OlivierB29/mobilecms).
